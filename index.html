@@ -94,66 +94,13 @@
       <hr class="divider">
 
       <section class="section">
-        <p class="section-label">The choice</p>
-        <h2>Local AI vs. Cloud AI</h2>
-        <p class="section-desc">Both get the job done. But they work very differently.</p>
-        <div class="compare-grid">
-          <div class="compare-card">
-            <div class="compare-title" style="color:#e85d04">Local AI — this tool</div>
-            <ul class="compare-list">
-              <li>Runs on your machine</li>
-              <li>Everything stays private</li>
-              <li>Free once set up</li>
-              <li>Works without internet</li>
-              <li>No usage limits</li>
-              <li>You control everything</li>
-            </ul>
-          </div>
-          <div class="compare-card">
-            <div class="compare-title" style="color:var(--text-secondary)">ChatGPT / Claude / Gemini</div>
-            <ul class="compare-list" style="opacity:0.7">
-              <li class="x">Runs on their servers</li>
-              <li class="x">Your data may be used for training</li>
-              <li class="x">Paid plans for the good models</li>
-              <li class="x">Needs internet to work</li>
-              <li class="x">Free tiers have caps</li>
-              <li class="x">They control your workflow</li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      <hr class="divider">
-
-      <section class="section">
         <p class="section-label">Cloud AI — zero hardware</p>
         <h2>Run powerful AI without a GPU</h2>
-        <p class="section-desc">These are free cloud AI providers. They run on the provider's servers, not your machine. But you access them through the same tools you already use — Ollama or LM Studio. No credit card needed for any of them.</p>
-
-        <div class="compare-grid" style="margin-bottom:2rem;">
-          <div class="compare-card">
-            <div class="compare-title" style="color:#e85d04">Local AI (above)</div>
-            <ul class="compare-list">
-              <li>Runs on your machine</li>
-              <li>100% private — data never leaves</li>
-              <li>Free forever after setup</li>
-              <li>Needs compatible hardware</li>
-            </ul>
-          </div>
-          <div class="compare-card">
-            <div class="compare-title" style="color:var(--accent)">Cloud AI (this section)</div>
-            <ul class="compare-list">
-              <li>Runs on provider's servers</li>
-              <li>Data goes to the cloud</li>
-              <li>Free tier — no GPU needed</li>
-              <li>Access via Ollama or LM Studio</li>
-            </ul>
-          </div>
-        </div>
+        <p class="section-desc">No compatible hardware? Use free cloud AI instead. Pick a tool below, follow the steps, and start chatting in 5 minutes. No credit card needed.</p>
 
         <div class="cloud-guide-banner">
-          <div class="guide-banner-title">Connect free cloud AI in 5 minutes</div>
-          <p class="guide-banner-desc">Choose how you want to connect. No credit card needed.</p>
+          <div class="guide-banner-title">Connect in 5 minutes</div>
+          <p class="guide-banner-desc">Choose how you want to connect. All free, no credit card.</p>
 
           <div class="guide-tabs">
             <button class="guide-tab active" onclick="showGuide('ollama')">Use with Ollama</button>
@@ -372,7 +319,7 @@ print(response.text)</div>
           </div>
         </div>
 
-        <div class="cloud-providers">
+        <div class="cloud-providers cloud-grid">
 
           <div class="cloud-card">
             <div class="cloud-provider-name">Groq</div>
@@ -569,17 +516,17 @@ print(response.text)</div>
         <h2>Which local AI tool should I use?</h2>
         <p class="section-desc">All three are free. Pick based on how you like to work.</p>
         <div class="tool-compare">
-          <div class="tool-option selected">
+          <div class="tool-option selected" data-tool="ollama" onclick="selectTool('ollama')">
             <div class="tool-option-name">Ollama</div>
             <div class="tool-option-tag">Best for beginners</div>
             <div class="tool-option-note">One command install. Terminal-based but surprisingly simple.</div>
           </div>
-          <div class="tool-option">
+          <div class="tool-option" data-tool="lmstudio" onclick="selectTool('lmstudio')">
             <div class="tool-option-name">LM Studio</div>
             <div class="tool-option-tag">Best for GUI lovers</div>
             <div class="tool-option-note">Polished app. Click to install models. Beautiful interface.</div>
           </div>
-          <div class="tool-option">
+          <div class="tool-option" data-tool="jan" onclick="selectTool('jan')">
             <div class="tool-option-name">Jan</div>
             <div class="tool-option-tag">Best for privacy nerds</div>
             <div class="tool-option-note">100% open source, no telemetry, fully offline.</div>

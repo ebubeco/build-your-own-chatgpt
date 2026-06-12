@@ -405,6 +405,12 @@
     }
   }
 
+  window.selectTool = function(tool) {
+    document.querySelectorAll('.tool-option').forEach(o => o.classList.remove('selected'));
+    const el = document.querySelector(`.tool-option[data-tool="${tool}"]`);
+    if (el) el.classList.add('selected');
+  };
+
   window.showGuide = function(guide) {
     const tabs = document.querySelectorAll('.guide-tab');
     const contents = document.querySelectorAll('.guide-content');

@@ -1000,6 +1000,13 @@ body {
   margin-top: 1rem;
 }
 
+.cloud-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
 .cloud-card {
   background: var(--bg-card);
   border: 1.5px solid var(--border);
@@ -1135,4 +1142,178 @@ body {
   color: var(--accent);
   margin: 0.15rem 0;
   font-weight: 600;
+}
+
+/* ===== CONNECTION GUIDE TABS ===== */
+.guide-tabs {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.guide-tab {
+  padding: 0.5rem 1rem;
+  border-radius: 100px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text-secondary);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: 'Inter', sans-serif;
+}
+
+.guide-tab:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-light);
+}
+
+.guide-tab.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: white;
+}
+
+/* ===== GUIDE CONTENT ===== */
+.guide-content {
+  display: none;
+}
+
+.guide-intro {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  padding: 0.85rem 1rem;
+  background: var(--bg);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  margin-bottom: 1.25rem;
+}
+
+.guide-intro code {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0.1rem 0.4rem;
+  font-size: 0.8rem;
+  color: var(--accent);
+  font-family: 'SF Mono', 'Fira Code', monospace;
+}
+
+/* ===== GUIDE PLATFORMS ===== */
+.guide-platforms {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.guide-platform {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.1rem 1.25rem;
+  border-left: 3px solid var(--accent);
+}
+
+.gp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.gp-name {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.gp-tag {
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.2rem 0.6rem;
+  background: var(--accent-light);
+  color: var(--accent);
+  border-radius: 100px;
+  border: 1px solid rgba(232, 93, 4, 0.2);
+}
+
+.gp-desc {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+.gp-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.gp-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.55;
+}
+
+.gp-step strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.gp-step code {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0.1rem 0.4rem;
+  font-size: 0.78rem;
+  color: var(--accent);
+  font-family: 'SF Mono', 'Fira Code', monospace;
+}
+
+.gp-n {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  background: var(--accent);
+  color: white;
+  border-radius: 50%;
+  font-size: 0.7rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 0.05rem;
+}
+
+.gp-code-block {
+  background: #1a1a1a;
+  color: #e2e8f0;
+  border-radius: var(--radius-sm);
+  padding: 0.85rem 1rem;
+  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  font-size: 0.78rem;
+  line-height: 1.6;
+  white-space: pre;
+  overflow-x: auto;
+  margin: 0.25rem 0;
+  width: 100%;
+}
+
+.gp-providers-list {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: 0.75rem;
+  padding: 0.6rem 0.85rem;
+  background: var(--bg-alt);
+  border-radius: var(--radius-sm);
 }
