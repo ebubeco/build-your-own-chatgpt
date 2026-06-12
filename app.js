@@ -220,7 +220,7 @@
       <div class="section" style="margin-top:0.5rem">
         <p class="section-label">From the community</p>
         <h2 style="margin-bottom:0.5rem">Proven setups for your hardware</h2>
-        <p class="setups-note">These work — tested by real people on real machines.</p>
+        <p class="setups-note">These work - tested by real people on real machines.</p>
         ${setups.map(s => `
           <div class="setup-card">
             <div class="setup-header">
@@ -246,7 +246,7 @@
               <div class="score-label">Your AI Readiness</div>
               <div class="score-number" style="color:#e85d04">${score}<span style="font-size:1.5rem;color:var(--text-tertiary)">/10</span></div>
               <div class="score-subtitle">
-                ${score <= 4 ? 'Local AI will be slow on this setup — but it\'s possible.' :
+                ${score <= 4 ? 'Local AI will be slow on this setup - but it\'s possible.' :
                   score <= 7 ? 'Solid setup for local AI. Smaller models will fly, bigger ones need patience.' :
                   'You\'ve got a great machine for this. Enjoy.'}
               </div>
@@ -271,7 +271,7 @@
             <a href="https://claude.ai" target="_blank" class="btn-secondary">Claude Free</a>
             <a href="https://gemini.google.com" target="_blank" class="btn-secondary">Gemini Free</a>
           </div>
-          <p style="font-size:0.8rem;color:var(--text-tertiary);margin-top:0.75rem">You can still try our smallest models — they work on any hardware, just slower.</p>
+          <p style="font-size:0.8rem;color:var(--text-tertiary);margin-top:0.75rem">You can still try our smallest models - they work on any hardware, just slower.</p>
         </div>` : ''}
 
         <div class="models-header">
@@ -394,7 +394,7 @@
       const match = matchGPUName(gpuName);
       if (match) {
         banner.classList.remove('hidden');
-        banner.innerHTML = `🖥️ Detected: <strong>${match.name}</strong> (${match.vramGB}GB VRAM) — selecting automatically...`;
+        banner.innerHTML = `🖥️ Detected: <strong>${match.name}</strong> (${match.vramGB}GB VRAM) - selecting automatically...`;
         setTimeout(() => {
           const opt = gpusData.manualOptions.find(o => o.id === match.tier);
           if (opt) {

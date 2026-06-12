@@ -20,7 +20,7 @@
         "Start chatting"
       ],
       "knownIssues": [
-        "Context limited to 16K by default — change in Ollama settings",
+        "Context limited to 16K by default - change in Ollama settings",
         "May need to close other applications for smooth运行"
       ],
       "successStory": "Developer replaced ChatGPT Plus with this setup. Says Qwen 14B catches subtle bugs that smaller models miss.",
@@ -91,10 +91,10 @@
         "Connect to Ollama server"
       ],
       "knownIssues": [
-        "Download is ~16GB — make sure you have space and time",
+        "Download is ~16GB - make sure you have space and time",
         "First response may take 10-20 seconds (loading model into VRAM)"
       ],
-      "successStory": "Indie founder runs a full AI startup on this setup. Coding, research, writing, customer support — all on a single RTX 4070. Says 'I cancelled my $200/mo in AI subscriptions and got better results'.",
+      "successStory": "Indie founder runs a full AI startup on this setup. Coding, research, writing, customer support - all on a single RTX 4070. Says 'I cancelled my $200/mo in AI subscriptions and got better results'.",
       "bestFor": ["everything", "agents", "coding", "research", "writing"]
     },
     {
@@ -180,10 +180,10 @@
         "Start: ollama run phi4-mini:3.8b"
       ],
       "knownIssues": [
-        "CPU-only — responses are slower (10-30 seconds for complex queries)",
+        "CPU-only - responses are slower (10-30 seconds for complex queries)",
         "Keep other applications closed for best performance"
       ],
-      "successStory": "Developer writes Python scripts on a laptop without GPU. Says 'It's not as fast as GPU models, but for refactoring and small scripts it's perfect — and I use it 20 times a day'.",
+      "successStory": "Developer writes Python scripts on a laptop without GPU. Says 'It's not as fast as GPU models, but for refactoring and small scripts it's perfect - and I use it 20 times a day'.",
       "bestFor": ["coding", "writing", "chat", "learning"]
     },
     {
@@ -204,7 +204,7 @@
         "Start: ollama run qwen2.5:1.5b"
       ],
       "knownIssues": [],
-      "successStory": "Non-technical user set this up on a 7-year-old desktop. Says 'It works for drafting emails and answering questions. Not as smart as ChatGPT but it's free and private — and it works when my internet is slow'.",
+      "successStory": "Non-technical user set this up on a 7-year-old desktop. Says 'It works for drafting emails and answering questions. Not as smart as ChatGPT but it's free and private - and it works when my internet is slow'.",
       "bestFor": ["chat", "writing", "learning", "experiments"]
     },
     {
@@ -225,8 +225,8 @@
         "Start: ollama run qwen2.5:0.5b"
       ],
       "knownIssues": [
-        "Very slow on CPU — wait 30-60 seconds for responses",
-        "Limited capability — good for learning, not for serious work"
+        "Very slow on CPU - wait 30-60 seconds for responses",
+        "Limited capability - good for learning, not for serious work"
       ],
       "successStory": "Teacher uses this on a 2013 MacBook Air to summarize student work. Says 'It's not fast but it works offline and my students' data never leaves my computer'.",
       "bestFor": ["learning", "experiments", "simple tasks"]
@@ -249,8 +249,8 @@
         "Start: ollama run deepseek-r1:8b"
       ],
       "knownIssues": [
-        "DeepSeek R1 thinks step by step — responses take longer",
-        "May output thinking process — use with --no-thinking flag if unwanted"
+        "DeepSeek R1 thinks step by step - responses take longer",
+        "May output thinking process - use with --no-thinking flag if unwanted"
       ],
       "successStory": "Student uses this for math and research. Says 'It shows its work. I can verify every step. For learning, this is better than getting a final answer without explanation'.",
       "bestFor": ["reasoning", "research", "math", "agents"]

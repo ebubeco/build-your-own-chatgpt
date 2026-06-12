@@ -3,25 +3,25 @@
     {
       "term": "VRAM",
       "aliases": ["Video RAM", "GPU Memory"],
-      "simpleDefinition": "Your GPU's memory. Think of it like a desk — bigger models need bigger desks to work on.",
+      "simpleDefinition": "Your GPU's memory. Think of it like a desk - bigger models need bigger desks to work on.",
       "detailedDefinition": "VRAM (Video Random Access Memory) is memory on your graphics card. When running AI models, the model needs to fit entirely in VRAM to run efficiently. More VRAM = can run larger models. If the model doesn't fit, it offloads to system RAM and runs slowly.",
       "example": "A model needs 8GB of VRAM. Your RTX 3060 has 12GB. You're good.",
-      "beginnerTip": "Don't worry about the details — just know that more is better for running AI models."
+      "beginnerTip": "Don't worry about the details - just know that more is better for running AI models."
     },
     {
       "term": "Q4_K_M",
       "aliases": ["Q4_K", "quantization", "quant"],
-      "simpleDefinition": "A compressed version of a model. It's like ZIPping a file — much smaller, almost the same quality.",
-      "detailedDefinition": "Quantization reduces the numbers inside a model from 16-bit (or 32-bit) to 4-bit precision. This shrinks the model by ~60% with only 1-3% quality loss. Q4_K_M is the most popular quantization — it balances size reduction with quality. Q5_K_M is slightly better quality, Q8_0 is near-lossless but much larger.",
-      "example": "A 7B model at full precision needs 14GB. At Q4_K_M it needs only 4-5GB — fitting on most GPUs.",
+      "simpleDefinition": "A compressed version of a model. It's like ZIPping a file - much smaller, almost the same quality.",
+      "detailedDefinition": "Quantization reduces the numbers inside a model from 16-bit (or 32-bit) to 4-bit precision. This shrinks the model by ~60% with only 1-3% quality loss. Q4_K_M is the most popular quantization - it balances size reduction with quality. Q5_K_M is slightly better quality, Q8_0 is near-lossless but much larger.",
+      "example": "A 7B model at full precision needs 14GB. At Q4_K_M it needs only 4-5GB - fitting on most GPUs.",
       "beginnerTip": "Always use Q4_K_M unless someone tells you otherwise. It gives you the best quality-to-size ratio."
     },
     {
       "term": "Ollama",
       "aliases": [],
       "simpleDefinition": "Like an app store for AI models. One click to install any model. Made for beginners.",
-      "detailedDefinition": "Ollama is free software that lets you download and run AI models locally on your computer. It handles all the technical complexity — you just run simple commands like 'ollama pull qwen3:7b'. It works on Mac, Windows, and Linux.",
-      "example": "Open terminal, type: ollama pull qwen3:7b — and the AI model installs.",
+      "detailedDefinition": "Ollama is free software that lets you download and run AI models locally on your computer. It handles all the technical complexity - you just run simple commands like 'ollama pull qwen3:7b'. It works on Mac, Windows, and Linux.",
+      "example": "Open terminal, type: ollama pull qwen3:7b - and the AI model installs.",
       "beginnerTip": "Use Ollama. It's the easiest way to run local AI models. Download from ollama.com."
     },
     {
@@ -29,8 +29,8 @@
       "aliases": ["GGML"],
       "simpleDefinition": "A special file format that makes AI models easy to run on your computer.",
       "detailedDefinition": "GGUF (formerly GGML) is a file format designed specifically for running AI models on local hardware. It packages the model in a way that's optimized for consumer GPUs and CPUs. When you download a model for Ollama or LM Studio, it's usually in GGUF format.",
-      "example": "When you see 'Qwen3-7B-Q4_K_M.gguf' — that's the GGUF file containing the compressed model.",
-      "beginnerTip": "You don't need to understand GGUF — Ollama handles it automatically."
+      "example": "When you see 'Qwen3-7B-Q4_K_M.gguf' - that's the GGUF file containing the compressed model.",
+      "beginnerTip": "You don't need to understand GGUF - Ollama handles it automatically."
     },
     {
       "term": "7B, 14B, 70B",
@@ -38,13 +38,13 @@
       "simpleDefinition": "How big a model is. The number is how many tiny calculations it has. Bigger = smarter but needs more power.",
       "detailedDefinition": "The number (7B, 14B, 70B) refers to how many parameters (tiny weights) the model has. A 7B model has 7 billion parameters. Larger models are generally more capable but need more VRAM. 7B fits on most modern GPUs. 14B needs 10-12GB VRAM. 70B needs 40GB+ (usually cloud).",
       "example": "7B = laptop, 14B = desktop, 70B = server room. Start small, upgrade as needed.",
-      "beginnerTip": "Start with a 7B model. Most people don't need bigger — the difference is small compared to the hardware jump."
+      "beginnerTip": "Start with a 7B model. Most people don't need bigger - the difference is small compared to the hardware jump."
     },
     {
       "term": "Context Length",
       "aliases": ["Context Window", "Token Context"],
-      "simpleDefinition": "How much the AI can read at once. Like memory — longer context means it can see more of your conversation or documents.",
-      "detailedDefinition": "Context length is measured in tokens (roughly 1 token = 1 word). A model with 8K context can handle about 6,000 words at once — a long article or several pages of code. More context lets you paste in long documents or have very long conversations. But longer context uses more VRAM.",
+      "simpleDefinition": "How much the AI can read at once. Like memory - longer context means it can see more of your conversation or documents.",
+      "detailedDefinition": "Context length is measured in tokens (roughly 1 token = 1 word). A model with 8K context can handle about 6,000 words at once - a long article or several pages of code. More context lets you paste in long documents or have very long conversations. But longer context uses more VRAM.",
       "example": "8K context = a long article. 32K = a short book. 128K = thick novel.",
       "beginnerTip": "Start with whatever the default is. Increase it only if you need to analyze long documents."
     },
@@ -59,10 +59,10 @@
     {
       "term": "MoE",
       "aliases": ["Mixture of Experts"],
-      "simpleDefinition": "A smart model that only uses part of itself for each task — but it still needs all parts in memory.",
-      "detailedDefinition": "Mixture of Experts (MoE) models have many specialized 'expert' sub-networks. For each query, only a few experts activate — making inference faster in compute terms. BUT all experts must still be stored in VRAM, so MoE doesn't save memory. GLM-4.7 Flash 30B is a popular MoE model.",
+      "simpleDefinition": "A smart model that only uses part of itself for each task - but it still needs all parts in memory.",
+      "detailedDefinition": "Mixture of Experts (MoE) models have many specialized 'expert' sub-networks. For each query, only a few experts activate - making inference faster in compute terms. BUT all experts must still be stored in VRAM, so MoE doesn't save memory. GLM-4.7 Flash 30B is a popular MoE model.",
       "example": "MoE is like having a team of specialists. Only the relevant ones answer each question, but you pay to keep all of them on retainer.",
-      "beginnerTip": "Don't special-case MoE models in your head — treat their VRAM requirements like any other model of similar size."
+      "beginnerTip": "Don't special-case MoE models in your head - treat their VRAM requirements like any other model of similar size."
     },
     {
       "term": "Model",
@@ -75,17 +75,17 @@
     {
       "term": "Offloading to CPU",
       "aliases": ["CPU Offload", "Swapping"],
-      "simpleDefinition": "When the model is too big for your GPU's memory, part of it spills over to regular RAM — and runs much slower.",
-      "detailedDefinition": "If your model doesn't fit in VRAM, parts of it get moved to system RAM. This is called offloading. The model still works, but generation slows from 30+ tok/s to 3-5 tok/s — making it barely usable. The fix is using a smaller model or smaller quantization.",
+      "simpleDefinition": "When the model is too big for your GPU's memory, part of it spills over to regular RAM - and runs much slower.",
+      "detailedDefinition": "If your model doesn't fit in VRAM, parts of it get moved to system RAM. This is called offloading. The model still works, but generation slows from 30+ tok/s to 3-5 tok/s - making it barely usable. The fix is using a smaller model or smaller quantization.",
       "example": "You try to run a 14B model on a 6GB GPU. It offloads to CPU. What took 0.5 seconds now takes 5 seconds.",
       "beginnerTip": "If your AI is running extremely slowly, it's probably offloading to CPU. Switch to a smaller model or Q4_K_M quantization."
     },
     {
       "term": "Open WebUI",
       "aliases": ["OpenWebUI", "Ollama Web UI"],
-      "simpleDefinition": "A friendly chat interface for Ollama. Makes local AI feel like ChatGPT — just type and get answers.",
+      "simpleDefinition": "A friendly chat interface for Ollama. Makes local AI feel like ChatGPT - just type and get answers.",
       "detailedDefinition": "Open WebUI is a free, open-source web interface that connects to Ollama. Instead of using the terminal, you get a clean chat UI where you can conversationally interact with your models. It supports chat history, multiple models, and easy switching between them.",
-      "example": "Download Ollama, run it, then download Open WebUI — you get a ChatGPT-like experience running entirely on your computer.",
+      "example": "Download Ollama, run it, then download Open WebUI - you get a ChatGPT-like experience running entirely on your computer.",
       "beginnerTip": "If you want something that looks like ChatGPT, use Open WebUI on top of Ollama."
     },
     {
@@ -93,22 +93,22 @@
       "aliases": [],
       "simpleDefinition": "A polished app for downloading and running AI models. Good for people who prefer clicking over typing.",
       "detailedDefinition": "LM Studio is a free desktop app (Mac, Windows, Linux) that makes running local AI models easy. It has a built-in model browser, chat interface, and OpenAI-compatible server. It's more polished than Ollama's default UI but works similarly. Commercial use requires a paid license.",
-      "example": "Open LM Studio, search for 'Qwen 3', download, click 'Chat' — you're talking to your private AI.",
+      "example": "Open LM Studio, search for 'Qwen 3', download, click 'Chat' - you're talking to your private AI.",
       "beginnerTip": "Use Ollama if you're comfortable with a terminal. Use LM Studio if you prefer clicking."
     },
     {
       "term": "Prompt",
       "aliases": [],
-      "simpleDefinition": "What you type to the AI. Better prompts get better answers — just like asking a person better questions.",
+      "simpleDefinition": "What you type to the AI. Better prompts get better answers - just like asking a person better questions.",
       "detailedDefinition": "A prompt is the input you give to the AI model. The quality of your prompt dramatically affects output quality. Basic prompt: 'Write code.' Better prompt: 'Write a Python function that reads a CSV file and returns the average of a column named 'price', with error handling for missing values.'",
       "example": "Bad prompt: 'help with python'\nGood prompt: 'Write a Python function that takes a list of numbers and returns their median, handling the case where the list is empty.'",
-      "beginnerTip": "Be specific and clear in your prompts. The AI can't read your mind — but it can do almost anything if you explain it clearly."
+      "beginnerTip": "Be specific and clear in your prompts. The AI can't read your mind - but it can do almost anything if you explain it clearly."
     },
     {
       "term": "API",
       "aliases": ["REST API"],
       "simpleDefinition": "A way for programs to talk to AI models. Lets you connect local AI to other tools and apps.",
-      "detailedDefinition": "An API (Application Programming Interface) lets software connect to AI models programmatically. Ollama runs a local API server on port 11434. This means you can connect your own apps, scripts, or services to your local AI — just like connecting to ChatGPT's API, but it's free and private.",
+      "detailedDefinition": "An API (Application Programming Interface) lets software connect to AI models programmatically. Ollama runs a local API server on port 11434. This means you can connect your own apps, scripts, or services to your local AI - just like connecting to ChatGPT's API, but it's free and private.",
       "example": "Your note-taking app connects to your local Ollama API. Every note gets automatically summarized using your private AI.",
       "beginnerTip": "You don't need to understand APIs to use local AI. But once you're comfortable, connecting AI to your tools is where the magic happens."
     }

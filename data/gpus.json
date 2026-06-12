@@ -21,13 +21,13 @@
     {
       "id": "mid-range",
       "name": "Mid-Range GPU (8-12GB)",
-      "description": "RTX 3060, 3070, 4060, 4070 — the sweet spot for local AI. Can run 7-14B models.",
+      "description": "RTX 3060, 3070, 4060, 4070 - the sweet spot for local AI. Can run 7-14B models.",
       "autoDetectHint": "8-12GB VRAM detected"
     },
     {
       "id": "high-end",
       "name": "High-End GPU (16-24GB)",
-      "description": "RTX 4080, 4090, Mac M3 Pro/Max — can run the best open models.",
+      "description": "RTX 4080, 4090, Mac M3 Pro/Max - can run the best open models.",
       "autoDetectHint": "16GB+ VRAM detected"
     },
     {

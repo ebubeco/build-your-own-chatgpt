@@ -3,7 +3,7 @@
     {
       "id": "no-gpu",
       "name": "No GPU / Old Hardware",
-      "description": "Laptops from 2015 or earlier, or any computer without a dedicated graphics card. These models run on your CPU — slower than GPU, but they work.",
+      "description": "Laptops from 2015 or earlier, or any computer without a dedicated graphics card. These models run on your CPU - slower than GPU, but they work.",
       "icon": "laptop-old",
       "color": "#E24B4A",
       "minVRAM": 0,
@@ -13,7 +13,7 @@
     {
       "id": "cpu-only",
       "name": "CPU-Only (16-32GB RAM)",
-      "description": "Modern laptop or desktop without a dedicated GPU. These models are optimized for CPU inference — private, no subscription, works offline.",
+      "description": "Modern laptop or desktop without a dedicated GPU. These models are optimized for CPU inference - private, no subscription, works offline.",
       "icon": "laptop",
       "color": "#BA7517",
       "minVRAM": 0,
@@ -23,7 +23,7 @@
     {
       "id": "budget-gpu",
       "name": "Budget GPU (8-12GB VRAM)",
-      "description": "RTX 3060, 4060, 3070, or similar. This is the sweet spot — great models that run fast and private. Your setup can handle most tasks.",
+      "description": "RTX 3060, 4060, 3070, or similar. This is the sweet spot - great models that run fast and private. Your setup can handle most tasks.",
       "icon": "gpu-budget",
       "color": "#1D9E75",
       "minVRAM": 4,
@@ -33,7 +33,7 @@
     {
       "id": "power-gpu",
       "name": "Power GPU (16GB+ VRAM)",
-      "description": "RTX 4080, 4090, Mac M3 Pro/Max, or workstation GPUs. You can run the best open models at fast speeds — no subscription needed.",
+      "description": "RTX 4080, 4090, Mac M3 Pro/Max, or workstation GPUs. You can run the best open models at fast speeds - no subscription needed.",
       "icon": "gpu-power",
       "color": "#534AB7",
       "minVRAM": 12,
@@ -66,7 +66,7 @@
       "beginnerFriendly": true,
       "description": "The smallest model we recommend. It runs on any computer, even a 10-year-old laptop. Great for learning how local AI works and simple tasks like summarization and brainstorming.",
       "toolRecommendation": "Ollama",
-      "toolRecommendationReason": "Simplest install — one command, works on any hardware.",
+      "toolRecommendationReason": "Simplest install - one command, works on any hardware.",
       "successStory": "A teacher ran this on her 2013 MacBook Air to summarize student essays offline."
     },
     {
@@ -91,7 +91,7 @@
       "modelSizeGB": 1.1,
       "setupComplexity": "easiest",
       "beginnerFriendly": true,
-      "description": "Made by HuggingFace specifically for consumer hardware. Better than its size suggests — good for writing and coding tasks. Best choice for very old computers.",
+      "description": "Made by HuggingFace specifically for consumer hardware. Better than its size suggests - good for writing and coding tasks. Best choice for very old computers.",
       "toolRecommendation": "Ollama",
       "toolRecommendationReason": "One-command install, optimized for low-end hardware.",
       "successStory": "A student with a 2016 Chromebook used this for homework help without internet."
@@ -118,9 +118,9 @@
       "modelSizeGB": 0.8,
       "setupComplexity": "easiest",
       "beginnerFriendly": true,
-      "description": "Meta's smallest Llama model. Surprisingly capable for its size — better reasoning than older 3B models. The name 'Llama' is well-known, so it's easy to get help online.",
+      "description": "Meta's smallest Llama model. Surprisingly capable for its size - better reasoning than older 3B models. The name 'Llama' is well-known, so it's easy to get help online.",
       "toolRecommendation": "Ollama",
-      "toolRecommendationReason": "Meta's official Ollama release — well-supported, frequent updates.",
+      "toolRecommendationReason": "Meta's official Ollama release - well-supported, frequent updates.",
       "successStory": "A retiree with a 2015 Dell laptop uses this daily to read and summarize news articles."
     },
     {
@@ -145,7 +145,7 @@
       "modelSizeGB": 1.1,
       "setupComplexity": "easy",
       "beginnerFriendly": true,
-      "description": "Alibaba's compact model with strong multilingual support — writes well in English, Chinese, Spanish, and more. Better coding than the smaller models. Your first real private AI assistant.",
+      "description": "Alibaba's compact model with strong multilingual support - writes well in English, Chinese, Spanish, and more. Better coding than the smaller models. Your first real private AI assistant.",
       "toolRecommendation": "Ollama",
       "toolRecommendationReason": "One command to install, works on 16GB RAM without GPU.",
       "successStory": "A writer replaced ChatGPT free with this for drafting articles on her MacBook Pro without Touch Bar."
@@ -202,7 +202,7 @@
       "description": "The best all-around model for CPU-only setups. Great chat, solid writing, decent coding. The 'Llama' name means you'll find help easily online. Your upgrade path to a GPU later.",
       "toolRecommendation": "Ollama",
       "toolRecommendationReason": "Meta's official release, massive community, one install command.",
-      "successStory": "A journalist uses this on a 2020 MacBook Air to draft articles and interview summaries — works completely offline."
+      "successStory": "A journalist uses this on a 2020 MacBook Air to draft articles and interview summaries - works completely offline."
     },
     {
       "id": "qwen-3-7b",
@@ -229,7 +229,7 @@
       "description": "The best all-around model for most people. Excels at coding, writes beautifully, strong reasoning, and supports 32K context. This is what we recommend for RTX 3060 owners. Period.",
       "toolRecommendation": "Ollama",
       "toolRecommendationReason": "Fast inference on 8GB VRAM, great community support, one install command.",
-      "successStory": "An indie developer replaced their $20/mo ChatGPT subscription with this on an RTX 3060. Uses it for coding, writing docs, and debugging — says it 'never lets them down'."
+      "successStory": "An indie developer replaced their $20/mo ChatGPT subscription with this on an RTX 3060. Uses it for coding, writing docs, and debugging - says it 'never lets them down'."
     },
     {
       "id": "gemma-4-12b",
@@ -310,7 +310,7 @@
       "description": "One of the best open models in the world right now. Matches Claude 3.5 Sonnet on many benchmarks. Requires 20GB+ VRAM to run properly. If you have a 4090 or Mac M3 Pro+, this is your model.",
       "toolRecommendation": "Ollama",
       "toolRecommendationReason": "Fast inference on 24GB VRAM, one install command.",
-      "successStory": "A solo founder runs a full AI startup assistant — coding, research, writing, customer support — on a single RTX 4090. Says it's 'essentially a senior developer on call 24/7'."
+      "successStory": "A solo founder runs a full AI startup assistant - coding, research, writing, customer support - on a single RTX 4090. Says it's 'essentially a senior developer on call 24/7'."
     },
     {
       "id": "deepseek-r1-8b",
@@ -334,7 +334,7 @@
       "modelSizeGB": 5.2,
       "setupComplexity": "easy",
       "beginnerFriendly": true,
-      "description": "DeepSeek's reasoning model — think step by step before answering. Excellent for complex problems, debugging, research, and agent workflows. Surprisingly efficient — runs on 8GB VRAM.",
+      "description": "DeepSeek's reasoning model - think step by step before answering. Excellent for complex problems, debugging, research, and agent workflows. Surprisingly efficient - runs on 8GB VRAM.",
       "toolRecommendation": "Ollama",
       "toolRecommendationReason": "One command install, best reasoning model in its size class.",
       "successStory": "A graduate student uses this for research paper analysis and math problem-solving. Says it 'actually shows its work, which is gold for verifying answers'."
