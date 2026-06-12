@@ -70,10 +70,44 @@
 
       <div id="detected-banner" class="detected-banner hidden"></div>
 
-      <section class="section">
+      <section class="section" id="wizard-section">
         <p class="section-label">Step 1</p>
-        <h2>What are you working with?</h2>
-        <p class="section-desc">Pick your setup below, and we'll only show models that actually run on your machine.</p>
+        <h2>What do you want to do?</h2>
+        <p class="section-desc">Pick one. This shapes which models we recommend.</p>
+
+        <div id="goal-options" class="goal-grid">
+          <button class="goal-card" data-goal="chat" onclick="selectGoal('chat')">
+            <span class="goal-icon">💬</span>
+            <span class="goal-title">Private ChatGPT</span>
+            <span class="goal-desc">Chat, brainstorm, answer questions. Fully private, on your machine.</span>
+          </button>
+          <button class="goal-card" data-goal="coding" onclick="selectGoal('coding')">
+            <span class="goal-icon">💻</span>
+            <span class="goal-title">Coding assistant</span>
+            <span class="goal-desc">Write code, debug, explain functions. Models trained for programming.</span>
+          </button>
+          <button class="goal-card" data-goal="writing" onclick="selectGoal('writing')">
+            <span class="goal-icon">✍️</span>
+            <span class="goal-title">Research + writing</span>
+            <span class="goal-desc">Articles, reports, summaries, and research. Long context helps here.</span>
+          </button>
+          <button class="goal-card" data-goal="documents" onclick="selectGoal('documents')">
+            <span class="goal-icon">📄</span>
+            <span class="goal-title">Chat with documents</span>
+            <span class="goal-desc">Ask questions about PDFs, codebases, transcripts. Needs 8K+ context.</span>
+          </button>
+          <button class="goal-card" data-goal="all" onclick="selectGoal('all')">
+            <span class="goal-icon">🔍</span>
+            <span class="goal-title">Show me everything</span>
+            <span class="goal-desc">Not sure yet? We'll show all compatible models for your hardware.</span>
+          </button>
+        </div>
+      </section>
+
+      <section id="hw-section" class="section hidden">
+        <p class="section-label">Step 2</p>
+        <h2>What hardware are you using?</h2>
+        <p class="section-desc">We'll only show models that actually run well on your machine.</p>
 
         <div id="hw-options" class="hw-grid"></div>
 

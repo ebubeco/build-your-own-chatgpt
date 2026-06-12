@@ -23,7 +23,10 @@
 
   let modelsData, gpusData, setupsData, glossaryData;
   let selectedTier = null;
+  let selectedGoal = null;
   let beginnerMode = true;
+  let showDevCode = false;
+  let isAppleSilicon = false;
 
   async function loadData() {
     const [m, g, s, gl] = await Promise.all([
@@ -46,6 +49,11 @@
     if (!debugInfo) return null;
     const renderer = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
     return renderer;
+  }
+
+  function detectUnifiedMemory() {
+    if (navigator.deviceMemory) return navigator.deviceMemory * 1024;
+    return null;
   }
 
   function detectVRAM() {
@@ -84,8 +92,14 @@
   function matchGPUName(name) {
     if (!name) return null;
     const gpuMap = gpusData.gpuMap;
+    if (name.includes('Apple') || name.includes('M1') || name.includes('M2') || name.includes('M3') || name.includes('M4')) {
+      const mem = detectUnifiedMemory();
+      if (mem >= 64) return { tier: 'silicon-64-plus', vramGB: mem, name: 'Apple Silicon (64GB+)' };
+      if (mem >= 24) return { tier: 'silicon-24-48gb', vramGB: mem, name: 'Apple Silicon (24-48GB)' };
+      return { tier: 'silicon-8-16gb', vramGB: mem || 16, name: 'Apple Silicon (8-16GB)' };
+    }
     for (const [key, val] of Object.entries(gpuMap)) {
-      if (name.includes(key.replace('NVIDIA ', '').replace('AMD ', '').replace('Apple ', ''))) {
+      if (name.includes(key.replace('NVIDIA ', '').replace('AMD ', ''))) {
         return { key, ...val };
       }
     }
@@ -114,7 +128,7 @@
   }
 
   function calcReadinessScore(tier) {
-    const scores = { 'no-gpu': 4, 'cpu-only': 6, 'budget-gpu': 8, 'power-gpu': 10 };
+    const scores = { 'no-gpu': 4, 'cpu-only': 6, 'budget-gpu': 8, 'power-gpu': 10, 'silicon-8-16gb': 7, 'silicon-24-48gb': 9, 'silicon-64-plus': 10 };
     return scores[tier] || 5;
   }
 
@@ -123,7 +137,10 @@
       'no-gpu': { chat: 6, writing: 5, coding: 3, reasoning: 4, agents: 2 },
       'cpu-only': { chat: 8, writing: 8, coding: 7, reasoning: 6, agents: 5 },
       'budget-gpu': { chat: 10, writing: 9, coding: 9, reasoning: 8, agents: 8 },
-      'power-gpu': { chat: 10, writing: 10, coding: 10, reasoning: 10, agents: 10 }
+      'power-gpu': { chat: 10, writing: 10, coding: 10, reasoning: 10, agents: 10 },
+      'silicon-8-16gb': { chat: 9, writing: 8, coding: 8, reasoning: 7, agents: 7 },
+      'silicon-24-48gb': { chat: 10, writing: 10, coding: 9, reasoning: 9, agents: 9 },
+      'silicon-64-plus': { chat: 10, writing: 10, coding: 10, reasoning: 10, agents: 10 }
     };
     return caps[tier] || caps['cpu-only'];
   }
@@ -132,6 +149,51 @@
     if (rating >= 8) return 'rating-high';
     if (rating >= 6) return 'rating-mid';
     return 'rating-low';
+  }
+
+  const QUANT_LEVELS = {
+    'Q2_K': { quality: 95, size: 'smallest', desc: 'Smallest file. Noticeably lower quality. Good for testing.' },
+    'Q3_K_M': { quality: 85, size: 'very small', desc: 'Very small. Some quality loss. Barely noticeable in most tasks.' },
+    'Q4_K_M': { quality: 75, size: 'balanced', desc: 'Balanced size and quality. The recommended default. Works on most GPUs.' },
+    'Q5_K_M': { quality: 65, size: 'larger', desc: 'Larger file. Better math accuracy. Only if you have spare VRAM.' },
+    'Q6_K': { quality: 55, size: 'large', desc: 'Near full quality. Uses more VRAM. Only for high-end GPUs.' },
+    'Q8_0': { quality: 0, size: 'full', desc: 'Full quality, no quantization. Uses maximum VRAM. Rarely needed.' },
+    'F16': { quality: 0, size: 'full', desc: 'Full 16-bit precision. Highest quality. Uses maximum VRAM.' }
+  };
+
+  function getQuantizationTooltip(quant) {
+    const info = QUANT_LEVELS[quant] || QUANT_LEVELS['Q4_K_M'];
+    return `${quant}: ${info.size} file, preserves ~${info.quality}% quality. ${info.desc}`;
+  }
+
+  function getWhyExplanation(model, tier, goal) {
+    const explanations = {
+      'chat': `This model handles everyday conversation well on your hardware. It picks up context across long chats and stays coherent.`,
+      'coding': `This model was trained or fine-tuned on code. It understands syntax, suggests implementations, and explains code better for your setup.`,
+      'writing': `This model has good context length for long documents, articles, and research. It maintains writing quality across ${(model.contextLength/1024).toFixed(0)}K token spans.`,
+      'documents': `This model has ${(model.contextLength/1024).toFixed(0)}K context - enough to load and analyze entire PDFs, transcripts, or codebases in one prompt.`,
+      'all': `This model runs well on your hardware tier. It's versatile enough to handle chat, coding, writing, and document analysis.`
+    };
+    if (!goal || goal === 'all') {
+      return explanations['all'];
+    }
+    return explanations[goal] || explanations['all'];
+  }
+
+  function getModelCapability(tier, modelB) {
+    const limits = {
+      'no-gpu': 1,
+      'cpu-only': 3,
+      'budget-gpu': 7,
+      'power-gpu': 14,
+      'silicon-8-16gb': 7,
+      'silicon-24-48gb': 14,
+      'silicon-64-plus': 72
+    };
+    const limit = limits[tier] || 7;
+    if (modelB <= limit) return 'fast';
+    if (modelB <= limit * 2) return 'slow';
+    return 'not';
   }
 
   function wrapInGlossary(text) {
@@ -174,6 +236,68 @@
     `).join('');
   }
 
+  function encodeState() {
+    const params = new URLSearchParams();
+    if (selectedGoal) params.set('goal', selectedGoal);
+    if (selectedTier) params.set('tier', selectedTier);
+    return params.toString();
+  }
+
+  function decodeState() {
+    const params = new URLSearchParams(window.location.search);
+    return {
+      goal: params.get('goal'),
+      tier: params.get('tier')
+    };
+  }
+
+  function updateURL() {
+    const qs = encodeState();
+    const newURL = qs ? `${window.location.pathname}?${qs}` : window.location.pathname;
+    window.history.replaceState(null, '', newURL);
+  }
+
+  function shareResult() {
+    updateURL();
+    const url = window.location.href;
+    const btn = document.getElementById('share-btn');
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(url).then(() => {
+        btn.textContent = 'Link copied!';
+        setTimeout(() => { btn.textContent = 'Share results'; }, 2000);
+      });
+    }
+  }
+
+  function detectAppleSilicon() {
+    const ua = navigator.userAgent;
+    return ua.includes('Mac') && (ua.includes('Apple') || typeof navigator.platform !== 'undefined' && navigator.platform.includes('Mac'));
+  }
+
+  window.selectGoal = function(goal) {
+    selectedGoal = goal;
+    document.querySelectorAll('.goal-card').forEach(c => c.classList.remove('selected'));
+    const card = document.querySelector(`.goal-card[data-goal="${goal}"]`);
+    if (card) card.classList.add('selected');
+    const hwSection = document.getElementById('hw-section');
+    if (hwSection) {
+      hwSection.classList.remove('hidden');
+      hwSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
+  window.toggleDevCode = function() {
+    showDevCode = !showDevCode;
+    document.querySelectorAll('.install-box').forEach(box => {
+      const code = box.querySelector('.dev-code-toggle');
+      if (code) code.style.display = showDevCode ? 'block' : 'none';
+    });
+    const btn = document.getElementById('dev-toggle-btn');
+    if (btn) btn.textContent = showDevCode ? 'Hide install code' : 'Show install code (developers)';
+  };
+
+  window.shareResult = shareResult;
+
   function renderResults(tier) {
     const tierInfo = getTierInfo(tier);
     if (!tierInfo) {
@@ -196,6 +320,18 @@
         .map(([k, v]) => `<span class="rating-item"><span class="rating-dot ${getRatingClass(v)}"></span>${k}: ${v}/10</span>`)
         .join('');
 
+      const bStr = m.size.match(/(\d+\.?\d*)/);
+      const bSize = bStr ? parseFloat(bStr[1]) : 7;
+      const cap = getModelCapability(tier, bSize);
+      const capBadge = cap === 'fast' ? '<span class="badge b-green">Can run</span>' :
+                       cap === 'slow' ? '<span class="badge b-amber">Can run slowly</span>' :
+                       '<span class="badge b-red">Not recommended</span>';
+
+      const quantLabel = m.recommendedQuant || 'Q4_K_M';
+      const quantTip = getQuantizationTooltip(quantLabel);
+
+      const whyText = getWhyExplanation(m, tier, selectedGoal);
+
       return `
       <div class="model-card fade-in">
         <div class="model-card-header">
@@ -203,15 +339,17 @@
             <span class="model-name">${wrapInGlossary(m.name.replace(/\s*\d+(\.\d+)?B\s*$/i, '').trim())}</span>
             <span class="model-size badge b-primary">${m.size}</span>
           </div>
-          <span class="badge b-green">${m.setupComplexity === 'easiest' ? 'Easiest' : m.setupComplexity === 'easy' ? 'Easy' : 'Medium'}</span>
+          ${capBadge}
         </div>
         <p class="model-desc">${wrapInGlossary(m.description)}</p>
         <div class="model-meta">
           <span class="badge b-primary">📦 ${m.modelSizeGB}GB</span>
           <span class="badge b-purple">💾 ${m.vramGB}GB VRAM</span>
           <span class="badge b-green">📏 ${(m.contextLength/1024).toFixed(0)}K context</span>
+          <span class="badge b-purple quant-badge" title="${quantTip}">⚡ ${quantLabel}</span>
         </div>
         <div class="model-ratings">${ratings}</div>
+        ${whyText ? `<div class="model-why"><strong>Why this?</strong> ${whyText}</div>` : ''}
         ${renderInstallBox(m)}
       </div>`;
     }).join('');
@@ -238,8 +376,24 @@
         `).join('')}
       </div>` : '';
 
+    const fastModels = models.filter(m => {
+      const bStr = m.size.match(/(\d+\.?\d*)/);
+      const bSize = bStr ? parseFloat(bStr[1]) : 7;
+      return getModelCapability(tier, bSize) === 'fast';
+    });
+    const slowModels = models.filter(m => {
+      const bStr = m.size.match(/(\d+\.?\d*)/);
+      const bSize = bStr ? parseFloat(bStr[1]) : 7;
+      return getModelCapability(tier, bSize) === 'slow';
+    });
+
     section.innerHTML = `
       <div class="fade-in">
+        <div class="results-toolbar">
+          <button id="share-btn" class="btn-share" onclick="shareResult()">Share results</button>
+          <button id="dev-toggle-btn" class="btn-dev-toggle" onclick="toggleDevCode()">Show install code (developers)</button>
+        </div>
+
         <div class="score-card">
           <div class="score-top">
             <div>
@@ -261,6 +415,32 @@
             </div>
           </div>
         </div>
+
+        ${models.length > 0 ? `
+        <div class="capability-card">
+          <div class="cap-header">
+            <h3 style="margin:0">What can run on your setup</h3>
+          </div>
+          <div class="cap-columns">
+            <div class="cap-col cap-fast">
+              <div class="cap-col-label">Can run</div>
+              <div class="cap-col-count">${fastModels.length} models</div>
+              ${fastModels.slice(0, 3).map(m => `<div class="cap-model">${m.name.replace(/\s*\d+(\.\d+)?B\s*$/i, '').trim()} ${m.size}</div>`).join('')}
+              ${fastModels.length > 3 ? `<div class="cap-more">+${fastModels.length - 3} more</div>` : ''}
+            </div>
+            <div class="cap-col cap-slow">
+              <div class="cap-col-label">Can run slowly</div>
+              <div class="cap-col-count">${slowModels.length} models</div>
+              ${slowModels.slice(0, 3).map(m => `<div class="cap-model">${m.name.replace(/\s*\d+(\.\d+)?B\s*$/i, '').trim()} ${m.size}</div>`).join('')}
+              ${slowModels.length > 3 ? `<div class="cap-more">+${slowModels.length - 3} more</div>` : ''}
+            </div>
+            <div class="cap-col cap-not">
+              <div class="cap-col-label">Not recommended</div>
+              <div class="cap-col-count">${models.length === 0 ? '0 models' : 'Higher tiers only'}</div>
+              <div class="cap-model" style="color:var(--text-tertiary)">Upgrade hardware to unlock more</div>
+            </div>
+          </div>
+        </div>` : ''}
 
         ${score <= 4 ? `
         <div class="opt-out-card">
@@ -297,6 +477,11 @@
       <div class="install-label">2. Run this command</div>
       <div class="install-command">${model.installCommand}</div>
       <button class="copy-btn" onclick="copyToClipboard('${model.installCommand}', this)">📋 Copy command</button>
+      <div class="dev-code-toggle" style="display:none">
+        <div class="install-label" style="margin-top:0.75rem">Alternative: Llamafile</div>
+        <div class="install-command">${model.alternativeCommand || 'curl -L https://github.com/Mozilla-Ocho/llamafile/releases/latest/download/' + model.name.split(' ')[0].toLowerCase() + '-*.llamafile -o ' + model.name.split(' ')[0].toLowerCase() + '.llamafile && chmod +x ' + model.name.split(' ')[0].toLowerCase() + '.llamafile && ./' + model.name.split(' ')[0].toLowerCase() + '.llamafile'}</div>
+        <button class="copy-btn" onclick="copyToClipboard('${model.alternativeCommand || ''}', this)">📋 Copy command</button>
+      </div>
     </div>`;
   }
 
@@ -304,6 +489,7 @@
     selectedTier = tier;
     document.querySelectorAll('.hw-card').forEach(c => c.classList.remove('selected'));
     document.querySelector(`[data-id="${id}"]`).classList.add('selected');
+    updateURL();
     renderResults(tier);
   };
 
@@ -317,15 +503,20 @@
   window.selectTierAll = function() {
     const resultsSection = document.getElementById('results-section');
     if (!resultsSection) return;
+    selectedTier = null;
     const allModels = modelsData.models;
     const breakdown = { chat: 8, writing: 7, coding: 6, reasoning: 6, agents: 5 };
 
     resultsSection.innerHTML = `
+      <div class="results-toolbar">
+        <button id="share-btn" class="btn-share" onclick="shareResult()">Share results</button>
+        <button id="dev-toggle-btn" class="btn-dev-toggle" onclick="toggleDevCode()">Show install code (developers)</button>
+      </div>
       <div class="score-card">
         <div class="score-top">
           <div>
             <div class="score-label">Browse all models</div>
-            <div class="score-number" style="color:var(--text-secondary)">${Object.keys(allModels).length}<span style="font-size:1.5rem;color:var(--text-tertiary)"> models</span></div>
+            <div class="score-number" style="color:var(--text-secondary)">${allModels.length}<span style="font-size:1.5rem;color:var(--text-tertiary)"> models</span></div>
             <div class="score-subtitle">Select your hardware above for personalized picks and your AI readiness score.</div>
           </div>
           <div class="score-grid">
@@ -358,6 +549,13 @@
               .filter(([k, v]) => v > 0)
               .map(([k, v]) => `<span class="rating-item"><span class="rating-dot ${getRatingClass(v)}"></span>${k}: ${v}/10</span>`)
               .join('');
+            const bStr = m.size.match(/(\d+\.?\d*)/);
+            const bSize = bStr ? parseFloat(bStr[1]) : 7;
+            const cap = getModelCapability(tier.id, bSize);
+            const capBadge = cap === 'fast' ? '<span class="badge b-green">Can run</span>' :
+                             cap === 'slow' ? '<span class="badge b-amber">Can run slowly</span>' :
+                             '<span class="badge b-red">Not recommended</span>';
+            const quantLabel = m.recommendedQuant || 'Q4_K_M';
             return `
             <div class="model-card">
               <div class="model-card-header">
@@ -365,13 +563,14 @@
                   <span class="model-name">${wrapInGlossary(nameWithoutSize)}</span>
                   <span class="model-size badge b-primary">${m.size}</span>
                 </div>
-                <span class="badge b-green">${m.setupComplexity === 'easiest' ? 'Easiest' : m.setupComplexity === 'easy' ? 'Easy' : 'Medium'}</span>
+                ${capBadge}
               </div>
               <p class="model-desc">${wrapInGlossary(m.description)}</p>
               <div class="model-meta">
                 <span class="badge b-primary">📦 ${m.modelSizeGB}GB</span>
                 <span class="badge b-purple">💾 ${m.vramGB}GB VRAM</span>
                 <span class="badge b-green">📏 ${(m.contextLength/1024).toFixed(0)}K context</span>
+                <span class="badge b-purple quant-badge" title="${getQuantizationTooltip(quantLabel)}">⚡ ${quantLabel}</span>
               </div>
               ${ratings ? `<div class="model-ratings">${ratings}</div>` : ''}
               ${renderInstallBox(m)}
@@ -387,24 +586,50 @@
   async function init() {
     await loadData();
     renderHWSelector();
-    const gpuName = detectGPU();
-    const vramGB = detectVRAM();
-    const banner = document.getElementById('detected-banner');
-    if (gpuName && banner) {
-      const match = matchGPUName(gpuName);
-      if (match) {
-        banner.classList.remove('hidden');
-        banner.innerHTML = `🖥️ Detected: <strong>${match.name}</strong> (${match.vramGB}GB VRAM) - selecting automatically...`;
-        setTimeout(() => {
-          const opt = gpusData.manualOptions.find(o => o.id === match.tier);
-          if (opt) {
-            const card = document.querySelector(`[data-id="${opt.id}"]`);
-            if (card) {
-              card.click();
-              card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    isAppleSilicon = detectAppleSilicon();
+
+    const state = decodeState();
+    if (state.goal) {
+      selectedGoal = state.goal;
+      const goalCard = document.querySelector(`.goal-card[data-goal="${state.goal}"]`);
+      if (goalCard) goalCard.classList.add('selected');
+      const hwSection = document.getElementById('hw-section');
+      if (hwSection) hwSection.classList.remove('hidden');
+    }
+    if (state.tier) {
+      selectedTier = state.tier;
+      const hwSection = document.getElementById('hw-section');
+      if (hwSection) hwSection.classList.remove('hidden');
+      const opt = gpusData.manualOptions.find(o => o.tier === state.tier);
+      if (opt) {
+        const card = document.querySelector(`[data-id="${opt.id}"]`);
+        if (card) card.classList.add('selected');
+      }
+      setTimeout(() => renderResults(state.tier), 100);
+    }
+
+    if (!state.tier) {
+      const gpuName = detectGPU();
+      const vramGB = detectVRAM();
+      const banner = document.getElementById('detected-banner');
+      if (gpuName && banner) {
+        const match = matchGPUName(gpuName);
+        if (match) {
+          banner.classList.remove('hidden');
+          const isSilicon = match.tier && match.tier.startsWith('silicon-');
+          const memLabel = isSilicon ? `${Math.round(match.vramGB / 1024)}GB unified` : `${match.vramGB}GB VRAM`;
+          banner.innerHTML = `🖥️ Detected: <strong>${match.name}</strong> (${memLabel}) - selecting automatically...`;
+          setTimeout(() => {
+            const opt = gpusData.manualOptions.find(o => o.id === match.tier);
+            if (opt) {
+              const card = document.querySelector(`[data-id="${opt.id}"]`);
+              if (card) {
+                card.click();
+                card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              }
             }
-          }
-        }, 800);
+          }, 800);
+        }
       }
     }
   }

@@ -30,15 +30,45 @@
       "maxVRAM": 12,
       "vramNote": "RTX 3060, 3070, 4060, etc."
     },
-    {
+{
       "id": "power-gpu",
       "name": "Power GPU (16GB+ VRAM)",
-      "description": "RTX 4080, 4090, Mac M3 Pro/Max, or workstation GPUs. You can run the best open models at fast speeds - no subscription needed.",
+      "description": "RTX 4080, 4090, or workstation GPUs. You can run the best open models at fast speeds - no subscription needed.",
       "icon": "gpu-power",
       "color": "#534AB7",
       "minVRAM": 12,
       "maxVRAM": 100,
-      "vramNote": "RTX 4080, 4090, M3 Pro/Max"
+      "vramNote": "RTX 4080, 4090, etc."
+    },
+    {
+      "id": "silicon-8-16gb",
+      "name": "Apple Silicon (8-16GB unified)",
+      "description": "MacBook Air M1/M2, base MacBook Pro M1/M2, or iMac with 8-16GB unified memory. Metal acceleration makes these surprisingly capable.",
+      "icon": "apple",
+      "color": "#6B5CF5",
+      "minVRAM": 8,
+      "maxVRAM": 16,
+      "vramNote": "M1/M2/M3 with 8-16GB RAM"
+    },
+    {
+      "id": "silicon-24-48gb",
+      "name": "Apple Silicon (24-48GB unified)",
+      "description": "MacBook Pro M3 Pro/Max, Mac Studio M2 Ultra, Mac Mini M2 Pro with 24-48GB unified memory. Can run large models at good speeds.",
+      "icon": "apple",
+      "color": "#3D2FB8",
+      "minVRAM": 24,
+      "maxVRAM": 48,
+      "vramNote": "M3 Pro/Max, M2 Ultra with 24-48GB"
+    },
+    {
+      "id": "silicon-64-plus",
+      "name": "Apple Silicon (64GB+ unified)",
+      "description": "Mac Studio M2 Ultra 128GB, M3 Max 128GB, or Mac Pro with 64-192GB unified memory. Workstation-class AI on your desk.",
+      "icon": "apple",
+      "color": "#1D0FB8",
+      "minVRAM": 64,
+      "maxVRAM": 192,
+      "vramNote": "M2 Ultra 128GB, M3 Max 128GB+"
     }
   ],
   "models": [
@@ -338,6 +368,114 @@
       "toolRecommendation": "Ollama",
       "toolRecommendationReason": "One command install, best reasoning model in its size class.",
       "successStory": "A graduate student uses this for research paper analysis and math problem-solving. Says it 'actually shows its work, which is gold for verifying answers'."
+    },
+    {
+      "id": "qwen-3-7b-silicon",
+      "name": "Qwen 3 7B (Apple Silicon)",
+      "fullName": "qwen3:7b",
+      "size": "7B",
+      "tier": "silicon-8-16gb",
+      "vramGB": 7,
+      "recommendedQuant": "Q4_K_M",
+      "contextLength": 32768,
+      "practicalRating": {
+        "chat": 9,
+        "writing": 9,
+        "coding": 9,
+        "reasoning": 8,
+        "agents": 8
+      },
+      "bestFor": ["chat", "coding", "writing", "agents"],
+      "ollamaTag": "qwen3:7b",
+      "installCommand": "ollama pull qwen3:7b",
+      "modelSizeGB": 4.7,
+      "setupComplexity": "easy",
+      "beginnerFriendly": true,
+      "description": "Fast on Apple Silicon with Metal. Great all-rounder for M1/M2/M3 Macs with 16GB. Handles coding, writing, and chat at speeds that feel natural.",
+      "toolRecommendation": "Ollama",
+      "toolRecommendationReason": "Metal GPU acceleration works out of the box on Mac. No extra setup needed.",
+      "successStory": "A designer uses this on a MacBook Pro M2 16GB for coding side projects and writing. Says it 'never freezes my machine like cloud AI does'."
+    },
+    {
+      "id": "llama-3-1-8b-silicon",
+      "name": "Llama 3.1 8B (Apple Silicon)",
+      "fullName": "llama3.1:8b",
+      "size": "8B",
+      "tier": "silicon-8-16gb",
+      "vramGB": 8,
+      "recommendedQuant": "Q4_K_M",
+      "contextLength": 32768,
+      "practicalRating": {
+        "chat": 9,
+        "writing": 8,
+        "coding": 8,
+        "reasoning": 8,
+        "agents": 7
+      },
+      "bestFor": ["chat", "writing", "reasoning"],
+      "ollamaTag": "llama3.1:8b",
+      "installCommand": "ollama pull llama3.1:8b",
+      "modelSizeGB": 4.9,
+      "setupComplexity": "easy",
+      "beginnerFriendly": true,
+      "description": "Meta's flagship 8B model. Excellent chat quality and well-aligned responses. Metal makes this feel snappy on Mac.",
+      "toolRecommendation": "Ollama",
+      "toolRecommendationReason": "Native Mac support, Metal GPU acceleration, one command install.",
+      "successStory": "A writer uses this on a MacBook Air M2 for brainstorming and drafting. Says it's 'like having a thoughtful editor available at 2am'."
+    },
+    {
+      "id": "qwen-3-14b-silicon",
+      "name": "Qwen 3 14B (Apple Silicon)",
+      "fullName": "qwen3:14b",
+      "size": "14B",
+      "tier": "silicon-24-48gb",
+      "vramGB": 14,
+      "recommendedQuant": "Q4_K_M",
+      "contextLength": 32768,
+      "practicalRating": {
+        "chat": 10,
+        "writing": 10,
+        "coding": 9,
+        "reasoning": 9,
+        "agents": 9
+      },
+      "bestFor": ["coding", "agents", "research", "writing"],
+      "ollamaTag": "qwen3:14b",
+      "installCommand": "ollama pull qwen3:14b",
+      "modelSizeGB": 9.0,
+      "setupComplexity": "easy",
+      "beginnerFriendly": true,
+      "description": "The sweet spot for MacBook Pro M3 Pro or Mac Studio M2 Ultra. Significantly better than 7B models. Runs at good speeds with Metal on 24GB+ unified memory.",
+      "toolRecommendation": "Ollama",
+      "toolRecommendationReason": "Metal backend on Mac handles 14B well with unified memory architecture.",
+      "successStory": "A developer runs this on a Mac Studio M2 Ultra 64GB. Says it 'replaces Copilot for most tasks and my laptop stays cool'."
+    },
+    {
+      "id": "qwen-3-5-27b-silicon",
+      "name": "Qwen 3.5 27B (Apple Silicon)",
+      "fullName": "qwen3.5:27b",
+      "size": "27B",
+      "tier": "silicon-64-plus",
+      "vramGB": 27,
+      "recommendedQuant": "Q4_K_M",
+      "contextLength": 32768,
+      "practicalRating": {
+        "chat": 10,
+        "writing": 10,
+        "coding": 10,
+        "reasoning": 10,
+        "agents": 10
+      },
+      "bestFor": ["coding", "agents", "research", "writing"],
+      "ollamaTag": "qwen3.5:27b",
+      "installCommand": "ollama pull qwen3.5:27b",
+      "modelSizeGB": 16.5,
+      "setupComplexity": "medium",
+      "beginnerFriendly": true,
+      "description": "Top-tier model on Mac Studio M2 Ultra 128GB or MacBook Pro M3 Max 64GB+. Matches or beats Claude 3.5 Sonnet on many tasks. Metal makes this surprisingly practical on Apple hardware.",
+      "toolRecommendation": "Ollama",
+      "toolRecommendationReason": "Unified memory on Mac means no VRAM bottleneck. 128GB Mac Studio can run this at full speed.",
+      "successStory": "A founder runs their entire startup's AI stack on a Mac Studio M2 Ultra 128GB - coding, research, writing, and customer support. Says it's 'essentially a senior developer on call 24/7'."
     }
   ]
 }

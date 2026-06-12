@@ -129,20 +129,47 @@
       "recommendedModel": "qwen-3-5-27b"
     },
     {
-      "id": "mac-m1-m2",
-      "label": "Mac (M1, M2, M3)",
+      "id": "mac-m1-8gb",
+      "label": "Mac (M1, M2, M3 with 8GB)",
       "icon": "apple",
-      "description": "Apple MacBook or Mac with M1, M2, or M3 chip. Unified memory handles models well.",
-      "tier": "power-gpu",
+      "description": "MacBook Air M1/M2/M3 base model or any Mac with 8GB unified memory. Best for smaller models.",
+      "tier": "silicon-8-16gb",
+      "appleSilicon": true,
+      "recommendedModel": "phi-4-mini"
+    },
+    {
+      "id": "mac-m1-m2-16gb",
+      "label": "Mac (M1, M2, M3 with 16GB)",
+      "icon": "apple",
+      "description": "MacBook Pro M1/M2/M3 16GB or Mac mini M2 16GB. Can run 7B models smoothly.",
+      "tier": "silicon-8-16gb",
       "appleSilicon": true,
       "recommendedModel": "qwen-3-7b"
     },
     {
-      "id": "mac-m3-pro-max",
-      "label": "Mac (M3 Pro, M3 Max, M4)",
+      "id": "mac-m3-pro-18-24gb",
+      "label": "Mac (M3 Pro 18GB or M2 Pro 24GB)",
       "icon": "apple",
-      "description": "MacBook Pro or Mac Studio with M3 Pro/Max or M4 chip. Can run the largest models.",
-      "tier": "power-gpu",
+      "description": "MacBook Pro M3 Pro or M2 Pro with 18-24GB unified memory. Metal acceleration is fast.",
+      "tier": "silicon-24-48gb",
+      "appleSilicon": true,
+      "recommendedModel": "qwen-3-7b"
+    },
+    {
+      "id": "mac-m3-max-36-48gb",
+      "label": "Mac (M3 Max 36-48GB or M2 Ultra 64GB)",
+      "icon": "apple",
+      "description": "Mac Studio M2 Ultra or MacBook Pro M3 Max with 36-64GB unified memory. Can run 14B+ models.",
+      "tier": "silicon-24-48gb",
+      "appleSilicon": true,
+      "recommendedModel": "qwen-3-14b"
+    },
+    {
+      "id": "mac-m3-max-64plus",
+      "label": "Mac (M3 Max 64GB+ or M2 Ultra 128GB+)",
+      "icon": "apple",
+      "description": "Mac Studio M2 Ultra 128GB or MacBook Pro M3 Max 64-128GB. Workstation-class AI with unified memory.",
+      "tier": "silicon-64-plus",
       "appleSilicon": true,
       "recommendedModel": "qwen-3-5-27b"
     },
