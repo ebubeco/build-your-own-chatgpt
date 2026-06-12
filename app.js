@@ -360,6 +360,104 @@
 
   window.shareResult = shareResult;
 
+  function pickRecommendations(models, goal, tier) {
+    if (!models || models.length === 0) return { primary: null, alternatives: [] };
+
+    const goalMap = { 'chat': 'chat', 'coding': 'coding', 'writing': 'writing', 'documents': 'writing', 'agents': 'agents', 'all': 'chat' };
+    const primaryGoal = goalMap[goal] || 'chat';
+
+    const scored = models.map(m => {
+      const bStr = m.size.match(/(\d+\.?\d*)/);
+      const bSize = bStr ? parseFloat(bStr[1]) : 7;
+      const cap = getModelCapability(tier, bSize);
+      let score = 0;
+      if (m.bestFor && m.bestFor.includes(primaryGoal)) score += 40;
+      if (m.practicalRating && m.practicalRating[primaryGoal]) score += m.practicalRating[primaryGoal] * 5;
+      if (m.beginnerFriendly) score += 10;
+      if (cap === 'fast') score += 20;
+      else if (cap === 'slow') score += 5;
+      else score -= 50;
+      return { model: m, score };
+    });
+
+    scored.sort((a, b) => b.score - a.score);
+    const primary = scored[0]?.model || null;
+
+    const codingAlt = scored.find(x => x.model.bestFor && x.model.bestFor.includes('coding') && x.model.id !== primary?.id);
+    const qualityAlt = scored.find(x => x.model.bestFor && x.model.id !== primary?.id && x.model.id !== codingAlt?.model?.id);
+
+    const alternatives = [];
+    if (codingAlt) alternatives.push({ ...codingAlt.model, bestForLabel: 'Best for coding' });
+    if (qualityAlt) alternatives.push({ ...qualityAlt.model, bestForLabel: 'Best for quality' });
+
+    return { primary, alternatives: alternatives.slice(0, 2) };
+  }
+
+  function getConfidence(model, tier, goal) {
+    const bStr = model.size.match(/(\d+\.?\d*)/);
+    const bSize = bStr ? parseFloat(bStr[1]) : 7;
+    const cap = getModelCapability(tier, bSize);
+    const tierLimits = { 'no-gpu': 1, 'cpu-only': 3, 'budget-gpu': 7, 'power-gpu': 14, 'silicon-8-16gb': 7, 'silicon-24-48gb': 14, 'silicon-64-plus': 72 };
+    const limit = tierLimits[tier] || 7;
+    const primaryGoal = { chat: 'chat', coding: 'coding', writing: 'writing', documents: 'writing', agents: 'agents', all: 'chat' }[goal] || 'chat';
+    const rating = (model.practicalRating && model.practicalRating[primaryGoal]) || 5;
+
+    if (cap === 'fast' && bSize <= limit && model.beginnerFriendly && rating >= 8) return { level: 'High', color: 'var(--green)' };
+    if (cap === 'fast' && bSize <= limit) return { level: 'Medium-High', color: 'var(--green)' };
+    if (cap === 'fast' && bSize <= limit * 1.5) return { level: 'Medium', color: 'var(--amber)' };
+    if (cap === 'slow') return { level: 'Low', color: 'var(--red)' };
+    return { level: 'Very Low', color: 'var(--red)' };
+  }
+
+  function getWhyPoints(model, tier, goal) {
+    const points = [];
+    const bStr = model.size.match(/(\d+\.?\d*)/);
+    const bSize = bStr ? parseFloat(bStr[1]) : 7;
+    const cap = getModelCapability(tier, bSize);
+    const tierLimits = { 'no-gpu': 1, 'cpu-only': 3, 'budget-gpu': 7, 'power-gpu': 14, 'silicon-8-16gb': 7, 'silicon-24-48gb': 14, 'silicon-64-plus': 72 };
+    const limit = tierLimits[tier] || 7;
+
+    if (bSize <= limit) points.push(`Runs comfortably on your hardware`);
+    else if (bSize <= limit * 1.5) points.push(`Slightly larger than ideal but works`);
+    if (cap === 'fast') points.push(`Fast inference speed`);
+    if (model.beginnerFriendly) points.push(`Easy to set up`);
+    if (model.bestFor && model.bestFor.includes(goal)) points.push(`Specifically good for ${goal}`);
+    else points.push(`Good all-around model`);
+
+    const primaryGoal = { chat: 'chat', coding: 'coding', writing: 'writing', documents: 'writing', agents: 'agents', all: 'chat' }[goal] || 'chat';
+    if (model.practicalRating && model.practicalRating[primaryGoal] >= 8) points.push(`${primaryGoal.charAt(0).toUpperCase() + primaryGoal.slice(1)} quality: excellent`);
+    if (model.toolRecommendation === 'Ollama') points.push(`Simple one-command install`);
+    points.push(`Runs completely offline`);
+
+    return points;
+  }
+
+  function getCapabilityItems(breakdown, tier, goal) {
+    const items = [];
+    const goalMap = { 'chat': 'chat', 'coding': 'coding', 'writing': 'writing', 'documents': 'writing', 'agents': 'agents', 'all': null };
+    const primaryGoal = goalMap[goal];
+
+    if (breakdown.chat >= 6) items.push({ icon: '💬', label: 'Private ChatGPT', status: 'can', note: breakdown.chat >= 8 ? 'Excellent' : 'Good' });
+    else if (breakdown.chat >= 4) items.push({ icon: '💬', label: 'Simple Chat', status: 'slow', note: 'Limited but works' });
+
+    if (primaryGoal === 'coding' || goal === 'all') {
+      if (breakdown.coding >= 7) items.push({ icon: '💻', label: 'Coding Assistant', status: 'can', note: breakdown.coding >= 9 ? 'Excellent' : 'Good' });
+      else if (breakdown.coding >= 4) items.push({ icon: '💻', label: 'Code Help', status: 'slow', note: 'Basic assistance' });
+    }
+
+    if (primaryGoal === 'writing' || primaryGoal === 'documents' || goal === 'all') {
+      if (breakdown.writing >= 7) items.push({ icon: '✍️', label: 'Writing & Research', status: 'can', note: breakdown.writing >= 9 ? 'Excellent' : 'Good' });
+      else if (breakdown.writing >= 4) items.push({ icon: '✍️', label: 'Writing', status: 'slow', note: 'Basic assistance' });
+    }
+
+    if (primaryGoal === 'agents' || goal === 'all') {
+      if (breakdown.agents >= 7) items.push({ icon: '🤖', label: 'AI Agents', status: 'can', note: 'Good for automation' });
+      else if (breakdown.agents >= 4) items.push({ icon: '🤖', label: 'Simple Agents', status: 'slow', note: 'Limited capabilities' });
+    }
+
+    return items;
+  }
+
   function renderResults(tier) {
     if (!modelsData || !modelsData.tiers) {
       console.warn('Data not loaded yet');
@@ -371,87 +469,75 @@
       return;
     }
     const models = getRecommendationsForTier(tier);
-    const setups = getSetupsForTier(tier);
     const score = calcReadinessScore(tier);
     const breakdown = getReadinessBreakdown(tier);
     const section = document.getElementById('results-section');
     if (!section) return;
 
-    const scoreColor = score >= 8 ? 'var(--green)' : score >= 6 ? 'var(--amber)' : 'var(--red)';
-    const scoreBg = score >= 8 ? 'var(--green-light)' : score >= 6 ? 'var(--amber-light)' : 'var(--red-light)';
+    const goal = selectedGoal || 'all';
 
-    let modelsHTML = models.map(m => {
-      const ratings = Object.entries(m.practicalRating)
-        .filter(([k, v]) => v > 0)
-        .map(([k, v]) => `<span class="rating-item"><span class="rating-dot ${getRatingClass(v)}"></span>${k}: ${v}/10</span>`)
-        .join('');
+    const { primary, alternatives } = pickRecommendations(models, goal, tier);
 
-      const bStr = m.size.match(/(\d+\.?\d*)/);
-      const bSize = bStr ? parseFloat(bStr[1]) : 7;
-      const cap = getModelCapability(tier, bSize);
-      const capBadge = cap === 'fast' ? '<span class="badge b-green">Can run</span>' :
-                       cap === 'slow' ? '<span class="badge b-amber">Can run slowly</span>' :
-                       '<span class="badge b-red">Not recommended</span>';
-
-      const quantLabel = m.recommendedQuant || 'Q4_K_M';
+    const capItems = getCapabilityItems(breakdown, tier, goal);
+    let primaryHTML = '';
+    if (primary) {
+      const quantLabel = primary.recommendedQuant || 'Q4_K_M';
       const quantTip = getQuantizationTooltip(quantLabel);
+      const confidence = getConfidence(primary, tier, goal);
+      const whyPoints = getWhyPoints(primary, tier, goal);
 
-      const whyText = getWhyExplanation(m, tier, selectedGoal);
-
-      return `
-      <div class="model-card fade-in">
-        <div class="model-card-header">
-          <div>
-            <span class="model-name">${wrapInGlossary(m.name.replace(/\s*\d+(\.\d+)?B\s*$/i, '').trim())}</span>
-            <span class="model-size badge b-primary">${m.size}</span>
+      primaryHTML = `
+      <div class="rec-card fade-in">
+        <div class="rec-badge">Recommended</div>
+        <div class="rec-header">
+          <div class="rec-model-info">
+            <span class="rec-model-name">${wrapInGlossary(primary.name.replace(/\s*\d+(\.\d+)?B\s*$/i, '').trim())}</span>
+            <span class="rec-model-size">${primary.size}</span>
           </div>
-          ${capBadge}
+          <div class="rec-confidence" style="color:${confidence.color}">
+            <span class="rec-conf-label">Confidence</span>
+            <span class="rec-conf-value">${confidence.level}</span>
+          </div>
         </div>
-        <p class="model-desc">${wrapInGlossary(m.description)}</p>
-        <div class="model-meta">
-          <span class="badge b-primary">📦 ${m.modelSizeGB}GB</span>
-          <span class="badge b-purple">💾 ${m.vramGB}GB VRAM</span>
-          <span class="badge b-green">📏 ${(m.contextLength/1024).toFixed(0)}K context</span>
+        <p class="rec-desc">${wrapInGlossary(primary.description)}</p>
+        <div class="rec-why">
+          <div class="rec-why-title">Why this?</div>
+          ${whyPoints.map(p => `<div class="rec-why-point">✓ ${p}</div>`).join('')}
+        </div>
+        <div class="rec-meta">
+          <span class="badge b-primary">📦 ${primary.modelSizeGB}GB</span>
+          <span class="badge b-purple">💾 ${primary.vramGB}GB VRAM</span>
+          <span class="badge b-green">📏 ${(primary.contextLength/1024).toFixed(0)}K context</span>
           <span class="badge b-purple quant-badge" title="${quantTip}">⚡ ${quantLabel}</span>
         </div>
-        <div class="model-ratings">${ratings}</div>
-        ${whyText ? `<div class="model-why"><strong>Why this?</strong> ${whyText}</div>` : ''}
-        ${renderInstallBox(m)}
+        ${renderInstallBox(primary)}
       </div>`;
-    }).join('');
+    }
 
-    let setupsHTML = setups.length > 0 ? `
-      <div class="section" style="margin-top:0.5rem">
-        <p class="section-label">From the community</p>
-        <h2 style="margin-bottom:0.5rem">Proven setups for your hardware</h2>
-        <p class="setups-note">These work - tested by real people on real machines.</p>
-        ${setups.map(s => `
-          <div class="setup-card">
-            <div class="setup-header">
-              <span class="setup-name">${s.model} + ${s.tool}</span>
-              <span class="badge b-green">${Math.round(s.successRate * 100)}% success</span>
+    let altHTML = '';
+    if (alternatives.length > 0) {
+      altHTML = `
+      <div class="alt-section">
+        <h3 style="margin-bottom:0.75rem">Also worth considering</h3>
+        <div class="alt-grid">
+          ${alternatives.map(m => `
+          <div class="alt-card">
+            <div class="alt-card-header">
+              <span class="alt-model-name">${wrapInGlossary(m.name.replace(/\s*\d+(\.\d+)?B\s*$/i, '').trim())}</span>
+              <span class="badge b-primary" style="font-size:0.7rem">${m.size}</span>
             </div>
-            ${s.ui !== 'Ollama CLI (terminal)' && s.ui !== 'Ollama CLI' ? `<span class="badge b-primary" style="margin-bottom:0.4rem;display:inline-block">${s.ui}</span>` : ''}
-            <div class="setup-meta">${s.userCount.toLocaleString()} people · ${s.avgRating}/5 stars</div>
-            ${s.knownIssues.length > 0 ? `<div class="setup-issue">⚠️ ${s.knownIssues[0]}</div>` : ''}
-            ${s.successStory ? `<div class="setup-success-story">"${s.successStory}"</div>` : ''}
-            <ul class="setup-steps">
-              ${s.setupSteps.map(step => `<li>${step}</li>`).join('')}
-            </ul>
-          </div>
-        `).join('')}
-      </div>` : '';
+            <p class="alt-desc">${wrapInGlossary(m.bestForLabel || m.description.substring(0, 120))}</p>
+            <div class="alt-install">${m.installCommand}</div>
+          </div>`).join('')}
+        </div>
+      </div>`;
+    }
 
-    const fastModels = models.filter(m => {
-      const bStr = m.size.match(/(\d+\.?\d*)/);
-      const bSize = bStr ? parseFloat(bStr[1]) : 7;
-      return getModelCapability(tier, bSize) === 'fast';
-    });
-    const slowModels = models.filter(m => {
-      const bStr = m.size.match(/(\d+\.?\d*)/);
-      const bSize = bStr ? parseFloat(bStr[1]) : 7;
-      return getModelCapability(tier, bSize) === 'slow';
-    });
+    const compendiumLink = selectedTier ? `
+      <div class="compendium-link-row">
+        <span>Want to explore more options?</span>
+        <a href="?" class="compendium-link" onclick="showAllModelsDirect(); return false;">View Free AI Models Compendium →</a>
+      </div>` : '';
 
     section.innerHTML = `
       <div class="fade-in">
@@ -482,51 +568,52 @@
           </div>
         </div>
 
-        ${models.length > 0 ? `
+        ${capItems.length > 0 ? `
         <div class="capability-card">
           <div class="cap-header">
-            <h3 style="margin:0">What can run on your setup</h3>
+            <h3 style="margin:0">What you can do with local AI</h3>
           </div>
-          <div class="cap-columns">
-            <div class="cap-col cap-fast">
-              <div class="cap-col-label">Can run</div>
-              <div class="cap-col-count">${fastModels.length} models</div>
-              ${fastModels.slice(0, 3).map(m => `<div class="cap-model">${m.name.replace(/\s*\d+(\.\d+)?B\s*$/i, '').trim()} ${m.size}</div>`).join('')}
-              ${fastModels.length > 3 ? `<div class="cap-more">+${fastModels.length - 3} more</div>` : ''}
-            </div>
-            <div class="cap-col cap-slow">
-              <div class="cap-col-label">Can run slowly</div>
-              <div class="cap-col-count">${slowModels.length} models</div>
-              ${slowModels.slice(0, 3).map(m => `<div class="cap-model">${m.name.replace(/\s*\d+(\.\d+)?B\s*$/i, '').trim()} ${m.size}</div>`).join('')}
-              ${slowModels.length > 3 ? `<div class="cap-more">+${slowModels.length - 3} more</div>` : ''}
-            </div>
-            <div class="cap-col cap-not">
-              <div class="cap-col-label">Not recommended</div>
-              <div class="cap-col-count">${models.length === 0 ? '0 models' : 'Higher tiers only'}</div>
-              <div class="cap-model" style="color:var(--text-tertiary)">Upgrade hardware to unlock more</div>
-            </div>
+          <div class="cap-items-grid">
+            ${capItems.map(item => `
+              <div class="cap-item ${item.status}">
+                <span class="cap-item-icon">${item.icon}</span>
+                <span class="cap-item-label">${item.label}</span>
+                <span class="cap-item-note">${item.note}</span>
+              </div>
+            `).join('')}
           </div>
         </div>` : ''}
 
-        ${score <= 4 ? `
+        ${score <= 4 && !primary ? `
         <div class="opt-out-card">
           <div class="opt-out-title">Honestly, local AI might not be the move</div>
           <p class="opt-out-desc">Based on your hardware, running local AI will be slow and limited. Here are free alternatives that work better:</p>
-          <div class="opt-out-alternatives">
-            <a href="https://chat.openai.com" target="_blank" class="btn-secondary">ChatGPT Free</a>
-            <a href="https://claude.ai" target="_blank" class="btn-secondary">Claude Free</a>
-            <a href="https://gemini.google.com" target="_blank" class="btn-secondary">Gemini Free</a>
+          <div class="cloud-alts-grid">
+            <div class="cloud-alt-card">
+              <div class="cloud-alt-badge">🥇 Best overall</div>
+              <div class="cloud-alt-name">Gemini 2.0 Flash</div>
+              <div class="cloud-alt-desc">Free, multimodal, huge context</div>
+              <a href="https://gemini.google.com" target="_blank" class="btn-secondary">Use Gemini Free</a>
+            </div>
+            <div class="cloud-alt-card">
+              <div class="cloud-alt-badge">🥈 Fastest</div>
+              <div class="cloud-alt-name">Groq</div>
+              <div class="cloud-alt-desc">1,000 tokens/sec, free tier</div>
+              <a href="https://console.groq.com" target="_blank" class="btn-secondary">Try Groq Free</a>
+            </div>
+            <div class="cloud-alt-card">
+              <div class="cloud-alt-badge">🥉 Most variety</div>
+              <div class="cloud-alt-name">OpenRouter</div>
+              <div class="cloud-alt-desc">27+ free models, auto-switches</div>
+              <a href="https://openrouter.ai" target="_blank" class="btn-secondary">Try OpenRouter Free</a>
+            </div>
           </div>
-          <p style="font-size:0.8rem;color:var(--text-tertiary);margin-top:0.75rem">You can still try our smallest models - they work on any hardware, just slower.</p>
+          <p style="font-size:0.8rem;color:var(--text-tertiary);margin-top:0.75rem">Or try our smallest models - they work on any hardware, just slower.</p>
         </div>` : ''}
 
-        <div class="models-header">
-          <h2 style="margin-bottom:0">Models for your setup</h2>
-          <span class="models-count">${models.length} recommendations</span>
-        </div>
-        <p class="section-desc">${tierInfo.description}</p>
-        <div class="models-list">${modelsHTML}</div>
-        ${setupsHTML}
+        ${primaryHTML}
+        ${altHTML}
+        ${primary ? compendiumLink : ''}
       </div>`;
 
     section.classList.remove('hidden');
