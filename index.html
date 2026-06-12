@@ -3,14 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Build Your Own ChatGPT — find the best local AI setup for your exact hardware. From a 2014 laptop to a gaming rig. No jargon, just results.">
+  <meta name="description" content="Build Your Own ChatGPT — find the best local AI setup for your exact hardware. From a 2014 laptop to a gaming rig.">
   <meta name="keywords" content="local AI, private AI, ChatGPT alternative, Ollama setup, run AI locally, AI on old laptop, no GPU AI, local LLM">
   <meta property="og:title" content="Build Your Own ChatGPT — Private AI Setup">
   <meta property="og:description" content="Tell us what computer you have. We'll show you the easiest way to run a private AI assistant on it.">
   <meta property="og:type" content="website">
   <title>Build Your Own ChatGPT — Private AI Setup for Any Hardware</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -45,7 +47,7 @@
       {
         "@type": "Question",
         "name": "Is local AI really private?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Yes. When you run AI locally, your data never leaves your computer. No subscription, no API calls, no company servers." }
+        "acceptedAnswer": { "@type": "Answer", "text": "When you run AI locally, your data never leaves your computer. No subscription, no API calls, no company servers." }
       }
     ]
   }
@@ -55,116 +57,118 @@
 
   <header class="header">
     <div class="container">
-      <div class="logo-icon">🤖</div>
+      <div class="header-inner">
+        <span class="header-badge">Free · Private · Works offline</span>
+      </div>
       <h1>Build Your Own ChatGPT</h1>
-      <p class="header-tagline">No matter what computer you have, we'll help you run a private AI assistant on it.</p>
+      <p>No matter what computer you have — from a dusty 2014 laptop to a tricked-out gaming rig — we'll help you run a private AI assistant on it.</p>
     </div>
   </header>
 
   <main class="main">
     <div class="container">
 
-      <div id="detected-banner" class="detected-banner hidden">
-        🖥️ Auto-detected hardware — selecting for you...
-      </div>
+      <div id="detected-banner" class="detected-banner hidden"></div>
 
       <section class="section">
-        <p class="section-label">Step 1 — What are you working with?</p>
-        <h2 style="margin-bottom:1rem">Tell us about your computer</h2>
-        <p style="color:var(--text-secondary);margin-bottom:1.5rem;font-size:0.95rem">We match you with models that actually work on your hardware. No guesswork, no jargon.</p>
+        <p class="section-label">Step 1</p>
+        <h2>What are you working with?</h2>
+        <p class="section-desc">We match you with models that actually work on your hardware. No benchmark gymnastics.</p>
 
-        <div id="hw-options" class="hw-grid">
-          <!-- Populated by app.js -->
-          <p style="color:var(--text-tertiary);padding:2rem;text-align:center">Loading hardware options...</p>
-        </div>
+        <div id="hw-options" class="hw-grid"></div>
 
-        <div style="margin-top:1rem;text-align:center">
-          <button class="btn btn-ghost" onclick="selectTierAll()">Show all models →</button>
+        <div style="text-align:center">
+          <button class="show-all-btn" onclick="selectTierAll()">Show all models →</button>
         </div>
       </section>
 
-      <section id="results-section" class="results-section hidden">
-        <!-- Populated by app.js when hardware is selected -->
-      </section>
+      <section id="results-section" class="results-section hidden"></section>
 
-      <section class="section" style="margin-top:3rem;padding-top:2rem;border-top:1px solid var(--border)">
+      <section class="section">
         <label class="beginner-toggle">
           <input type="checkbox" checked onchange="toggleBeginnerMode(this)">
           <span>Explain jargon in plain English</span>
         </label>
       </section>
 
+      <hr class="divider">
+
       <section class="section">
-        <p class="section-label">What's the difference?</p>
-        <h2 style="margin-bottom:1rem">Local AI vs. ChatGPT</h2>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1rem">
-          <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem">
-            <div style="font-weight:700;margin-bottom:0.5rem;color:var(--green)">✅ Local AI (This tool)</div>
-            <ul style="font-size:0.9rem;color:var(--text-secondary);padding-left:1.25rem;display:flex;flex-direction:column;gap:0.3rem">
-              <li>Runs on YOUR computer</li>
-              <li>100% private — data never leaves you</li>
+        <p class="section-label">The choice</p>
+        <h2>Local AI vs. ChatGPT</h2>
+        <p class="section-desc">Both get the job done. But they work very differently.</p>
+        <div class="compare-grid">
+          <div class="compare-card">
+            <div class="compare-title" style="color:#e85d04">Local AI — this tool</div>
+            <ul class="compare-list">
+              <li>Runs on your machine</li>
+              <li>100% private, nothing leaves your device</li>
               <li>One-time setup, free forever</li>
-              <li>Works offline</li>
-              <li>No subscription or usage limits</li>
-              <li>You own your AI stack</li>
+              <li>Works without internet</li>
+              <li>No usage limits</li>
+              <li>You own the whole stack</li>
             </ul>
           </div>
-          <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem">
-            <div style="font-weight:700;margin-bottom:0.5rem;color:var(--text-secondary)">🔒 ChatGPT / Claude / Gemini</div>
-            <ul style="font-size:0.9rem;color:var(--text-secondary);padding-left:1.25rem;display:flex;flex-direction:column;gap:0.3rem">
-              <li>Runs on company servers</li>
-              <li>Your data may be used for training</li>
-              <li>Requires subscription for best models</li>
-              <li>Needs internet connection</li>
-              <li>Usage limits on free tiers</li>
-              <li>Company owns your AI workflow</li>
+          <div class="compare-card">
+            <div class="compare-title" style="color:var(--text-secondary)">ChatGPT / Claude / Gemini</div>
+            <ul class="compare-list" style="opacity:0.7">
+              <li class="x">Runs on their servers</li>
+              <li class="x">Data may be used for training</li>
+              <li class="x">Requires paid subscription for the good stuff</li>
+              <li class="x">Needs an internet connection</li>
+              <li class="x">Usage caps on free tiers</li>
+              <li class="x">Company controls your workflow</li>
             </ul>
           </div>
         </div>
       </section>
 
+      <hr class="divider">
+
       <section class="section">
-        <p class="section-label">Compare tools</p>
-        <h2 style="margin-bottom:0.75rem">Which local AI tool should I use?</h2>
-        <p style="color:var(--text-secondary);margin-bottom:1rem;font-size:0.9rem">All three are free. Pick based on your comfort level.</p>
+        <p class="section-label">Tools</p>
+        <h2>Which local AI tool should I use?</h2>
+        <p class="section-desc">All three are free. Pick based on how you like to work.</p>
         <div class="tool-compare">
           <div class="tool-option selected">
             <div class="tool-option-name">Ollama</div>
-            <div style="font-size:0.8rem;font-weight:600;color:var(--primary);margin:0.25rem 0">✅ Best for beginners</div>
-            <div class="tool-option-note">One command install. Terminal-based but dead simple.</div>
+            <div style="font-size:0.78rem;color:#e85d04;margin:0.15rem 0;font-weight:600">Best for beginners</div>
+            <div class="tool-option-note">One command install. Terminal-based but surprisingly simple.</div>
           </div>
           <div class="tool-option">
             <div class="tool-option-name">LM Studio</div>
-            <div style="font-size:0.8rem;font-weight:600;color:var(--primary);margin:0.25rem 0">Best for GUI lovers</div>
-            <div class="tool-option-note">Polished app with click-to-install models. Beautiful UI.</div>
+            <div style="font-size:0.78rem;color:#e85d04;margin:0.15rem 0;font-weight:600">Best for GUI lovers</div>
+            <div class="tool-option-note">Polished app. Click to install models. Beautiful interface.</div>
           </div>
           <div class="tool-option">
             <div class="tool-option-name">Jan</div>
-            <div style="font-size:0.8rem;font-weight:600;color:var(--primary);margin:0.25rem 0">Best for privacy</div>
+            <div style="font-size:0.78rem;color:#e85d04;margin:0.15rem 0;font-weight:600">Best for privacy nerds</div>
             <div class="tool-option-note">100% open source, no telemetry, fully offline.</div>
           </div>
         </div>
-        <p style="font-size:0.85rem;color:var(--text-tertiary)">Our recommendations use Ollama because it has the simplest install process and largest community support.</p>
+        <p class="tool-note">Our recommendations use Ollama — simplest install, biggest community.</p>
       </section>
+
+      <hr class="divider">
 
       <section class="section">
         <p class="section-label">How it works</p>
-        <h2 style="margin-bottom:1rem">Get started in 3 steps</h2>
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1rem">
-          <div style="text-align:center;padding:1.5rem;background:var(--bg-card);border-radius:var(--radius)">
-            <div style="font-size:2rem;margin-bottom:0.5rem">1️⃣</div>
-            <div style="font-weight:700;margin-bottom:0.25rem">Select your hardware</div>
-            <div style="font-size:0.85rem;color:var(--text-secondary)">Tell us what computer you have. We'll detect it automatically.</div>
+        <h2>Three steps to your own AI</h2>
+        <div class="steps-grid">
+          <div class="step-card">
+            <div class="step-num">Step 01</div>
+            <div class="step-title">Select your hardware</div>
+            <div class="step-desc">Tell us what you're working with. We'll detect it automatically if possible.</div>
           </div>
-          <div style="text-align:center;padding:1.5rem;background:var(--bg-card);border-radius:var(--radius)">
-            <div style="font-size:2rem;margin-bottom:0.5rem">2️⃣</div>
-            <div style="font-weight:700;margin-bottom:0.25rem">Get a model recommendation</div>
-            <div style="font-size:0.85rem;color:var(--text-secondary)">See the best models for your specific setup, rated by real users.</div>
+          <div class="step-card">
+            <div class="step-num">Step 02</div>
+            <div class="step-title">Get your recommendation</div>
+            <div class="step-desc">See models ranked by real user success rates on your specific setup.</div>
           </div>
-          <div style="text-align:center;padding:1.5rem;background:var(--bg-card);border-radius:var(--radius)">
-            <div style="font-size:2rem;margin-bottom:0.5rem">3️⃣</div>
-            <div style="font-weight:700;margin-bottom:0.25rem">Copy, paste, done</div>
-            <div style="font-size:0.85rem;color:var(--text-secondary)">One command to install. Start chatting in minutes.</div>
+          <div class="step-card">
+            <div class="step-num">Step 03</div>
+            <div class="step-title">Copy. Paste. Done.</div>
+            <div class="step-desc">One command to install. Chat with your private AI in minutes.</div>
           </div>
         </div>
       </section>
@@ -174,15 +178,12 @@
 
   <footer class="footer">
     <div class="container">
-      <p>Built for beginners. Powered by community data.</p>
-      <p style="margin-top:0.5rem">
-        <a href="https://github.com" target="_blank">Open Source</a> ·
-        <a href="https://ollama.com" target="_blank">Ollama</a> ·
+      <div class="footer-links">
+        <a href="https://github.com/ebubeco/build-your-own-chatgpt" target="_blank">GitHub</a>
+        <a href="https://ollama.com" target="_blank">Ollama</a>
         <a href="https://huggingface.co" target="_blank">Hugging Face</a>
-      </p>
-      <p style="margin-top:0.5rem;color:var(--text-tertiary);font-size:0.75rem">
-        We recommend models, not subscriptions. Your data stays on your machine.
-      </p>
+      </div>
+      <p class="footer-tagline">Built for beginners. Your data never leaves your machine.</p>
     </div>
   </footer>
 

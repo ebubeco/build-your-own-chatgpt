@@ -161,7 +161,7 @@
   function copyToClipboard(text, btn) {
     navigator.clipboard.writeText(text).then(() => {
       const original = btn.innerHTML;
-      btn.innerHTML = '✅ Copied';
+      btn.innerHTML = '✅ Copied!';
       btn.classList.add('copied');
       setTimeout(() => {
         btn.innerHTML = original;
@@ -223,22 +223,20 @@
     }).join('');
 
     let setupsHTML = setups.length > 0 ? `
-      <div class="section" style="margin-top:2rem">
-        <p class="section-label">🔥 Popular Setups (Real people, real hardware)</p>
+      <div class="section" style="margin-top:0.5rem">
+        <p class="section-label">From the community</p>
+        <h2 style="margin-bottom:0.5rem">Proven setups for your hardware</h2>
+        <p class="setups-note">These work — tested by real people on real machines.</p>
         ${setups.map(s => `
-          <div class="model-card fade-in" style="border-left: 3px solid var(--primary)">
-            <div class="model-card-header">
-              <div>
-                <span class="model-name">${s.model} + ${s.tool}</span>
-                ${s.ui !== 'Ollama CLI (terminal)' && s.ui !== 'Ollama CLI' ? `<span class="badge b-primary" style="margin-left:0.5rem">${s.ui}</span>` : ''}
-              </div>
-              <span class="badge b-green">✅ ${s.successRate * 100}% success rate</span>
+          <div class="setup-card">
+            <div class="setup-header">
+              <span class="setup-name">${s.model} + ${s.tool}</span>
+              <span class="badge b-green">${Math.round(s.successRate * 100)}% success</span>
             </div>
-            <p style="font-size:0.8rem;color:var(--text-tertiary);margin-bottom:0.75rem">
-              Used by <strong>${s.userCount.toLocaleString()}</strong> people &nbsp;•&nbsp; ⭐ ${s.avgRating}/5 rating
-            </p>
-            ${s.knownIssues.length > 0 ? `<p style="font-size:0.8rem;color:var(--amber);margin-bottom:0.75rem">⚠️ ${s.knownIssues[0]}</p>` : ''}
-            ${s.successStory ? `<p style="font-size:0.85rem;color:var(--text-secondary);font-style:italic;margin-bottom:0.75rem;padding:0.5rem;background:var(--bg);border-radius:var(--radius-sm)">"${s.successStory}"</p>` : ''}
+            ${s.ui !== 'Ollama CLI (terminal)' && s.ui !== 'Ollama CLI' ? `<span class="badge b-primary" style="margin-bottom:0.4rem;display:inline-block">${s.ui}</span>` : ''}
+            <div class="setup-meta">${s.userCount.toLocaleString()} people · ${s.avgRating}/5 stars</div>
+            ${s.knownIssues.length > 0 ? `<div class="setup-issue">⚠️ ${s.knownIssues[0]}</div>` : ''}
+            ${s.successStory ? `<div class="setup-success-story">"${s.successStory}"</div>` : ''}
             <ul class="setup-steps">
               ${s.setupSteps.map(step => `<li>${step}</li>`).join('')}
             </ul>
@@ -248,17 +246,22 @@
 
     section.innerHTML = `
       <div class="fade-in">
-        <div class="score-card" style="border-left: 4px solid ${scoreColor}; background: ${scoreBg}">
-          <div style="display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap">
+        <div class="score-card">
+          <div class="score-top">
             <div>
-              <div class="score-label">Your AI Readiness Score</div>
-              <div class="score-number" style="color:${scoreColor}">${score}/10</div>
+              <div class="score-label">Your AI Readiness</div>
+              <div class="score-number" style="color:#e85d04">${score}<span style="font-size:1.5rem;color:var(--text-tertiary)">/10</span></div>
+              <div class="score-subtitle">
+                ${score <= 4 ? 'Local AI will be slow on this setup — but it\'s possible.' :
+                  score <= 7 ? 'Solid setup for local AI. Smaller models will fly, bigger ones need patience.' :
+                  'You\'ve got a great machine for this. Enjoy.'}
+              </div>
             </div>
-            <div class="score-grid" style="margin:0">
+            <div class="score-grid">
               ${Object.entries(breakdown).map(([key, val]) => `
                 <div class="score-item">
                   <span class="score-item-label">${key}</span>
-                  <div class="score-bar"><div class="score-bar-fill" style="width:${val * 10}%;background:${getRatingClass(val) === 'rating-high' ? 'var(--green)' : getRatingClass(val) === 'rating-mid' ? 'var(--amber)' : 'var(--red)'}"></div></div>
+                  <div class="score-bar"><div class="score-bar-fill" style="width:${val * 10}%;background:${getRatingClass(val) === 'rating-high' ? '#1a8a45' : getRatingClass(val) === 'rating-mid' ? '#b36b00' : '#cc2222'}"></div></div>
                 </div>
               `).join('')}
             </div>
@@ -267,19 +270,22 @@
 
         ${score <= 4 ? `
         <div class="opt-out-card">
-          <div class="opt-out-title">🤔 Local AI may not be your best option right now</div>
-          <p class="opt-out-desc">Based on your hardware, running local AI will be slow and limited. Here are free alternatives that work better for your setup:</p>
+          <div class="opt-out-title">Honestly, local AI might not be the move</div>
+          <p class="opt-out-desc">Based on your hardware, running local AI will be slow and limited. Here are free alternatives that work better:</p>
           <div class="opt-out-alternatives">
-            <a href="https://chat.openai.com" target="_blank" class="btn btn-secondary">ChatGPT Free</a>
-            <a href="https://claude.ai" target="_blank" class="btn btn-secondary">Claude Free</a>
-            <a href="https://gemini.google.com" target="_blank" class="btn btn-secondary">Gemini Free</a>
+            <a href="https://chat.openai.com" target="_blank" class="btn-secondary">ChatGPT Free</a>
+            <a href="https://claude.ai" target="_blank" class="btn-secondary">Claude Free</a>
+            <a href="https://gemini.google.com" target="_blank" class="btn-secondary">Gemini Free</a>
           </div>
-          <p style="font-size:0.8rem;color:var(--text-tertiary);margin-top:1rem">You can still experiment with local AI using our smallest models. They work on any hardware, just slower.</p>
+          <p style="font-size:0.8rem;color:var(--text-tertiary);margin-top:0.75rem">You can still try our smallest models — they work on any hardware, just slower.</p>
         </div>` : ''}
 
-        <h2 style="margin-bottom:0.25rem">🧠 Models you can run</h2>
-        <p style="color:var(--text-tertiary);font-size:0.9rem;margin-bottom:1.5rem">${tierInfo.description}</p>
-        ${modelsHTML}
+        <div class="models-header">
+          <h2 style="margin-bottom:0">Models for your setup</h2>
+          <span class="models-count">${models.length} recommendations</span>
+        </div>
+        <p class="section-desc">${tierInfo.description}</p>
+        <div class="models-list">${modelsHTML}</div>
         ${setupsHTML}
       </div>`;
 
@@ -290,12 +296,12 @@
   function renderInstallBox(model) {
     return `
     <div class="install-box">
-      <div style="margin-bottom:0.5rem;font-size:0.75rem;font-weight:600;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:0.05em">1. Install Ollama</div>
-      <a href="https://ollama.com/download" target="_blank" class="btn btn-primary" style="margin-bottom:0.75rem;font-size:0.85rem">
-        📥 Download Ollama (Free)
+      <div class="install-label">1. Install Ollama</div>
+      <a href="https://ollama.com/download" target="_blank" class="btn-secondary" style="display:inline-block;margin-bottom:0.75rem">
+        📥 Download Ollama (free)
       </a>
-      <div style="margin-bottom:0.5rem;font-size:0.75rem;font-weight:600;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:0.05em">2. Run this command in terminal</div>
-      <div class="install-cmd">${model.installCommand}</div>
+      <div class="install-label">2. Run this command</div>
+      <div class="install-command">${model.installCommand}</div>
       <button class="copy-btn" onclick="copyToClipboard('${model.installCommand}', this)">📋 Copy command</button>
     </div>`;
   }
