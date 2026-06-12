@@ -176,6 +176,10 @@
 
   function renderResults(tier) {
     const tierInfo = getTierInfo(tier);
+    if (!tierInfo) {
+      console.warn('Unknown tier:', tier);
+      return;
+    }
     const models = getRecommendationsForTier(tier);
     const setups = getSetupsForTier(tier);
     const score = calcReadinessScore(tier);
