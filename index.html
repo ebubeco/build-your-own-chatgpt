@@ -131,27 +131,151 @@
         <p class="section-desc">Access powerful AI models right now. No credit card. Just an API key and you're set.</p>
 
         <div class="cloud-guide-banner">
-          <div class="guide-banner-title">How to connect free cloud models</div>
-          <p class="guide-banner-desc">Pick your setup below. Each takes about 5 minutes to set up.</p>
-          <div class="guide-options">
-            <div class="guide-option">
-              <div class="guide-option-name">Ollama</div>
-              <div class="guide-option-desc">Run cloud models with the same commands you use locally. Works with Groq, OpenRouter, and more.</div>
-              <div class="guide-option-steps">
-                <div class="guide-step"><span class="step-num">1</span><span>Install Ollama from <strong>ollama.com</strong></span></div>
-                <div class="guide-step"><span class="step-num">2</span><span>Create a file: <code>Modelfile</code> with your API endpoint</span></div>
-                <div class="guide-step"><span class="step-num">3</span><span>Run: <code>ollama create groq-model -f Modelfile</code></span></div>
-                <div class="guide-step"><span class="step-num">4</span><span>Chat: <code>ollama run groq-model</code></span></div>
+          <div class="guide-banner-title">Connect free cloud AI in 5 minutes</div>
+          <p class="guide-banner-desc">Choose how you want to use these. No credit card needed for any of them.</p>
+
+          <div class="guide-tabs">
+            <button class="guide-tab active" onclick="showGuide('ollama')">Use with Ollama</button>
+            <button class="guide-tab" onclick="showGuide('opencode')">Use with OpenCode</button>
+            <button class="guide-tab" onclick="showGuide('direct')">API / Code</button>
+          </div>
+
+          <div id="guide-ollama" class="guide-content">
+            <div class="guide-intro">Run free cloud models from your terminal using the same Ollama commands you already know.</div>
+            <div class="guide-platforms">
+              <div class="guide-platform">
+                <div class="gp-header">
+                  <div class="gp-name">Groq</div>
+                  <span class="gp-tag">Fastest free AI</span>
+                </div>
+                <div class="gp-desc">1,000+ tokens/sec. No credit card. Best for real-time chat.</div>
+                <div class="gp-steps">
+                  <div class="gp-step"><span class="gp-n">1</span><span>Go to <strong>console.groq.com</strong> → click "Sign Up" → use Google or email</span></div>
+                  <div class="gp-step"><span class="gp-n">2</span><span>Go to <strong>console.groq.com/keys</strong> → click "Create API Key" → copy it</span></div>
+                  <div class="gp-step"><span class="gp-n">3</span><span>Create a file named <code>Modelfile</code> with this content:</span></div>
+                  <div class="gp-code-block">FROM openai/chat
+BASE_URL https://api.groq.com/openai/v1
+API_KEY gsk_your_key_here</div>
+                  <div class="gp-step"><span class="gp-n">4</span><span>Run these commands in your terminal:</span></div>
+                  <div class="gp-code-block">ollama create groq-llama -f Modelfile
+ollama run groq-llama</div>
+                  <div class="gp-step"><span class="gp-n">5</span><span>That's it. Chat with Llama 3.1 8B at ~1,000 tokens per second.</span></div>
+                </div>
+              </div>
+
+              <div class="guide-platform">
+                <div class="gp-header">
+                  <div class="gp-name">OpenRouter</div>
+                  <span class="gp-tag">Most free models</span>
+                </div>
+                <div class="gp-desc">27+ free models. Auto-switches when one hits limits.</div>
+                <div class="gp-steps">
+                  <div class="gp-step"><span class="gp-n">1</span><span>Go to <strong>openrouter.ai</strong> → click "Sign In" → create account</span></div>
+                  <div class="gp-step"><span class="gp-n">2</span><span>Go to <strong>openrouter.ai/keys</strong> → click "Create Key" → copy it</span></div>
+                  <div class="gp-step"><span class="gp-n">3</span><span>Create a file named <code>Modelfile</code> with this content:</span></div>
+                  <div class="gp-code-block">FROM openai/chat
+BASE_URL https://openrouter.ai/api/v1
+API_KEY sk-or-v1_your_key_here</div>
+                  <div class="gp-step"><span class="gp-n">4</span><span>Run these commands in your terminal:</span></div>
+                  <div class="gp-code-block">ollama create or-deepseek -f Modelfile
+ollama run or-deepseek</div>
+                  <div class="gp-step"><span class="gp-n">5</span><span>You're now chatting with DeepSeek R1 or any free model through Ollama.</span></div>
+                </div>
+              </div>
+
+              <div class="guide-platform">
+                <div class="gp-header">
+                  <div class="gp-name">Google AI Studio</div>
+                  <span class="gp-tag">Longest context</span>
+                </div>
+                <div class="gp-desc">1 million token context. Gemini 2.5 Flash, no credit card.</div>
+                <div class="gp-steps">
+                  <div class="gp-step"><span class="gp-n">1</span><span>Go to <strong>aistudio.google.com</strong> → sign in with Google account</span></div>
+                  <div class="gp-step"><span class="gp-n">2</span><span>Go to <strong>aistudio.google.com/app/api-keys</strong> → click "Create API Key" → copy it</span></div>
+                  <div class="gp-step"><span class="gp-n">3</span><span>Create a file named <code>Modelfile</code> with this content:</span></div>
+                  <div class="gp-code-block">FROM openai/chat
+BASE_URL https://generativelanguage.googleapis.com/v1beta
+API_KEY your_google_key_here</div>
+                  <div class="gp-step"><span class="gp-n">4</span><span>Run these commands in your terminal:</span></div>
+                  <div class="gp-code-block">ollama create gemini-flash -f Modelfile
+ollama run gemini-flash</div>
+                  <div class="gp-step"><span class="gp-n">5</span><span>Gemini 2.5 Flash is ready. 1M token context window.</span></div>
+                </div>
               </div>
             </div>
-            <div class="guide-option">
-              <div class="guide-option-name">OpenCode</div>
-              <div class="guide-option-desc">Built-in support for Groq, OpenRouter, and others. Just paste your API key.</div>
-              <div class="guide-option-steps">
-                <div class="guide-step"><span class="step-num">1</span><span>Download OpenCode from <strong>opencode.ai</strong></span></div>
-                <div class="guide-step"><span class="step-num">2</span><span>Go to Settings → API Keys</span></div>
-                <div class="guide-step"><span class="step-num">3</span><span>Select your provider (Groq, OpenRouter, etc.)</span></div>
-                <div class="guide-step"><span class="step-num">4</span><span>Paste your API key and start chatting</span></div>
+          </div>
+
+          <div id="guide-opencode" class="guide-content" style="display:none">
+            <div class="guide-intro">OpenCode has built-in support for these free AI providers. Just paste your API key.</div>
+            <div class="guide-platforms">
+              <div class="guide-platform">
+                <div class="gp-header">
+                  <div class="gp-name">OpenCode</div>
+                  <span class="gp-tag">OpenCode AI</span>
+                </div>
+                <div class="gp-desc">Built-in support for Groq, OpenRouter, Google AI Studio, and 75+ providers. Paste your key and go.</div>
+                <div class="gp-steps">
+                  <div class="gp-step"><span class="gp-n">1</span><span>Download OpenCode from <strong>opencode.ai</strong> — it's free</span></div>
+                  <div class="gp-step"><span class="gp-n">2</span><span>Click the settings icon (bottom left or type <code>Ctrl+,</code>)</span></div>
+                  <div class="gp-step"><span class="gp-n">3</span><span>Click "API Keys" → select your provider from the dropdown</span></div>
+                  <div class="gp-step"><span class="gp-n">4</span><span>Paste your API key and click "Save"</span></div>
+                  <div class="gp-step"><span class="gp-n">5</span><span>Start a new chat — the AI is ready to use</span></div>
+                </div>
+                <div class="gp-providers-list">Built-in providers: Groq, OpenRouter, Google AI Studio, Hugging Face, Cohere, and 70+ more.</div>
+              </div>
+            </div>
+          </div>
+
+          <div id="guide-direct" class="guide-content" style="display:none">
+            <div class="guide-intro">Use free cloud models directly in your code with Python. No CLI needed.</div>
+            <div class="guide-platforms">
+              <div class="guide-platform">
+                <div class="gp-header">
+                  <div class="gp-name">Groq — Python example</div>
+                  <span class="gp-tag">OpenAI-compatible</span>
+                </div>
+                <div class="gp-code-block">pip install openai
+
+from openai import OpenAI
+client = OpenAI(api_key="gsk_your_key_here",
+                base_url="https://api.groq.com/openai/v1")
+
+response = client.chat.completions.create(
+    model="llama-3.1-8b-instant",
+    messages=[{"role": "user", "content": "Hello!"}]
+)
+print(response.choices[0].message.content)</div>
+              </div>
+              <div class="guide-platform">
+                <div class="gp-header">
+                  <div class="gp-name">OpenRouter — Python example</div>
+                  <span class="gp-tag">27+ free models</span>
+                </div>
+                <div class="gp-code-block">pip install openai
+
+from openai import OpenAI
+client = OpenAI(api_key="sk-or-v1_your_key_here",
+                base_url="https://openrouter.ai/api/v1")
+
+response = client.chat.completions.create(
+    model="deepseek-ai/deepseek-r1",
+    messages=[{"role": "user", "content": "Hello!"}]
+)
+print(response.choices[0].message.content)</div>
+              </div>
+              <div class="guide-platform">
+                <div class="gp-header">
+                  <div class="gp-name">Google AI Studio — Python example</div>
+                  <span class="gp-tag">1M context</span>
+                </div>
+                <div class="gp-code-block">pip install google-generativeai
+
+import google.generativeai as genai
+genai.configure(api_key="your_google_key_here")
+
+model = genai.GenerativeModel("gemini-1.5-flash")
+response = model.generate_content("Hello!")
+print(response.text)</div>
               </div>
             </div>
           </div>
