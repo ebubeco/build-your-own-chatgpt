@@ -1,0 +1,166 @@
+{
+  "tiers": [
+    {
+      "id": "no-gpu",
+      "name": "No dedicated GPU",
+      "description": "No dedicated graphics card. You can still run smaller models on your CPU.",
+      "autoDetectHint": "No GPU detected"
+    },
+    {
+      "id": "integrated",
+      "name": "Integrated Graphics",
+      "description": "Intel UHD, Iris, or AMD Vega integrated graphics. Not powerful enough for most AI models, but smaller models work.",
+      "autoDetectHint": "Integrated graphics detected"
+    },
+    {
+      "id": "budget",
+      "name": "Budget GPU (4-8GB)",
+      "description": "Older or entry-level GPUs with limited VRAM. Can run 3-7B models.",
+      "autoDetectHint": "4-8GB VRAM detected"
+    },
+    {
+      "id": "mid-range",
+      "name": "Mid-Range GPU (8-12GB)",
+      "description": "RTX 3060, 3070, 4060, 4070 — the sweet spot for local AI. Can run 7-14B models.",
+      "autoDetectHint": "8-12GB VRAM detected"
+    },
+    {
+      "id": "high-end",
+      "name": "High-End GPU (16-24GB)",
+      "description": "RTX 4080, 4090, Mac M3 Pro/Max — can run the best open models.",
+      "autoDetectHint": "16GB+ VRAM detected"
+    },
+    {
+      "id": "workstation",
+      "name": "Workstation GPU (40GB+)",
+      "description": "A100, H100, or multiple GPUs. For serious AI workloads.",
+      "autoDetectHint": "Workstation GPU detected"
+    }
+  ],
+  "gpuMap": {
+    "RTX 5090": { "tier": "workstation", "vramGB": 32, "name": "NVIDIA RTX 5090" },
+    "RTX 5080": { "tier": "high-end", "vramGB": 16, "name": "NVIDIA RTX 5080" },
+    "RTX 5070 Ti": { "tier": "high-end", "vramGB": 16, "name": "NVIDIA RTX 5070 Ti" },
+    "RTX 5070": { "tier": "mid-range", "vramGB": 12, "name": "NVIDIA RTX 5070" },
+    "RTX 5060": { "tier": "mid-range", "vramGB": 8, "name": "NVIDIA RTX 5060" },
+    "RTX 4090": { "tier": "high-end", "vramGB": 24, "name": "NVIDIA RTX 4090" },
+    "RTX 4080 Super": { "tier": "high-end", "vramGB": 16, "name": "NVIDIA RTX 4080 Super" },
+    "RTX 4080": { "tier": "high-end", "vramGB": 16, "name": "NVIDIA RTX 4080" },
+    "RTX 4070 Ti Super": { "tier": "mid-range", "vramGB": 16, "name": "NVIDIA RTX 4070 Ti Super" },
+    "RTX 4070 Ti": { "tier": "mid-range", "vramGB": 12, "name": "NVIDIA RTX 4070 Ti" },
+    "RTX 4070 Super": { "tier": "mid-range", "vramGB": 12, "name": "NVIDIA RTX 4070 Super" },
+    "RTX 4070": { "tier": "mid-range", "vramGB": 12, "name": "NVIDIA RTX 4070" },
+    "RTX 4060 Ti": { "tier": "budget", "vramGB": 16, "name": "NVIDIA RTX 4060 Ti" },
+    "RTX 4060": { "tier": "budget", "vramGB": 8, "name": "NVIDIA RTX 4060" },
+    "RTX 3090": { "tier": "high-end", "vramGB": 24, "name": "NVIDIA RTX 3090" },
+    "RTX 3080 Ti": { "tier": "high-end", "vramGB": 12, "name": "NVIDIA RTX 3080 Ti" },
+    "RTX 3080": { "tier": "mid-range", "vramGB": 10, "name": "NVIDIA RTX 3080" },
+    "RTX 3070 Ti": { "tier": "mid-range", "vramGB": 8, "name": "NVIDIA RTX 3070 Ti" },
+    "RTX 3070": { "tier": "mid-range", "vramGB": 8, "name": "NVIDIA RTX 3070" },
+    "RTX 3060 Ti": { "tier": "budget", "vramGB": 8, "name": "NVIDIA RTX 3060 Ti" },
+    "RTX 3060": { "tier": "mid-range", "vramGB": 12, "name": "NVIDIA RTX 3060" },
+    "RTX 3050": { "tier": "budget", "vramGB": 8, "name": "NVIDIA RTX 3050" },
+    "GTX 1660": { "tier": "budget", "vramGB": 6, "name": "NVIDIA GTX 1660" },
+    "GTX 1060": { "tier": "no-gpu", "vramGB": 3, "name": "NVIDIA GTX 1060" },
+    "GTX 1050": { "tier": "no-gpu", "vramGB": 2, "name": "NVIDIA GTX 1050" },
+    "AMD RX 7900 XTX": { "tier": "high-end", "vramGB": 24, "name": "AMD RX 7900 XTX" },
+    "AMD RX 7900 XT": { "tier": "high-end", "vramGB": 20, "name": "AMD RX 7900 XT" },
+    "AMD RX 7800 XT": { "tier": "mid-range", "vramGB": 16, "name": "AMD RX 7800 XT" },
+    "AMD RX 7700 XT": { "tier": "mid-range", "vramGB": 12, "name": "AMD RX 7700 XT" },
+    "AMD RX 7600 XT": { "tier": "budget", "vramGB": 16, "name": "AMD RX 7600 XT" },
+    "AMD RX 7600": { "tier": "budget", "vramGB": 8, "name": "AMD RX 7600" },
+    "AMD RX 6700 XT": { "tier": "mid-range", "vramGB": 12, "name": "AMD RX 6700 XT" },
+    "AMD RX 6600": { "tier": "budget", "vramGB": 8, "name": "AMD RX 6600" },
+    "Apple M4 Max": { "tier": "high-end", "vramGB": 40, "name": "Apple M4 Max", "appleSilicon": true },
+    "Apple M4 Pro": { "tier": "high-end", "vramGB": 24, "name": "Apple M4 Pro", "appleSilicon": true },
+    "Apple M4": { "tier": "mid-range", "vramGB": 16, "name": "Apple M4", "appleSilicon": true },
+    "Apple M3 Ultra": { "tier": "high-end", "vramGB": 80, "name": "Apple M3 Ultra", "appleSilicon": true },
+    "Apple M3 Max": { "tier": "high-end", "vramGB": 40, "name": "Apple M3 Max", "appleSilicon": true },
+    "Apple M3 Pro": { "tier": "mid-range", "vramGB": 18, "name": "Apple M3 Pro", "appleSilicon": true },
+    "Apple M3": { "tier": "mid-range", "vramGB": 16, "name": "Apple M3", "appleSilicon": true },
+    "Apple M2 Ultra": { "tier": "high-end", "vramGB": 64, "name": "Apple M2 Ultra", "appleSilicon": true },
+    "Apple M2 Max": { "tier": "high-end", "vramGB": 32, "name": "Apple M2 Max", "appleSilicon": true },
+    "Apple M2 Pro": { "tier": "mid-range", "vramGB": 16, "name": "Apple M2 Pro", "appleSilicon": true },
+    "Apple M2": { "tier": "mid-range", "vramGB": 16, "name": "Apple M2", "appleSilicon": true },
+    "Apple M1 Ultra": { "tier": "high-end", "vramGB": 64, "name": "Apple M1 Ultra", "appleSilicon": true },
+    "Apple M1 Max": { "tier": "high-end", "vramGB": 32, "name": "Apple M1 Max", "appleSilicon": true },
+    "Apple M1 Pro": { "tier": "mid-range", "vramGB": 16, "name": "Apple M1 Pro", "appleSilicon": true },
+    "Apple M1": { "tier": "mid-range", "vramGB": 16, "name": "Apple M1", "appleSilicon": true }
+  },
+  "manualOptions": [
+    {
+      "id": "old-laptop",
+      "label": "Old/slow laptop (2015 or earlier)",
+      "icon": "laptop-old",
+      "description": "A laptop from 5+ years ago. Likely 4-8GB RAM, no dedicated GPU.",
+      "tier": "no-gpu",
+      "recommendedModel": "qwen-0-5b"
+    },
+    {
+      "id": "modern-laptop-no-gpu",
+      "label": "Modern laptop (no dedicated GPU)",
+      "icon": "laptop",
+      "description": "A laptop from the last 3 years without a gaming graphics card. 8-16GB RAM.",
+      "tier": "cpu-only",
+      "recommendedModel": "qwen-1-5b"
+    },
+    {
+      "id": "desktop-integrated",
+      "label": "Desktop PC (integrated graphics)",
+      "icon": "monitor",
+      "description": "A desktop without a dedicated graphics card. May have better CPU cooling for sustained use.",
+      "tier": "cpu-only",
+      "recommendedModel": "phi-4-mini"
+    },
+    {
+      "id": "rtx-3060",
+      "label": "Gaming PC (RTX 3060 or similar)",
+      "icon": "gpu-budget",
+      "description": "RTX 3060, 3060 Ti, or similar 12GB GPU. The sweet spot for local AI.",
+      "tier": "budget-gpu",
+      "recommendedModel": "qwen-3-7b"
+    },
+    {
+      "id": "rtx-4070-4080",
+      "label": "Gaming PC (RTX 4070, 4080, 4090)",
+      "icon": "gpu-power",
+      "description": "RTX 4070, 4080, 4090, or similar high-end GPU. Can run the best models.",
+      "tier": "power-gpu",
+      "recommendedModel": "qwen-3-5-27b"
+    },
+    {
+      "id": "mac-m1-m2",
+      "label": "Mac (M1, M2, M3)",
+      "icon": "apple",
+      "description": "Apple MacBook or Mac with M1, M2, or M3 chip. Unified memory handles models well.",
+      "tier": "power-gpu",
+      "appleSilicon": true,
+      "recommendedModel": "qwen-3-7b"
+    },
+    {
+      "id": "mac-m3-pro-max",
+      "label": "Mac (M3 Pro, M3 Max, M4)",
+      "icon": "apple",
+      "description": "MacBook Pro or Mac Studio with M3 Pro/Max or M4 chip. Can run the largest models.",
+      "tier": "power-gpu",
+      "appleSilicon": true,
+      "recommendedModel": "qwen-3-5-27b"
+    },
+    {
+      "id": "amd-rx-6000-7000",
+      "label": "AMD GPU (RX 6600 or newer)",
+      "icon": "gpu-budget",
+      "description": "AMD Radeon RX 6600, 6700, 7600, 7700, 7800, 7900 series. Works with Ollama (ROCm).",
+      "tier": "budget-gpu",
+      "recommendedModel": "qwen-3-7b"
+    },
+    {
+      "id": "dont-know",
+      "label": "I don't know / show me everything",
+      "icon": "help",
+      "description": "Not sure what hardware you have? We'll help you figure it out.",
+      "tier": "all",
+      "recommendedModel": null
+    }
+  ]
+}

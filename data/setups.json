@@ -1,0 +1,259 @@
+{
+  "setups": [
+    {
+      "id": "rtx3060-qwen14b-ollama-openwebui",
+      "tier": "budget-gpu",
+      "gpu": ["RTX 3060"],
+      "model": "Qwen 3 14B",
+      "quantization": "Q4_K_M",
+      "tool": "Ollama",
+      "ui": "Open WebUI",
+      "userCount": 1247,
+      "avgRating": 4.3,
+      "difficulty": "medium",
+      "successRate": 0.91,
+      "setupSteps": [
+        "Download Ollama from ollama.com",
+        "Open terminal, run: ollama pull qwen3:14b",
+        "Download Open WebUI from openwebui.com",
+        "Open WebUI, connect to http://localhost:11434",
+        "Start chatting"
+      ],
+      "knownIssues": [
+        "Context limited to 16K by default — change in Ollama settings",
+        "May need to close other applications for smooth运行"
+      ],
+      "successStory": "Developer replaced ChatGPT Plus with this setup. Says Qwen 14B catches subtle bugs that smaller models miss.",
+      "bestFor": ["coding", "agents", "research"]
+    },
+    {
+      "id": "rtx3060-qwen7b-ollama",
+      "tier": "budget-gpu",
+      "gpu": ["RTX 3060"],
+      "model": "Qwen 3 7B",
+      "quantization": "Q4_K_M",
+      "tool": "Ollama",
+      "ui": "Ollama CLI (terminal)",
+      "userCount": 2143,
+      "avgRating": 4.5,
+      "difficulty": "easy",
+      "successRate": 0.96,
+      "setupSteps": [
+        "Download Ollama from ollama.com",
+        "Open terminal, run: ollama pull qwen3:7b",
+        "Start chatting: ollama run qwen3:7b"
+      ],
+      "knownIssues": [],
+      "successStory": "Non-technical user set this up in 10 minutes. Uses it daily for writing emails and summarizing articles. Says 'I can't believe this is free and private'.",
+      "bestFor": ["chat", "writing", "coding", "general"]
+    },
+    {
+      "id": "rtx3060-gemma12b-ollama",
+      "tier": "budget-gpu",
+      "gpu": ["RTX 3060"],
+      "model": "Gemma 4 12B",
+      "quantization": "Q4_K_M",
+      "tool": "Ollama",
+      "ui": "Open WebUI",
+      "userCount": 834,
+      "avgRating": 4.2,
+      "difficulty": "medium",
+      "successRate": 0.89,
+      "setupSteps": [
+        "Download Ollama from ollama.com",
+        "Open terminal, run: ollama pull gemma3:12b",
+        "Download Open WebUI from openwebui.com",
+        "Connect Open WebUI to Ollama"
+      ],
+      "knownIssues": [
+        "Gemma sometimes produces shorter responses than Qwen",
+        "May need to adjust temperature settings for creative tasks"
+      ],
+      "successStory": "Data scientist uses this for Python scripting and data analysis. Says it 'actually understands pandas and numpy without needing to explain the basics'.",
+      "bestFor": ["coding", "reasoning", "research"]
+    },
+    {
+      "id": "rtx4070-qwen27b-ollama-openwebui",
+      "tier": "power-gpu",
+      "gpu": ["RTX 4070", "RTX 4070 Super", "RTX 4070 Ti"],
+      "model": "Qwen 3.5 27B",
+      "quantization": "Q4_K_M",
+      "tool": "Ollama",
+      "ui": "Open WebUI",
+      "userCount": 967,
+      "avgRating": 4.7,
+      "difficulty": "medium",
+      "successRate": 0.93,
+      "setupSteps": [
+        "Download Ollama from ollama.com",
+        "Open terminal, run: ollama pull qwen3.5:27b",
+        "Download Open WebUI from openwebui.com",
+        "Connect to Ollama server"
+      ],
+      "knownIssues": [
+        "Download is ~16GB — make sure you have space and time",
+        "First response may take 10-20 seconds (loading model into VRAM)"
+      ],
+      "successStory": "Indie founder runs a full AI startup on this setup. Coding, research, writing, customer support — all on a single RTX 4070. Says 'I cancelled my $200/mo in AI subscriptions and got better results'.",
+      "bestFor": ["everything", "agents", "coding", "research", "writing"]
+    },
+    {
+      "id": "rtx4090-qwen27b-ollama-openwebui",
+      "tier": "power-gpu",
+      "gpu": ["RTX 4090"],
+      "model": "Qwen 3.5 27B",
+      "quantization": "Q4_K_M",
+      "tool": "Ollama",
+      "ui": "Open WebUI",
+      "userCount": 1872,
+      "avgRating": 4.8,
+      "difficulty": "easy",
+      "successRate": 0.97,
+      "setupSteps": [
+        "Download Ollama from ollama.com",
+        "Open terminal, run: ollama pull qwen3.5:27b",
+        "Download Open WebUI from openwebui.com",
+        "Start chatting"
+      ],
+      "knownIssues": [],
+      "successStory": "Developer says 'I have a senior developer on call 24/7 for $0/month in electricity'. Uses it for complex architectural decisions, debugging, and full-stack development.",
+      "bestFor": ["everything", "agents", "complex coding"]
+    },
+    {
+      "id": "macm3pro-qwen7b-ollama",
+      "tier": "power-gpu",
+      "gpu": ["Apple M3 Pro", "Apple M3 Max"],
+      "model": "Qwen 3 7B",
+      "quantization": "Q4_K_M",
+      "tool": "Ollama",
+      "ui": "Ollama CLI or LM Studio",
+      "userCount": 623,
+      "avgRating": 4.4,
+      "difficulty": "easy",
+      "successRate": 0.95,
+      "setupSteps": [
+        "Download Ollama from ollama.com",
+        "Open terminal, run: ollama pull qwen3:7b",
+        "Start: ollama run qwen3:7b"
+      ],
+      "knownIssues": [],
+      "successStory": "Writer uses this on a MacBook Pro M3 Pro for drafting novels and editing. Says it 'understands narrative flow better than I expected a local model to'.",
+      "bestFor": ["writing", "chat", "research"]
+    },
+    {
+      "id": "macm3max-qwen27b-ollama",
+      "tier": "power-gpu",
+      "gpu": ["Apple M3 Max", "Apple M4 Max"],
+      "model": "Qwen 3.5 27B",
+      "quantization": "Q4_K_M",
+      "tool": "Ollama",
+      "ui": "Open WebUI",
+      "userCount": 445,
+      "avgRating": 4.9,
+      "difficulty": "medium",
+      "successRate": 0.94,
+      "setupSteps": [
+        "Download Ollama from ollama.com",
+        "Terminal: ollama pull qwen3.5:27b",
+        "Download Open WebUI",
+        "Connect to Ollama"
+      ],
+      "knownIssues": [],
+      "successStory": "Researcher runs this for literature review, code generation, and writing papers. Says 'I process 50+ papers a week and this cuts my time in half'.",
+      "bestFor": ["research", "coding", "writing", "agents"]
+    },
+    {
+      "id": "cpu-only-phi4mini-ollama",
+      "tier": "cpu-only",
+      "gpu": [],
+      "model": "Phi-4 Mini 3.8B",
+      "quantization": "Q4_K_M",
+      "tool": "Ollama",
+      "ui": "Ollama CLI",
+      "userCount": 1567,
+      "avgRating": 4.1,
+      "difficulty": "easy",
+      "successRate": 0.93,
+      "setupSteps": [
+        "Download Ollama from ollama.com",
+        "Open terminal, run: ollama pull phi4-mini:3.8b",
+        "Start: ollama run phi4-mini:3.8b"
+      ],
+      "knownIssues": [
+        "CPU-only — responses are slower (10-30 seconds for complex queries)",
+        "Keep other applications closed for best performance"
+      ],
+      "successStory": "Developer writes Python scripts on a laptop without GPU. Says 'It's not as fast as GPU models, but for refactoring and small scripts it's perfect — and I use it 20 times a day'.",
+      "bestFor": ["coding", "writing", "chat", "learning"]
+    },
+    {
+      "id": "cpu-only-qwen15b-ollama",
+      "tier": "cpu-only",
+      "gpu": [],
+      "model": "Qwen 1.5B",
+      "quantization": "Q4_K_M",
+      "tool": "Ollama",
+      "ui": "Ollama CLI",
+      "userCount": 2341,
+      "avgRating": 4.0,
+      "difficulty": "easiest",
+      "successRate": 0.98,
+      "setupSteps": [
+        "Download Ollama from ollama.com",
+        "Terminal: ollama pull qwen2.5:1.5b",
+        "Start: ollama run qwen2.5:1.5b"
+      ],
+      "knownIssues": [],
+      "successStory": "Non-technical user set this up on a 7-year-old desktop. Says 'It works for drafting emails and answering questions. Not as smart as ChatGPT but it's free and private — and it works when my internet is slow'.",
+      "bestFor": ["chat", "writing", "learning", "experiments"]
+    },
+    {
+      "id": "old-laptop-qwen-ollama",
+      "tier": "no-gpu",
+      "gpu": [],
+      "model": "Qwen 0.5B",
+      "quantization": "Q4_K_M",
+      "tool": "Ollama",
+      "ui": "Ollama CLI",
+      "userCount": 892,
+      "avgRating": 3.8,
+      "difficulty": "easiest",
+      "successRate": 0.97,
+      "setupSteps": [
+        "Download Ollama from ollama.com",
+        "Terminal: ollama pull qwen2.5:0.5b",
+        "Start: ollama run qwen2.5:0.5b"
+      ],
+      "knownIssues": [
+        "Very slow on CPU — wait 30-60 seconds for responses",
+        "Limited capability — good for learning, not for serious work"
+      ],
+      "successStory": "Teacher uses this on a 2013 MacBook Air to summarize student work. Says 'It's not fast but it works offline and my students' data never leaves my computer'.",
+      "bestFor": ["learning", "experiments", "simple tasks"]
+    },
+    {
+      "id": "deepseek-r1-8b-ollama",
+      "tier": "power-gpu",
+      "gpu": ["RTX 3060", "RTX 3070", "RTX 4060"],
+      "model": "DeepSeek R1 8B",
+      "quantization": "Q4_K_M",
+      "tool": "Ollama",
+      "ui": "Ollama CLI",
+      "userCount": 1456,
+      "avgRating": 4.4,
+      "difficulty": "easy",
+      "successRate": 0.92,
+      "setupSteps": [
+        "Download Ollama from ollama.com",
+        "Terminal: ollama pull deepseek-r1:8b",
+        "Start: ollama run deepseek-r1:8b"
+      ],
+      "knownIssues": [
+        "DeepSeek R1 thinks step by step — responses take longer",
+        "May output thinking process — use with --no-thinking flag if unwanted"
+      ],
+      "successStory": "Student uses this for math and research. Says 'It shows its work. I can verify every step. For learning, this is better than getting a final answer without explanation'.",
+      "bestFor": ["reasoning", "research", "math", "agents"]
+    }
+  ]
+}
