@@ -134,28 +134,18 @@
     return 'rating-low';
   }
 
-  function wrapGlossary(term) {
-    const found = glossaryData.terms.find(t =>
-      t.term.toLowerCase() === term.toLowerCase() ||
-      (t.aliases && t.aliases.some(a => a.toLowerCase() === term.toLowerCase()))
-    );
-    if (!found) return term;
-    return `<span class="glossary-tip">
-      ${term}<span class="glossary-popup">${found.simpleDefinition}</span>
-    </span>`;
-  }
-
   function wrapInGlossary(text) {
-    if (!beginnerMode) return text;
-    let result = text;
-    for (const term of glossaryData.terms) {
-      const regex = new RegExp(`\\b(${term.term}|${term.aliases.join('|')})\\b`, 'gi');
-      result = result.replace(regex, (match) => {
-        const popup = `<span class="glossary-tip">${match}<span class="glossary-popup">${term.simpleDefinition}</span></span>`;
-        return popup;
-      });
-    }
-    return result;
+    if (!beginnerMode || !glossaryData) return text;
+    const words = text.split(/(\s+)/);
+    return words.map(word => {
+      if (/^\s+$/.test(word)) return word;
+      const matched = glossaryData.terms.find(t =>
+        t.term.toLowerCase() === word.toLowerCase() ||
+        (t.aliases && t.aliases.some(a => a.toLowerCase() === word.toLowerCase()))
+      );
+      if (!matched) return word;
+      return `<span class="glossary-tip">${word}<span class="glossary-popup">${matched.simpleDefinition}</span></span>`;
+    }).join('');
   }
 
   function copyToClipboard(text, btn) {
@@ -206,12 +196,12 @@
       <div class="model-card fade-in">
         <div class="model-card-header">
           <div>
-            <span class="model-name">${wrapInGlossary(m.name)}</span>
+            <span class="model-name">${wrapInGlossary(m.name.replace(/\s*\d+(\.\d+)?B\s*$/i, '').trim())}</span>
             <span class="model-size badge b-primary">${m.size}</span>
           </div>
           <span class="badge b-green">${m.setupComplexity === 'easiest' ? 'Easiest' : m.setupComplexity === 'easy' ? 'Easy' : 'Medium'}</span>
         </div>
-        <p class="model-desc">${m.description}</p>
+        <p class="model-desc">${wrapInGlossary(m.description)}</p>
         <div class="model-meta">
           <span class="badge b-primary">📦 ${m.modelSizeGB}GB</span>
           <span class="badge b-purple">💾 ${m.vramGB}GB VRAM</span>
@@ -322,49 +312,72 @@
 
   window.selectTierAll = function() {
     const resultsSection = document.getElementById('results-section');
+    if (!resultsSection) return;
     const allModels = modelsData.models;
-    const score = 6;
     const breakdown = { chat: 8, writing: 7, coding: 6, reasoning: 6, agents: 5 };
 
     resultsSection.innerHTML = `
-      <div class="fade-in">
-        <div class="score-card">
-          <div class="score-label">Your AI Readiness Score</div>
-          <div class="score-number" style="color:var(--amber)">${score}/10</div>
-          <p style="font-size:0.85rem;color:var(--text-secondary);margin-top:0.25rem">Select your hardware above to get personalized recommendations.</p>
-        </div>
-        <h2 style="margin-bottom:0.25rem">🧠 All available models</h2>
-        <p style="color:var(--text-tertiary);font-size:0.9rem;margin-bottom:1.5rem">Browse by selecting your hardware above, or see all models below.</p>
-        ${modelsData.tiers.map(tier => {
-          const tierModels = allModels.filter(m => m.tier === tier.id);
-          return `
-          <div class="tier-section">
-            <div class="tier-header">
-              <span class="tier-icon">${icon(tier.icon)}</span>
-              <span class="tier-name">${tier.name}</span>
-              <span class="tier-badge" style="background:${tier.color}20;color:${tier.color}">${tier.vramNote}</span>
-            </div>
-            ${tierModels.map(m => `
-              <div class="model-card">
-                <div class="model-card-header">
-                  <div>
-                    <span class="model-name">${m.name}</span>
-                    <span class="model-size badge b-primary">${m.size}</span>
-                  </div>
-                  <span class="badge b-green">${m.setupComplexity === 'easiest' ? 'Easiest' : m.setupComplexity === 'easy' ? 'Easy' : 'Medium'}</span>
-                </div>
-                <p class="model-desc">${m.description}</p>
-                <div class="model-meta">
-                  <span class="badge b-primary">📦 ${m.modelSizeGB}GB</span>
-                  <span class="badge b-purple">💾 ${m.vramGB}GB VRAM</span>
-                </div>
-                ${renderInstallBox(m)}
+      <div class="score-card">
+        <div class="score-top">
+          <div>
+            <div class="score-label">Browse all models</div>
+            <div class="score-number" style="color:var(--text-secondary)">${Object.keys(allModels).length}<span style="font-size:1.5rem;color:var(--text-tertiary)"> models</span></div>
+            <div class="score-subtitle">Select your hardware above for personalized picks and your AI readiness score.</div>
+          </div>
+          <div class="score-grid">
+            ${Object.entries(breakdown).map(([key, val]) => `
+              <div class="score-item">
+                <span class="score-item-label">${key}</span>
+                <div class="score-bar"><div class="score-bar-fill" style="width:${val * 10}%;background:#1a8a45"></div></div>
               </div>
             `).join('')}
-          </div>`;
-        }).join('')}
+          </div>
+        </div>
+      </div>
+
+      <div class="models-header">
+        <h2 style="margin-bottom:0">All available models</h2>
+        <span class="models-count">${allModels.length} total</span>
+      </div>
+      <p class="section-desc">Sorted by hardware tier. Pick your setup above for recommendations that actually work on your machine.</p>
+      <div class="models-list">
+      ${modelsData.tiers.map(tier => {
+        const tierModels = allModels.filter(m => m.tier === tier.id);
+        if (!tierModels.length) return '';
+        return `
+        <div class="section" style="margin-top:0.5rem">
+          <p class="section-label" style="font-size:0.65rem">${tier.name}</p>
+          <p style="font-size:0.8rem;color:var(--text-tertiary);margin-bottom:0.75rem">${tier.description}</p>
+          ${tierModels.map(m => {
+            const nameWithoutSize = m.name.replace(/\s*\d+(\.\d+)?B\s*$/i, '').trim();
+            const ratings = Object.entries(m.practicalRating)
+              .filter(([k, v]) => v > 0)
+              .map(([k, v]) => `<span class="rating-item"><span class="rating-dot ${getRatingClass(v)}"></span>${k}: ${v}/10</span>`)
+              .join('');
+            return `
+            <div class="model-card">
+              <div class="model-card-header">
+                <div>
+                  <span class="model-name">${wrapInGlossary(nameWithoutSize)}</span>
+                  <span class="model-size badge b-primary">${m.size}</span>
+                </div>
+                <span class="badge b-green">${m.setupComplexity === 'easiest' ? 'Easiest' : m.setupComplexity === 'easy' ? 'Easy' : 'Medium'}</span>
+              </div>
+              <p class="model-desc">${wrapInGlossary(m.description)}</p>
+              <div class="model-meta">
+                <span class="badge b-primary">📦 ${m.modelSizeGB}GB</span>
+                <span class="badge b-purple">💾 ${m.vramGB}GB VRAM</span>
+                <span class="badge b-green">📏 ${(m.contextLength/1024).toFixed(0)}K context</span>
+              </div>
+              ${ratings ? `<div class="model-ratings">${ratings}</div>` : ''}
+              ${renderInstallBox(m)}
+            </div>`;
+          }).join('')}
+        </div>`;
+      }).join('')}
       </div>`;
     resultsSection.classList.remove('hidden');
+    resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
   async function init() {
