@@ -126,22 +126,44 @@
       <hr class="divider">
 
       <section class="section">
-        <p class="section-label">Free cloud options</p>
-        <h2>AI in your browser — no install needed</h2>
-        <p class="section-desc">Access powerful AI models right now. No credit card. Just an API key and you're set.</p>
+        <p class="section-label">Cloud AI — zero hardware</p>
+        <h2>Run powerful AI without a GPU</h2>
+        <p class="section-desc">These are free cloud AI providers. They run on the provider's servers, not your machine. But you access them through the same tools you already use — Ollama or LM Studio. No credit card needed for any of them.</p>
+
+        <div class="compare-grid" style="margin-bottom:2rem;">
+          <div class="compare-card">
+            <div class="compare-title" style="color:#e85d04">Local AI (above)</div>
+            <ul class="compare-list">
+              <li>Runs on your machine</li>
+              <li>100% private — data never leaves</li>
+              <li>Free forever after setup</li>
+              <li>Needs compatible hardware</li>
+            </ul>
+          </div>
+          <div class="compare-card">
+            <div class="compare-title" style="color:var(--accent)">Cloud AI (this section)</div>
+            <ul class="compare-list">
+              <li>Runs on provider's servers</li>
+              <li>Data goes to the cloud</li>
+              <li>Free tier — no GPU needed</li>
+              <li>Access via Ollama or LM Studio</li>
+            </ul>
+          </div>
+        </div>
 
         <div class="cloud-guide-banner">
           <div class="guide-banner-title">Connect free cloud AI in 5 minutes</div>
-          <p class="guide-banner-desc">Choose how you want to use these. No credit card needed for any of them.</p>
+          <p class="guide-banner-desc">Choose how you want to connect. No credit card needed.</p>
 
           <div class="guide-tabs">
             <button class="guide-tab active" onclick="showGuide('ollama')">Use with Ollama</button>
+            <button class="guide-tab" onclick="showGuide('lmstudio')">Use with LM Studio</button>
             <button class="guide-tab" onclick="showGuide('opencode')">Use with OpenCode</button>
             <button class="guide-tab" onclick="showGuide('direct')">API / Code</button>
           </div>
 
           <div id="guide-ollama" class="guide-content">
-            <div class="guide-intro">Run free cloud models from your terminal using the same Ollama commands you already know.</div>
+            <div class="guide-intro">These free cloud providers work with Ollama. Once set up, you use the same <code>ollama run</code> commands you already know — the model just runs on the cloud instead of your machine.</div>
             <div class="guide-platforms">
               <div class="guide-platform">
                 <div class="gp-header">
@@ -205,8 +227,77 @@ ollama run gemini-flash</div>
             </div>
           </div>
 
+          <div id="guide-lmstudio" class="guide-content" style="display:none">
+            <div class="guide-intro">LM Studio has built-in support for OpenAI-compatible APIs. Connect to any of these free providers directly from the LM Studio GUI — no config files needed.</div>
+            <div class="guide-platforms">
+              <div class="guide-platform">
+                <div class="gp-header">
+                  <div class="gp-name">Groq</div>
+                  <span class="gp-tag">Fastest free AI</span>
+                </div>
+                <div class="gp-desc">1,000+ tokens/sec. No credit card. OpenAI-compatible API.</div>
+                <div class="gp-steps">
+                  <div class="gp-step"><span class="gp-n">1</span><span>Download <strong>LM Studio</strong> from <strong>lmstudio.ai</strong> — free</span></div>
+                  <div class="gp-step"><span class="gp-n">2</span><span>Click "Developer" on the left sidebar</span></div>
+                  <div class="gp-step"><span class="gp-n">3</span><span>Toggle "OpenAI API Compatible" to ON</span></div>
+                  <div class="gp-step"><span class="gp-n">4</span><span>Enter the base URL: <code>https://api.groq.com/openai/v1</code></span></div>
+                  <div class="gp-step"><span class="gp-n">5</span><span>Paste your Groq API key, then click "Connect"</span></div>
+                  <div class="gp-step"><span class="gp-n">6</span><span>Select a model from the dropdown — Llama 3.1 8B works great</span></div>
+                  <div class="gp-step"><span class="gp-n">7</span><span>Use the built-in chat or connect via any OpenAI-compatible app</span></div>
+                </div>
+              </div>
+
+              <div class="guide-platform">
+                <div class="gp-header">
+                  <div class="gp-name">OpenRouter</div>
+                  <span class="gp-tag">27+ free models</span>
+                </div>
+                <div class="gp-desc">One API key for dozens of free models. Auto-failover included.</div>
+                <div class="gp-steps">
+                  <div class="gp-step"><span class="gp-n">1</span><span>Download <strong>LM Studio</strong> from <strong>lmstudio.ai</strong></span></div>
+                  <div class="gp-step"><span class="gp-n">2</span><span>Click "Developer" → toggle "OpenAI API Compatible" to ON</span></div>
+                  <div class="gp-step"><span class="gp-n">3</span><span>Enter base URL: <code>https://openrouter.ai/api/v1</code></span></div>
+                  <div class="gp-step"><span class="gp-n">4</span><span>Paste your OpenRouter API key, click "Connect"</span></div>
+                  <div class="gp-step"><span class="gp-n">5</span><span>Pick from 27+ free models — DeepSeek R1, Llama 4, Gemini Flash, and more</span></div>
+                  <div class="gp-step"><span class="gp-n">6</span><span>Start chatting. LM Studio shows the model name and speed in real-time.</span></div>
+                </div>
+              </div>
+
+              <div class="guide-platform">
+                <div class="gp-header">
+                  <div class="gp-name">Google AI Studio</div>
+                  <span class="gp-tag">1M context window</span>
+                </div>
+                <div class="gp-desc">Gemini 2.5 Flash with 1 million token context. Great for long documents.</div>
+                <div class="gp-steps">
+                  <div class="gp-step"><span class="gp-n">1</span><span>Download <strong>LM Studio</strong> from <strong>lmstudio.ai</strong></span></div>
+                  <div class="gp-step"><span class="gp-n">2</span><span>Click "Developer" → toggle "OpenAI API Compatible" to ON</span></div>
+                  <div class="gp-step"><span class="gp-n">3</span><span>Enter base URL: <code>https://generativelanguage.googleapis.com/v1beta/models/</code></span></div>
+                  <div class="gp-step"><span class="gp-n">4</span><span>Paste your Google API key, click "Connect"</span></div>
+                  <div class="gp-step"><span class="gp-n">5</span><span>Select <strong>gemini-2.0-flash</strong> or <strong>gemini-1.5-flash-002</strong></span></div>
+                  <div class="gp-step"><span class="gp-n">6</span><span>Chat with a 1M token context window — load entire books, codebases, transcripts</span></div>
+                </div>
+              </div>
+
+              <div class="guide-platform">
+                <div class="gp-header">
+                  <div class="gp-name">Cerebras</div>
+                  <span class="gp-tag">~3,000 tokens/sec</span>
+                </div>
+                <div class="gp-desc">The fastest free API on the planet. GPT OSS 120B at 3K TPS.</div>
+                <div class="gp-steps">
+                  <div class="gp-step"><span class="gp-n">1</span><span>Download <strong>LM Studio</strong> from <strong>lmstudio.ai</strong></span></div>
+                  <div class="gp-step"><span class="gp-n">2</span><span>Click "Developer" → toggle "OpenAI API Compatible" to ON</span></div>
+                  <div class="gp-step"><span class="gp-n">3</span><span>Enter base URL: <code>https://api.cerebras.ai/openai/v1</code></span></div>
+                  <div class="gp-step"><span class="gp-n">4</span><span>Paste your Cerebras API key, click "Connect"</span></div>
+                  <div class="gp-step"><span class="gp-n">5</span><span>Try Llama 3.1 8B for the fastest responses, or GPT OSS 120B for the biggest model</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div id="guide-opencode" class="guide-content" style="display:none">
-            <div class="guide-intro">OpenCode has built-in support for these free AI providers. Just paste your API key.</div>
+            <div class="guide-intro">OpenCode is a coding assistant with built-in support for Groq, OpenRouter, Google AI Studio, and 75+ providers. Paste your API key once and you're done — no terminal commands needed.</div>
             <div class="guide-platforms">
               <div class="guide-platform">
                 <div class="gp-header">
@@ -227,7 +318,7 @@ ollama run gemini-flash</div>
           </div>
 
           <div id="guide-direct" class="guide-content" style="display:none">
-            <div class="guide-intro">Use free cloud models directly in your code with Python. No CLI needed.</div>
+            <div class="guide-intro">Connect to free cloud models from your own Python scripts. All these providers use OpenAI-compatible APIs — the same code works for most of them.</div>
             <div class="guide-platforms">
               <div class="guide-platform">
                 <div class="gp-header">

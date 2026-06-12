@@ -405,5 +405,16 @@
     }
   }
 
+  window.showGuide = function(guide) {
+    const tabs = document.querySelectorAll('.guide-tab');
+    const contents = document.querySelectorAll('.guide-content');
+    tabs.forEach(t => t.classList.remove('active'));
+    contents.forEach(c => c.style.display = 'none');
+    const targetTab = document.querySelector(`.guide-tab[onclick="showGuide('${guide}')"]`);
+    if (targetTab) targetTab.classList.add('active');
+    const targetContent = document.getElementById(`guide-${guide}`);
+    if (targetContent) targetContent.style.display = 'block';
+  };
+
   document.addEventListener('DOMContentLoaded', init);
 })();
