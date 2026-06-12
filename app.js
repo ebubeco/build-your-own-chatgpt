@@ -113,10 +113,12 @@
   }
 
   function getRecommendationsForTier(tier) {
+    if (!modelsData || !modelsData.models) return [];
     return modelsData.models.filter(m => m.tier === tier);
   }
 
   function getSetupsForTier(tier) {
+    if (!setupsData || !setupsData.setups) return [];
     return setupsData.setups
       .filter(s => s.tier === tier)
       .sort((a, b) => b.userCount - a.userCount)
@@ -124,6 +126,7 @@
   }
 
   function getTierInfo(tierId) {
+    if (!modelsData || !modelsData.tiers) return null;
     return modelsData.tiers.find(t => t.id === tierId);
   }
 
@@ -197,6 +200,7 @@
   }
 
   function wrapInGlossary(text) {
+    if (!text) return '';
     if (!beginnerMode || !glossaryData) return text;
     const words = text.split(/(\s+)/);
     return words.map(word => {
@@ -319,6 +323,10 @@
   window.shareResult = shareResult;
 
   function renderResults(tier) {
+    if (!modelsData || !modelsData.tiers) {
+      console.warn('Data not loaded yet');
+      return;
+    }
     const tierInfo = getTierInfo(tier);
     if (!tierInfo) {
       console.warn('Unknown tier:', tier);
