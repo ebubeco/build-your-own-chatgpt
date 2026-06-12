@@ -232,6 +232,22 @@ body {
   line-height: 1.4;
 }
 
+.skip-goal-btn {
+  background: none;
+  border: none;
+  color: var(--text-tertiary);
+  font-size: 0.78rem;
+  cursor: pointer;
+  font-family: inherit;
+  text-decoration: underline;
+  padding: 0.25rem;
+  transition: color 0.15s;
+}
+
+.skip-goal-btn:hover {
+  color: var(--accent);
+}
+
 .results-toolbar {
   display: flex;
   gap: 0.5rem;

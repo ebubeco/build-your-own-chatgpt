@@ -98,9 +98,17 @@
           </button>
           <button class="goal-card" data-goal="all" onclick="selectGoal('all')">
             <span class="goal-icon">🔍</span>
-            <span class="goal-title">Show me everything</span>
-            <span class="goal-desc">Not sure yet? We'll show all compatible models for your hardware.</span>
+            <span class="goal-title">Show all models</span>
+            <span class="goal-desc">Browse everything. Pick your hardware below for personalized picks.</span>
           </button>
+        </div>
+
+        <div id="show-all-row" style="text-align:center;margin-top:0.75rem;display:none">
+          <button class="show-all-btn" onclick="selectTierAll()">Show all models (browse everything)</button>
+        </div>
+
+        <div style="text-align:center;margin-top:0.5rem">
+          <button class="skip-goal-btn" onclick="showAllModelsDirect()">Or browse all models without selecting a goal</button>
         </div>
       </section>
 

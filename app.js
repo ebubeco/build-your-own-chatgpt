@@ -279,11 +279,31 @@
     document.querySelectorAll('.goal-card').forEach(c => c.classList.remove('selected'));
     const card = document.querySelector(`.goal-card[data-goal="${goal}"]`);
     if (card) card.classList.add('selected');
+
+    if (goal === 'all') {
+      const showAllRow = document.getElementById('show-all-row');
+      if (showAllRow) showAllRow.style.display = 'block';
+      const hwSection = document.getElementById('hw-section');
+      if (hwSection) {
+        hwSection.classList.remove('hidden');
+        hwSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      return;
+    }
+
     const hwSection = document.getElementById('hw-section');
     if (hwSection) {
       hwSection.classList.remove('hidden');
       hwSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
+  };
+
+  window.showAllModelsDirect = function() {
+    selectedGoal = null;
+    document.querySelectorAll('.goal-card').forEach(c => c.classList.remove('selected'));
+    const hwSection = document.getElementById('hw-section');
+    if (hwSection) hwSection.classList.remove('hidden');
+    selectTierAll();
   };
 
   window.toggleDevCode = function() {
