@@ -480,7 +480,7 @@
 
     const capItems = getCapabilityItems(breakdown, tier, goal);
     let primaryHTML = '';
-    if (primary) {
+    if (showPrimary && primary) {
       const quantLabel = primary.recommendedQuant || 'Q4_K_M';
       const quantTip = getQuantizationTooltip(quantLabel);
       const confidence = getConfidence(primary, tier, goal);
@@ -539,6 +539,10 @@
         <a href="?" class="compendium-link" onclick="showAllModelsDirect(); return false;">View Free AI Models Compendium →</a>
       </div>` : '';
 
+    const conf = primary ? getConfidence(primary, tier, goal) : null;
+    const showCloud = score <= 4 || (conf && (conf.level === 'Low' || conf.level === 'Very Low'));
+    const showPrimary = primary && !showCloud;
+
     section.innerHTML = `
       <div class="fade-in">
         <div class="results-toolbar">
@@ -584,7 +588,7 @@
           </div>
         </div>` : ''}
 
-        ${score <= 4 && !primary ? `
+        ${showCloud ? `
         <div class="opt-out-card">
           <div class="opt-out-title">Honestly, local AI might not be the move</div>
           <p class="opt-out-desc">Based on your hardware, running local AI will be slow and limited. Here are free alternatives that work better:</p>
@@ -613,7 +617,7 @@
 
         ${primaryHTML}
         ${altHTML}
-        ${primary ? compendiumLink : ''}
+        ${showPrimary ? compendiumLink : ''}
       </div>`;
 
     section.classList.remove('hidden');
