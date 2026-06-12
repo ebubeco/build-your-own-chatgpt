@@ -215,7 +215,37 @@
   }
 
   function copyToClipboard(text, btn) {
-    navigator.clipboard.writeText(text).then(() => {
+    if (!text) {
+      btn.innerHTML = '⚠️ No command';
+      setTimeout(() => { btn.innerHTML = '📋 Copy command'; }, 2000);
+      return;
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(() => {
+        const original = btn.innerHTML;
+        btn.innerHTML = '✅ Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.innerHTML = original;
+          btn.classList.remove('copied');
+        }, 2000);
+      }).catch(err => {
+        fallbackCopy(text, btn);
+      });
+    } else {
+      fallbackCopy(text, btn);
+    }
+  }
+
+  function fallbackCopy(text, btn) {
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.style.position = 'fixed';
+    textarea.style.opacity = '0';
+    document.body.appendChild(textarea);
+    textarea.select();
+    try {
+      document.execCommand('copy');
       const original = btn.innerHTML;
       btn.innerHTML = '✅ Copied!';
       btn.classList.add('copied');
@@ -223,7 +253,15 @@
         btn.innerHTML = original;
         btn.classList.remove('copied');
       }, 2000);
-    });
+    } catch (e) {
+      const original = btn.innerHTML;
+      btn.innerHTML = '❌ Failed - select text manually';
+      setTimeout(() => {
+        btn.innerHTML = original;
+        btn.classList.remove('copied');
+      }, 3000);
+    }
+    document.body.removeChild(textarea);
   }
 
   function icon(key) { return ICONS[key] || '📦'; }
