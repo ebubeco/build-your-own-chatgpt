@@ -32,22 +32,22 @@
       {
         "@type": "Question",
         "name": "Can I run AI without a GPU?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Smaller models like Qwen 0.5B, SmolLM2 1.7B, and Llama 3.2 1B run on any CPU. They are slower than GPU models but work on old laptops and integrated graphics." }
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Smaller models like TinyLlama, Qwen 0.5B, and Llama 3.2 1B run on any CPU. They're slower than GPU models but work fine on old laptops." }
       },
       {
         "@type": "Question",
         "name": "What is the easiest local AI tool for beginners?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Ollama is the easiest — download it, run one command, start chatting. No technical knowledge needed." }
+        "acceptedAnswer": { "@type": "Answer", "text": "Ollama. Download it, run one command, start chatting. No technical knowledge needed." }
       },
       {
         "@type": "Question",
         "name": "How much VRAM do I need for a 7B model?",
-        "acceptedAnswer": { "@type": "Answer", "text": "A 7B model at Q4_K_M quantization needs about 5-6GB of VRAM. Most modern GPUs (RTX 3060+) have 8-12GB and can run it comfortably." }
+        "acceptedAnswer": { "@type": "Answer", "text": "About 5-6GB for a quantized 7B model. Most mid-range GPUs (RTX 3060+) have 8-12GB and can handle them comfortably." }
       },
       {
         "@type": "Question",
         "name": "Is local AI really private?",
-        "acceptedAnswer": { "@type": "Answer", "text": "When you run AI locally, your data never leaves your computer. No subscription, no API calls, no company servers." }
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Your data never leaves your machine. No API calls, no company servers, no training on your conversations." }
       }
     ]
   }
@@ -61,7 +61,7 @@
         <span class="header-badge">Free · Private · Works offline</span>
       </div>
       <h1>Build Your Own ChatGPT</h1>
-      <p>No matter what computer you have — from a dusty 2014 laptop to a tricked-out gaming rig — we'll help you run a private AI assistant on it.</p>
+      <p>From a beat-up 2014 laptop to a shiny gaming rig — whatever you're working with, we'll get a private AI running on it. No cloud, no subscription, your data stays on your machine.</p>
     </div>
   </header>
 
@@ -73,11 +73,11 @@
       <section class="section">
         <p class="section-label">Step 1</p>
         <h2>What are you working with?</h2>
-        <p class="section-desc">We match you with models that actually work on your hardware. No benchmark gymnastics.</p>
+        <p class="section-desc">Pick your setup below — we'll only show models that actually run on your machine.</p>
 
         <div id="hw-options" class="hw-grid"></div>
 
-        <div style="text-align:center">
+        <div style="text-align:center;margin-top:1rem">
           <button class="show-all-btn" onclick="selectTierAll()">Show all models →</button>
         </div>
       </section>
@@ -95,30 +95,113 @@
 
       <section class="section">
         <p class="section-label">The choice</p>
-        <h2>Local AI vs. ChatGPT</h2>
+        <h2>Local AI vs. Cloud AI</h2>
         <p class="section-desc">Both get the job done. But they work very differently.</p>
         <div class="compare-grid">
           <div class="compare-card">
             <div class="compare-title" style="color:#e85d04">Local AI — this tool</div>
             <ul class="compare-list">
               <li>Runs on your machine</li>
-              <li>100% private, nothing leaves your device</li>
-              <li>One-time setup, free forever</li>
+              <li>Everything stays private</li>
+              <li>Free once set up</li>
               <li>Works without internet</li>
               <li>No usage limits</li>
-              <li>You own the whole stack</li>
+              <li>You control everything</li>
             </ul>
           </div>
           <div class="compare-card">
             <div class="compare-title" style="color:var(--text-secondary)">ChatGPT / Claude / Gemini</div>
             <ul class="compare-list" style="opacity:0.7">
               <li class="x">Runs on their servers</li>
-              <li class="x">Data may be used for training</li>
-              <li class="x">Requires paid subscription for the good stuff</li>
-              <li class="x">Needs an internet connection</li>
-              <li class="x">Usage caps on free tiers</li>
-              <li class="x">Company controls your workflow</li>
+              <li class="x">Your data may be used for training</li>
+              <li class="x">Paid plans for the good models</li>
+              <li class="x">Needs internet to work</li>
+              <li class="x">Free tiers have caps</li>
+              <li class="x">They control your workflow</li>
             </ul>
+          </div>
+        </div>
+      </section>
+
+      <hr class="divider">
+
+      <section class="section">
+        <p class="section-label">Cloud options</p>
+        <h2>Free AI in your browser — no setup needed</h2>
+        <p class="section-desc">Don't want to install anything? These services give you access to powerful AI models right now, for free.</p>
+        <div class="cloud-providers">
+          <div class="cloud-card">
+            <div class="cloud-provider-name">Groq</div>
+            <div class="cloud-provider-desc">Fast, free inference with Llama, Mixtral, and Gemma models. No account needed.</div>
+            <div class="cloud-install-box">
+              <span class="cloud-badge b-green">Free tier available</span>
+              <span class="cloud-badge b-purple">No account required</span>
+              <span class="cloud-badge b-primary">Fast inference</span>
+            </div>
+            <div class="cloud-guide">
+              <p class="cloud-guide-label">How to use:</p>
+              <ol class="cloud-steps">
+                <li>Go to <strong>console.groq.com</strong></li>
+                <li>Get a free API key (takes 10 seconds)</li>
+                <li>Use it with <strong>ChatUI</strong>, <strong>LibreChat</strong>, or any app that supports OpenAI-compatible APIs</li>
+              </ol>
+              <p class="cloud-note">Groq's free tier gives you fast inference speeds — often faster than local models on CPU. Limits apply but generous for personal use.</p>
+            </div>
+          </div>
+          <div class="cloud-card">
+            <div class="cloud-provider-name">Ollama + Cloud</div>
+            <div class="cloud-provider-desc">Use Ollama's API locally, or connect to hosted models through the same interface.</div>
+            <div class="cloud-install-box">
+              <span class="cloud-badge b-green">Free local</span>
+              <span class="cloud-badge b-purple">Open source</span>
+              <span class="cloud-badge b-primary">Same interface</span>
+            </div>
+            <div class="cloud-guide">
+              <p class="cloud-guide-label">How to use:</p>
+              <ol class="cloud-steps">
+                <li>Install Ollama from <strong>ollama.com</strong></li>
+                <li>Run local models: <code>ollama run llama3.2</code></li>
+                <li>Or point Ollama to cloud endpoints via custom modelfile</li>
+              </ol>
+              <p class="cloud-note">Ollama lets you mix local and cloud models through the same API. Useful when you need a bigger model than your hardware allows.</p>
+            </div>
+          </div>
+          <div class="cloud-card">
+            <div class="cloud-provider-name">Hugging Face Spaces</div>
+            <div class="cloud-provider-desc">Thousands of free AI apps running in the browser. Chatbots, image generation, coding assistants — all free.</div>
+            <div class="cloud-install-box">
+              <span class="cloud-badge b-green">Completely free</span>
+              <span class="cloud-badge b-purple">No signup often</span>
+              <span class="cloud-badge b-primary">Huge variety</span>
+            </div>
+            <div class="cloud-guide">
+              <p class="cloud-guide-label">How to use:</p>
+              <ol class="cloud-steps">
+                <li>Visit <strong>huggingface.co/co spaces</strong></li>
+                <li>Browse for chatbots, image generators, or any AI tool</li>
+                <li>Click and use — most run right in your browser</li>
+              </ol>
+              <p class="cloud-note">Great for trying different models without installing anything. Some spaces are very popular and may be slow.</p>
+            </div>
+          </div>
+          <div class="cloud-card">
+            <div class="cloud-provider-name">Google AI Studio (Gemini)</div>
+            <div class="cloud-provider-desc">Access Google's Gemini models for free with an API key. Large context window, good reasoning.</div>
+            <div class="cloud-install-box">
+              <span class="cloud-badge b-green">Free tier</span>
+              <span class="cloud-badge b-purple">Large context</span>
+              <span class="cloud-badge b-primary">1M token context</span>
+            </div>
+            <div class="cloud-guide">
+              <p class="cloud-guide-label">How to use:</p>
+              <ol class="cloud-steps">
+                <li>Go to <strong>aistudio.google.com</strong></li>
+                <li>Sign in with Google (free)</li>
+                <li>Get an API key from the API keys section</li>
+                <li>Use with any app that supports Gemini API</li>
+              </ol>
+              <p class="cloud-note">Gemini 1.5 Flash is free with generous limits. Good for long documents since it supports up to 1 million tokens.</p>
+            </div>
           </div>
         </div>
       </section>
@@ -132,17 +215,17 @@
         <div class="tool-compare">
           <div class="tool-option selected">
             <div class="tool-option-name">Ollama</div>
-            <div style="font-size:0.78rem;color:#e85d04;margin:0.15rem 0;font-weight:600">Best for beginners</div>
+            <div class="tool-option-tag">Best for beginners</div>
             <div class="tool-option-note">One command install. Terminal-based but surprisingly simple.</div>
           </div>
           <div class="tool-option">
             <div class="tool-option-name">LM Studio</div>
-            <div style="font-size:0.78rem;color:#e85d04;margin:0.15rem 0;font-weight:600">Best for GUI lovers</div>
+            <div class="tool-option-tag">Best for GUI lovers</div>
             <div class="tool-option-note">Polished app. Click to install models. Beautiful interface.</div>
           </div>
           <div class="tool-option">
             <div class="tool-option-name">Jan</div>
-            <div style="font-size:0.78rem;color:#e85d04;margin:0.15rem 0;font-weight:600">Best for privacy nerds</div>
+            <div class="tool-option-tag">Best for privacy nerds</div>
             <div class="tool-option-note">100% open source, no telemetry, fully offline.</div>
           </div>
         </div>
