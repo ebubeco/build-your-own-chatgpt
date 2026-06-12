@@ -127,82 +127,196 @@
 
       <section class="section">
         <p class="section-label">Cloud options</p>
-        <h2>Free AI in your browser — no setup needed</h2>
-        <p class="section-desc">Don't want to install anything? These services give you access to powerful AI models right now, for free.</p>
+        <h2>Don't want to install anything? Use AI in your browser.</h2>
+        <p class="section-desc">These are the best free AI services you can use right now. No credit card. No install. Just an API key and you're off.</p>
+
         <div class="cloud-providers">
+
           <div class="cloud-card">
             <div class="cloud-provider-name">Groq</div>
-            <div class="cloud-provider-desc">Fast, free inference with Llama, Mixtral, and Gemma models. No account needed.</div>
+            <div class="cloud-provider-desc">The speed king. Groq's LPU hardware pushes Llama 3.1 8B at around 1,000 tokens per second — fast enough for real-time apps. Good for batch work too: 14,400 requests per day on the free tier.</div>
             <div class="cloud-install-box">
-              <span class="cloud-badge b-green">Free tier available</span>
-              <span class="cloud-badge b-purple">No account required</span>
-              <span class="cloud-badge b-primary">Fast inference</span>
+              <span class="cloud-badge b-green">1,000+ TPS</span>
+              <span class="cloud-badge b-purple">14,400 req/day</span>
+              <span class="cloud-badge b-primary">Whisper included</span>
+            </div>
+            <div class="cloud-models">
+              <span class="cloud-models-label">Best free models:</span>
+              <span class="cloud-model-chip">Llama 3.1 8B Instant</span>
+              <span class="cloud-model-chip">Llama 3.3 70B</span>
+              <span class="cloud-model-chip">Qwen3 32B</span>
+              <span class="cloud-model-chip">Whisper v3 Turbo</span>
             </div>
             <div class="cloud-guide">
-              <p class="cloud-guide-label">How to use:</p>
+              <p class="cloud-guide-label">Get started:</p>
               <ol class="cloud-steps">
-                <li>Go to <strong>console.groq.com</strong></li>
-                <li>Get a free API key (takes 10 seconds)</li>
-                <li>Use it with <strong>ChatUI</strong>, <strong>LibreChat</strong>, or any app that supports OpenAI-compatible APIs</li>
+                <li>Head to <strong>console.groq.com</strong></li>
+                <li>Create an account (free, no card)</li>
+                <li>Grab your API key — takes about 10 seconds</li>
+                <li>Paste it into any OpenAI-compatible app, or use <strong>ChatUI</strong>, <strong>LibreChat</strong>, or <strong>Open WebUI</strong></li>
               </ol>
-              <p class="cloud-note">Groq's free tier gives you fast inference speeds — often faster than local models on CPU. Limits apply but generous for personal use.</p>
+              <p class="cloud-note">Great for: high-volume annotation, real-time chat, speech-to-text. The speed advantage is real — it genuinely feels snappier than most local setups.</p>
             </div>
           </div>
+
           <div class="cloud-card">
-            <div class="cloud-provider-name">Ollama + Cloud</div>
-            <div class="cloud-provider-desc">Use Ollama's API locally, or connect to hosted models through the same interface.</div>
+            <div class="cloud-provider-name">OpenRouter</div>
+            <div class="cloud-provider-desc">Access 27+ models through one standardized API. It also handles automatic failover — if one model hits rate limits, it routes to another. Best for benchmarking and finding the right model for your task.</div>
             <div class="cloud-install-box">
-              <span class="cloud-badge b-green">Free local</span>
-              <span class="cloud-badge b-purple">Open source</span>
-              <span class="cloud-badge b-primary">Same interface</span>
+              <span class="cloud-badge b-green">27+ free models</span>
+              <span class="cloud-badge b-purple">Auto-failover</span>
+              <span class="cloud-badge b-primary">Standardized API</span>
+            </div>
+            <div class="cloud-models">
+              <span class="cloud-models-label">Best free models:</span>
+              <span class="cloud-model-chip">DeepSeek R1</span>
+              <span class="cloud-model-chip">Llama 4 Scout</span>
+              <span class="cloud-model-chip">Gemini 2.5 Flash</span>
+              <span class="cloud-model-chip">GLM-4 32B</span>
+              <span class="cloud-model-chip">Mistral Small 3.1</span>
+              <span class="cloud-model-chip">DeepSeek Chat v3</span>
             </div>
             <div class="cloud-guide">
-              <p class="cloud-guide-label">How to use:</p>
+              <p class="cloud-guide-label">Get started:</p>
               <ol class="cloud-steps">
-                <li>Install Ollama from <strong>ollama.com</strong></li>
-                <li>Run local models: <code>ollama run llama3.2</code></li>
-                <li>Or point Ollama to cloud endpoints via custom modelfile</li>
+                <li>Go to <strong>openrouter.ai</strong> and sign up</li>
+                <li>Navigate to Keys → Create new key</li>
+                <li>Check the free models filter under Models to see what's available</li>
+                <li>Use with any OpenAI-compatible client</li>
               </ol>
-              <p class="cloud-note">Ollama lets you mix local and cloud models through the same API. Useful when you need a bigger model than your hardware allows.</p>
+              <p class="cloud-note">Use <code>openrouter/free</code> as your fallback endpoint — it auto-routes to whatever free model is available when others hit limits. 20 requests/min, 200/day.</p>
             </div>
           </div>
+
+          <div class="cloud-card">
+            <div class="cloud-provider-name">Google AI Studio</div>
+            <div class="cloud-provider-desc">Gemini 2.5 Flash is the workhorse here. Native search grounding (it can check facts against Google), Python code execution, 1 million token context window, and solid multimodal support. 1,500 requests per day free.</div>
+            <div class="cloud-install-box">
+              <span class="cloud-badge b-green">1,500 req/day</span>
+              <span class="cloud-badge b-purple">1M context</span>
+              <span class="cloud-badge b-primary">Search grounding</span>
+            </div>
+            <div class="cloud-models">
+              <span class="cloud-models-label">Best free models:</span>
+              <span class="cloud-model-chip">Gemini 2.5 Flash</span>
+              <span class="cloud-model-chip">Gemini 2.5 Pro (50/day)</span>
+              <span class="cloud-model-chip">Gemini 2.5 Flash-Lite</span>
+            </div>
+            <div class="cloud-guide">
+              <p class="cloud-guide-label">Get started:</p>
+              <ol class="cloud-steps">
+                <li>Visit <strong>aistudio.google.com</strong></li>
+                <li>Sign in with any Google account</li>
+                <li>Go to API keys → Create API key</li>
+                <li>Integrate with any Gemini-compatible app</li>
+              </ol>
+              <p class="cloud-note">Best for: long documents, data science, hallucination checking (search grounding is genuinely useful), and nuanced evaluation work. Gemini 2.5 Pro has a tighter limit but better reasoning.</p>
+            </div>
+          </div>
+
+          <div class="cloud-card">
+            <div class="cloud-provider-name">Cerebras</div>
+            <div class="cloud-provider-desc">Wafer-scale hardware. This is where you go when you need raw throughput. GPT OSS 120B hits around 3,000 tokens per second. Llama 3.1 8B sits at 2,600+ TPS. No other free service comes close on sheer speed.</div>
+            <div class="cloud-install-box">
+              <span class="cloud-badge b-green">~3,000 TPS</span>
+              <span class="cloud-badge b-purple">1M tokens/day</span>
+              <span class="cloud-badge b-primary">Wafer-scale speed</span>
+            </div>
+            <div class="cloud-models">
+              <span class="cloud-models-label">Best free models:</span>
+              <span class="cloud-model-chip">GPT OSS 120B</span>
+              <span class="cloud-model-chip">Llama 3.1 8B</span>
+              <span class="cloud-model-chip">Qwen3 235B</span>
+              <span class="cloud-model-chip">GLM 4.7 355B</span>
+            </div>
+            <div class="cloud-guide">
+              <p class="cloud-guide-label">Get started:</p>
+              <ol class="cloud-steps">
+                <li>Go to <strong>cerebras.ai</strong> and create an account</li>
+                <li>Navigate to API → Get API key</li>
+                <li>Use their SDK or any OpenAI-compatible client</li>
+                <li>Start with Llama 3.1 8B for the fastest responses</li>
+              </ol>
+              <p class="cloud-note">For batch annotation — 50,000 audits in minutes. This is the platform to use when Groq's speed still isn't fast enough and you're processing large volumes.</p>
+            </div>
+          </div>
+
+          <div class="cloud-card">
+            <div class="cloud-provider-name">SiliconFlow</div>
+            <div class="cloud-provider-desc">200+ models under one roof, and a $1 free credit to start. The standout is Nex-N2-Pro at effectively $0 per million tokens on the free tier. Supports image and video generation too — HunyuanVideo, FLUX.1, Wan2.2.</div>
+            <div class="cloud-install-box">
+              <span class="cloud-badge b-green">$1 credit</span>
+              <span class="cloud-badge b-purple">200+ models</span>
+              <span class="cloud-badge b-primary">Image + video gen</span>
+            </div>
+            <div class="cloud-models">
+              <span class="cloud-models-label">Best free models:</span>
+              <span class="cloud-model-chip">Nex-N2-Pro ($0/M)</span>
+              <span class="cloud-model-chip">MiniMax-M3 (1M context)</span>
+              <span class="cloud-model-chip">DeepSeek-V4-Pro</span>
+              <span class="cloud-model-chip">DeepSeek-V4-Flash</span>
+              <span class="cloud-model-chip">FLUX.1 (image)</span>
+              <span class="cloud-model-chip">HunyuanVideo</span>
+            </div>
+            <div class="cloud-guide">
+              <p class="cloud-guide-label">Get started:</p>
+              <ol class="cloud-steps">
+                <li>Sign up at <strong>siliconflow.com</strong></li>
+                <li>Get $1 free credit on signup</li>
+                <li>Browse models — filter by cost to find free ones</li>
+                <li>API is OpenAI-compatible, works with most clients</li>
+              </ol>
+              <p class="cloud-note">Best for: long-context batch processing, image generation, and video. The $1 credit goes a long way when using the free-tier models. No credit card needed to start.</p>
+            </div>
+          </div>
+
+          <div class="cloud-card">
+            <div class="cloud-provider-name">Ollama Cloud</div>
+            <div class="cloud-provider-desc">Runs Ollama's model library on cloud GPUs — same command-line interface you use locally, just with more horsepower. Good for long-horizon agentic tasks that need 1M token context beyond what your local machine can handle.</div>
+            <div class="cloud-install-box">
+              <span class="cloud-badge b-green">Same CLI</span>
+              <span class="cloud-badge b-purple">Cloud GPU</span>
+              <span class="cloud-badge b-primary">1M context models</span>
+            </div>
+            <div class="cloud-models">
+              <span class="cloud-models-label">Best free models:</span>
+              <span class="cloud-model-chip">minimax-m3 (1M context)</span>
+              <span class="cloud-model-chip">qwen3.5 variants</span>
+              <span class="cloud-model-chip">glm-5 744B</span>
+              <span class="cloud-model-chip">devstral-small-2 24B</span>
+            </div>
+            <div class="cloud-guide">
+              <p class="cloud-guide-label">Get started:</p>
+              <ol class="cloud-steps">
+                <li>Install Ollama locally from <strong>ollama.com</strong></li>
+                <li>Sign up for Ollama Cloud at <strong>cloud.ollama.com</strong></li>
+                <li>Run cloud models with the same <code>ollama run</code> command</li>
+                <li>Use custom modelfiles to point to cloud endpoints</li>
+              </ol>
+              <p class="cloud-note">The magic here is consistency — if you're already using Ollama locally, the cloud version feels identical. Sessions reset every ~5 hours, so don't expect long-running state.</p>
+            </div>
+          </div>
+
           <div class="cloud-card">
             <div class="cloud-provider-name">Hugging Face Spaces</div>
-            <div class="cloud-provider-desc">Thousands of free AI apps running in the browser. Chatbots, image generation, coding assistants — all free.</div>
+            <div class="cloud-provider-desc">Browser-based AI apps — no API key needed for most. Thousands of apps covering chatbots, image generation, coding assistants, audio processing, and more. Hit or miss on quality, but completely free for most.</div>
             <div class="cloud-install-box">
-              <span class="cloud-badge b-green">Completely free</span>
-              <span class="cloud-badge b-purple">No signup often</span>
-              <span class="cloud-badge b-primary">Huge variety</span>
+              <span class="cloud-badge b-green">No API key</span>
+              <span class="cloud-badge b-purple">1000s of apps</span>
+              <span class="cloud-badge b-primary">Browser-only</span>
             </div>
             <div class="cloud-guide">
-              <p class="cloud-guide-label">How to use:</p>
+              <p class="cloud-guide-label">Get started:</p>
               <ol class="cloud-steps">
-                <li>Visit <strong>huggingface.co/co spaces</strong></li>
-                <li>Browse for chatbots, image generators, or any AI tool</li>
-                <li>Click and use — most run right in your browser</li>
+                <li>Go to <strong>huggingface.co/spaces</strong></li>
+                <li>Browse by category or search for what you need</li>
+                <li>Click any space — most run directly in your browser</li>
+                <li>Sign up only if you want to create your own spaces</li>
               </ol>
-              <p class="cloud-note">Great for trying different models without installing anything. Some spaces are very popular and may be slow.</p>
+              <p class="cloud-note">Best for: quick experiments, trying models without commitment, and exploring what's possible. Some popular spaces get slow during peak hours. No consistency guarantee — each space is built by a different person.</p>
             </div>
           </div>
-          <div class="cloud-card">
-            <div class="cloud-provider-name">Google AI Studio (Gemini)</div>
-            <div class="cloud-provider-desc">Access Google's Gemini models for free with an API key. Large context window, good reasoning.</div>
-            <div class="cloud-install-box">
-              <span class="cloud-badge b-green">Free tier</span>
-              <span class="cloud-badge b-purple">Large context</span>
-              <span class="cloud-badge b-primary">1M token context</span>
-            </div>
-            <div class="cloud-guide">
-              <p class="cloud-guide-label">How to use:</p>
-              <ol class="cloud-steps">
-                <li>Go to <strong>aistudio.google.com</strong></li>
-                <li>Sign in with Google (free)</li>
-                <li>Get an API key from the API keys section</li>
-                <li>Use with any app that supports Gemini API</li>
-              </ol>
-              <p class="cloud-note">Gemini 1.5 Flash is free with generous limits. Good for long documents since it supports up to 1 million tokens.</p>
-            </div>
-          </div>
+
         </div>
       </section>
 
