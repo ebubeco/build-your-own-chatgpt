@@ -633,7 +633,7 @@
         const card = document.querySelector(`[data-id="${opt.id}"]`);
         if (card) card.classList.add('selected');
       }
-      setTimeout(() => renderResults(state.tier), 100);
+      renderResults(state.tier);
     }
 
     if (!state.tier) {
