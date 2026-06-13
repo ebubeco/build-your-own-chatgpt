@@ -436,6 +436,220 @@ body {
   color: var(--text-primary);
 }
 
+.feedback-section {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  text-align: center;
+}
+
+.feedback-prompt {
+  margin: 0 0 0.5rem;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.feedback-btns {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.feedback-btn {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  padding: 0.4rem 0.8rem;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.85rem;
+  transition: border-color 0.15s;
+}
+
+.feedback-btn:hover {
+  border-color: var(--accent);
+}
+
+.feedback-thanks {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--green);
+}
+
+.feedback-text-section {
+  margin-top: 0.75rem;
+}
+
+.feedback-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+}
+
+.feedback-tag {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  padding: 0.25rem 0.6rem;
+  border-radius: 12px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.78rem;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.feedback-tag:hover {
+  border-color: var(--accent);
+}
+
+.feedback-tag.selected {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
+}
+
+.feedback-textarea {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.5rem;
+  font-family: inherit;
+  font-size: 0.8rem;
+  color: var(--text-primary);
+  resize: vertical;
+  margin-bottom: 0.5rem;
+}
+
+.feedback-textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.feedback-submit-btn {
+  background: var(--accent);
+  color: white;
+  border: none;
+  padding: 0.4rem 1rem;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.8rem;
+}
+
+.feedback-submit-btn:hover {
+  opacity: 0.9;
+}
+
+/* SEO Landing Pages */
+.seo-page {
+  background: var(--bg);
+  color: var(--text-primary);
+  font-family: 'Inter', sans-serif;
+  line-height: 1.6;
+  padding: 2rem 1rem;
+}
+
+.seo-content {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.seo-back {
+  display: inline-block;
+  margin-bottom: 1.5rem;
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 0.85rem;
+}
+
+.seo-back:hover {
+  text-decoration: underline;
+}
+
+.seo-content h1 {
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  color: var(--text-primary);
+}
+
+.seo-section {
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.seo-section:last-of-type {
+  border-bottom: none;
+}
+
+.seo-section h2 {
+  font-size: 1.2rem;
+  margin-bottom: 0.75rem;
+  color: var(--text-primary);
+}
+
+.seo-alt-list {
+  padding-left: 1.25rem;
+}
+
+.seo-alt-list li {
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.seo-cta {
+  text-align: center;
+  padding: 2rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.seo-cta p {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: white;
+  border: none;
+  padding: 0.6rem 1.5rem;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background 0.15s;
+}
+
+.btn-primary:hover {
+  background: #c44d03;
+}
+
+.faq-item {
+  margin-bottom: 1.25rem;
+}
+
+.faq-item h3 {
+  font-size: 0.9rem;
+  margin-bottom: 0.3rem;
+  color: var(--text-primary);
+}
+
+.faq-item p {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
 .capability-card {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -568,6 +782,10 @@ body {
   border-radius: 0 0 6px 6px;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+}
+
+.rec-badge-estimated {
+  background: var(--amber);
 }
 
 .rec-header {
@@ -797,6 +1015,26 @@ body {
 .cap-item.slow {
   border-color: var(--amber);
   background: rgba(179, 107, 0, 0.05);
+}
+
+.cap-item.not {
+  border-color: var(--red);
+  background: rgba(204, 34, 34, 0.04);
+}
+
+.cap-group {
+  margin-bottom: 1rem;
+}
+
+.cap-group:last-child {
+  margin-bottom: 0;
+}
+
+.cap-group-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
 }
 
 .cap-item-icon {

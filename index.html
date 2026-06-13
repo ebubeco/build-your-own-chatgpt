@@ -22,6 +22,7 @@
   <link rel="preload" href="data/config.json" as="fetch" crossorigin="anonymous">
   <link rel="preload" href="data/models_compendium.json" as="fetch" crossorigin="anonymous">
   <link rel="preload" href="data/cloud_providers.json" as="fetch" crossorigin="anonymous">
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="b8a7a476-7a85-402e-b042-1436ef463d65"></script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -45,18 +46,33 @@
       },
       {
         "@type": "Question",
-        "name": "What is the easiest local AI tool for beginners?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Ollama. Download it, run one command, start chatting. No technical knowledge needed." }
-      },
-      {
-        "@type": "Question",
-        "name": "How much VRAM do I need for a 7B model?",
-        "acceptedAnswer": { "@type": "Answer", "text": "About 5-6GB for a quantized 7B model. Most mid-range GPUs (RTX 3060+) have 8-12GB and can handle them comfortably." }
+        "name": "Can I run AI on 8GB RAM?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. 8GB RAM is enough for smaller quantized models (3B and below). For best results with 7B models, 8GB RAM with 6GB+ VRAM is recommended." }
       },
       {
         "@type": "Question",
         "name": "Is local AI really private?",
         "acceptedAnswer": { "@type": "Answer", "text": "Yes. Your data never leaves your machine. No API calls, no company servers, no training on your conversations." }
+      },
+      {
+        "@type": "Question",
+        "name": "Which model is best for coding?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Qwen 2.5 Coder and DeepSeek Coder are excellent for coding assistance. Qwen 2.5 7B also performs well for general coding tasks and fits most mid-range GPUs." }
+      },
+      {
+        "@type": "Question",
+        "name": "What is Ollama?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Ollama is the easiest way to run local AI models. Download it, run one command like 'ollama pull qwen2.5:7b', and start chatting. No technical knowledge needed." }
+      },
+      {
+        "@type": "Question",
+        "name": "Do I need internet to use local AI?",
+        "acceptedAnswer": { "@type": "Answer", "text": "No. Local AI runs completely offline after the initial model download. No internet connection is needed for inference." }
+      },
+      {
+        "@type": "Question",
+        "name": "How much VRAM do I need for a 7B model?",
+        "acceptedAnswer": { "@type": "Answer", "text": "About 5-6GB for a quantized 7B model. Most mid-range GPUs (RTX 3060+) have 8-12GB and can handle them comfortably." }
       }
     ]
   }
@@ -552,6 +568,7 @@ print(response.text)</div>
     </div>
   </template>
 
+  <script src="analytics.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

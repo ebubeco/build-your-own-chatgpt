@@ -28,6 +28,15 @@
   let showDevCode = false;
   let isAppleSilicon = false;
   let currentResult = null;
+  let goalInferred = false;
+  let hardwareInferred = false;
+  let autoDetectCancelled = false;
+
+  function track(name, props) {
+    if (typeof window.__analytics !== 'undefined') {
+      window.__analytics.trackEvent(name, props);
+    }
+  }
 
   async function loadData() {
     const [m, g, s, gl, conf, cp] = await Promise.all([
@@ -54,6 +63,18 @@
     if (!debugInfo) return null;
     const renderer = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
     return renderer;
+  }
+
+  async function detectWebGPU() {
+    if (!navigator.gpu) return null;
+    try {
+      const adapter = await navigator.gpu.requestAdapter();
+      if (!adapter) return null;
+      const info = adapter.info;
+      return info.vendor + ' ' + info.architecture + ' (' + info.description + ')';
+    } catch {
+      return null;
+    }
   }
 
   function detectUnifiedMemory() {
@@ -116,6 +137,19 @@
     const match = matchGPUName(gpuName);
     if (match) return match.tier;
     return getTierFromVRAM(vramGB);
+  }
+
+  async function detectHardware() {
+    let gpuName = await detectWebGPU();
+    if (!gpuName) gpuName = detectGPU();
+    if (!gpuName) return null;
+    const vramGB = detectVRAM();
+    const match = matchGPUName(gpuName);
+    if (!match) return { gpu: gpuName, vram: vramGB, tier: getTierFromVRAM(vramGB) };
+    const isSilicon = match.tier && match.tier.startsWith('silicon-');
+    const memLabel = isSilicon ? (match.vramGB ? Math.round(match.vramGB / 1024) + 'GB unified' : 'Unified Memory') : (match.vramGB + 'GB VRAM');
+    const name = (gpuName.includes('Apple') || gpuName.includes('M1') || gpuName.includes('M2') || gpuName.includes('M3') || gpuName.includes('M4')) ? (match.name || 'Apple Silicon') : (match.name || gpuName);
+    return { gpu: name, vram: memLabel, tier: match.tier, vramGB: match.vramGB };
   }
 
   function getRecommendationsForTier(tier) {
@@ -183,6 +217,9 @@
   }
 
   function copyToClipboard(text, btn) {
+    const modelKey = currentResult ? currentResult.modelName : 'unknown';
+    track('command_copied', { model: modelKey });
+    track('recommendation_accepted', { model: modelKey, tier: selectedTier, goal: selectedGoal });
     if (!text) {
       btn.innerHTML = '⚠️ No command';
       setTimeout(() => { btn.innerHTML = '📋 Copy command'; }, 2000);
@@ -205,7 +242,7 @@
     }
   }
 
-  function fallbackCopy(text, btn) {
+  function fallbackCopy(text, btn, successText, resetText) {
     const textarea = document.createElement('textarea');
     textarea.value = text;
     textarea.style.position = 'fixed';
@@ -215,7 +252,7 @@
     try {
       document.execCommand('copy');
       const original = btn.innerHTML;
-      btn.innerHTML = '✅ Copied!';
+      btn.innerHTML = successText || '✅ Copied!';
       btn.classList.add('copied');
       setTimeout(() => {
         btn.innerHTML = original;
@@ -293,15 +330,37 @@
     return lines.join('\n');
   }
 
-  function shareResult() {
+  function shareResult(btn, action) {
     updateURL();
+
+    if (action === 'link') {
+      track('share_clicked', { method: 'copy_link' });
+      const url = window.location.href;
+      const copyToClip = (str) => {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(str).then(() => {
+            btn.textContent = 'Link copied!';
+            setTimeout(() => { btn.textContent = 'Copy result link'; }, 2000);
+          }).catch(() => fallbackCopy(str, btn, 'Link copied!', 'Copy result link'));
+        } else {
+          fallbackCopy(str, btn, 'Link copied!', 'Copy result link');
+        }
+      };
+      copyToClip(url);
+      return;
+    }
+
     const text = generateShareText();
-    const btn = document.getElementById('share-btn');
+    if (navigator.share) {
+      track('share_clicked', { method: 'native_share' });
+      navigator.share({ title: 'My AI Setup', text }).catch(() => {});
+      return;
+    }
     const copyToClip = (str) => {
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(str).then(() => {
           btn.textContent = 'Copied!';
-          setTimeout(() => { btn.textContent = 'Share results'; }, 2000);
+          setTimeout(() => { btn.textContent = 'Share text'; }, 2000);
         }).catch(() => fallbackCopy(str, btn));
       } else {
         fallbackCopy(str, btn);
@@ -315,8 +374,10 @@
     return ua.includes('Mac') && (ua.includes('Apple') || typeof navigator.platform !== 'undefined' && navigator.platform.includes('Mac'));
   }
 
-  function selectGoal(goal) {
+  function selectGoal(goal, inferred = false) {
     selectedGoal = goal;
+    goalInferred = inferred;
+    track('goal_selected', { goal, inferred });
     document.querySelectorAll('.goal-card').forEach(c => {
       c.classList.remove('selected');
       c.setAttribute('aria-pressed', 'false');
@@ -424,6 +485,12 @@
     return { level: 'Very Low', color: 'var(--red)' };
   }
 
+  function getRecConfidence() {
+    if (!goalInferred && !hardwareInferred) return { level: 'High', color: 'var(--green)', estimated: false };
+    if (goalInferred !== hardwareInferred) return { level: 'Medium', color: 'var(--amber)', estimated: true };
+    return { level: 'Low', color: 'var(--red)', estimated: true };
+  }
+
   const BEST_FOR_LABELS = {
     'chat': 'Personal ChatGPT replacement',
     'coding': 'Coding help',
@@ -470,26 +537,35 @@
   }
 
   function getCapabilityItems(breakdown, tier, goal) {
-    const items = [];
+    const items = { can: [], slow: [], not: [] };
     const goalMap = { 'chat': 'chat', 'coding': 'coding', 'writing': 'writing', 'documents': 'writing', 'agents': 'agents', 'all': null };
     const primaryGoal = goalMap[goal];
 
-    if (breakdown.chat >= 6) items.push({ icon: '💬', label: 'Private ChatGPT', status: 'can', note: breakdown.chat >= 8 ? 'Excellent' : 'Good' });
-    else if (breakdown.chat >= 4) items.push({ icon: '💬', label: 'Simple Chat', status: 'slow', note: 'Limited but works' });
+    if (breakdown.chat >= 6) items.can.push({ icon: '💬', label: 'Private ChatGPT', note: breakdown.chat >= 8 ? 'Excellent' : 'Good' });
+    else if (breakdown.chat >= 4) items.slow.push({ icon: '💬', label: 'Simple Chat', note: 'Limited but works' });
 
     if (primaryGoal === 'coding' || goal === 'all') {
-      if (breakdown.coding >= 7) items.push({ icon: '💻', label: 'Coding Assistant', status: 'can', note: breakdown.coding >= 9 ? 'Excellent' : 'Good' });
-      else if (breakdown.coding >= 4) items.push({ icon: '💻', label: 'Code Help', status: 'slow', note: 'Basic assistance' });
+      if (breakdown.coding >= 7) items.can.push({ icon: '💻', label: 'Coding Assistant', note: breakdown.coding >= 9 ? 'Excellent' : 'Good' });
+      else if (breakdown.coding >= 4) items.slow.push({ icon: '💻', label: 'Code Help', note: 'Basic assistance' });
     }
 
     if (primaryGoal === 'writing' || primaryGoal === 'documents' || goal === 'all') {
-      if (breakdown.writing >= 7) items.push({ icon: '✍️', label: 'Writing & Research', status: 'can', note: breakdown.writing >= 9 ? 'Excellent' : 'Good' });
-      else if (breakdown.writing >= 4) items.push({ icon: '✍️', label: 'Writing', status: 'slow', note: 'Basic assistance' });
+      if (breakdown.writing >= 7) items.can.push({ icon: '✍️', label: 'Writing & Research', note: breakdown.writing >= 9 ? 'Excellent' : 'Good' });
+      else if (breakdown.writing >= 4) items.slow.push({ icon: '✍️', label: 'Writing', note: 'Basic assistance' });
     }
 
     if (primaryGoal === 'agents' || goal === 'all') {
-      if (breakdown.agents >= 7) items.push({ icon: '🤖', label: 'AI Agents', status: 'can', note: 'Good for automation' });
-      else if (breakdown.agents >= 4) items.push({ icon: '🤖', label: 'Simple Agents', status: 'slow', note: 'Limited capabilities' });
+      if (breakdown.agents >= 7) items.can.push({ icon: '🤖', label: 'AI Agents', note: 'Good for automation' });
+      else if (breakdown.agents >= 4) items.slow.push({ icon: '🤖', label: 'Simple Agents', note: 'Limited capabilities' });
+    }
+
+    const weakTiers = ['no-gpu', 'cpu-only', 'budget-gpu'];
+    if (weakTiers.includes(tier)) {
+      items.not.push({ icon: '🦙', label: '70B+ Models', note: 'Needs 14GB+ VRAM' });
+      items.not.push({ icon: '👁️', label: 'Real-time Vision', note: 'Needs dedicated GPU' });
+    }
+    if (weakTiers.includes(tier) || tier === 'silicon-8-16gb') {
+      items.not.push({ icon: '🧠', label: 'Large Agent Swarms', note: 'Needs more memory' });
     }
 
     return items;
@@ -520,6 +596,7 @@
     // IMPORTANT: compute showPrimary BEFORE building primaryHTML
     const conf = primary ? getConfidence(primary, tier, goal) : null;
     const showCloud = score <= 4 || (conf && (conf.level === 'Low' || conf.level === 'Very Low'));
+    if (showCloud) track('cloud_fallback_triggered', { reason: 'weak_hardware', tier, goal });
     const showPrimary = primary && !showCloud;
 
     let primaryHTML = '';
@@ -527,19 +604,20 @@
       const quantLabel = primary.recommendedQuant || 'Q4_K_M';
       const quantTip = getQuantizationTooltip(quantLabel);
       const confidence = getConfidence(primary, tier, goal);
+      const recConf = getRecConfidence();
       const whyPoints = getWhyPoints(primary, tier, goal);
 
       primaryHTML = `
       <div class="rec-card fade-in">
-        <div class="rec-badge">Recommended</div>
+        <div class="rec-badge ${recConf.estimated ? 'rec-badge-estimated' : ''}">${recConf.estimated ? 'Estimated Recommendation' : 'Recommended'}</div>
         <div class="rec-header">
           <div class="rec-model-info">
             <span class="rec-model-name">${wrapInGlossary(primary.name.replace(/\s*\d+(\.\d+)?B\s*$/i, '').trim())}</span>
             <span class="rec-model-size">${primary.size}</span>
           </div>
-          <div class="rec-confidence" style="color:${confidence.color}">
-            <span class="rec-conf-label">Confidence</span>
-            <span class="rec-conf-value">${confidence.level}</span>
+          <div class="rec-confidence" style="color:${recConf.color}">
+            <span class="rec-conf-label">Rec. Confidence</span>
+            <span class="rec-conf-value">${recConf.level}</span>
           </div>
         </div>
         <p class="rec-desc">${wrapInGlossary(primary.description)}</p>
@@ -611,7 +689,8 @@
     section.innerHTML = `
       <div class="fade-in">
         <div class="results-toolbar">
-          <button id="share-btn" class="btn-share">Share results</button>
+          <button id="share-btn" class="btn-share">Share text</button>
+          <button id="share-link-btn" class="btn-share">Copy result link</button>
           <button id="dev-toggle-btn" class="btn-dev-toggle">Show install code (developers)</button>
         </div>
 
@@ -637,20 +716,50 @@
           </div>
         </div>
 
-        ${capItems.length > 0 ? `
+        ${capItems.can.length > 0 || capItems.slow.length > 0 || capItems.not.length > 0 ? `
         <div class="capability-card">
           <div class="cap-header">
             <h3 style="margin:0">What you can do with local AI</h3>
           </div>
-          <div class="cap-items-grid">
-            ${capItems.map(item => `
-              <div class="cap-item ${item.status}">
-                <span class="cap-item-icon">${item.icon}</span>
-                <span class="cap-item-label">${item.label}</span>
-                <span class="cap-item-note">${item.note}</span>
-              </div>
-            `).join('')}
-          </div>
+          ${capItems.can.length > 0 ? `
+          <div class="cap-group">
+            <div class="cap-group-label">✓ Can Run Well</div>
+            <div class="cap-items-grid">
+              ${capItems.can.map(item => `
+                <div class="cap-item can">
+                  <span class="cap-item-icon">${item.icon}</span>
+                  <span class="cap-item-label">${item.label}</span>
+                  <span class="cap-item-note">${item.note}</span>
+                </div>
+              `).join('')}
+            </div>
+          </div>` : ''}
+          ${capItems.slow.length > 0 ? `
+          <div class="cap-group">
+            <div class="cap-group-label">⚠ Can Run Slowly</div>
+            <div class="cap-items-grid">
+              ${capItems.slow.map(item => `
+                <div class="cap-item slow">
+                  <span class="cap-item-icon">${item.icon}</span>
+                  <span class="cap-item-label">${item.label}</span>
+                  <span class="cap-item-note">${item.note}</span>
+                </div>
+              `).join('')}
+            </div>
+          </div>` : ''}
+          ${capItems.not.length > 0 ? `
+          <div class="cap-group">
+            <div class="cap-group-label">✗ Not Recommended</div>
+            <div class="cap-items-grid">
+              ${capItems.not.map(item => `
+                <div class="cap-item not">
+                  <span class="cap-item-icon">${item.icon}</span>
+                  <span class="cap-item-label">${item.label}</span>
+                  <span class="cap-item-note">${item.note}</span>
+                </div>
+              `).join('')}
+            </div>
+          </div>` : ''}
         </div>` : ''}
 
         ${showCloud ? `
@@ -683,6 +792,30 @@
         ${primaryHTML}
         ${altHTML}
         ${selectedTier ? compendiumLink : ''}
+
+        <div class="feedback-section">
+          <p class="feedback-prompt">Did this setup work?</p>
+          <div class="feedback-btns">
+            <button class="feedback-btn" data-feedback="yes">👍 Yes</button>
+            <button class="feedback-btn" data-feedback="no">👎 No</button>
+          </div>
+          <p class="feedback-thanks hidden">Thanks for your feedback!</p>
+        </div>
+
+        <div class="feedback-section feedback-text-section">
+          <p class="feedback-prompt">Was anything confusing?</p>
+          <div class="feedback-tags">
+            <button class="feedback-tag" data-tag="wrong-rec">Wrong Recommendation</button>
+            <button class="feedback-tag" data-tag="too-tech">Too Technical</button>
+            <button class="feedback-tag" data-tag="hw-missing">Hardware Missing</button>
+            <button class="feedback-tag" data-tag="model-missing">Model Missing</button>
+            <button class="feedback-tag" data-tag="confusing">Confusing</button>
+            <button class="feedback-tag" data-tag="other">Other</button>
+          </div>
+          <textarea class="feedback-textarea" placeholder="Tell us more (optional)..." rows="3"></textarea>
+          <button class="feedback-submit-btn">Submit</button>
+          <p class="feedback-thanks hidden">Thanks for your help!</p>
+        </div>
       </div>`;
 
     const modelName = primary ? primary.name.replace(/\s*\d+(\.\d+)?B\s*$/i, '').trim() : 'N/A';
@@ -690,14 +823,42 @@
     const command = primary ? (primary.installCommand || 'ollama pull <model>') : 'ollama pull <model>';
     currentResult = {
       score,
-      canRun: capItems.filter(i => i.status !== 'not').map(i => i.label),
+      canRun: [...capItems.can, ...capItems.slow].map(i => i.label),
       modelName,
       tool,
       command
     };
 
+    const goalKey = selectedGoal || 'unknown';
+    const tierKey = selectedTier || 'unknown';
+    var hasExistingFeedback = false;
+    if (typeof window.__analytics !== 'undefined') {
+      hasExistingFeedback = !!window.__analytics.getFeedback(modelName, tierKey, goalKey);
+    } else {
+      const storageKey = 'fb_' + goalKey + '_' + tierKey + '_' + modelName.replace(/\s+/g, '_');
+      hasExistingFeedback = !!localStorage.getItem(storageKey);
+    }
+    if (hasExistingFeedback) {
+      const fb = section.querySelector('.feedback-section');
+      if (fb) {
+        fb.querySelector('.feedback-btns')?.classList.add('hidden');
+        fb.querySelector('.feedback-thanks')?.classList.remove('hidden');
+      }
+    }
+    var textFbKey = 'fbt_' + goalKey + '_' + tierKey + '_' + modelName.replace(/\s+/g, '_');
+    if (localStorage.getItem(textFbKey)) {
+      var tfb = section.querySelector('.feedback-text-section');
+      if (tfb) {
+        tfb.querySelector('.feedback-tags')?.classList.add('hidden');
+        tfb.querySelector('.feedback-textarea')?.classList.add('hidden');
+        tfb.querySelector('.feedback-submit-btn')?.classList.add('hidden');
+        tfb.querySelector('.feedback-thanks')?.classList.remove('hidden');
+      }
+    }
+
     section.classList.remove('hidden');
     section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    track('recommendation_generated', { model: primary ? primary.ollamaTag || primary.name : 'none', goal: selectedGoal, hardware: selectedTier, hasCloudFallback: !!showCloud });
   }
 
   function renderInstallBox(model) {
@@ -718,8 +879,11 @@
     </div>`;
   }
 
-  function selectHW(id, tier) {
+  function selectHW(id, tier, inferred = false) {
     selectedTier = tier;
+    hardwareInferred = inferred;
+    autoDetectCancelled = true;
+    track('hardware_selected', { id, tier, inferred });
     document.querySelectorAll('.hw-card').forEach(c => {
       c.classList.remove('selected');
       c.setAttribute('aria-pressed', 'false');
@@ -747,7 +911,8 @@
 
     resultsSection.innerHTML = `
       <div class="results-toolbar">
-        <button id="share-btn" class="btn-share">Share results</button>
+        <button id="share-btn" class="btn-share">Share text</button>
+        <button id="share-link-btn" class="btn-share">Copy result link</button>
         <button id="dev-toggle-btn" class="btn-dev-toggle">Show install code (developers)</button>
       </div>
       <div class="score-card">
@@ -862,6 +1027,7 @@
 
   async function init() {
     initTheme();
+    track('wizard_started');
     try {
       await loadData();
     } catch (err) {
@@ -899,28 +1065,31 @@
     }
 
     if (!state.tier) {
-      const gpuName = detectGPU();
-      const vramGB = detectVRAM();
-      const banner = document.getElementById('detected-banner');
-      if (gpuName && banner) {
-        const match = matchGPUName(gpuName);
-        if (match) {
-          banner.classList.remove('hidden');
-          const isSilicon = match.tier && match.tier.startsWith('silicon-');
-          const memLabel = isSilicon ? `${Math.round(match.vramGB / 1024)}GB unified` : `${match.vramGB}GB VRAM`;
-          banner.innerHTML = `🖥️ Detected: <strong>${match.name}</strong> (${memLabel}) - selecting automatically...`;
-          setTimeout(() => {
-            const opt = gpusData.manualOptions.find(o => o.id === match.tier);
-            if (opt) {
-              const card = document.querySelector(`[data-id="${opt.id}"]`);
-              if (card) {
-                card.click();
-                card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      detectWebGPU().then(webgpuName => {
+        const gpuName = webgpuName || detectGPU();
+        const vramGB = detectVRAM();
+        const banner = document.getElementById('detected-banner');
+        if (gpuName && banner) {
+          const match = matchGPUName(gpuName);
+          if (match) {
+            banner.classList.remove('hidden');
+            const isSilicon = match.tier && match.tier.startsWith('silicon-');
+            const memLabel = isSilicon ? `${Math.round(match.vramGB / 1024)}GB unified` : `${match.vramGB}GB VRAM`;
+            banner.innerHTML = `🖥️ Detected: <strong>${match.name}</strong> (${memLabel}) - selecting automatically...`;
+            setTimeout(() => {
+              if (autoDetectCancelled) return;
+              const opt = gpusData.manualOptions.find(o => o.id === match.tier);
+              if (opt) {
+                const card = document.querySelector(`[data-id="${opt.id}"]`);
+                if (card) {
+                  card.click();
+                  card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
               }
-            }
-          }, 800);
+            }, 800);
+          }
         }
-      }
+      });
     }
   }
 
@@ -930,12 +1099,12 @@
 
     if (family === 'chromebook') {
       const opt = gpusData.manualOptions.find(o => o.id === 'old-laptop');
-      if (opt) selectHW(opt.id, opt.tier);
+      if (opt) selectHW(opt.id, opt.tier, true);
       return;
     }
     if (family === 'unsure') {
       const opt = gpusData.manualOptions.find(o => o.id === 'modern-laptop-no-gpu');
-      if (opt) selectHW(opt.id, opt.tier);
+      if (opt) selectHW(opt.id, opt.tier, true);
       return;
     }
     if (family === 'windows-laptop' || family === 'windows-desktop') {
@@ -1061,7 +1230,51 @@
     
     document.addEventListener('click', e => {
       if (e.target.closest('#share-btn')) {
-        shareResult();
+        shareResult(e.target.closest('#share-btn'), 'text');
+      } else if (e.target.closest('#share-link-btn')) {
+        shareResult(e.target.closest('#share-link-btn'), 'link');
+      } else if (e.target.closest('.feedback-btn') && !e.target.closest('.feedback-btn').disabled) {
+        const btn = e.target.closest('.feedback-btn');
+        const value = btn.dataset.feedback;
+        const goalKey = selectedGoal || 'unknown';
+        const tierKey = selectedTier || 'unknown';
+        const modelName = currentResult ? currentResult.modelName : 'unknown';
+        if (typeof window.__analytics !== 'undefined') {
+          window.__analytics.saveFeedback(modelName, tierKey, goalKey, value === 'yes');
+        } else {
+          const fallbackKey = 'fb_' + goalKey + '_' + tierKey + '_' + modelName.replace(/\s+/g, '_');
+          if (!localStorage.getItem(fallbackKey)) {
+            localStorage.setItem(fallbackKey, JSON.stringify({ recommendation: modelName, hardware: tierKey, goal: goalKey, success: value === 'yes', timestamp: new Date().toISOString().split('T')[0] }));
+          }
+        }
+        btn.closest('.feedback-section').querySelector('.feedback-btns').classList.add('hidden');
+        btn.closest('.feedback-section').querySelector('.feedback-thanks').classList.remove('hidden');
+      } else if (e.target.closest('a[href*="gemini.google.com"]')) {
+        track('honest_redirect_triggered', { recommendation: 'gemini' });
+      } else if (e.target.closest('a[href*="console.groq.com"]')) {
+        track('honest_redirect_triggered', { recommendation: 'groq' });
+      } else if (e.target.closest('a[href*="openrouter.ai"]')) {
+        track('honest_redirect_triggered', { recommendation: 'openrouter' });
+      } else if (e.target.closest('.feedback-tag')) {
+        const tag = e.target.closest('.feedback-tag');
+        tag.classList.toggle('selected');
+      } else if (e.target.closest('.feedback-submit-btn')) {
+        const section = e.target.closest('.feedback-text-section');
+        const tags = Array.from(section.querySelectorAll('.feedback-tag.selected')).map(t => t.dataset.tag);
+        const text = section.querySelector('.feedback-textarea').value.trim();
+        if (tags.length === 0 && !text) return;
+        const data = { tags, text: text || '' };
+        const modelName = currentResult ? currentResult.modelName : 'unknown';
+        const key = 'fbt_' + (selectedGoal || 'unknown') + '_' + (selectedTier || 'unknown') + '_' + modelName.replace(/\s+/g, '_');
+        if (!localStorage.getItem(key)) {
+          localStorage.setItem(key, JSON.stringify(data));
+        }
+        track('feedback_submitted', { result: 'text', tags: tags.join(','), hasText: !!text, model: modelName });
+        section.querySelector('.feedback-tags').classList.add('hidden');
+        section.querySelector('.feedback-textarea').classList.add('hidden');
+        section.querySelector('.feedback-submit-btn').classList.add('hidden');
+        section.querySelector('.feedback-thanks').classList.remove('hidden');
+      } else if (e.target.closest('#dev-toggle-btn')) {
       } else if (e.target.closest('#dev-toggle-btn')) {
         toggleDevCode();
       } else if (e.target.closest('.copy-btn')) {
@@ -1080,7 +1293,7 @@
         showGuide(btn.dataset.guide);
       } else if (e.target.closest('.sub-question-btn')) {
         const btn = e.target.closest('.sub-question-btn');
-        selectGoal(btn.dataset.mapsTo);
+        selectGoal(btn.dataset.mapsTo, true);
       } else if (e.target.closest('.hw-sub-btn')) {
         const btn = e.target.closest('.hw-sub-btn');
         handleHWSubQuestion(btn.dataset.family);
@@ -1088,7 +1301,7 @@
         const btn = e.target.closest('.hw-followup-btn');
         const tier = btn.dataset.hwTier;
         const opt = gpusData.manualOptions.find(o => o.tier === tier);
-        if (opt) selectHW(opt.id, opt.tier);
+        if (opt) selectHW(opt.id, opt.tier, true);
       } else if (e.target.closest('.hw-card')) {
         const btn = e.target.closest('.hw-card');
         if (btn.dataset.id !== 'dont-know') selectHW(btn.dataset.id, btn.dataset.tier);
