@@ -1,0 +1,158 @@
+{
+  "providers": [
+    {
+      "id": "groq",
+      "name": "Groq",
+      "badge": "🥇 Best overall",
+      "shortDesc": "Free, fast, real-time response",
+      "desc": "The speed king. Groq's LPU hardware pushes Llama 3.1 8B at around 1,000 tokens per second. Fast enough for real-time apps. Good for batch work too: 14,400 requests per day on the free tier.",
+      "badges": [
+        { "text": "1,000+ TPS", "class": "b-green" },
+        { "text": "14,400 req/day", "class": "b-purple" },
+        { "text": "Whisper included", "class": "b-primary" }
+      ],
+      "models": ["Llama 3.1 8B Instant", "Llama 3.3 70B", "Qwen3 32B", "Whisper v3 Turbo"],
+      "link": "https://console.groq.com",
+      "btnText": "Try Groq Free",
+      "steps": [
+        "Head to console.groq.com",
+        "Create an account (free, no card)",
+        "Grab your API key. Takes about 10 seconds.",
+        "Paste it into any OpenAI-compatible app, or use ChatUI, LibreChat, or Open WebUI"
+      ],
+      "note": "Great for: high-volume annotation, real-time chat, speech-to-text. The speed advantage is real. It genuinely feels snappier than most local setups."
+    },
+    {
+      "id": "openrouter",
+      "name": "OpenRouter",
+      "badge": "🥉 Most variety",
+      "shortDesc": "27+ free models, auto-switches",
+      "desc": "Access 27+ models through one standardized API. It also handles automatic failover. If one model hits rate limits, it routes to another. Best for benchmarking and finding the right model for your task.",
+      "badges": [
+        { "text": "27+ free models", "class": "b-green" },
+        { "text": "Auto-failover", "class": "b-purple" },
+        { "text": "Standardized API", "class": "b-primary" }
+      ],
+      "models": ["DeepSeek R1", "Llama 4 Scout", "Gemini 2.5 Flash", "GLM-4 32B", "Mistral Small 3.1", "DeepSeek Chat v3"],
+      "link": "https://openrouter.ai",
+      "btnText": "Try OpenRouter Free",
+      "steps": [
+        "Go to openrouter.ai and sign up",
+        "Navigate to Keys → Create new key",
+        "Check the free models filter under Models to see what's available",
+        "Use with any OpenAI-compatible client"
+      ],
+      "note": "Use `openrouter/free` as your fallback endpoint. It auto-routes to whatever free model is available when others hit limits. 20 requests/min, 200/day."
+    },
+    {
+      "id": "google",
+      "name": "Google AI Studio",
+      "badge": "🥈 Longest Context",
+      "shortDesc": "Free, multimodal, huge context",
+      "desc": "Gemini 2.5 Flash is the workhorse here. Native search grounding (it can check facts against Google), Python code execution, 1 million token context window, and solid multimodal support. 1,500 requests per day free.",
+      "badges": [
+        { "text": "1,500 req/day", "class": "b-green" },
+        { "text": "1M context", "class": "b-purple" },
+        { "text": "Search grounding", "class": "b-primary" }
+      ],
+      "models": ["Gemini 2.5 Flash", "Gemini 2.5 Pro (50/day)", "Gemini 2.5 Flash-Lite"],
+      "link": "https://aistudio.google.com",
+      "btnText": "Use Gemini Free",
+      "steps": [
+        "Visit aistudio.google.com",
+        "Sign in with any Google account",
+        "Go to API keys → Create API key",
+        "Integrate with any Gemini-compatible app"
+      ],
+      "note": "Best for: long documents, data science, hallucination checking (search grounding is genuinely useful), and nuanced evaluation work. Gemini 2.5 Pro has a tighter limit but better reasoning."
+    },
+    {
+      "id": "cerebras",
+      "name": "Cerebras",
+      "badge": "",
+      "shortDesc": "Wafer-scale speed",
+      "desc": "Wafer-scale hardware. This is where you go when you need raw throughput. GPT OSS 120B hits around 3,000 tokens per second. Llama 3.1 8B sits at 2,600+ TPS. No other free service comes close on sheer speed.",
+      "badges": [
+        { "text": "~3,000 TPS", "class": "b-green" },
+        { "text": "1M tokens/day", "class": "b-purple" },
+        { "text": "Wafer-scale speed", "class": "b-primary" }
+      ],
+      "models": ["GPT OSS 120B", "Llama 3.1 8B", "Qwen3 235B", "GLM 4.7 355B"],
+      "link": "https://cerebras.ai",
+      "btnText": "Try Cerebras Free",
+      "steps": [
+        "Go to cerebras.ai and create an account",
+        "Navigate to API → Get API key",
+        "Use their SDK or any OpenAI-compatible client",
+        "Start with Llama 3.1 8B for the fastest responses"
+      ],
+      "note": "For batch annotation. You can process 50,000 audits in minutes. This is the platform to use when Groq's speed still isn't fast enough and you're processing large volumes."
+    },
+    {
+      "id": "siliconflow",
+      "name": "SiliconFlow",
+      "badge": "",
+      "shortDesc": "200+ models, image & video",
+      "desc": "200+ models under one roof, and a $1 free credit to start. The standout is Nex-N2-Pro at effectively $0 per million tokens on the free tier. Supports image and video generation too, like HunyuanVideo, FLUX.1, and Wan2.2.",
+      "badges": [
+        { "text": "$1 credit", "class": "b-green" },
+        { "text": "200+ models", "class": "b-purple" },
+        { "text": "Image + video gen", "class": "b-primary" }
+      ],
+      "models": ["Nex-N2-Pro ($0/M)", "MiniMax-M3 (1M context)", "DeepSeek-V4-Pro", "DeepSeek-V4-Flash", "FLUX.1 (image)", "HunyuanVideo"],
+      "link": "https://siliconflow.com",
+      "btnText": "Try SiliconFlow Free",
+      "steps": [
+        "Sign up at siliconflow.com",
+        "Get $1 free credit on signup",
+        "Browse models and filter by cost to find the free ones",
+        "API is OpenAI-compatible, works with most clients"
+      ],
+      "note": "Best for: long-context batch processing, image generation, and video. The $1 credit goes a long way when using the free-tier models. No credit card needed to start."
+    },
+    {
+      "id": "ollamacloud",
+      "name": "Ollama Cloud",
+      "badge": "",
+      "shortDesc": "Ollama, but in the cloud",
+      "desc": "Runs Ollama's model library on cloud GPUs. Same command-line interface you use locally, just with more horsepower. Good for long-horizon agentic tasks that need 1M token context beyond what your local machine can handle.",
+      "badges": [
+        { "text": "Same CLI", "class": "b-green" },
+        { "text": "Cloud GPU", "class": "b-purple" },
+        { "text": "1M context models", "class": "b-primary" }
+      ],
+      "models": ["minimax-m3 (1M context)", "qwen3.5 variants", "glm-5 744B", "devstral-small-2 24B"],
+      "link": "https://cloud.ollama.com",
+      "btnText": "Try Ollama Cloud Free",
+      "steps": [
+        "Install Ollama locally from ollama.com",
+        "Sign up for Ollama Cloud at cloud.ollama.com",
+        "Run cloud models with the same ollama run command",
+        "Use custom modelfiles to point to cloud endpoints"
+      ],
+      "note": "The magic here is consistency. If you're already using Ollama locally, the cloud version feels identical. Sessions reset every ~5 hours, so don't expect long-running state."
+    },
+    {
+      "id": "hf",
+      "name": "Hugging Face Spaces",
+      "badge": "",
+      "shortDesc": "Browser-based AI apps",
+      "desc": "Browser-based AI apps. No API key needed for most. Thousands of apps covering chatbots, image generation, coding assistants, audio processing, and more. Hit or miss on quality, but completely free for most.",
+      "badges": [
+        { "text": "No API key", "class": "b-green" },
+        { "text": "1000s of apps", "class": "b-purple" },
+        { "text": "Browser-only", "class": "b-primary" }
+      ],
+      "models": [],
+      "link": "https://huggingface.co/spaces",
+      "btnText": "Explore HF Spaces",
+      "steps": [
+        "Go to huggingface.co/spaces",
+        "Browse by category or search for what you need",
+        "Click any space. Most run directly in your browser",
+        "Sign up only if you want to create your own spaces"
+      ],
+      "note": "Best for: quick experiments, trying models without commitment, and exploring what's possible. Some popular spaces get slow during peak hours. No consistency guarantee."
+    }
+  ]
+}

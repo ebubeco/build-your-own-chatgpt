@@ -21,7 +21,7 @@
     'agents': '🤖'
   };
 
-  let modelsData, gpusData, setupsData, glossaryData;
+  let modelsData, gpusData, setupsData, glossaryData, appConfig, cloudProvidersData;
   let selectedTier = null;
   let selectedGoal = null;
   let beginnerMode = true;
@@ -29,16 +29,20 @@
   let isAppleSilicon = false;
 
   async function loadData() {
-    const [m, g, s, gl] = await Promise.all([
-      fetch('data/models.json').then(r => r.json()),
+    const [m, g, s, gl, conf, cp] = await Promise.all([
+      fetch('data/models_compendium.json').then(r => r.json()),
       fetch('data/gpus.json').then(r => r.json()),
       fetch('data/setups.json').then(r => r.json()),
-      fetch('data/glossary.json').then(r => r.json())
+      fetch('data/glossary.json').then(r => r.json()),
+      fetch('data/config.json').then(r => r.json()),
+      fetch('data/cloud_providers.json').then(r => r.json())
     ]);
     modelsData = m;
     gpusData = g;
     setupsData = s;
     glossaryData = gl;
+    appConfig = conf;
+    cloudProvidersData = cp;
   }
 
   function detectGPU() {
@@ -131,21 +135,11 @@
   }
 
   function calcReadinessScore(tier) {
-    const scores = { 'no-gpu': 4, 'cpu-only': 6, 'budget-gpu': 8, 'power-gpu': 10, 'silicon-8-16gb': 7, 'silicon-24-48gb': 9, 'silicon-64-plus': 10 };
-    return scores[tier] || 5;
+    return appConfig.readinessScores[tier] || 5;
   }
 
   function getReadinessBreakdown(tier) {
-    const caps = {
-      'no-gpu': { chat: 6, writing: 5, coding: 3, reasoning: 4, agents: 2 },
-      'cpu-only': { chat: 8, writing: 8, coding: 7, reasoning: 6, agents: 5 },
-      'budget-gpu': { chat: 10, writing: 9, coding: 9, reasoning: 8, agents: 8 },
-      'power-gpu': { chat: 10, writing: 10, coding: 10, reasoning: 10, agents: 10 },
-      'silicon-8-16gb': { chat: 9, writing: 8, coding: 8, reasoning: 7, agents: 7 },
-      'silicon-24-48gb': { chat: 10, writing: 10, coding: 9, reasoning: 9, agents: 9 },
-      'silicon-64-plus': { chat: 10, writing: 10, coding: 10, reasoning: 10, agents: 10 }
-    };
-    return caps[tier] || caps['cpu-only'];
+    return appConfig.readinessBreakdowns[tier] || appConfig.readinessBreakdowns['cpu-only'];
   }
 
   function getRatingClass(rating) {
@@ -154,46 +148,18 @@
     return 'rating-low';
   }
 
-  const QUANT_LEVELS = {
-    'Q2_K': { quality: 95, size: 'smallest', desc: 'Smallest file. Noticeably lower quality. Good for testing.' },
-    'Q3_K_M': { quality: 85, size: 'very small', desc: 'Very small. Some quality loss. Barely noticeable in most tasks.' },
-    'Q4_K_M': { quality: 75, size: 'balanced', desc: 'Balanced size and quality. The recommended default. Works on most GPUs.' },
-    'Q5_K_M': { quality: 65, size: 'larger', desc: 'Larger file. Better math accuracy. Only if you have spare VRAM.' },
-    'Q6_K': { quality: 55, size: 'large', desc: 'Near full quality. Uses more VRAM. Only for high-end GPUs.' },
-    'Q8_0': { quality: 0, size: 'full', desc: 'Full quality, no quantization. Uses maximum VRAM. Rarely needed.' },
-    'F16': { quality: 0, size: 'full', desc: 'Full 16-bit precision. Highest quality. Uses maximum VRAM.' }
-  };
-
   function getQuantizationTooltip(quant) {
-    const info = QUANT_LEVELS[quant] || QUANT_LEVELS['Q4_K_M'];
+    const info = appConfig.QUANT_LEVELS[quant] || appConfig.QUANT_LEVELS['Q4_K_M'];
     return `${quant}: ${info.size} file, preserves ~${info.quality}% quality. ${info.desc}`;
   }
 
   function getWhyExplanation(model, tier, goal) {
-    const explanations = {
-      'chat': `This model handles everyday conversation well on your hardware. It picks up context across long chats and stays coherent.`,
-      'coding': `This model was trained or fine-tuned on code. It understands syntax, suggests implementations, and explains code better for your setup.`,
-      'writing': `This model has good context length for long documents, articles, and research. It maintains writing quality across ${(model.contextLength/1024).toFixed(0)}K token spans.`,
-      'documents': `This model has ${(model.contextLength/1024).toFixed(0)}K context - enough to load and analyze entire PDFs, transcripts, or codebases in one prompt.`,
-      'all': `This model runs well on your hardware tier. It's versatile enough to handle chat, coding, writing, and document analysis.`
-    };
-    if (!goal || goal === 'all') {
-      return explanations['all'];
-    }
-    return explanations[goal] || explanations['all'];
+    const expl = appConfig.explanations[goal] || appConfig.explanations['all'];
+    return expl.replace('{context}', (model.contextLength/1024).toFixed(0));
   }
 
   function getModelCapability(tier, modelB) {
-    const limits = {
-      'no-gpu': 1,
-      'cpu-only': 3,
-      'budget-gpu': 7,
-      'power-gpu': 14,
-      'silicon-8-16gb': 7,
-      'silicon-24-48gb': 14,
-      'silicon-64-plus': 72
-    };
-    const limit = limits[tier] || 7;
+    const limit = appConfig.capabilityLimits[tier] || 7;
     if (modelB <= limit) return 'fast';
     if (modelB <= limit * 2) return 'slow';
     return 'not';
@@ -269,13 +235,20 @@
   function renderHWSelector() {
     const container = document.getElementById('hw-options');
     if (!container) return;
-    container.innerHTML = gpusData.manualOptions.map(opt => `
-      <button class="hw-card" data-tier="${opt.tier}" data-id="${opt.id}" onclick="selectHW('${opt.id}', '${opt.tier}')">
-        <span class="hw-card-icon">${icon(opt.icon)}</span>
-        <span class="hw-card-title">${opt.label}</span>
-        <span class="hw-card-desc">${opt.description}</span>
-      </button>
-    `).join('');
+    const tpl = document.getElementById('hw-card-template');
+    if (!tpl) return;
+    
+    container.innerHTML = '';
+    gpusData.manualOptions.forEach(opt => {
+      const clone = tpl.content.cloneNode(true);
+      const btn = clone.querySelector('.hw-card');
+      btn.dataset.tier = opt.tier;
+      btn.dataset.id = opt.id;
+      btn.querySelector('.hw-icon').textContent = icon(opt.icon);
+      btn.querySelector('.hw-title').textContent = opt.label;
+      btn.querySelector('.hw-desc').textContent = opt.description;
+      container.appendChild(clone);
+    });
   }
 
   function encodeState() {
@@ -316,11 +289,17 @@
     return ua.includes('Mac') && (ua.includes('Apple') || typeof navigator.platform !== 'undefined' && navigator.platform.includes('Mac'));
   }
 
-  window.selectGoal = function(goal) {
+  function selectGoal(goal) {
     selectedGoal = goal;
-    document.querySelectorAll('.goal-card').forEach(c => c.classList.remove('selected'));
+    document.querySelectorAll('.goal-card').forEach(c => {
+      c.classList.remove('selected');
+      c.setAttribute('aria-pressed', 'false');
+    });
     const card = document.querySelector(`.goal-card[data-goal="${goal}"]`);
-    if (card) card.classList.add('selected');
+    if (card) {
+      card.classList.add('selected');
+      card.setAttribute('aria-pressed', 'true');
+    }
 
     if (goal === 'all') {
       const showAllRow = document.getElementById('show-all-row');
@@ -338,17 +317,20 @@
       hwSection.classList.remove('hidden');
       hwSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
-  };
+  }
 
-  window.showAllModelsDirect = function() {
+  function showAllModelsDirect() {
     selectedGoal = null;
-    document.querySelectorAll('.goal-card').forEach(c => c.classList.remove('selected'));
+    document.querySelectorAll('.goal-card').forEach(c => {
+      c.classList.remove('selected');
+      c.setAttribute('aria-pressed', 'false');
+    });
     const hwSection = document.getElementById('hw-section');
     if (hwSection) hwSection.classList.remove('hidden');
     selectTierAll();
-  };
+  }
 
-  window.toggleDevCode = function() {
+  function toggleDevCode() {
     showDevCode = !showDevCode;
     document.querySelectorAll('.install-box').forEach(box => {
       const code = box.querySelector('.dev-code-toggle');
@@ -356,9 +338,7 @@
     });
     const btn = document.getElementById('dev-toggle-btn');
     if (btn) btn.textContent = showDevCode ? 'Hide install code' : 'Show install code (developers)';
-  };
-
-  window.shareResult = shareResult;
+  }
 
   function pickRecommendations(models, goal, tier) {
     if (!models || models.length === 0) return { primary: null, alternatives: [] };
@@ -633,31 +613,36 @@
       </a>
       <div class="install-label">2. Run this command</div>
       <div class="install-command">${model.installCommand}</div>
-      <button class="copy-btn" onclick="copyToClipboard('${model.installCommand}', this)">📋 Copy command</button>
+      <button class="copy-btn">📋 Copy command</button>
       <div class="dev-code-toggle" style="display:none">
         <div class="install-label" style="margin-top:0.75rem">Alternative: Llamafile</div>
         <div class="install-command">${model.alternativeCommand || 'curl -L https://github.com/Mozilla-Ocho/llamafile/releases/latest/download/' + model.name.split(' ')[0].toLowerCase() + '-*.llamafile -o ' + model.name.split(' ')[0].toLowerCase() + '.llamafile && chmod +x ' + model.name.split(' ')[0].toLowerCase() + '.llamafile && ./' + model.name.split(' ')[0].toLowerCase() + '.llamafile'}</div>
-        <button class="copy-btn" onclick="copyToClipboard('${model.alternativeCommand || ''}', this)">📋 Copy command</button>
+        <button class="copy-btn">📋 Copy command</button>
       </div>
     </div>`;
   }
 
-  window.selectHW = function(id, tier) {
+  function selectHW(id, tier) {
     selectedTier = tier;
-    document.querySelectorAll('.hw-card').forEach(c => c.classList.remove('selected'));
-    document.querySelector(`[data-id="${id}"]`).classList.add('selected');
+    document.querySelectorAll('.hw-card').forEach(c => {
+      c.classList.remove('selected');
+      c.setAttribute('aria-pressed', 'false');
+    });
+    const card = document.querySelector(`[data-id="${id}"]`);
+    if (card) {
+      card.classList.add('selected');
+      card.setAttribute('aria-pressed', 'true');
+    }
     updateURL();
     renderResults(tier);
-  };
+  }
 
-  window.copyToClipboard = copyToClipboard;
-
-  window.toggleBeginnerMode = function(checkbox) {
-    beginnerMode = checkbox.checked;
+  function toggleBeginnerMode(checked) {
+    beginnerMode = checked;
     if (selectedTier) renderResults(selectedTier);
-  };
+  }
 
-  window.selectTierAll = function() {
+  function selectTierAll() {
     const resultsSection = document.getElementById('results-section');
     if (!resultsSection) return;
     selectedTier = null;
@@ -740,9 +725,40 @@
     resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
+  function applyTheme(theme) {
+    if (theme === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      localStorage.setItem('theme', 'dark');
+      const btn = document.getElementById('theme-toggle');
+      if (btn) btn.textContent = '☀️';
+    } else {
+      document.documentElement.removeAttribute('data-theme');
+      localStorage.setItem('theme', 'light');
+      const btn = document.getElementById('theme-toggle');
+      if (btn) btn.textContent = '🌙';
+    }
+  }
+
+  function toggleTheme() {
+    const current = document.documentElement.getAttribute('data-theme');
+    applyTheme(current === 'dark' ? 'light' : 'dark');
+  }
+
+  function initTheme() {
+    const saved = localStorage.getItem('theme');
+    if (saved) {
+      applyTheme(saved);
+    } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      applyTheme('dark');
+    }
+  }
+
   async function init() {
+    initTheme();
     await loadData();
     renderHWSelector();
+    renderCloudProviders();
+    setupEventListeners();
     isAppleSilicon = detectAppleSilicon();
 
     const state = decodeState();
@@ -791,22 +807,111 @@
     }
   }
 
-  window.selectTool = function(tool) {
+  function selectTool(tool) {
     document.querySelectorAll('.tool-option').forEach(o => o.classList.remove('selected'));
     const el = document.querySelector(`.tool-option[data-tool="${tool}"]`);
     if (el) el.classList.add('selected');
-  };
+  }
 
-  window.showGuide = function(guide) {
+  function showGuide(guide) {
     const tabs = document.querySelectorAll('.guide-tab');
     const contents = document.querySelectorAll('.guide-content');
     tabs.forEach(t => t.classList.remove('active'));
     contents.forEach(c => c.style.display = 'none');
-    const targetTab = document.querySelector(`.guide-tab[onclick="showGuide('${guide}')"]`);
+    const targetTab = document.querySelector(`.guide-tab[data-guide="${guide}"]`);
     if (targetTab) targetTab.classList.add('active');
     const targetContent = document.getElementById(`guide-${guide}`);
     if (targetContent) targetContent.style.display = 'block';
-  };
+  }
+
+  function renderCloudProviders() {
+    const container = document.getElementById('cloud-providers-container');
+    if (!container || !cloudProvidersData || !cloudProvidersData.providers) return;
+    const tpl = document.getElementById('cloud-provider-template');
+    if (!tpl) return;
+    
+    container.innerHTML = '';
+    cloudProvidersData.providers.forEach(p => {
+      const clone = tpl.content.cloneNode(true);
+      clone.querySelector('.cloud-provider-name').textContent = p.name;
+      clone.querySelector('.cloud-provider-desc').textContent = p.desc;
+      
+      const badgeBox = clone.querySelector('.cloud-install-box');
+      p.badges.forEach(b => {
+        const span = document.createElement('span');
+        span.className = 'cloud-badge ' + b.class;
+        span.textContent = b.text;
+        badgeBox.appendChild(span);
+      });
+      
+      const modelsBox = clone.querySelector('.cloud-models');
+      p.models.forEach(m => {
+        const chip = document.createElement('span');
+        chip.className = 'cloud-model-chip';
+        chip.textContent = m;
+        modelsBox.appendChild(chip);
+      });
+      
+      const stepsOl = clone.querySelector('.cloud-steps');
+      p.steps.forEach(s => {
+        const li = document.createElement('li');
+        li.innerHTML = s;
+        stepsOl.appendChild(li);
+      });
+      
+      clone.querySelector('.cloud-note').textContent = p.note;
+      container.appendChild(clone);
+    });
+  }
+
+  function setupEventListeners() {
+    document.querySelectorAll('.goal-card').forEach(btn => {
+      btn.addEventListener('click', (e) => selectGoal(e.currentTarget.dataset.goal));
+    });
+    
+    document.querySelectorAll('.hw-card').forEach(btn => {
+      btn.addEventListener('click', (e) => selectHW(e.currentTarget.dataset.id, e.currentTarget.dataset.tier));
+    });
+
+    const btnShowAll = document.getElementById('btn-show-all');
+    if (btnShowAll) btnShowAll.addEventListener('click', selectTierAll);
+
+    const btnSkipGoal = document.getElementById('btn-skip-goal');
+    if (btnSkipGoal) btnSkipGoal.addEventListener('click', showAllModelsDirect);
+
+    const btnShowAllHw = document.getElementById('btn-show-all-hw');
+    if (btnShowAllHw) btnShowAllHw.addEventListener('click', selectTierAll);
+
+    const toggleInput = document.getElementById('beginner-toggle-input');
+    if (toggleInput) toggleInput.addEventListener('change', (e) => toggleBeginnerMode(e.target.checked));
+
+    document.querySelectorAll('.guide-tab').forEach(btn => {
+      btn.addEventListener('click', (e) => showGuide(e.currentTarget.dataset.guide));
+    });
+
+    document.querySelectorAll('.tool-option').forEach(btn => {
+      btn.addEventListener('click', (e) => selectTool(e.currentTarget.dataset.tool));
+    });
+    
+    document.addEventListener('click', e => {
+      if (e.target.closest('#share-btn')) {
+        shareResult();
+      } else if (e.target.closest('#dev-toggle-btn')) {
+        toggleDevCode();
+      } else if (e.target.closest('.copy-btn')) {
+        const btn = e.target.closest('.copy-btn');
+        const codeBox = btn.previousElementSibling;
+        if (codeBox && (codeBox.tagName === 'CODE' || codeBox.classList.contains('install-command'))) {
+          copyToClipboard(codeBox.textContent, btn);
+        }
+      } else if (e.target.closest('#theme-toggle')) {
+        toggleTheme();
+      } else if (e.target.closest('.hw-card')) {
+        const btn = e.target.closest('.hw-card');
+        selectHW(btn.dataset.id, btn.dataset.tier);
+      }
+    });
+  }
 
   document.addEventListener('DOMContentLoaded', init);
 })();

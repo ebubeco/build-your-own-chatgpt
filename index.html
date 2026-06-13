@@ -12,8 +12,11 @@
   <title>Build Your Own ChatGPT - Private AI Setup for Any Hardware</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <link rel="preload" href="data/config.json" as="fetch" crossorigin="anonymous">
+  <link rel="preload" href="data/models_compendium.json" as="fetch" crossorigin="anonymous">
+  <link rel="preload" href="data/cloud_providers.json" as="fetch" crossorigin="anonymous">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -60,6 +63,7 @@
     <div class="container">
       <div class="header-inner">
         <span class="header-badge">Free · Private · Works offline</span>
+        <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle dark mode">🌙</button>
       </div>
       <h1>Build Your Own ChatGPT</h1>
       <p>From a beat-up 2014 laptop to a shiny gaming rig, whatever you're working with, we'll get a private AI running on it. No cloud, no subscription, your data stays on your machine.</p>
@@ -77,32 +81,32 @@
         <p class="section-desc">Pick one. This shapes which models we recommend.</p>
 
         <div id="goal-options" class="goal-grid">
-          <button class="goal-card" data-goal="chat" onclick="selectGoal('chat')">
+          <button class="goal-card" data-goal="chat" aria-pressed="false">
             <span class="goal-icon">💬</span>
             <span class="goal-title">Private ChatGPT</span>
             <span class="goal-desc">Chat, brainstorm, answer questions. Fully private, on your machine.</span>
           </button>
-          <button class="goal-card" data-goal="coding" onclick="selectGoal('coding')">
+          <button class="goal-card" data-goal="coding" aria-pressed="false">
             <span class="goal-icon">💻</span>
             <span class="goal-title">Coding assistant</span>
             <span class="goal-desc">Write code, debug, explain functions. Models trained for programming.</span>
           </button>
-          <button class="goal-card" data-goal="writing" onclick="selectGoal('writing')">
+          <button class="goal-card" data-goal="writing" aria-pressed="false">
             <span class="goal-icon">✍️</span>
             <span class="goal-title">Research + writing</span>
             <span class="goal-desc">Articles, reports, summaries, and research. Long context helps here.</span>
           </button>
-          <button class="goal-card" data-goal="documents" onclick="selectGoal('documents')">
+          <button class="goal-card" data-goal="documents" aria-pressed="false">
             <span class="goal-icon">📄</span>
             <span class="goal-title">Chat with documents</span>
             <span class="goal-desc">Ask questions about PDFs, codebases, transcripts. Needs 8K+ context.</span>
           </button>
-          <button class="goal-card" data-goal="agents" onclick="selectGoal('agents')">
+          <button class="goal-card" data-goal="agents" aria-pressed="false">
             <span class="goal-icon">🤖</span>
             <span class="goal-title">AI agents and automation</span>
             <span class="goal-desc">Build automated workflows, research agents, and multi-step reasoning tasks.</span>
           </button>
-          <button class="goal-card" data-goal="all" onclick="selectGoal('all')">
+          <button class="goal-card" data-goal="all" aria-pressed="false">
             <span class="goal-icon">🔍</span>
             <span class="goal-title">Show all models</span>
             <span class="goal-desc">Browse everything. Pick your hardware below for personalized picks.</span>
@@ -110,11 +114,11 @@
         </div>
 
         <div id="show-all-row" style="text-align:center;margin-top:0.75rem;display:none">
-          <button class="show-all-btn" onclick="selectTierAll()">Show all models (browse everything)</button>
+          <button class="show-all-btn" id="btn-show-all">Show all models (browse everything)</button>
         </div>
 
         <div style="text-align:center;margin-top:0.5rem">
-          <button class="skip-goal-btn" onclick="showAllModelsDirect()">Or browse all models without selecting a goal</button>
+          <button class="skip-goal-btn" id="btn-skip-goal">Or browse all models without selecting a goal</button>
         </div>
       </section>
 
@@ -126,7 +130,7 @@
         <div id="hw-options" class="hw-grid"></div>
 
         <div style="text-align:center;margin-top:1rem">
-          <button class="show-all-btn" onclick="selectTierAll()">Show all models →</button>
+          <button class="show-all-btn" id="btn-show-all-hw">Show all models →</button>
         </div>
       </section>
 
@@ -134,7 +138,7 @@
 
       <section class="section">
         <label class="beginner-toggle">
-          <input type="checkbox" checked onchange="toggleBeginnerMode(this)">
+          <input type="checkbox" checked id="beginner-toggle-input">
           <span>Explain jargon in plain English</span>
         </label>
       </section>
@@ -151,10 +155,10 @@
           <p class="guide-banner-desc">Choose how you want to connect. All free, no credit card.</p>
 
           <div class="guide-tabs">
-            <button class="guide-tab active" onclick="showGuide('ollama')">Use with Ollama</button>
-            <button class="guide-tab" onclick="showGuide('lmstudio')">Use with LM Studio</button>
-            <button class="guide-tab" onclick="showGuide('opencode')">Use with OpenCode</button>
-            <button class="guide-tab" onclick="showGuide('direct')">API / Code</button>
+            <button class="guide-tab active" data-guide="ollama">Use with Ollama</button>
+            <button class="guide-tab" data-guide="lmstudio">Use with LM Studio</button>
+            <button class="guide-tab" data-guide="opencode">Use with OpenCode</button>
+            <button class="guide-tab" data-guide="direct">API / Code</button>
           </div>
 
           <div id="guide-ollama" class="guide-content">
@@ -367,193 +371,8 @@ print(response.text)</div>
           </div>
         </div>
 
-        <div class="cloud-providers cloud-grid">
-
-          <div class="cloud-card">
-            <div class="cloud-provider-name">Groq</div>
-            <div class="cloud-provider-desc">The speed king. Groq's LPU hardware pushes Llama 3.1 8B at around 1,000 tokens per second. Fast enough for real-time apps. Good for batch work too: 14,400 requests per day on the free tier.</div>
-            <div class="cloud-install-box">
-              <span class="cloud-badge b-green">1,000+ TPS</span>
-              <span class="cloud-badge b-purple">14,400 req/day</span>
-              <span class="cloud-badge b-primary">Whisper included</span>
-            </div>
-            <div class="cloud-models">
-              <span class="cloud-models-label">Best free models:</span>
-              <span class="cloud-model-chip">Llama 3.1 8B Instant</span>
-              <span class="cloud-model-chip">Llama 3.3 70B</span>
-              <span class="cloud-model-chip">Qwen3 32B</span>
-              <span class="cloud-model-chip">Whisper v3 Turbo</span>
-            </div>
-            <div class="cloud-guide">
-              <p class="cloud-guide-label">Get started:</p>
-              <ol class="cloud-steps">
-                <li>Head to <strong>console.groq.com</strong></li>
-                <li>Create an account (free, no card)</li>
-                <li>Grab your API key. Takes about 10 seconds.</li>
-                <li>Paste it into any OpenAI-compatible app, or use <strong>ChatUI</strong>, <strong>LibreChat</strong>, or <strong>Open WebUI</strong></li>
-              </ol>
-              <p class="cloud-note">Great for: high-volume annotation, real-time chat, speech-to-text. The speed advantage is real. It genuinely feels snappier than most local setups.</p>
-            </div>
-          </div>
-
-          <div class="cloud-card">
-            <div class="cloud-provider-name">OpenRouter</div>
-            <div class="cloud-provider-desc">Access 27+ models through one standardized API. It also handles automatic failover. If one model hits rate limits, it routes to another. Best for benchmarking and finding the right model for your task.</div>
-            <div class="cloud-install-box">
-              <span class="cloud-badge b-green">27+ free models</span>
-              <span class="cloud-badge b-purple">Auto-failover</span>
-              <span class="cloud-badge b-primary">Standardized API</span>
-            </div>
-            <div class="cloud-models">
-              <span class="cloud-models-label">Best free models:</span>
-              <span class="cloud-model-chip">DeepSeek R1</span>
-              <span class="cloud-model-chip">Llama 4 Scout</span>
-              <span class="cloud-model-chip">Gemini 2.5 Flash</span>
-              <span class="cloud-model-chip">GLM-4 32B</span>
-              <span class="cloud-model-chip">Mistral Small 3.1</span>
-              <span class="cloud-model-chip">DeepSeek Chat v3</span>
-            </div>
-            <div class="cloud-guide">
-              <p class="cloud-guide-label">Get started:</p>
-              <ol class="cloud-steps">
-                <li>Go to <strong>openrouter.ai</strong> and sign up</li>
-                <li>Navigate to Keys → Create new key</li>
-                <li>Check the free models filter under Models to see what's available</li>
-                <li>Use with any OpenAI-compatible client</li>
-              </ol>
-              <p class="cloud-note">Use <code>openrouter/free</code> as your fallback endpoint. It auto-routes to whatever free model is available when others hit limits. 20 requests/min, 200/day.</p>
-            </div>
-          </div>
-
-          <div class="cloud-card">
-            <div class="cloud-provider-name">Google AI Studio</div>
-            <div class="cloud-provider-desc">Gemini 2.5 Flash is the workhorse here. Native search grounding (it can check facts against Google), Python code execution, 1 million token context window, and solid multimodal support. 1,500 requests per day free.</div>
-            <div class="cloud-install-box">
-              <span class="cloud-badge b-green">1,500 req/day</span>
-              <span class="cloud-badge b-purple">1M context</span>
-              <span class="cloud-badge b-primary">Search grounding</span>
-            </div>
-            <div class="cloud-models">
-              <span class="cloud-models-label">Best free models:</span>
-              <span class="cloud-model-chip">Gemini 2.5 Flash</span>
-              <span class="cloud-model-chip">Gemini 2.5 Pro (50/day)</span>
-              <span class="cloud-model-chip">Gemini 2.5 Flash-Lite</span>
-            </div>
-            <div class="cloud-guide">
-              <p class="cloud-guide-label">Get started:</p>
-              <ol class="cloud-steps">
-                <li>Visit <strong>aistudio.google.com</strong></li>
-                <li>Sign in with any Google account</li>
-                <li>Go to API keys → Create API key</li>
-                <li>Integrate with any Gemini-compatible app</li>
-              </ol>
-              <p class="cloud-note">Best for: long documents, data science, hallucination checking (search grounding is genuinely useful), and nuanced evaluation work. Gemini 2.5 Pro has a tighter limit but better reasoning.</p>
-            </div>
-          </div>
-
-          <div class="cloud-card">
-            <div class="cloud-provider-name">Cerebras</div>
-            <div class="cloud-provider-desc">Wafer-scale hardware. This is where you go when you need raw throughput. GPT OSS 120B hits around 3,000 tokens per second. Llama 3.1 8B sits at 2,600+ TPS. No other free service comes close on sheer speed.</div>
-            <div class="cloud-install-box">
-              <span class="cloud-badge b-green">~3,000 TPS</span>
-              <span class="cloud-badge b-purple">1M tokens/day</span>
-              <span class="cloud-badge b-primary">Wafer-scale speed</span>
-            </div>
-            <div class="cloud-models">
-              <span class="cloud-models-label">Best free models:</span>
-              <span class="cloud-model-chip">GPT OSS 120B</span>
-              <span class="cloud-model-chip">Llama 3.1 8B</span>
-              <span class="cloud-model-chip">Qwen3 235B</span>
-              <span class="cloud-model-chip">GLM 4.7 355B</span>
-            </div>
-            <div class="cloud-guide">
-              <p class="cloud-guide-label">Get started:</p>
-              <ol class="cloud-steps">
-                <li>Go to <strong>cerebras.ai</strong> and create an account</li>
-                <li>Navigate to API → Get API key</li>
-                <li>Use their SDK or any OpenAI-compatible client</li>
-                <li>Start with Llama 3.1 8B for the fastest responses</li>
-              </ol>
-              <p class="cloud-note">For batch annotation. You can process 50,000 audits in minutes. This is the platform to use when Groq's speed still isn't fast enough and you're processing large volumes.</p>
-            </div>
-          </div>
-
-          <div class="cloud-card">
-            <div class="cloud-provider-name">SiliconFlow</div>
-            <div class="cloud-provider-desc">200+ models under one roof, and a $1 free credit to start. The standout is Nex-N2-Pro at effectively $0 per million tokens on the free tier. Supports image and video generation too, like HunyuanVideo, FLUX.1, and Wan2.2.</div>
-            <div class="cloud-install-box">
-              <span class="cloud-badge b-green">$1 credit</span>
-              <span class="cloud-badge b-purple">200+ models</span>
-              <span class="cloud-badge b-primary">Image + video gen</span>
-            </div>
-            <div class="cloud-models">
-              <span class="cloud-models-label">Best free models:</span>
-              <span class="cloud-model-chip">Nex-N2-Pro ($0/M)</span>
-              <span class="cloud-model-chip">MiniMax-M3 (1M context)</span>
-              <span class="cloud-model-chip">DeepSeek-V4-Pro</span>
-              <span class="cloud-model-chip">DeepSeek-V4-Flash</span>
-              <span class="cloud-model-chip">FLUX.1 (image)</span>
-              <span class="cloud-model-chip">HunyuanVideo</span>
-            </div>
-            <div class="cloud-guide">
-              <p class="cloud-guide-label">Get started:</p>
-              <ol class="cloud-steps">
-                <li>Sign up at <strong>siliconflow.com</strong></li>
-                <li>Get $1 free credit on signup</li>
-                <li>Browse models and filter by cost to find the free ones</li>
-                <li>API is OpenAI-compatible, works with most clients</li>
-              </ol>
-              <p class="cloud-note">Best for: long-context batch processing, image generation, and video. The $1 credit goes a long way when using the free-tier models. No credit card needed to start.</p>
-            </div>
-          </div>
-
-          <div class="cloud-card">
-            <div class="cloud-provider-name">Ollama Cloud</div>
-            <div class="cloud-provider-desc">Runs Ollama's model library on cloud GPUs. Same command-line interface you use locally, just with more horsepower. Good for long-horizon agentic tasks that need 1M token context beyond what your local machine can handle.</div>
-            <div class="cloud-install-box">
-              <span class="cloud-badge b-green">Same CLI</span>
-              <span class="cloud-badge b-purple">Cloud GPU</span>
-              <span class="cloud-badge b-primary">1M context models</span>
-            </div>
-            <div class="cloud-models">
-              <span class="cloud-models-label">Best free models:</span>
-              <span class="cloud-model-chip">minimax-m3 (1M context)</span>
-              <span class="cloud-model-chip">qwen3.5 variants</span>
-              <span class="cloud-model-chip">glm-5 744B</span>
-              <span class="cloud-model-chip">devstral-small-2 24B</span>
-            </div>
-            <div class="cloud-guide">
-              <p class="cloud-guide-label">Get started:</p>
-              <ol class="cloud-steps">
-                <li>Install Ollama locally from <strong>ollama.com</strong></li>
-                <li>Sign up for Ollama Cloud at <strong>cloud.ollama.com</strong></li>
-                <li>Run cloud models with the same <code>ollama run</code> command</li>
-                <li>Use custom modelfiles to point to cloud endpoints</li>
-              </ol>
-              <p class="cloud-note">The magic here is consistency. If you're already using Ollama locally, the cloud version feels identical. Sessions reset every ~5 hours, so don't expect long-running state.</p>
-            </div>
-          </div>
-
-          <div class="cloud-card">
-            <div class="cloud-provider-name">Hugging Face Spaces</div>
-            <div class="cloud-provider-desc">Browser-based AI apps. No API key needed for most. Thousands of apps covering chatbots, image generation, coding assistants, audio processing, and more. Hit or miss on quality, but completely free for most.</div>
-            <div class="cloud-install-box">
-              <span class="cloud-badge b-green">No API key</span>
-              <span class="cloud-badge b-purple">1000s of apps</span>
-              <span class="cloud-badge b-primary">Browser-only</span>
-            </div>
-            <div class="cloud-guide">
-              <p class="cloud-guide-label">Get started:</p>
-              <ol class="cloud-steps">
-                <li>Go to <strong>huggingface.co/spaces</strong></li>
-                <li>Browse by category or search for what you need</li>
-                <li>Click any space. Most run directly in your browser</li>
-                <li>Sign up only if you want to create your own spaces</li>
-              </ol>
-              <p class="cloud-note">Best for: quick experiments, trying models without commitment, and exploring what's possible. Some popular spaces get slow during peak hours. No consistency guarantee . Each space is built by a different person each space is built by a different person.</p>
-            </div>
-          </div>
-
+        <div id="cloud-providers-container" class="cloud-providers cloud-grid">
+          <!-- Populated by JavaScript -->
         </div>
       </section>
 
@@ -563,18 +382,18 @@ print(response.text)</div>
         <p class="section-label">Tools</p>
         <h2>Which local AI tool should I use?</h2>
         <p class="section-desc">All three are free. Pick based on how you like to work.</p>
-        <div class="tool-compare">
-          <div class="tool-option selected" data-tool="ollama" onclick="selectTool('ollama')">
+        <div class="tool-compare" id="tool-compare">
+          <div class="tool-option selected" data-tool="ollama">
             <div class="tool-option-name">Ollama</div>
             <div class="tool-option-tag">Best for beginners</div>
             <div class="tool-option-note">One command install. Terminal-based but surprisingly simple.</div>
           </div>
-          <div class="tool-option" data-tool="lmstudio" onclick="selectTool('lmstudio')">
+          <div class="tool-option" data-tool="lmstudio">
             <div class="tool-option-name">LM Studio</div>
             <div class="tool-option-tag">Best for GUI lovers</div>
             <div class="tool-option-note">Polished app. Click to install models. Beautiful interface.</div>
           </div>
-          <div class="tool-option" data-tool="jan" onclick="selectTool('jan')">
+          <div class="tool-option" data-tool="jan">
             <div class="tool-option-name">Jan</div>
             <div class="tool-option-tag">Best for privacy nerds</div>
             <div class="tool-option-note">100% open source, no telemetry, fully offline.</div>
@@ -620,6 +439,73 @@ print(response.text)</div>
       <p class="footer-tagline">Built for beginners. Your data never leaves your machine.</p>
     </div>
   </footer>
+
+  <template id="cloud-provider-template">
+    <div class="cloud-card">
+      <div class="cloud-provider-name"></div>
+      <div class="cloud-provider-desc"></div>
+      <div class="cloud-install-box"></div>
+      <div class="cloud-models">
+        <span class="cloud-models-label">Best free models:</span>
+      </div>
+      <div class="cloud-guide">
+        <p class="cloud-guide-label">Get started:</p>
+        <ol class="cloud-steps"></ol>
+        <p class="cloud-note"></p>
+      </div>
+    </div>
+  </template>
+
+  <template id="model-card-template">
+    <div class="model-card">
+      <div class="model-header">
+        <div class="model-name-group">
+          <div class="model-name"></div>
+          <div class="model-meta">
+            <span class="meta-tag meta-size"></span>
+            <span class="meta-tag meta-vram"></span>
+          </div>
+        </div>
+        <div class="model-score-circle"></div>
+      </div>
+      <div class="model-desc"></div>
+      <div class="model-details beginner-only hidden"></div>
+      <div class="model-best-for">
+        <span class="best-for-label">Best for:</span>
+        <span class="best-for-tags"></span>
+      </div>
+      <div class="model-install">
+        <div class="install-label">Copy to install:</div>
+        <div class="install-code-box">
+          <code></code>
+          <button class="copy-btn" title="Copy to clipboard" aria-label="Copy code">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+          </button>
+        </div>
+        <div class="copy-feedback">Copied!</div>
+      </div>
+    </div>
+  </template>
+
+  <template id="hw-card-template">
+    <button class="hw-card" aria-pressed="false">
+      <span class="hw-icon"></span>
+      <div class="hw-info">
+        <span class="hw-title"></span>
+        <span class="hw-desc"></span>
+      </div>
+    </button>
+  </template>
+
+  <template id="hw-tier-section-template">
+    <div class="hw-tier-section">
+      <div class="hw-tier-header">
+        <div class="hw-tier-title"></div>
+        <div class="hw-tier-desc"></div>
+      </div>
+      <div class="model-grid"></div>
+    </div>
+  </template>
 
   <script src="app.js"></script>
 </body>

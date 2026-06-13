@@ -1,0 +1,40 @@
+{
+  "QUANT_LEVELS": {
+    "Q2_K": { "quality": 95, "size": "smallest", "desc": "Smallest file. Noticeably lower quality. Good for testing." },
+    "Q3_K_M": { "quality": 85, "size": "very small", "desc": "Very small. Some quality loss. Barely noticeable in most tasks." },
+    "Q4_K_M": { "quality": 75, "size": "balanced", "desc": "Balanced size and quality. The recommended default. Works on most GPUs." },
+    "Q5_K_M": { "quality": 65, "size": "larger", "desc": "Larger file. Better math accuracy. Only if you have spare VRAM." },
+    "Q6_K": { "quality": 55, "size": "large", "desc": "Near full quality. Uses more VRAM. Only for high-end GPUs." },
+    "Q8_0": { "quality": 0, "size": "full", "desc": "Full quality, no quantization. Uses maximum VRAM. Rarely needed." },
+    "F16": { "quality": 0, "size": "full", "desc": "Full 16-bit precision. Highest quality. Uses maximum VRAM." }
+  },
+  "readinessScores": {
+    "no-gpu": 4, "cpu-only": 6, "budget-gpu": 8, "power-gpu": 10, "silicon-8-16gb": 7, "silicon-24-48gb": 9, "silicon-64-plus": 10
+  },
+  "readinessBreakdowns": {
+    "no-gpu": { "chat": 6, "writing": 5, "coding": 3, "reasoning": 4, "agents": 2 },
+    "cpu-only": { "chat": 8, "writing": 8, "coding": 7, "reasoning": 6, "agents": 5 },
+    "budget-gpu": { "chat": 10, "writing": 9, "coding": 9, "reasoning": 8, "agents": 8 },
+    "power-gpu": { "chat": 10, "writing": 10, "coding": 10, "reasoning": 10, "agents": 10 },
+    "silicon-8-16gb": { "chat": 9, "writing": 8, "coding": 8, "reasoning": 7, "agents": 7 },
+    "silicon-24-48gb": { "chat": 10, "writing": 10, "coding": 9, "reasoning": 9, "agents": 9 },
+    "silicon-64-plus": { "chat": 10, "writing": 10, "coding": 10, "reasoning": 10, "agents": 10 }
+  },
+  "explanations": {
+    "chat": "This model handles everyday conversation well on your hardware. It picks up context across long chats and stays coherent.",
+    "coding": "This model was trained or fine-tuned on code. It understands syntax, suggests implementations, and explains code better for your setup.",
+    "writing": "This model has good context length for long documents, articles, and research. It maintains writing quality across {context}K token spans.",
+    "documents": "This model has {context}K context - enough to load and analyze entire PDFs, transcripts, or codebases in one prompt.",
+    "agents": "This model is capable of reasoning through multi-step agentic workflows and tool use effectively.",
+    "all": "This model runs well on your hardware tier. It's versatile enough to handle chat, coding, writing, and document analysis."
+  },
+  "capabilityLimits": {
+    "no-gpu": 1,
+    "cpu-only": 3,
+    "budget-gpu": 7,
+    "power-gpu": 14,
+    "silicon-8-16gb": 7,
+    "silicon-24-48gb": 14,
+    "silicon-64-plus": 72
+  }
+}
