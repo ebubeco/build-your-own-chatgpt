@@ -24,13 +24,81 @@
   let modelsData, gpusData, setupsData, glossaryData, appConfig, cloudProvidersData;
   let selectedTier = null;
   let selectedGoal = null;
+  let selectedCareer = null;
   let beginnerMode = true;
   let showDevCode = false;
   let isAppleSilicon = false;
   let currentResult = null;
   let goalInferred = false;
   let hardwareInferred = false;
+  let careerInferred = false;
   let autoDetectCancelled = false;
+
+  const CAREER_MAP = {
+    'student': {
+      label: 'Student',
+      icon: '🎓',
+      desc: 'Learning, summarization, tutoring',
+      matchedModels: ['qwen-0-5b', 'qwen-1-5b', 'qwen-2-5-7b', 'gemma-4-12b', 'phi-4-mini'],
+      priorities: ['learning', 'writing', 'chat']
+    },
+    'software-engineer': {
+      label: 'Software Engineer',
+      icon: '💻',
+      desc: 'Coding, debugging, architecture',
+      matchedModels: ['qwen-2-5-7b', 'qwen-3-14b', 'deepseek-r1-8b', 'phi-4-mini'],
+      priorities: ['coding', 'reasoning', 'agents']
+    },
+    'data-scientist': {
+      label: 'Data Scientist',
+      icon: '📊',
+      desc: 'Statistics, notebooks, analysis',
+      matchedModels: ['qwen-2-5-7b', 'gemma-4-12b', 'qwen-3-14b'],
+      priorities: ['reasoning', 'coding', 'research']
+    },
+    'researcher': {
+      label: 'Researcher',
+      icon: '🔬',
+      desc: 'Long context, citations, synthesis',
+      matchedModels: ['qwen-2-5-7b', 'qwen-3-14b', 'deepseek-r1-8b', 'qwen-3-5-27b'],
+      priorities: ['research', 'writing', 'reasoning']
+    },
+    'writer': {
+      label: 'Writer',
+      icon: '✍️',
+      desc: 'Editing, drafting, creativity',
+      matchedModels: ['qwen-2-5-7b', 'gemma-4-12b', 'phi-4-mini', 'llama-3-2-3b'],
+      priorities: ['writing', 'chat', 'research']
+    },
+    'cybersecurity': {
+      label: 'Cybersecurity',
+      icon: '🔒',
+      desc: 'Threat modeling, audits, analysis',
+      matchedModels: ['deepseek-r1-8b', 'qwen-2-5-7b', 'qwen-3-14b'],
+      priorities: ['reasoning', 'agents', 'coding']
+    },
+    'product-manager': {
+      label: 'Product Manager',
+      icon: '📋',
+      desc: 'Planning, requirements, strategy',
+      matchedModels: ['qwen-2-5-7b', 'phi-4-mini', 'gemma-4-12b'],
+      priorities: ['writing', 'chat', 'research']
+    },
+    'entrepreneur': {
+      label: 'Entrepreneur',
+      icon: '🚀',
+      desc: 'Research, marketing, productivity',
+      matchedModels: ['qwen-2-5-7b', 'phi-4-mini', 'gemma-4-12b'],
+      priorities: ['chat', 'writing', 'research']
+    },
+    'other': {
+      label: 'Other / Not Sure',
+      icon: '🤷',
+      desc: 'General purpose — no career preference',
+      matchedModels: [],
+      priorities: []
+    }
+  };
 
   function track(name, props) {
     if (typeof window.__analytics !== 'undefined') {
@@ -290,9 +358,45 @@
     });
   }
 
+  function renderCareerSelector() {
+    const container = document.getElementById('career-options');
+    if (!container) return;
+    container.innerHTML = '';
+    Object.entries(CAREER_MAP).forEach(([key, val]) => {
+      const btn = document.createElement('button');
+      btn.className = 'career-card';
+      btn.dataset.career = key;
+      btn.innerHTML = `<span class="career-icon">${val.icon}</span><span class="career-title">${val.label}</span><span class="career-desc">${val.desc}</span>`;
+      btn.addEventListener('click', () => selectCareer(key));
+      container.appendChild(btn);
+    });
+  }
+
+  function selectCareer(career, inferred = false) {
+    selectedCareer = career;
+    careerInferred = inferred;
+    track('career_selected', { career, inferred });
+    document.querySelectorAll('.career-card').forEach(c => {
+      c.classList.remove('selected');
+      c.setAttribute('aria-pressed', 'false');
+    });
+    const card = document.querySelector(`.career-card[data-career="${career}"]`);
+    if (card) {
+      card.classList.add('selected');
+      card.setAttribute('aria-pressed', 'true');
+    }
+
+    const hwSection = document.getElementById('hw-section');
+    if (hwSection) {
+      hwSection.classList.remove('hidden');
+      hwSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+
   function encodeState() {
     const params = new URLSearchParams();
     if (selectedGoal) params.set('goal', selectedGoal);
+    if (selectedCareer) params.set('career', selectedCareer);
     if (selectedTier) params.set('tier', selectedTier);
     return params.toString();
   }
@@ -301,6 +405,7 @@
     const params = new URLSearchParams(window.location.search);
     return {
       goal: params.get('goal'),
+      career: params.get('career'),
       tier: params.get('tier')
     };
   }
@@ -389,10 +494,12 @@
     }
 
     const subQs = document.getElementById('goal-sub-questions');
+    const careerSection = document.getElementById('career-section');
     const hwSection = document.getElementById('hw-section');
 
     if (goal === 'unknown') {
       if (subQs) subQs.classList.remove('hidden');
+      if (careerSection) careerSection.classList.add('hidden');
       if (hwSection) hwSection.classList.add('hidden');
       return;
     }
@@ -402,6 +509,7 @@
     if (goal === 'all') {
       const showAllRow = document.getElementById('show-all-row');
       if (showAllRow) showAllRow.style.display = 'block';
+      if (careerSection) careerSection.classList.remove('hidden');
       if (hwSection) {
         hwSection.classList.remove('hidden');
         hwSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -409,9 +517,9 @@
       return;
     }
 
-    if (hwSection) {
-      hwSection.classList.remove('hidden');
-      hwSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (careerSection) {
+      careerSection.classList.remove('hidden');
+      careerSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   }
 
@@ -421,6 +529,8 @@
       c.classList.remove('selected');
       c.setAttribute('aria-pressed', 'false');
     });
+    const careerSection = document.getElementById('career-section');
+    if (careerSection) careerSection.classList.add('hidden');
     const hwSection = document.getElementById('hw-section');
     if (hwSection) hwSection.classList.remove('hidden');
     selectTierAll();
@@ -447,12 +557,18 @@
       const bSize = bStr ? parseFloat(bStr[1]) : 7;
       const cap = getModelCapability(tier, bSize);
       let score = 0;
-      if (m.bestFor && m.bestFor.includes(primaryGoal)) score += 40;
-      if (m.practicalRating && m.practicalRating[primaryGoal]) score += m.practicalRating[primaryGoal] * 5;
+      if (m.bestFor && m.bestFor.includes(primaryGoal)) score += 30;
+      if (m.practicalRating && m.practicalRating[primaryGoal]) score += m.practicalRating[primaryGoal] * 4;
       if (m.beginnerFriendly) score += 10;
       if (cap === 'fast') score += 20;
       else if (cap === 'slow') score += 5;
       else score -= 50;
+      if (selectedCareer && CAREER_MAP[selectedCareer]) {
+        const careerInfo = CAREER_MAP[selectedCareer];
+        if (careerInfo.matchedModels.includes(m.id)) score += 25;
+        const overlap = careerInfo.priorities.filter(p => m.bestFor && m.bestFor.includes(p)).length;
+        score += overlap * 5;
+      }
       return { model: m, score };
     });
 
@@ -469,7 +585,7 @@
     return { primary, alternatives: alternatives.slice(0, 2) };
   }
 
-  function getConfidence(model, tier, goal) {
+  function getConfidence(model, tier, goal, career) {
     const bStr = model.size.match(/(\d+\.?\d*)/);
     const bSize = bStr ? parseFloat(bStr[1]) : 7;
     const cap = getModelCapability(tier, bSize);
@@ -477,7 +593,9 @@
     const limit = tierLimits[tier] || 7;
     const primaryGoal = { chat: 'chat', coding: 'coding', writing: 'writing', documents: 'writing', agents: 'agents', all: 'chat' }[goal] || 'chat';
     const rating = (model.practicalRating && model.practicalRating[primaryGoal]) || 5;
+    const hasCareerMatch = career && CAREER_MAP[career] && CAREER_MAP[career].matchedModels.includes(model.id);
 
+    if (cap === 'fast' && bSize <= limit && model.beginnerFriendly && rating >= 8 && hasCareerMatch) return { level: 'Very High', color: 'var(--green)' };
     if (cap === 'fast' && bSize <= limit && model.beginnerFriendly && rating >= 8) return { level: 'High', color: 'var(--green)' };
     if (cap === 'fast' && bSize <= limit) return { level: 'Medium-High', color: 'var(--green)' };
     if (cap === 'fast' && bSize <= limit * 1.5) return { level: 'Medium', color: 'var(--amber)' };
@@ -486,8 +604,9 @@
   }
 
   function getRecConfidence() {
-    if (!goalInferred && !hardwareInferred) return { level: 'High', color: 'var(--green)', estimated: false };
-    if (goalInferred !== hardwareInferred) return { level: 'Medium', color: 'var(--amber)', estimated: true };
+    const inferredCount = [goalInferred, hardwareInferred, careerInferred].filter(Boolean).length;
+    if (inferredCount === 0) return { level: 'High', color: 'var(--green)', estimated: false };
+    if (inferredCount === 1) return { level: 'Medium', color: 'var(--amber)', estimated: true };
     return { level: 'Low', color: 'var(--red)', estimated: true };
   }
 
@@ -627,6 +746,15 @@
     if (model.bestFor && model.bestFor.includes(goal)) points.push(`Specifically good for ${goal}`);
     else points.push(`Good all-around model`);
 
+    if (selectedCareer && CAREER_MAP[selectedCareer]) {
+      const careerInfo = CAREER_MAP[selectedCareer];
+      if (careerInfo.matchedModels.includes(model.id)) {
+        points.push(`Popular choice among ${careerInfo.label}s`);
+      }
+      const overlap = careerInfo.priorities.filter(p => model.bestFor && model.bestFor.includes(p)).length;
+      if (overlap > 0) points.push(`Aligns with ${careerInfo.label} workflow`);
+    }
+
     const primaryGoal = { chat: 'chat', coding: 'coding', writing: 'writing', documents: 'writing', agents: 'agents', all: 'chat' }[goal] || 'chat';
     if (model.practicalRating && model.practicalRating[primaryGoal] >= 8) points.push(`${primaryGoal.charAt(0).toUpperCase() + primaryGoal.slice(1)} quality: excellent`);
     if (model.toolRecommendation === 'Ollama') points.push(`Simple one-command install`);
@@ -705,7 +833,7 @@
     const capItems = getCapabilityItems(breakdown, tier, goal);
 
     // IMPORTANT: compute showPrimary BEFORE building primaryHTML
-    const conf = primary ? getConfidence(primary, tier, goal) : null;
+    const conf = primary ? getConfidence(primary, tier, goal, selectedCareer) : null;
     const showCloud = score <= 4 || (conf && (conf.level === 'Low' || conf.level === 'Very Low'));
     if (showCloud) track('cloud_fallback_triggered', { reason: 'weak_hardware', tier, goal });
     const showPrimary = primary && !showCloud;
@@ -714,7 +842,6 @@
     if (showPrimary && primary) {
       const quantLabel = primary.recommendedQuant || 'Q4_K_M';
       const quantTip = getQuantizationTooltip(quantLabel);
-      const confidence = getConfidence(primary, tier, goal);
       const recConf = getRecConfidence();
       const whyPoints = getWhyPoints(primary, tier, goal);
 
@@ -730,6 +857,11 @@
             <span class="rec-conf-label">Rec. Confidence</span>
             <span class="rec-conf-value">${recConf.level}</span>
           </div>
+          ${selectedCareer && CAREER_MAP[selectedCareer] ? `
+          <div class="rec-career-badge">
+            <span class="rec-career-icon">${CAREER_MAP[selectedCareer].icon}</span>
+            <span class="rec-career-label">${CAREER_MAP[selectedCareer].label}</span>
+          </div>` : ''}
         </div>
         <p class="rec-desc">${wrapInGlossary(primary.description)}</p>
         <div class="rec-why">
@@ -1202,6 +1334,7 @@
       return;
     }
     renderHWSelector();
+    renderCareerSelector();
     renderCloudProviders();
     setupEventListeners();
     showGuide('ollama');
@@ -1212,8 +1345,18 @@
       selectedGoal = state.goal;
       const goalCard = document.querySelector(`.goal-card[data-goal="${state.goal}"]`);
       if (goalCard) goalCard.classList.add('selected');
+      const careerSection = document.getElementById('career-section');
+      if (careerSection) careerSection.classList.remove('hidden');
       const hwSection = document.getElementById('hw-section');
       if (hwSection) hwSection.classList.remove('hidden');
+    }
+    if (state.career) {
+      selectedCareer = state.career;
+      const careerCard = document.querySelector(`.career-card[data-career="${state.career}"]`);
+      if (careerCard) {
+        careerCard.classList.add('selected');
+        careerCard.setAttribute('aria-pressed', 'true');
+      }
     }
     if (state.tier) {
       selectedTier = state.tier;
@@ -1448,6 +1591,12 @@
         }
       } else if (e.target.closest('#theme-toggle')) {
         toggleTheme();
+      } else if (e.target.closest('#btn-skip-career')) {
+        const hwSection = document.getElementById('hw-section');
+        if (hwSection) {
+          hwSection.classList.remove('hidden');
+          hwSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
       } else if (e.target.closest('#compendium-link-btn')) {
         e.preventDefault();
         showAllModelsDirect();

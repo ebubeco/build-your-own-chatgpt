@@ -171,8 +171,18 @@
         </div>
       </section>
 
-      <section id="hw-section" class="section hidden">
+      <section id="career-section" class="section hidden">
         <p class="section-label">Step 2</p>
+        <h2>What best describes you?</h2>
+        <p class="section-desc">Your career helps us recommend models suited to your daily work.</p>
+        <div id="career-options" class="career-grid"></div>
+        <div style="text-align:center;margin-top:0.75rem">
+          <button class="skip-career-btn" id="btn-skip-career">Skip — show all models</button>
+        </div>
+      </section>
+
+      <section id="hw-section" class="section hidden">
+        <p class="section-label">Step 3</p>
         <h2>What hardware are you using?</h2>
         <p class="section-desc">We'll only show models that actually run well on your machine.</p>
 
@@ -471,13 +481,13 @@ print(response.text)</div>
         <div class="steps-grid">
           <div class="step-card">
             <div class="step-num">Step 01</div>
-            <div class="step-title">Select your hardware</div>
-            <div class="step-desc">Tell us what you're working with. We'll detect it automatically if possible.</div>
+            <div class="step-title">Tell us what you do</div>
+            <div class="step-desc">Pick a goal (chat, coding, writing) and your career. This shapes which models suit your work.</div>
           </div>
           <div class="step-card">
             <div class="step-num">Step 02</div>
-            <div class="step-title">Get your recommendation</div>
-            <div class="step-desc">See models ranked by real user success rates on your specific setup.</div>
+            <div class="step-title">Select your hardware</div>
+            <div class="step-desc">Tell us what you're working with. We'll detect it automatically if possible.</div>
           </div>
           <div class="step-card">
             <div class="step-num">Step 03</div>
