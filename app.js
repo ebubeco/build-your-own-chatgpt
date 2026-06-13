@@ -926,7 +926,7 @@
     });
     
     document.addEventListener('click', e => {
-      } else if (e.target.closest('#share-btn')) {
+      if (e.target.closest('#share-btn')) {
         shareResult();
       } else if (e.target.closest('#dev-toggle-btn')) {
         toggleDevCode();
