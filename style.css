@@ -701,6 +701,35 @@ body {
   margin-bottom: 0.2rem;
 }
 
+/* Community Stats */
+.community-stats {
+  text-align: center;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.community-popular {
+  margin-top: 0.5rem;
+}
+
+.community-rate {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--green);
+  line-height: 1.2;
+}
+
+.community-label {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--text-tertiary);
+  margin-top: 0.15rem;
+}
+
 .capability-card {
   background: var(--surface);
   border: 1px solid var(--border);

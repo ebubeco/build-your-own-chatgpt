@@ -793,6 +793,8 @@
         ${altHTML}
         ${selectedTier ? compendiumLink : ''}
 
+        <div id="community-section"></div>
+
         <div class="feedback-section">
           <p class="feedback-prompt">Did this setup work?</p>
           <div class="feedback-btns">
@@ -828,6 +830,20 @@
       tool,
       command
     };
+
+    var communityHTML = '';
+    if (typeof window.__analytics !== 'undefined') {
+      var stats = window.__analytics.getCommunityStats(selectedGoal, selectedTier, modelName);
+      if (stats) {
+        communityHTML = '<div class="community-stats"><span class="community-rate">' + stats.successRate + '%</span><span class="community-label">Community success rate · based on ' + stats.total + ' similar setups</span></div>';
+      }
+      var popular = window.__analytics.getPopularSetups(selectedTier);
+      if (popular && popular.recommendation !== modelName) {
+        communityHTML += '<div class="community-stats community-popular"><span class="community-rate">' + popular.successRate + '%</span><span class="community-label">Popular setup: <strong>' + popular.recommendation + '</strong> · ' + popular.total + ' users</span></div>';
+      }
+    }
+    var communityEl = section.querySelector('#community-section');
+    if (communityEl) communityEl.innerHTML = communityHTML;
 
     const goalKey = selectedGoal || 'unknown';
     const tierKey = selectedTier || 'unknown';

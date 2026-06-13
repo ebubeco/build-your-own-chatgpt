@@ -52,10 +52,64 @@
     }
   }
 
+  function getCommunityStats(goal, hardwareTier, recommendation) {
+    try {
+      var all = [];
+      for (var i = 0; i < localStorage.length; i++) {
+        var k = localStorage.key(i);
+        if (k && k.indexOf('fb_') === 0) {
+          try { all.push(JSON.parse(localStorage.getItem(k))); } catch (e) { /* skip */ }
+        }
+      }
+      var filtered = all.filter(function (f) {
+        return f.goal === goal && f.hardware === hardwareTier && f.recommendation === recommendation;
+      });
+      if (filtered.length < 10) return null;
+      var successes = filtered.filter(function (f) { return f.success; }).length;
+      return {
+        total: filtered.length,
+        successRate: Math.round((successes / filtered.length) * 100),
+        successes: successes
+      };
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function getPopularSetups(hardwareTier) {
+    try {
+      var counts = {};
+      for (var i = 0; i < localStorage.length; i++) {
+        var k = localStorage.key(i);
+        if (k && k.indexOf('fb_') === 0) {
+          try {
+            var f = JSON.parse(localStorage.getItem(k));
+            if (f.hardware === hardwareTier) {
+              var key = f.recommendation;
+              if (!counts[key]) counts[key] = { recommendation: f.recommendation, total: 0, successes: 0 };
+              counts[key].total++;
+              if (f.success) counts[key].successes++;
+            }
+          } catch (e) { /* skip */ }
+        }
+      }
+      var sorted = Object.keys(counts).map(function (k) {
+        var c = counts[k];
+        c.successRate = Math.round((c.successes / c.total) * 100);
+        return c;
+      }).sort(function (a, b) { return b.total - a.total; });
+      return sorted.length > 0 ? sorted[0] : null;
+    } catch (e) {
+      return null;
+    }
+  }
+
   window.__analytics = {
     trackEvent: trackEvent,
     getQueue: getQueue,
     saveFeedback: saveFeedback,
-    getFeedback: getFeedback
+    getFeedback: getFeedback,
+    getCommunityStats: getCommunityStats,
+    getPopularSetups: getPopularSetups
   };
 })();
