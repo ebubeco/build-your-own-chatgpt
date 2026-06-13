@@ -62,6 +62,13 @@ const pages = [
     { q: 'Will local AI drain my battery?', a: 'Yes, continuous inference uses CPU heavily. Expect 2-3 hours of runtime on battery.' },
     { q: 'Which OS supports local AI?', a: 'Windows, macOS, and Linux all support Ollama and local AI models.' },
     { q: 'Can I use local AI without internet?', a: 'Yes. After the initial model download, everything runs offline.' }
+  ] },
+  { slug: 'best-local-ai-no-gpu', title: 'Best Local AI Without A GPU In 2026', h1: 'Best Local AI Models Without A GPU', hw: 'No GPU (CPU Only)', tier: 'cpu-only', vram: 'None', model: 'TinyLlama 1.1B', modelTag: 'tinylama:1.1b', alt1: 'Qwen 0.5B', alt2: 'Llama 3.2 1B', can: ['Simple Chat', 'Basic Writing'], slow: ['Coding Help', 'Small document analysis'], not: ['7B+ Models', 'Coding Assistant', 'AI Agents', 'Real-time Vision'], faqs: [
+    { q: 'Can I run AI without a GPU?', a: 'Yes. Local AI runs entirely on CPU. Small models like TinyLlama 1.1B work well without any graphics card.' },
+    { q: 'What is the best local AI for no GPU?', a: 'TinyLlama 1.1B offers the best speed-to-quality ratio for CPU-only systems. It starts responding in seconds.' },
+    { q: 'Is Ollama free without a GPU?', a: 'Yes. Ollama works on CPU-only systems and is completely free. No paid tiers, no hidden costs.' },
+    { q: 'Can I run coding models without a GPU?', a: 'Very limited. Small models handle basic code completion but not full coding assistance. Consider cloud options like Gemini Free for coding.' },
+    { q: 'Will local AI run on Intel integrated graphics?', a: 'It will use the CPU, not integrated graphics. Performance depends on CPU speed and RAM, not the integrated GPU.' }
   ] }
 ];
 

@@ -9,6 +9,7 @@
     { "source": "/8gb-ram-local-ai", "destination": "/8gb-ram-local-ai.html" },
     { "source": "/16gb-ram-local-ai", "destination": "/16gb-ram-local-ai.html" },
     { "source": "/cpu-only-local-ai", "destination": "/cpu-only-local-ai.html" },
-    { "source": "/old-laptop-local-ai", "destination": "/old-laptop-local-ai.html" }
+    { "source": "/old-laptop-local-ai", "destination": "/old-laptop-local-ai.html" },
+    { "source": "/best-local-ai-no-gpu", "destination": "/best-local-ai-no-gpu.html" }
   ]
 }
