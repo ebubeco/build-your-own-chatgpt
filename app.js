@@ -386,6 +386,9 @@
       card.setAttribute('aria-pressed', 'true');
     }
 
+    const careerArea = document.getElementById('career-area');
+    if (careerArea) careerArea.classList.add('hidden');
+
     const hwSection = document.getElementById('hw-section');
     if (hwSection) {
       hwSection.classList.remove('hidden');
@@ -494,12 +497,12 @@
     }
 
     const subQs = document.getElementById('goal-sub-questions');
-    const careerSection = document.getElementById('career-section');
+    const careerArea = document.getElementById('career-area');
     const hwSection = document.getElementById('hw-section');
 
     if (goal === 'unknown') {
       if (subQs) subQs.classList.remove('hidden');
-      if (careerSection) careerSection.classList.add('hidden');
+      if (careerArea) careerArea.classList.add('hidden');
       if (hwSection) hwSection.classList.add('hidden');
       return;
     }
@@ -509,7 +512,10 @@
     if (goal === 'all') {
       const showAllRow = document.getElementById('show-all-row');
       if (showAllRow) showAllRow.style.display = 'block';
-      if (careerSection) careerSection.classList.remove('hidden');
+      if (careerArea) {
+        careerArea.classList.remove('hidden');
+        careerArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
       if (hwSection) {
         hwSection.classList.remove('hidden');
         hwSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -517,9 +523,9 @@
       return;
     }
 
-    if (careerSection) {
-      careerSection.classList.remove('hidden');
-      careerSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (careerArea) {
+      careerArea.classList.remove('hidden');
+      careerArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   }
 
@@ -529,8 +535,6 @@
       c.classList.remove('selected');
       c.setAttribute('aria-pressed', 'false');
     });
-    const careerSection = document.getElementById('career-section');
-    if (careerSection) careerSection.classList.add('hidden');
     const hwSection = document.getElementById('hw-section');
     if (hwSection) hwSection.classList.remove('hidden');
     selectTierAll();
@@ -1345,8 +1349,8 @@
       selectedGoal = state.goal;
       const goalCard = document.querySelector(`.goal-card[data-goal="${state.goal}"]`);
       if (goalCard) goalCard.classList.add('selected');
-      const careerSection = document.getElementById('career-section');
-      if (careerSection) careerSection.classList.remove('hidden');
+      const careerArea = document.getElementById('career-area');
+      if (careerArea) careerArea.classList.remove('hidden');
       const hwSection = document.getElementById('hw-section');
       if (hwSection) hwSection.classList.remove('hidden');
     }
@@ -1592,6 +1596,8 @@
       } else if (e.target.closest('#theme-toggle')) {
         toggleTheme();
       } else if (e.target.closest('#btn-skip-career')) {
+        const careerArea = document.getElementById('career-area');
+        if (careerArea) careerArea.classList.add('hidden');
         const hwSection = document.getElementById('hw-section');
         if (hwSection) {
           hwSection.classList.remove('hidden');
