@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Run local AI without a GPU. CPU-only inference works on 8GB+ RAM. Get free, private AI on any laptop with Ollama. No graphics card needed.">
+  <title>Run Local AI Without a GPU (CPU-Only) — 2026 Guide</title>
+  <link rel="canonical" href="https://build-your-own-chatgpt.vercel.app/run-ai-without-gpu">
+  <meta property="og:title" content="Run Local AI Without a GPU (CPU-Only)">
+  <meta property="og:description" content="You don't need a GPU to run local AI. CPU inference works on any modern laptop. Free, private, no cloud dependency.">
+  <meta property="og:image" content="https://build-your-own-chatgpt.vercel.app/og-image.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {"@type":"Question","name":"Can I run AI without a GPU?","acceptedAnswer":{"@type":"Answer","text":"Yes, you can run local AI without a GPU using CPU-only inference. Models like Phi-4-mini (3.8B) and Qwen 2.5 1.5B run entirely on your CPU with no graphics card required."}},
+      {"@type":"Question","name":"How much RAM do I need for AI without a GPU?","acceptedAnswer":{"@type":"Answer","text":"8GB RAM is the minimum. 16GB RAM is recommended for running 7B models on CPU. The model loads into system RAM when no GPU VRAM is available."}},
+      {"@type":"Question","name":"Is CPU-only AI slow?","acceptedAnswer":{"@type":"Answer","text":"CPU inference is slower than GPU, but still usable. Small models (1-3B) respond in 5-15 seconds. 7B models take 20-40 seconds per response on a modern CPU."}},
+      {"@type":"Question","name":"What is the best AI model for CPU-only?","acceptedAnswer":{"@type":"Answer","text":"Phi-4-mini (3.8B) is the best for CPU-only. It's small enough to run fast on CPU while delivering surprisingly good quality for chat and writing tasks."}}
+    ]
+  }
+  </script>
+</head>
+<body class="seo-page">
+  <main class="seo-content">
+    <a href="/" class="seo-back">&larr; Use the wizard</a>
+    <h1>Run Local AI Without a GPU (CPU-Only)</h1>
+
+    <section class="seo-section">
+      <p><strong>You don't need a dedicated GPU to run local AI.</strong> CPU-only inference works on any modern laptop or desktop. While slower than GPU acceleration, smaller models run comfortably on CPU and deliver useful results for chat, writing, and coding assistance.</p>
+    </section>
+
+    <section class="seo-section">
+      <h2>Best Models for CPU-Only</h2>
+      <div class="capability-card">
+        <div class="cap-group">
+          <div class="cap-group-label">✓ 8GB RAM — Small Models (1-3B)</div>
+          <div class="cap-items-grid" style="margin-top:0.5rem">
+            <div class="cap-item can"><span class="cap-item-label">Phi-4-mini 3.8B</span><span class="cap-item-note">Best quality for 8GB</span></div>
+            <div class="cap-item can"><span class="cap-item-label">Qwen 2.5 1.5B</span><span class="cap-item-note">Fastest option</span></div>
+            <div class="cap-item can"><span class="cap-item-label">Llama 3.2 3B</span><span class="cap-item-note">Good all-rounder</span></div>
+          </div>
+        </div>
+        <div class="cap-group">
+          <div class="cap-group-label">✓ 16GB RAM — Medium Models (7B)</div>
+          <div class="cap-items-grid" style="margin-top:0.5rem">
+            <div class="cap-item can"><span class="cap-item-label">Qwen 2.5 7B</span><span class="cap-item-note">Best overall on CPU</span></div>
+            <div class="cap-item can"><span class="cap-item-label">Llama 3.1 8B</span><span class="cap-item-note">Strong alternative</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="seo-section">
+      <h2>Recommended Setup for CPU-Only</h2>
+      <div class="rec-card" style="position:static;border:1px solid var(--border)">
+        <div class="rec-header">
+          <div class="rec-model-info">
+            <span class="rec-model-name">Phi-4-mini 3.8B</span>
+          </div>
+        </div>
+        <p class="rec-desc">Best balance of speed and quality for CPU-only setups. Runs on 8GB RAM, responds in 5-10 seconds on modern CPUs.</p>
+        <div class="install-box" style="margin-top:1rem">
+          <div class="install-label">Run this command</div>
+          <div class="install-command">ollama pull phi4-mini:3.8b</div>
+          <a href="https://ollama.com/download" target="_blank" class="btn-secondary" style="display:inline-block;margin-top:0.5rem">Download Ollama</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="seo-section">
+      <h2>Performance Expectations</h2>
+      <ul class="seo-alt-list">
+        <li><strong>1-3B models:</strong> 5-15 seconds per response. Usable for chat and simple tasks.</li>
+        <li><strong>7B models:</strong> 20-40 seconds per response on a modern CPU. Fine for document analysis and coding.</li>
+        <li><strong>Token generation:</strong> CPU typically delivers 2-8 tokens/second vs 30-60+ on GPU.</li>
+      </ul>
+    </section>
+
+    <section class="seo-section">
+      <h2>Frequently Asked Questions</h2>
+      <div itemscope itemtype="https://schema.org/FAQPage">
+        <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="faq-item">
+          <h3 itemprop="name">Can I run AI without a GPU?</h3>
+          <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">Yes, you can run local AI without a GPU using CPU-only inference. Models like Phi-4-mini (3.8B) and Qwen 2.5 1.5B run entirely on your CPU with no graphics card required.</p>
+          </div>
+        </div>
+        <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="faq-item">
+          <h3 itemprop="name">How much RAM do I need for AI without a GPU?</h3>
+          <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">8GB RAM is the minimum. 16GB RAM is recommended for running 7B models on CPU. The model loads into system RAM when no GPU VRAM is available.</p>
+          </div>
+        </div>
+        <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="faq-item">
+          <h3 itemprop="name">Is CPU-only AI slow?</h3>
+          <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">CPU inference is slower than GPU, but still usable. Small models (1-3B) respond in 5-15 seconds. 7B models take 20-40 seconds per response on a modern CPU.</p>
+          </div>
+        </div>
+        <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="faq-item">
+          <h3 itemprop="name">What is the best AI model for CPU-only?</h3>
+          <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">Phi-4-mini (3.8B) is the best for CPU-only. It's small enough to run fast on CPU while delivering surprisingly good quality for chat and writing tasks.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="seo-section seo-cta">
+      <h2>Get Your CPU-Only Setup</h2>
+      <p>Answer two questions and get the exact model and command for your specific laptop.</p>
+      <a href="/" class="btn-primary" style="display:inline-block;margin-top:1rem">Find My Setup</a>
+    </section>
+  </main>
+</body>
+</html>

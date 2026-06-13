@@ -11,6 +11,13 @@
     { "source": "/cpu-only-local-ai", "destination": "/cpu-only-local-ai.html" },
     { "source": "/old-laptop-local-ai", "destination": "/old-laptop-local-ai.html" },
     { "source": "/best-local-ai-no-gpu", "destination": "/best-local-ai-no-gpu.html" },
-    { "source": "/no-gpu-local-ai", "destination": "/best-local-ai-no-gpu.html" }
+    { "source": "/no-gpu-local-ai", "destination": "/best-local-ai-no-gpu.html" },
+    { "source": "/can-my-laptop-run-ai", "destination": "/can-my-laptop-run-ai.html" },
+    { "source": "/run-ai-without-gpu", "destination": "/run-ai-without-gpu.html" },
+    { "source": "/best-offline-chatgpt", "destination": "/best-offline-chatgpt.html" },
+    { "source": "/best-free-chatgpt-alternative", "destination": "/best-free-chatgpt-alternative.html" },
+    { "source": "/private-ai-for-work", "destination": "/private-ai-for-work.html" },
+    { "source": "/local-ai-for-students", "destination": "/local-ai-for-students.html" },
+    { "source": "/chatgpt-without-subscription", "destination": "/chatgpt-without-subscription.html" }
   ]
 }

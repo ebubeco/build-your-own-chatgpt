@@ -513,6 +513,105 @@
     return { startupTime, responseSpeed, storage: `${model.modelSizeGB}GB`, difficulty, setupTime, internetRequired: { label: 'No', detail: 'Runs fully on your device after setup.' } };
   }
 
+  function getWhyNotOthers(primary, tier, goal, allModels) {
+    const goalMap = { 'chat': 'chat', 'coding': 'coding', 'writing': 'writing', 'documents': 'writing', 'agents': 'agents', 'all': 'chat' };
+    const primaryGoal = goalMap[goal] || 'chat';
+    const tierLimits = { 'no-gpu': 1, 'cpu-only': 3, 'budget-gpu': 7, 'power-gpu': 14, 'silicon-8-16gb': 7, 'silicon-24-48gb': 14, 'silicon-64-plus': 72 };
+    const modelLimit = tierLimits[tier] || 7;
+    const tierVramMap = { 'no-gpu': 0, 'cpu-only': 0, 'budget-gpu': 4, 'power-gpu': 16, 'silicon-8-16gb': 8, 'silicon-24-48gb': 16, 'silicon-64-plus': 48 };
+    const vramLimit = tierVramMap[tier] || 0;
+
+    const others = allModels.filter(m => m.tier === tier && m.id !== primary.id);
+    if (!others.length) return [];
+
+    const results = [];
+
+    for (const m of others) {
+      const bStr = m.size.match(/(\d+\.?\d*)/);
+      const bSize = bStr ? parseFloat(bStr[1]) : 7;
+      const cap = getModelCapability(tier, bSize);
+      let reason = '';
+
+      if (vramLimit > 0 && m.vramGB > vramLimit * 1.2) {
+        reason = `Needs ${m.vramGB}GB VRAM — more than available on your system`;
+      } else if (m.bestFor && !m.bestFor.includes(primaryGoal) && m.bestFor.length > 0) {
+        const othersList = m.bestFor.filter(b => b !== primaryGoal).map(b => b.charAt(0).toUpperCase() + b.slice(1)).join(', ');
+        reason = `Optimized for ${othersList}, not ${primaryGoal}`;
+      } else if (cap !== 'fast') {
+        reason = `Will run slowly on your hardware — better for higher-spec systems`;
+      } else if (bSize > modelLimit) {
+        reason = `${bSize}B model may be sluggish on your configuration`;
+      } else if (!m.beginnerFriendly && primary.beginnerFriendly) {
+        reason = `More complex setup — ${primary.name} is easier to start with`;
+      } else {
+        const priRating = (primary.practicalRating && primary.practicalRating[primaryGoal]) || 0;
+        const thisRating = (m.practicalRating && m.practicalRating[primaryGoal]) || 0;
+        if (thisRating < priRating) {
+          reason = `Lower ${primaryGoal} quality rating (${thisRating}/10 vs ${priRating}/10)`;
+        } else {
+          reason = `Good model, but ${primary.name} is a better fit for ${primaryGoal}`;
+        }
+      }
+
+      results.push({ model: m, reason });
+      if (results.length >= 3) break;
+    }
+
+    return results;
+  }
+
+  function getUpgradeInfo(tier) {
+    const map = {
+      'no-gpu': {
+        to: 'cpu-only',
+        label: 'Upgrade to a laptop with 8GB+ RAM or add a budget GPU',
+        fromScore: 4,
+        toScore: 6,
+        unlocks: ['Run 1.5B-3B models comfortably', 'Better chat & writing', 'Coding basics'],
+        models: ['Qwen2.5:1.5B', 'Phi-4-mini'],
+        note: 'Even a small GPU (RTX 3050, used RTX 3060) makes a big difference'
+      },
+      'cpu-only': {
+        to: 'budget-gpu',
+        label: 'Add a dedicated GPU (RTX 3060 12GB or similar)',
+        fromScore: 6,
+        toScore: 8,
+        unlocks: ['GPU-accelerated 7B models', 'Real-time chat', 'Coding assistant'],
+        models: ['Qwen2.5:7B', 'Mistral 7B', 'Llama 3.1 8B'],
+        note: 'A used RTX 3060 12GB costs ~$200 and is the best value for local AI'
+      },
+      'budget-gpu': {
+        to: 'power-gpu',
+        label: 'Upgrade to a 16GB+ GPU (RTX 4070 Ti Super, used RTX 3090)',
+        fromScore: 8,
+        toScore: 10,
+        unlocks: ['Run 14B-30B models', 'Better coding & reasoning', 'Larger context'],
+        models: ['Qwen2.5:14B', 'Codestral 22B', 'Llama 3.1 70B (Q4)'],
+        note: 'A used RTX 3090 (24GB) is the best upgrade for high-end local AI'
+      },
+      'silicon-8-16gb': {
+        to: 'silicon-24-48gb',
+        label: 'Upgrade to a Mac with 24-48GB unified memory',
+        fromScore: 7,
+        toScore: 9,
+        unlocks: ['Run 14B models with Metal acceleration', 'Better multi-tasking', 'Larger context windows'],
+        models: ['Qwen2.5:14B', 'Llama 3.1 70B (Q2 quant)'],
+        note: 'M3 Pro or M2 Pro with 24-48GB memory unlocks much larger models'
+      },
+      'silicon-24-48gb': {
+        to: 'silicon-64-plus',
+        label: 'Upgrade to 64GB+ unified memory (M3 Max, M2 Ultra)',
+        fromScore: 9,
+        toScore: 10,
+        unlocks: ['Run 30B+ models smoothly', 'Real-time vision', 'Multi-model workflows'],
+        models: ['Qwen2.5:32B', 'Llama 3.1 70B (Q4)', 'DeepSeek Coder V2'],
+        note: 'Mac Studio M2 Ultra 128GB or M3 Max 64GB+ for workstation-class AI'
+      }
+    };
+    if (tier === 'power-gpu' || tier === 'silicon-64-plus') return { maxed: true };
+    return map[tier] || null;
+  }
+
   function getWhyPoints(model, tier, goal) {
     const points = [];
     const bStr = model.size.match(/(\d+\.?\d*)/);
@@ -590,6 +689,18 @@
     const goal = selectedGoal || 'all';
 
     const { primary, alternatives } = pickRecommendations(models, goal, tier);
+
+    const whyNotModels = showCloud ? [] : getWhyNotOthers(primary, tier, goal, models);
+    const whyNotHTML = whyNotModels.length > 0 ? `
+      <div class="why-not-section">
+        <div class="why-not-title">Why not the others?</div>
+        ${whyNotModels.map(w => `
+          <div class="why-not-item">
+            <div class="why-not-name">${wrapInGlossary(w.model.name.replace(/\s*\d+(\.\d+)?B\s*$/i, '').trim())}</div>
+            <div class="why-not-reason">${w.reason}</div>
+          </div>
+        `).join('')}
+      </div>` : '';
 
     const capItems = getCapabilityItems(breakdown, tier, goal);
 
@@ -762,6 +873,41 @@
           </div>` : ''}
         </div>` : ''}
 
+        ${(() => { const ui = getUpgradeInfo(tier); if (!ui) return ''; if (ui.maxed) return `
+        <div class="upgrade-card upgrade-maxed">
+          <div class="upgrade-title">🚀 Your setup is maxed out</div>
+          <p class="upgrade-desc">You already have a top-tier configuration. Current hardware can run the best local AI models available.</p>
+        </div>`; return `
+        <div class="upgrade-card">
+          <div class="upgrade-title">Want better performance?</div>
+          <div class="upgrade-compare">
+            <div class="upgrade-current">
+              <div class="upgrade-score-label">Current score</div>
+              <div class="upgrade-score">${ui.fromScore}<span class="upgrade-score-denom">/10</span></div>
+            </div>
+            <div class="upgrade-arrow">→</div>
+            <div class="upgrade-project">
+              <div class="upgrade-score-label">Projected score</div>
+              <div class="upgrade-score">${ui.toScore}<span class="upgrade-score-denom">/10</span></div>
+            </div>
+          </div>
+          <div class="upgrade-suggestion">
+            <div class="upgrade-suggest-label">Suggested upgrade</div>
+            <div class="upgrade-suggest-text">${ui.label}</div>
+          </div>
+          ${ui.note ? `<p class="upgrade-note">${ui.note}</p>` : ''}
+          <div class="upgrade-unlocks">
+            <div class="upgrade-unlock-label">What you'd unlock</div>
+            <ul class="upgrade-unlock-list">
+              ${ui.unlocks.map(u => `<li>✓ ${u}</li>`).join('')}
+            </ul>
+          </div>
+          <div class="upgrade-models">
+            <span class="upgrade-models-label">Models you could run: </span>
+            ${ui.models.map(m => `<span class="badge b-primary upgrade-model-badge">${m}</span>`).join('')}
+          </div>
+        </div>`; })()}
+
         ${showCloud ? `
         <div class="opt-out-card">
           <div class="opt-out-title">Honestly, local AI might not be the move</div>
@@ -791,6 +937,7 @@
 
         ${primaryHTML}
         ${altHTML}
+        ${showPrimary ? whyNotHTML : ''}
         ${selectedTier ? compendiumLink : ''}
 
         <div id="community-section"></div>

@@ -701,6 +701,204 @@ body {
   margin-bottom: 0.2rem;
 }
 
+/* Upgrade Simulator */
+.upgrade-card {
+  background: var(--bg-card);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.upgrade-card::before {
+  content: '🚀';
+  position: absolute;
+  right: -0.5rem;
+  top: -0.5rem;
+  font-size: 3rem;
+  opacity: 0.07;
+  pointer-events: none;
+  transform: rotate(15deg);
+}
+
+.upgrade-maxed {
+  border-color: var(--green);
+}
+
+.upgrade-maxed::before {
+  content: '🏆';
+}
+
+.upgrade-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 0.75rem;
+}
+
+.upgrade-desc {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.upgrade-compare {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.upgrade-current,
+.upgrade-project {
+  text-align: center;
+  flex: 1;
+}
+
+.upgrade-score-label {
+  font-size: 0.7rem;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.15rem;
+}
+
+.upgrade-score {
+  font-family: 'Outfit', sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.1;
+}
+
+.upgrade-score-denom {
+  font-size: 1rem;
+  color: var(--text-tertiary);
+  font-weight: 400;
+}
+
+.upgrade-project .upgrade-score {
+  color: var(--green);
+}
+
+.upgrade-arrow {
+  font-size: 1.5rem;
+  color: var(--text-tertiary);
+  font-weight: 300;
+  flex-shrink: 0;
+}
+
+.upgrade-suggestion {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+  padding: 0.6rem 0.75rem;
+  background: var(--bg);
+  border-radius: var(--radius-sm);
+  border-left: 3px solid var(--accent);
+}
+
+.upgrade-suggest-label {
+  font-weight: 600;
+  color: var(--text);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.2rem;
+}
+
+.upgrade-suggest-text {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.upgrade-note {
+  font-size: 0.78rem;
+  color: var(--text-tertiary);
+  margin-bottom: 0.75rem;
+  font-style: italic;
+}
+
+.upgrade-unlocks {
+  margin-bottom: 0.75rem;
+}
+
+.upgrade-unlock-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 0.35rem;
+}
+
+.upgrade-unlock-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.upgrade-unlock-list li {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  padding: 0.2rem 0;
+}
+
+.upgrade-models {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.upgrade-models-label {
+  font-size: 0.75rem;
+  color: var(--text-tertiary);
+  margin-right: 0.15rem;
+}
+
+.upgrade-model-badge {
+  font-size: 0.7rem !important;
+}
+
+/* Why Not Section */
+.why-not-section {
+  margin-top: 1.25rem;
+  padding: 0.75rem 1rem;
+  background: rgba(255, 107, 53, 0.04);
+  border: 1px solid rgba(255, 107, 53, 0.12);
+  border-radius: 10px;
+}
+.why-not-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 0.6rem;
+  letter-spacing: -0.01em;
+}
+.why-not-item {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  padding: 0.3rem 0;
+  border-bottom: 1px solid rgba(255, 107, 53, 0.06);
+}
+.why-not-item:last-child {
+  border-bottom: none;
+}
+.why-not-name {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+.why-not-reason {
+  font-size: 0.78rem;
+  color: var(--text-tertiary);
+  line-height: 1.35;
+}
+
 /* Community Stats */
 .community-stats {
   text-align: center;
