@@ -818,6 +818,14 @@
 
     const { primary, alternatives } = pickRecommendations(models, goal, tier);
 
+    const capItems = getCapabilityItems(breakdown, tier, goal);
+
+    // IMPORTANT: compute showPrimary BEFORE building primaryHTML
+    const conf = primary ? getConfidence(primary, tier, goal, selectedCareer) : null;
+    const showCloud = score <= 4 || (conf && (conf.level === 'Low' || conf.level === 'Very Low'));
+    if (showCloud) track('cloud_fallback_triggered', { reason: 'weak_hardware', tier, goal });
+    const showPrimary = primary && !showCloud;
+
     const whyNotModels = showCloud ? [] : getWhyNotOthers(primary, tier, goal, models);
     const whyNotHTML = whyNotModels.length > 0 ? `
       <div class="why-not-section">
@@ -829,14 +837,6 @@
           </div>
         `).join('')}
       </div>` : '';
-
-    const capItems = getCapabilityItems(breakdown, tier, goal);
-
-    // IMPORTANT: compute showPrimary BEFORE building primaryHTML
-    const conf = primary ? getConfidence(primary, tier, goal, selectedCareer) : null;
-    const showCloud = score <= 4 || (conf && (conf.level === 'Low' || conf.level === 'Very Low'));
-    if (showCloud) track('cloud_fallback_triggered', { reason: 'weak_hardware', tier, goal });
-    const showPrimary = primary && !showCloud;
 
     let primaryHTML = '';
     if (showPrimary && primary) {
