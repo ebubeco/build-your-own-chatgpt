@@ -123,11 +123,27 @@
             <span class="goal-title">AI agents and automation</span>
             <span class="goal-desc">Build automated workflows, research agents, and multi-step reasoning tasks.</span>
           </button>
+          <button class="goal-card" data-goal="unknown" aria-pressed="false">
+            <span class="goal-icon">❓</span>
+            <span class="goal-title">I Don't Know</span>
+            <span class="goal-desc">Not sure what's possible? Let's find the best fit together.</span>
+          </button>
           <button class="goal-card" data-goal="all" aria-pressed="false">
             <span class="goal-icon">🔍</span>
             <span class="goal-title">Show all models</span>
             <span class="goal-desc">Browse everything. Pick your hardware below for personalized picks.</span>
           </button>
+        </div>
+
+        <div id="goal-sub-questions" class="sub-questions hidden">
+          <p class="sub-question-prompt">Let's find the best fit. What sounds most useful?</p>
+          <div class="sub-question-grid">
+            <button class="sub-question-btn" data-maps-to="chat">💬 Ask questions and chat</button>
+            <button class="sub-question-btn" data-maps-to="writing">✍️ Help me write</button>
+            <button class="sub-question-btn" data-maps-to="coding">💻 Help me code</button>
+            <button class="sub-question-btn" data-maps-to="documents">📄 Work with files</button>
+            <button class="sub-question-btn" data-maps-to="agents">🤖 Automate tasks</button>
+          </div>
         </div>
 
         <div id="show-all-row" style="text-align:center;margin-top:0.75rem;display:none">
@@ -145,6 +161,18 @@
         <p class="section-desc">We'll only show models that actually run well on your machine.</p>
 
         <div id="hw-options" class="hw-grid"></div>
+
+        <div id="hw-sub-questions" class="sub-questions hidden">
+          <p class="sub-question-prompt">Let's figure it out. What type of computer do you have?</p>
+          <div class="sub-question-grid">
+            <button class="hw-sub-btn" data-family="windows-laptop">💻 Windows Laptop</button>
+            <button class="hw-sub-btn" data-family="windows-desktop">🖥️ Windows Desktop</button>
+            <button class="hw-sub-btn" data-family="mac">🍎 Mac</button>
+            <button class="hw-sub-btn" data-family="chromebook">📚 Chromebook</button>
+            <button class="hw-sub-btn" data-family="unsure">❓ Not Sure</button>
+          </div>
+          <div id="hw-sub-followup" class="sub-questions hidden" style="margin-top:1rem"></div>
+        </div>
 
         <div style="text-align:center;margin-top:1rem">
           <button class="show-all-btn" id="btn-show-all-hw">Show all models →</button>

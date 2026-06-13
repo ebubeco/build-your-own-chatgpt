@@ -327,10 +327,20 @@
       card.setAttribute('aria-pressed', 'true');
     }
 
+    const subQs = document.getElementById('goal-sub-questions');
+    const hwSection = document.getElementById('hw-section');
+
+    if (goal === 'unknown') {
+      if (subQs) subQs.classList.remove('hidden');
+      if (hwSection) hwSection.classList.add('hidden');
+      return;
+    }
+
+    if (subQs) subQs.classList.add('hidden');
+
     if (goal === 'all') {
       const showAllRow = document.getElementById('show-all-row');
       if (showAllRow) showAllRow.style.display = 'block';
-      const hwSection = document.getElementById('hw-section');
       if (hwSection) {
         hwSection.classList.remove('hidden');
         hwSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -338,7 +348,6 @@
       return;
     }
 
-    const hwSection = document.getElementById('hw-section');
     if (hwSection) {
       hwSection.classList.remove('hidden');
       hwSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -434,7 +443,7 @@
     const responseSpeed = bSize <= 3 ? 'Fast' : bSize <= 7 ? 'Fast (chat), Moderate (long docs)' : 'Moderate';
     const difficulty = model.beginnerFriendly ? 'Easy' : 'Moderate';
     const setupTime = model.setupComplexity === 'easy' ? '5 minutes' : '10 minutes';
-    return { startupTime, responseSpeed, storage: `${model.modelSizeGB}GB`, difficulty, setupTime };
+    return { startupTime, responseSpeed, storage: `${model.modelSizeGB}GB`, difficulty, setupTime, internetRequired: { label: 'No', detail: 'Runs fully on your device after setup.' } };
   }
 
   function getWhyPoints(model, tier, goal) {
@@ -554,6 +563,7 @@
             <div class="rec-expect-row"><span class="rec-expect-label">Storage needed</span><span class="rec-expect-value">${e.storage}</span></div>
             <div class="rec-expect-row"><span class="rec-expect-label">Difficulty</span><span class="rec-expect-value">${e.difficulty}</span></div>
             <div class="rec-expect-row"><span class="rec-expect-label">Setup time</span><span class="rec-expect-value">${e.setupTime}</span></div>
+            <div class="rec-expect-row"><span class="rec-expect-label">Internet required</span><span class="rec-expect-value">${e.internetRequired.label} — ${e.internetRequired.detail}</span></div>
           </div>
         </div>`; })()}
         <div class="rec-meta">
@@ -914,6 +924,47 @@
     }
   }
 
+  function handleHWSubQuestion(family) {
+    const container = document.getElementById('hw-sub-followup');
+    if (!container) return;
+
+    if (family === 'chromebook') {
+      const opt = gpusData.manualOptions.find(o => o.id === 'old-laptop');
+      if (opt) selectHW(opt.id, opt.tier);
+      return;
+    }
+    if (family === 'unsure') {
+      const opt = gpusData.manualOptions.find(o => o.id === 'modern-laptop-no-gpu');
+      if (opt) selectHW(opt.id, opt.tier);
+      return;
+    }
+    if (family === 'windows-laptop' || family === 'windows-desktop') {
+      const isDesktop = family === 'windows-desktop';
+      container.classList.remove('hidden');
+      container.innerHTML = `
+        <p class="sub-question-prompt">Can it play modern games?</p>
+        <div class="sub-question-grid">
+          <button class="hw-followup-btn" data-hw-tier="${isDesktop ? 'power-gpu' : 'budget-gpu'}">🎮 Yes</button>
+          <button class="hw-followup-btn" data-hw-tier="cpu-only">❌ No</button>
+          <button class="hw-followup-btn" data-hw-tier="${isDesktop ? 'budget-gpu' : 'cpu-only'}">❓ Not Sure</button>
+        </div>`;
+      container.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+    if (family === 'mac') {
+      container.classList.remove('hidden');
+      container.innerHTML = `
+        <p class="sub-question-prompt">Which Mac?</p>
+        <div class="sub-question-grid">
+          <button class="hw-followup-btn" data-hw-tier="silicon-8-16gb">🍎 Apple Silicon (M1/M2/M3/M4)</button>
+          <button class="hw-followup-btn" data-hw-tier="cpu-only">💻 Intel Mac</button>
+          <button class="hw-followup-btn" data-hw-tier="silicon-8-16gb">❓ Not Sure</button>
+        </div>`;
+      container.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+  }
+
   function selectTool(tool) {
     document.querySelectorAll('.tool-option').forEach(o => o.classList.remove('selected'));
     const el = document.querySelector(`.tool-option[data-tool="${tool}"]`);
@@ -977,7 +1028,15 @@
     });
     
     document.querySelectorAll('.hw-card').forEach(btn => {
-      btn.addEventListener('click', (e) => selectHW(e.currentTarget.dataset.id, e.currentTarget.dataset.tier));
+      btn.addEventListener('click', (e) => {
+        if (e.currentTarget.dataset.id === 'dont-know') {
+          document.getElementById('hw-options').classList.add('hidden');
+          document.getElementById('hw-sub-questions').classList.remove('hidden');
+          document.getElementById('hw-sub-questions').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } else {
+          selectHW(e.currentTarget.dataset.id, e.currentTarget.dataset.tier);
+        }
+      });
     });
 
     const btnShowAll = document.getElementById('btn-show-all');
@@ -1019,9 +1078,20 @@
       } else if (e.target.closest('.guide-tab-switch')) {
         const btn = e.target.closest('.guide-tab-switch');
         showGuide(btn.dataset.guide);
+      } else if (e.target.closest('.sub-question-btn')) {
+        const btn = e.target.closest('.sub-question-btn');
+        selectGoal(btn.dataset.mapsTo);
+      } else if (e.target.closest('.hw-sub-btn')) {
+        const btn = e.target.closest('.hw-sub-btn');
+        handleHWSubQuestion(btn.dataset.family);
+      } else if (e.target.closest('.hw-followup-btn')) {
+        const btn = e.target.closest('.hw-followup-btn');
+        const tier = btn.dataset.hwTier;
+        const opt = gpusData.manualOptions.find(o => o.tier === tier);
+        if (opt) selectHW(opt.id, opt.tier);
       } else if (e.target.closest('.hw-card')) {
         const btn = e.target.closest('.hw-card');
-        selectHW(btn.dataset.id, btn.dataset.tier);
+        if (btn.dataset.id !== 'dont-know') selectHW(btn.dataset.id, btn.dataset.tier);
       }
     });
   }
