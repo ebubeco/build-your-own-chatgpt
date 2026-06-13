@@ -415,6 +415,28 @@
     return { level: 'Very Low', color: 'var(--red)' };
   }
 
+  const BEST_FOR_LABELS = {
+    'chat': 'Personal ChatGPT replacement',
+    'coding': 'Coding help',
+    'writing': 'Writing and research',
+    'research': 'Research and analysis',
+    'agents': 'AI agents',
+    'reasoning': 'Reasoning tasks',
+    'learning': 'Learning and experiments',
+    'general': 'General use',
+    'experiments': 'Experiments'
+  };
+
+  function getExpectations(model) {
+    const bStr = model.size.match(/(\d+\.?\d*)/);
+    const bSize = bStr ? parseFloat(bStr[1]) : 7;
+    const startupTime = bSize <= 3 ? '10-15 seconds' : bSize <= 7 ? '20-30 seconds' : '30-45 seconds';
+    const responseSpeed = bSize <= 3 ? 'Fast' : bSize <= 7 ? 'Fast (chat), Moderate (long docs)' : 'Moderate';
+    const difficulty = model.beginnerFriendly ? 'Easy' : 'Moderate';
+    const setupTime = model.setupComplexity === 'easy' ? '5 minutes' : '10 minutes';
+    return { startupTime, responseSpeed, storage: `${model.modelSizeGB}GB`, difficulty, setupTime };
+  }
+
   function getWhyPoints(model, tier, goal) {
     const points = [];
     const bStr = model.size.match(/(\d+\.?\d*)/);
@@ -516,6 +538,24 @@
           <div class="rec-why-title">Why this?</div>
           ${whyPoints.map(p => `<div class="rec-why-point">✓ ${p}</div>`).join('')}
         </div>
+        ${primary.bestFor && primary.bestFor.length > 0 ? `
+        <div class="rec-section">
+          <div class="rec-section-title">Best For</div>
+          <div class="rec-bestfor-list">
+            ${primary.bestFor.map(t => `<span class="rec-bestfor-tag">${BEST_FOR_LABELS[t] || t}</span>`).join('')}
+          </div>
+        </div>` : ''}
+        ${(() => { const e = getExpectations(primary); return `
+        <div class="rec-section" style="margin-top:0.75rem">
+          <div class="rec-section-title">What to Expect</div>
+          <div class="rec-expectations">
+            <div class="rec-expect-row"><span class="rec-expect-label">Response speed</span><span class="rec-expect-value">${e.responseSpeed}</span></div>
+            <div class="rec-expect-row"><span class="rec-expect-label">Startup time</span><span class="rec-expect-value">${e.startupTime}</span></div>
+            <div class="rec-expect-row"><span class="rec-expect-label">Storage needed</span><span class="rec-expect-value">${e.storage}</span></div>
+            <div class="rec-expect-row"><span class="rec-expect-label">Difficulty</span><span class="rec-expect-value">${e.difficulty}</span></div>
+            <div class="rec-expect-row"><span class="rec-expect-label">Setup time</span><span class="rec-expect-value">${e.setupTime}</span></div>
+          </div>
+        </div>`; })()}
         <div class="rec-meta">
           <span class="badge b-primary">📦 ${primary.modelSizeGB}GB</span>
           <span class="badge b-purple">💾 ${primary.vramGB}GB VRAM</span>
