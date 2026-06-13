@@ -83,6 +83,7 @@
   }
 
   function detectSystemRAM() {
+    // Kept for potential future use; navigator.deviceMemory returns GBs
     if (navigator.deviceMemory) return navigator.deviceMemory;
     return null;
   }
@@ -459,6 +460,12 @@
     const { primary, alternatives } = pickRecommendations(models, goal, tier);
 
     const capItems = getCapabilityItems(breakdown, tier, goal);
+
+    // IMPORTANT: compute showPrimary BEFORE building primaryHTML
+    const conf = primary ? getConfidence(primary, tier, goal) : null;
+    const showCloud = score <= 4 || (conf && (conf.level === 'Low' || conf.level === 'Very Low'));
+    const showPrimary = primary && !showCloud;
+
     let primaryHTML = '';
     if (showPrimary && primary) {
       const quantLabel = primary.recommendedQuant || 'Q4_K_M';
@@ -516,25 +523,28 @@
     const compendiumLink = selectedTier ? `
       <div class="compendium-link-row">
         <span>Want to explore more options?</span>
-        <a href="?" class="compendium-link" onclick="showAllModelsDirect(); return false;">View Free AI Models Compendium →</a>
+        <a href="#" class="compendium-link" id="compendium-link-btn">View Free AI Models Compendium →</a>
       </div>` : '';
 
-    const conf = primary ? getConfidence(primary, tier, goal) : null;
-    const showCloud = score <= 4 || (conf && (conf.level === 'Low' || conf.level === 'Very Low'));
-    const showPrimary = primary && !showCloud;
+    const scoreBarColor = (val) => {
+      const cls = getRatingClass(val);
+      if (cls === 'rating-high') return 'var(--green)';
+      if (cls === 'rating-mid')  return 'var(--amber)';
+      return 'var(--red)';
+    };
 
     section.innerHTML = `
       <div class="fade-in">
         <div class="results-toolbar">
-          <button id="share-btn" class="btn-share" onclick="shareResult()">Share results</button>
-          <button id="dev-toggle-btn" class="btn-dev-toggle" onclick="toggleDevCode()">Show install code (developers)</button>
+          <button id="share-btn" class="btn-share">Share results</button>
+          <button id="dev-toggle-btn" class="btn-dev-toggle">Show install code (developers)</button>
         </div>
 
         <div class="score-card">
           <div class="score-top">
             <div>
               <div class="score-label">Your AI Readiness</div>
-              <div class="score-number" style="color:#e85d04">${score}<span style="font-size:1.5rem;color:var(--text-tertiary)">/10</span></div>
+              <div class="score-number" style="color:var(--accent)">${score}<span style="font-size:1.5rem;color:var(--text-tertiary)">/10</span></div>
               <div class="score-subtitle">
                 ${score <= 4 ? 'Local AI will be slow on this setup - but it\'s possible.' :
                   score <= 7 ? 'Solid setup for local AI. Smaller models will fly, bigger ones need patience.' :
@@ -545,7 +555,7 @@
               ${Object.entries(breakdown).map(([key, val]) => `
                 <div class="score-item">
                   <span class="score-item-label">${key}</span>
-                  <div class="score-bar"><div class="score-bar-fill" style="width:${val * 10}%;background:${getRatingClass(val) === 'rating-high' ? '#1a8a45' : getRatingClass(val) === 'rating-mid' ? '#b36b00' : '#cc2222'}"></div></div>
+                  <div class="score-bar"><div class="score-bar-fill" style="width:${val * 10}%;background:${scoreBarColor(val)}"></div></div>
                 </div>
               `).join('')}
             </div>
@@ -577,19 +587,19 @@
               <div class="cloud-alt-badge">🥇 Best overall</div>
               <div class="cloud-alt-name">Gemini 2.0 Flash</div>
               <div class="cloud-alt-desc">Free, multimodal, huge context</div>
-              <a href="https://gemini.google.com" target="_blank" class="btn-secondary">Use Gemini Free</a>
+              <a href="https://gemini.google.com" target="_blank" rel="noopener noreferrer" class="btn-secondary">Use Gemini Free</a>
             </div>
             <div class="cloud-alt-card">
               <div class="cloud-alt-badge">🥈 Fastest</div>
               <div class="cloud-alt-name">Groq</div>
               <div class="cloud-alt-desc">1,000 tokens/sec, free tier</div>
-              <a href="https://console.groq.com" target="_blank" class="btn-secondary">Try Groq Free</a>
+              <a href="https://console.groq.com" target="_blank" rel="noopener noreferrer" class="btn-secondary">Try Groq Free</a>
             </div>
             <div class="cloud-alt-card">
               <div class="cloud-alt-badge">🥉 Most variety</div>
               <div class="cloud-alt-name">OpenRouter</div>
               <div class="cloud-alt-desc">27+ free models, auto-switches</div>
-              <a href="https://openrouter.ai" target="_blank" class="btn-secondary">Try OpenRouter Free</a>
+              <a href="https://openrouter.ai" target="_blank" rel="noopener noreferrer" class="btn-secondary">Try OpenRouter Free</a>
             </div>
           </div>
           <p style="font-size:0.8rem;color:var(--text-tertiary);margin-top:0.75rem">Or try our smallest models - they work on any hardware, just slower.</p>
@@ -600,6 +610,7 @@
         ${showPrimary ? compendiumLink : ''}
       </div>`;
 
+    // wire up the compendium link via event delegation (already covered by global listener)
     section.classList.remove('hidden');
     section.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
@@ -651,8 +662,8 @@
 
     resultsSection.innerHTML = `
       <div class="results-toolbar">
-        <button id="share-btn" class="btn-share" onclick="shareResult()">Share results</button>
-        <button id="dev-toggle-btn" class="btn-dev-toggle" onclick="toggleDevCode()">Show install code (developers)</button>
+        <button id="share-btn" class="btn-share">Share results</button>
+        <button id="dev-toggle-btn" class="btn-dev-toggle">Show install code (developers)</button>
       </div>
       <div class="score-card">
         <div class="score-top">
@@ -726,16 +737,27 @@
   };
 
   function applyTheme(theme) {
+    const btn = document.getElementById('theme-toggle');
     if (theme === 'dark') {
       document.documentElement.setAttribute('data-theme', 'dark');
       localStorage.setItem('theme', 'dark');
-      const btn = document.getElementById('theme-toggle');
-      if (btn) btn.textContent = '☀️';
+      if (btn) {
+        const icon = btn.querySelector('.toggle-icon');
+        const label = btn.querySelector('.toggle-label');
+        if (icon) icon.textContent = '☀️';
+        if (label) label.textContent = 'Light mode';
+        else btn.textContent = '☀️';
+      }
     } else {
       document.documentElement.removeAttribute('data-theme');
       localStorage.setItem('theme', 'light');
-      const btn = document.getElementById('theme-toggle');
-      if (btn) btn.textContent = '🌙';
+      if (btn) {
+        const icon = btn.querySelector('.toggle-icon');
+        const label = btn.querySelector('.toggle-label');
+        if (icon) icon.textContent = '🌙';
+        if (label) label.textContent = 'Dark mode';
+        else btn.textContent = '🌙';
+      }
     }
   }
 
@@ -755,10 +777,20 @@
 
   async function init() {
     initTheme();
-    await loadData();
+    try {
+      await loadData();
+    } catch (err) {
+      console.error('Failed to load app data:', err);
+      document.body.innerHTML = `<div style="text-align:center;padding:4rem 1rem;font-family:Inter,sans-serif">
+        <h2 style="color:#e85d04;margin-bottom:1rem">⚠️ Could not load app data</h2>
+        <p style="color:#666">Please check your internet connection and <a href="" style="color:#e85d04">reload the page</a>.</p>
+      </div>`;
+      return;
+    }
     renderHWSelector();
     renderCloudProviders();
     setupEventListeners();
+    showGuide('ollama');
     isAppleSilicon = detectAppleSilicon();
 
     const state = decodeState();
@@ -894,7 +926,7 @@
     });
     
     document.addEventListener('click', e => {
-      if (e.target.closest('#share-btn')) {
+      } else if (e.target.closest('#share-btn')) {
         shareResult();
       } else if (e.target.closest('#dev-toggle-btn')) {
         toggleDevCode();
@@ -902,10 +934,13 @@
         const btn = e.target.closest('.copy-btn');
         const codeBox = btn.previousElementSibling;
         if (codeBox && (codeBox.tagName === 'CODE' || codeBox.classList.contains('install-command'))) {
-          copyToClipboard(codeBox.textContent, btn);
+          copyToClipboard(codeBox.textContent.trim(), btn);
         }
       } else if (e.target.closest('#theme-toggle')) {
         toggleTheme();
+      } else if (e.target.closest('#compendium-link-btn')) {
+        e.preventDefault();
+        showAllModelsDirect();
       } else if (e.target.closest('.hw-card')) {
         const btn = e.target.closest('.hw-card');
         selectHW(btn.dataset.id, btn.dataset.tier);

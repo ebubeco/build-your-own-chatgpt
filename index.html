@@ -14,6 +14,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <!-- Anti-flash: apply theme before CSS renders -->
+  <script>!function(){var t=localStorage.getItem('theme');if(t==='dark'||(t===null&&window.matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark')}();</script>
   <link rel="preload" href="data/config.json" as="fetch" crossorigin="anonymous">
   <link rel="preload" href="data/models_compendium.json" as="fetch" crossorigin="anonymous">
   <link rel="preload" href="data/cloud_providers.json" as="fetch" crossorigin="anonymous">
@@ -59,11 +61,23 @@
 </head>
 <body>
 
+  <!-- Sticky top navigation with prominent theme toggle -->
+  <nav class="site-topbar" role="navigation" aria-label="Site navigation">
+    <div class="container">
+      <div class="topbar-inner">
+        <span class="site-brand">🤖 Build Your ChatGPT</span>
+        <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle light/dark mode">
+          <span class="toggle-icon">🌙</span>
+          <span class="toggle-label">Dark mode</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
   <header class="header">
     <div class="container">
       <div class="header-inner">
         <span class="header-badge">Free · Private · Works offline</span>
-        <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle dark mode">🌙</button>
       </div>
       <h1>Build Your Own ChatGPT</h1>
       <p>From a beat-up 2014 laptop to a shiny gaming rig, whatever you're working with, we'll get a private AI running on it. No cloud, no subscription, your data stays on your machine.</p>
@@ -432,9 +446,9 @@ print(response.text)</div>
   <footer class="footer">
     <div class="container">
       <div class="footer-links">
-        <a href="https://github.com/ebubeco/build-your-own-chatgpt" target="_blank">GitHub</a>
-        <a href="https://ollama.com" target="_blank">Ollama</a>
-        <a href="https://huggingface.co" target="_blank">Hugging Face</a>
+        <a href="https://github.com/ebubeco/build-your-own-chatgpt" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://ollama.com" target="_blank" rel="noopener noreferrer">Ollama</a>
+        <a href="https://huggingface.co" target="_blank" rel="noopener noreferrer">Hugging Face</a>
       </div>
       <p class="footer-tagline">Built for beginners. Your data never leaves your machine.</p>
     </div>
