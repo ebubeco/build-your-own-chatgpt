@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free AI Models Compendium — All Local AI Options</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="compendium.css">
+  <style>
+    :root {
+      --bg: #FDFAF6;
+      --text: #1a1a1a;
+      --text-secondary: #555;
+      --text-tertiary: #888;
+      --border: #e8e0d8;
+      --accent: #e85d04;
+      --accent-light: #fff3ed;
+      --surface: #ffffff;
+      --surface-hover: #faf7f4;
+      --green: #1a8a45;
+      --amber: #b36b00;
+      --red: #cc2222;
+      --radius: 10px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+  <header class="comp-header">
+    <div class="comp-header-inner">
+      <div class="comp-header-left">
+        <a href="index.html" class="comp-back">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          Back to Wizard
+        </a>
+        <h1 class="comp-title">Free AI Models Compendium</h1>
+        <p class="comp-subtitle">Every open AI model that runs on your hardware. Compare, filter, and find your perfect match.</p>
+      </div>
+      <div class="comp-stats">
+        <div class="comp-stat"><span class="comp-stat-num" id="total-models">53</span><span class="comp-stat-label">models</span></div>
+        <div class="comp-stat"><span class="comp-stat-num">12</span><span class="comp-stat-label">providers</span></div>
+        <div class="comp-stat"><span class="comp-stat-num">7</span><span class="comp-stat-label">tiers</span></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="comp-main">
+    <div class="comp-controls">
+      <div class="comp-search-wrap">
+        <svg class="comp-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" id="comp-search" class="comp-search" placeholder="Search models, providers, specialties...">
+        <button id="comp-search-clear" class="comp-search-clear hidden" aria-label="Clear search">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="comp-filters">
+        <div class="comp-filter-group">
+          <label class="comp-filter-label">Hardware Tier</label>
+          <div class="comp-filter-chips" id="tier-filters">
+            <button class="chip active" data-tier="all">All</button>
+            <button class="chip" data-tier="no-gpu">No GPU</button>
+            <button class="chip" data-tier="cpu-only">CPU-Only</button>
+            <button class="chip" data-tier="budget-gpu">Budget GPU</button>
+            <button class="chip" data-tier="power-gpu">Power GPU</button>
+            <button class="chip" data-tier="silicon">Apple Silicon</button>
+          </div>
+        </div>
+        <div class="comp-filter-group">
+          <label class="comp-filter-label">Specialty</label>
+          <div class="comp-filter-chips" id="specialty-filters">
+            <button class="chip active" data-specialty="all">All</button>
+            <button class="chip" data-specialty="coding">Coding</button>
+            <button class="chip" data-specialty="writing">Writing</button>
+            <button class="chip" data-specialty="reasoning">Reasoning</button>
+            <button class="chip" data-specialty="agents">Agents</button>
+            <button class="chip" data-specialty="vision">Vision</button>
+          </div>
+        </div>
+        <div class="comp-filter-group">
+          <label class="comp-filter-label">Provider</label>
+          <select id="provider-filter" class="comp-select">
+            <option value="all">All Providers</option>
+            <option value="meta">Meta (Llama)</option>
+            <option value="qwen">Qwen/Alibaba</option>
+            <option value="microsoft">Microsoft</option>
+            <option value="google">Google</option>
+            <option value="deepseek">DeepSeek</option>
+            <option value="mistral">Mistral</option>
+            <option value="huggingface">HuggingFace</option>
+          </select>
+        </div>
+        <div class="comp-filter-group comp-sort-group">
+          <label class="comp-filter-label">Sort by</label>
+          <select id="sort-filter" class="comp-select">
+            <option value="name">Name (A-Z)</option>
+            <option value="size-asc">Size (smallest first)</option>
+            <option value="size-desc">Size (largest first)</option>
+            <option value="coding-desc">Best for Coding</option>
+            <option value="reasoning-desc">Best for Reasoning</option>
+            <option value="writing-desc">Best for Writing</option>
+          </select>
+        </div>
+      </div>
+      <div class="comp-view-toggle">
+        <button class="comp-view-btn active" data-view="grid" aria-label="Grid view" title="Grid view">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        </button>
+        <button class="comp-view-btn" data-view="table" aria-label="Table view" title="Table view">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h18v4H3zM3 10h18v4H3zM3 17h18v4H3z"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="comp-results-header">
+      <span id="comp-results-count">53 models</span>
+      <div class="comp-highlight-toggle">
+        <label class="comp-toggle-label">
+          <input type="checkbox" id="highlight-only"> Highlighted only
+        </label>
+      </div>
+    </div>
+
+    <div id="comp-grid" class="comp-grid"></div>
+    <div id="comp-table-wrap" class="comp-table-wrap hidden"></div>
+
+    <div id="comp-empty" class="comp-empty hidden">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <p>No models match your filters</p>
+      <button onclick="resetFilters()" class="btn-reset">Reset filters</button>
+    </div>
+  </main>
+
+  <footer class="comp-footer">
+    <p>Built with care for the local AI community. Data from Ollama library, HuggingFace, and model providers.</p>
+    <p><a href="index.html">Build Your Own ChatGPT</a> · <a href="https://github.com/ebubeco/build-your-own-chatgpt">GitHub</a></p>
+  </footer>
+
+  <script>
+const TIERS = [
+  {id: 'no-gpu', name: 'No GPU / Old Hardware', color: '#E24B4A', vram: 'CPU only', icon: 'laptop'},
+  {id: 'cpu-only', name: 'CPU-Only', color: '#BA7517', vram: '0-4GB VRAM', icon: 'laptop'},
+  {id: 'budget-gpu', name: 'Budget GPU', color: '#1D9E75', vram: '4-12GB VRAM', icon: 'gpu'},
+  {id: 'power-gpu', name: 'Power GPU', color: '#534AB7', vram: '12GB+ VRAM', icon: 'gpu'},
+  {id: 'silicon-8-16gb', name: 'Apple Silicon 8-16GB', color: '#6B5CF5', vram: '8-16GB unified', icon: 'apple'},
+  {id: 'silicon-24-48gb', name: 'Apple Silicon 24-48GB', color: '#3D2FB8', vram: '24-48GB unified', icon: 'apple'},
+  {id: 'silicon-64-plus', name: 'Apple Silicon 64GB+', color: '#1D0FB8', vram: '64GB+ unified', icon: 'apple'}
+];
+const PROVIDERS = {
+  meta: {name: 'Meta', color: '#0466D6'},
+  qwen: {name: 'Qwen', color: '#E05D00'},
+  microsoft: {name: 'Microsoft', color: '#0078D4'},
+  google: {name: 'Google', color: '#4285F4'},
+  deepseek: {name: 'DeepSeek', color: '#0066CC'},
+  huggingface: {name: 'HuggingFace', color: '#FFD02F'},
+  mistral: {name: 'Mistral', color: '#EB6234'},
+  apple: {name: 'Apple', color: '#A2AAAD'},
+  stability: {name: 'Stability AI', color: '#7C3AED'},
+  allenai: {name: 'Allen Institute', color: '#2E7D32'},
+  openbmc: {name: 'Open BMC', color: '#E63946'},
+ NousResearch: {name: 'Nous Research', color: '#6B5CF5'}
+};
+const SPECIALTY_MAP = {chat:'Chat',coding:'Coding',writing:'Writing',reasoning:'Reasoning',agents:'Agents',vision:'Vision',multimodal:'Multimodal',research:'Research'};
+const LICENSE_LABELS = {'Apache 2.0':'Apache 2.0','Llama 3.2':'Llama 3.2','Llama 3.1':'Llama 3.1','MIT':'MIT','Gemma':'Gemma','CC BY-NC 4.0':'Non-commercial','HuggingFace':'HuggingFace','LLaMA 2':'LLaMA 2'};
+
+let allModels = [];
+let activeTier = 'all';
+let activeSpecialty = 'all';
+let activeProvider = 'all';
+let activeSort = 'name';
+let activeHighlight = false;
+let searchQuery = '';
+let currentView = 'grid';
+
+async function init() {
+  try {
+    const res = await fetch('data/models.json');
+    const data = await res.json();
+    allModels = data.models.map(m => ({
+      ...m,
+      tierId: m.tier,
+      providerId: getProviderId(m),
+      isSilicon: m.tier.startsWith('silicon'),
+      specialties: m.bestFor || []
+    }));
+    document.getElementById('total-models').textContent = allModels.length;
+    document.getElementById('comp-results-count').textContent = allModels.length + ' models';
+    bindEvents();
+    render();
+  } catch (e) { console.error(e); }
+}
+
+function getProviderId(m) {
+  const n = m.name.toLowerCase();
+  if (n.includes('llama') || n.includes('codellama')) return 'meta';
+  if (n.includes('qwen') || n.includes('yi')) return 'qwen';
+  if (n.includes('phi')) return 'microsoft';
+  if (n.includes('gemma')) return 'google';
+  if (n.includes('deepseek')) return 'deepseek';
+  if (n.includes('mistral') || n.includes('mixtral') || n.includes('command') || n.includes('mistr')) return 'mistral';
+  if (n.includes('smollm') || n.includes('starcoder') || n.includes('zephyr') || n.includes('openchat')) return 'huggingface';
+  if (n.includes('wizard') || n.includes('smaug')) return 'allenai';
+  if (n.includes('dolphin') || n.includes('hermes')) return 'NousResearch';
+  if (n.includes('openchat')) return 'openbmc';
+  return 'qwen';
+}
+
+function getFiltered() {
+  return allModels.filter(m => {
+    if (activeTier === 'silicon' && !m.isSilicon) return false;
+    if (activeTier !== 'all' && activeTier !== 'silicon' && m.tierId !== activeTier) return false;
+    if (activeSpecialty !== 'all' && !m.specialties.some(s => s.toLowerCase().includes(activeSpecialty))) return false;
+    if (activeProvider !== 'all' && m.providerId !== activeProvider) return false;
+    if (activeHighlight && !m.highlight) return false;
+    if (searchQuery) {
+      const q = searchQuery.toLowerCase();
+      const searchable = [m.name, m.description, m.providerId, ...m.specialties, m.size].join(' ').toLowerCase();
+      if (!searchable.includes(q)) return false;
+    }
+    return true;
+  });
+}
+
+function getSorted(models) {
+  const sorted = [...models];
+  switch (activeSort) {
+    case 'name': sorted.sort((a,b) => a.name.localeCompare(b.name)); break;
+    case 'size-asc': sorted.sort((a,b) => parseSize(a.size) - parseSize(b.size)); break;
+    case 'size-desc': sorted.sort((a,b) => parseSize(b.size) - parseSize(a.size)); break;
+    case 'coding-desc': sorted.sort((a,b) => (b.practicalRating?.coding||0) - (a.practicalRating?.coding||0)); break;
+    case 'reasoning-desc': sorted.sort((a,b) => (b.practicalRating?.reasoning||0) - (a.practicalRating?.reasoning||0)); break;
+    case 'writing-desc': sorted.sort((a,b) => (b.practicalRating?.writing||0) - (a.practicalRating?.writing||0)); break;
+  }
+  return sorted;
+}
+
+function parseSize(s) {
+  const m = s.match(/[\d.]+/);
+  if (s.includes('x')) return parseFloat(m) * 8;
+  return m ? parseFloat(m) : 0;
+}
+
+function render() {
+  const filtered = getSorted(getFiltered());
+  document.getElementById('comp-results-count').textContent = filtered.length + ' model' + (filtered.length !== 1 ? 's' : '');
+  document.getElementById('comp-empty').classList.toggle('hidden', filtered.length > 0);
+  document.getElementById('comp-grid').classList.toggle('hidden', currentView === 'table');
+  document.getElementById('comp-table-wrap').classList.toggle('hidden', currentView === 'grid');
+  if (currentView === 'grid') renderGrid(filtered);
+  else renderTable(filtered);
+}
+
+function renderGrid(models) {
+  const grid = document.getElementById('comp-grid');
+  grid.innerHTML = models.map(m => {
+    const tier = TIERS.find(t => t.id === m.tierId) || TIERS[0];
+    const prov = PROVIDERS[m.providerId] || {name: m.providerId, color: '#888'};
+    const coding = m.practicalRating?.coding || 5;
+    const writing = m.practicalRating?.writing || 5;
+    const reasoning = m.practicalRating?.reasoning || 5;
+    return `<div class="comp-card${m.highlight ? ' highlighted' : ''}" data-model="${m.id}">
+      <div class="comp-card-top">
+        <div class="comp-card-header">
+          <span class="comp-card-name">${m.name}</span>
+          <span class="comp-card-size badge">${m.size}</span>
+        </div>
+        <div class="comp-card-meta">
+          <span class="comp-card-provider" style="color:${prov.color}">${prov.name}</span>
+          <span class="comp-card-tier" style="color:${tier.color}">${tier.name}</span>
+        </div>
+      </div>
+      <p class="comp-card-desc">${m.description}</p>
+      <div class="comp-card-specs">
+        <div class="comp-spec-row"><span class="comp-spec-label">Context</span><span class="comp-spec-val">${m.contextLength?.toLocaleString() || '—'}</span></div>
+        <div class="comp-spec-row"><span class="comp-spec-label">VRAM</span><span class="comp-spec-val">${m.vramGB || m.modelSizeGB || '?'}GB</span></div>
+      </div>
+      <div class="comp-card-ratings">
+        <div class="comp-rating"><span class="comp-rating-label">Coding</span><div class="comp-rating-bar"><div class="comp-rating-fill" style="width:${coding*10}%;background:var(--green)"></div></div><span class="comp-rating-val">${coding}</span></div>
+        <div class="comp-rating"><span class="comp-rating-label">Writing</span><div class="comp-rating-bar"><div class="comp-rating-fill" style="width:${writing*10}%;background:var(--green)"></div></div><span class="comp-rating-val">${writing}</span></div>
+        <div class="comp-rating"><span class="comp-rating-label">Reasoning</span><div class="comp-rating-bar"><div class="comp-rating-fill" style="width:${reasoning*10}%;background:var(--green)"></div></div><span class="comp-rating-val">${reasoning}</span></div>
+      </div>
+      <div class="comp-card-tags">${(m.bestFor||[]).slice(0,4).map(s => `<span class="comp-tag">${SPECIALTY_MAP[s]||s}</span>`).join('')}</div>
+      <div class="comp-card-install">
+        <code class="comp-install-cmd">${m.installCommand || 'ollama pull '+m.ollamaTag}</code>
+        <button class="comp-copy-btn" onclick="copyCmd('${m.installCommand || 'ollama pull '+m.ollamaTag}', this)" title="Copy install command">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+        </button>
+      </div>
+      ${m.highlight ? '<div class="comp-highlight-badge">★ Recommended</div>' : ''}
+    </div>`;
+  }).join('');
+}
+
+function renderTable(models) {
+  const wrap = document.getElementById('comp-table-wrap');
+  wrap.innerHTML = `<table class="comp-table">
+    <thead><tr>
+      <th>Model</th><th>Provider</th><th>Size</th><th>Tier</th><th>Context</th><th>VRAM</th><th>Coding</th><th>Writing</th><th>Reasoning</th><th>Install</th>
+    </tr></thead><tbody>
+    ${models.map(m => {
+      const tier = TIERS.find(t => t.id === m.tierId) || TIERS[0];
+      const prov = PROVIDERS[m.providerId] || {name: m.providerId, color: '#888'};
+      return `<tr${m.highlight?' class="highlighted"':''}>
+        <td><strong>${m.name}</strong></td>
+        <td><span style="color:${prov.color}">${prov.name}</span></td>
+        <td><span class="badge">${m.size}</span></td>
+        <td><span style="color:${tier.color}">${tier.name}</span></td>
+        <td>${m.contextLength?.toLocaleString() || '—'}</td>
+        <td>${m.vramGB || m.modelSizeGB || '?'}GB</td>
+        <td><span class="rating-num">${m.practicalRating?.coding||'—'}</span></td>
+        <td><span class="rating-num">${m.practicalRating?.writing||'—'}</span></td>
+        <td><span class="rating-num">${m.practicalRating?.reasoning||'—'}</span></td>
+        <td><code class="table-cmd">${m.installCommand||'ollama pull '+m.ollamaTag}</code></td>
+      </tr>`;
+    }).join('')}
+    </tbody></table>`;
+}
+
+function copyCmd(cmd, btn) {
+  navigator.clipboard.writeText(cmd).then(() => {
+    const orig = btn.innerHTML;
+    btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>';
+    btn.style.color = 'var(--green)';
+    setTimeout(() => { btn.innerHTML = orig; btn.style.color = ''; }, 1500);
+  }).catch(() => {
+    const ta = document.createElement('textarea');
+    ta.value = cmd;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    const orig = btn.innerHTML;
+    btn.innerHTML = '✓';
+    setTimeout(() => { btn.innerHTML = orig; }, 1500);
+  });
+}
+
+function resetFilters() {
+  activeTier = 'all';
+  activeSpecialty = 'all';
+  activeProvider = 'all';
+  activeSort = 'name';
+  activeHighlight = false;
+  searchQuery = '';
+  document.getElementById('highlight-only').checked = false;
+  document.getElementById('comp-search').value = '';
+  document.getElementById('provider-filter').value = 'all';
+  document.getElementById('sort-filter').value = 'name';
+  document.querySelectorAll('.chip').forEach(c => c.classList.toggle('active', c.dataset.tier === 'all' || c.dataset.specialty === 'all'));
+  render();
+}
+
+function bindEvents() {
+  document.getElementById('comp-search').addEventListener('input', e => {
+    searchQuery = e.target.value;
+    document.getElementById('comp-search-clear').classList.toggle('hidden', !searchQuery);
+    render();
+  });
+  document.getElementById('comp-search-clear').addEventListener('click', () => {
+    document.getElementById('comp-search').value = '';
+    searchQuery = '';
+    document.getElementById('comp-search-clear').classList.add('hidden');
+    render();
+  });
+  document.getElementById('tier-filters').addEventListener('click', e => {
+    const chip = e.target.closest('.chip');
+    if (!chip) return;
+    document.querySelectorAll('#tier-filters .chip').forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+    activeTier = chip.dataset.tier;
+    render();
+  });
+  document.getElementById('specialty-filters').addEventListener('click', e => {
+    const chip = e.target.closest('.chip');
+    if (!chip) return;
+    document.querySelectorAll('#specialty-filters .chip').forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+    activeSpecialty = chip.dataset.specialty;
+    render();
+  });
+  document.getElementById('provider-filter').addEventListener('change', e => {
+    activeProvider = e.target.value;
+    render();
+  });
+  document.getElementById('sort-filter').addEventListener('change', e => {
+    activeSort = e.target.value;
+    render();
+  });
+  document.getElementById('highlight-only').addEventListener('change', e => {
+    activeHighlight = e.target.checked;
+    render();
+  });
+  document.querySelectorAll('.comp-view-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.comp-view-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentView = btn.dataset.view;
+      render();
+    });
+  });
+}
+
+init();
+  </script>
+</body>
+</html>
