@@ -20,8 +20,8 @@
       "term": "Ollama",
       "aliases": [],
       "simpleDefinition": "Like an app store for AI models. One click to install any model. Made for beginners.",
-      "detailedDefinition": "Ollama is free software that lets you download and run AI models locally on your computer. It handles all the technical complexity - you just run simple commands like 'ollama pull qwen3:7b'. It works on Mac, Windows, and Linux.",
-      "example": "Open terminal, type: ollama pull qwen3:7b - and the AI model installs.",
+      "detailedDefinition": "Ollama is free software that lets you download and run AI models locally on your computer. It handles all the technical complexity - you just run simple commands like 'ollama pull qwen2.5:7b'. It works on Mac, Windows, and Linux.",
+      "example": "Open terminal, type: ollama pull qwen2.5:7b - and the AI model installs.",
       "beginnerTip": "Use Ollama. It's the easiest way to run local AI models. Download from ollama.com."
     },
     {

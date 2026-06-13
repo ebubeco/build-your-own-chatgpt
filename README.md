@@ -32,10 +32,10 @@ No all-models-here approach. Just the right answer for your setup.
 curl -fsSL https://ollama.com/install.sh | sh
 
 # Pull your model
-ollama pull qwen3:7b
+ollama pull qwen2.5:7b
 
 # Run it
-ollama run qwen3:7b
+ollama run qwen2.5:7b
 ```
 
 That's it. Private ChatGPT running on your machine.
@@ -44,13 +44,14 @@ That's it. Private ChatGPT running on your machine.
 
 ## Hardware Tiers
 
-| Tier | VRAM | Example Hardware | Best Models |
-|------|------|-----------------|--------------|
-| **No GPU** | CPU only | Old laptops (2015+) | Qwen 0.5B, SmolLM2 1.7B, Llama 3.2 1B |
-| **CPU-Only** | 0–4GB | Modern laptops, no GPU | Phi-4 Mini 3.8B, Llama 3.2 3B, Qwen 1.5B |
-| **Budget GPU** | 4–12GB | RTX 3060, 4060, 3070 | Qwen 3 7B, Gemma 3 12B, DeepSeek Coder 6.7B |
-| **Power GPU** | 12GB+ | RTX 4080, 4090 | Qwen 3.5 27B, DeepSeek R1 32B, Mixtral 8x7B |
-| **Apple Silicon** | varies | M1/M2/M3 Macs | Qwen 3 7B (Metal), Llama 3.1 8B, Phi-4 Mini |
+| Tier | Definition | Example Hardware | Best Models |
+|------|------------|-----------------|--------------|
+| **No GPU / CPU only** | No discrete GPU, runs on RAM | Old laptops, office desktops | Qwen 0.5B, SmolLM2 1.7B, Llama 3.2 1B |
+| **Integrated GPU** | Shared VRAM 1–4GB | Intel Iris, AMD Vega | Phi-4 Mini 3.8B, Llama 3.2 3B, Qwen 1.5B |
+| **Budget GPU** | 4–8GB dedicated VRAM | GTX 1660, RTX 3060 6GB | Qwen 2.5 7B, Gemma 3 12B, DeepSeek Coder 6.7B |
+| **Mid GPU** | 8–12GB VRAM | RTX 3060 12GB, RTX 4060 | Qwen 2.5 7B, Llama 3.1 8B, Phi-4 14B |
+| **Power GPU** | 16GB+ VRAM | RTX 3080, 4090, RX 7900 XTX | Qwen 2.5 32B, DeepSeek R1 32B, Phi-4 14B |
+| **Apple Silicon** | Unified memory, Metal | M1/M2/M3/M4 all variants | Qwen 2.5 7B (Metal), Llama 3.1 8B, Phi-4 Mini |
 
 ---
 
@@ -173,17 +174,7 @@ All models on this site are **fully offline-capable**:
 
 ---
 
-## Success Stories
 
-Real people using these exact setups:
-
-> *"An indie developer replaced their $20/mo ChatGPT subscription with [Qwen 3 7B on an RTX 3060]. Uses it for coding, writing docs, and debugging — says it 'never lets them down'."*
-
-> *"A teacher ran [Qwen 0.5B] on her 2013 MacBook Air to summarize student essays offline."*
-
-> *"A founder runs their entire startup's AI stack on a Mac Studio M2 Ultra 128GB — coding, research, writing, and customer support. Says it's 'essentially a senior developer on call 24/7'."*
-
----
 
 ## Contributing
 

@@ -235,9 +235,9 @@
       "successStory": "A journalist uses this on a 2020 MacBook Air to draft articles and interview summaries - works completely offline."
     },
     {
-      "id": "qwen-3-7b",
-      "name": "Qwen 3 7B",
-      "fullName": "qwen3:7b",
+      "id": "qwen-2-5-7b",
+      "name": "Qwen 2.5 7B",
+      "fullName": "qwen2.5:7b",
       "size": "7B",
       "tier": "budget-gpu",
       "vramGB": 5.5,
@@ -251,8 +251,8 @@
         "agents": 8
       },
       "bestFor": ["coding", "writing", "research", "agents", "chat"],
-      "ollamaTag": "qwen3:7b",
-      "installCommand": "ollama pull qwen3:7b",
+      "ollamaTag": "qwen2.5:7b",
+      "installCommand": "ollama pull qwen2.5:7b",
       "modelSizeGB": 4.7,
       "setupComplexity": "easy",
       "beginnerFriendly": true,
@@ -370,9 +370,9 @@
       "successStory": "A graduate student uses this for research paper analysis and math problem-solving. Says it 'actually shows its work, which is gold for verifying answers'."
     },
     {
-      "id": "qwen-3-7b-silicon",
-      "name": "Qwen 3 7B (Apple Silicon)",
-      "fullName": "qwen3:7b",
+      "id": "qwen-2-5-7b-silicon",
+      "name": "Qwen 2.5 7B (Apple Silicon)",
+      "fullName": "qwen2.5:7b",
       "size": "7B",
       "tier": "silicon-8-16gb",
       "vramGB": 7,
@@ -386,8 +386,8 @@
         "agents": 8
       },
       "bestFor": ["chat", "coding", "writing", "agents"],
-      "ollamaTag": "qwen3:7b",
-      "installCommand": "ollama pull qwen3:7b",
+      "ollamaTag": "qwen2.5:7b",
+      "installCommand": "ollama pull qwen2.5:7b",
       "modelSizeGB": 4.7,
       "setupComplexity": "easy",
       "beginnerFriendly": true,

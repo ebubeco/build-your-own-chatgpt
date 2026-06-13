@@ -1,3 +1,7 @@
+// LOCAL DEVELOPMENT ONLY
+// Vercel deploys index.html as a static site — this file is not used in production.
+// Run `node server.js` for local testing only.
+
 const http = require('http');
 const fs = require('fs');
 const path = require('path');

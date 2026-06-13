@@ -941,6 +941,9 @@
       } else if (e.target.closest('#compendium-link-btn')) {
         e.preventDefault();
         showAllModelsDirect();
+      } else if (e.target.closest('.guide-tab-switch')) {
+        const btn = e.target.closest('.guide-tab-switch');
+        showGuide(btn.dataset.guide);
       } else if (e.target.closest('.hw-card')) {
         const btn = e.target.closest('.hw-card');
         selectHW(btn.dataset.id, btn.dataset.tier);

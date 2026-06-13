@@ -4,11 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <meta name="description" content="Build Your Own ChatGPT - find the best local AI setup for your exact hardware, from a 2014 laptop to a gaming rig.">
+  <meta name="description" content="Find the best local AI model for your hardware. RTX 3060, old laptop, Mac M2, no GPU — get a private ChatGPT alternative running with one Ollama command. Free forever.">
   <meta name="keywords" content="local AI, private AI, ChatGPT alternative, Ollama setup, run AI locally, AI on old laptop, no GPU AI, local LLM">
   <meta property="og:title" content="Build Your Own ChatGPT - Private AI Setup">
   <meta property="og:description" content="Tell us what computer you have. We'll show you the easiest way to run a private AI assistant on it.">
   <meta property="og:type" content="website">
+  <meta property="og:image" content="https://build-your-own-chatgpt.vercel.app/og-image.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://build-your-own-chatgpt.vercel.app/og-image.jpg">
   <title>Build Your Own ChatGPT - Private AI Setup for Any Hardware</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -172,7 +175,7 @@
             <button class="guide-tab active" data-guide="ollama">Use with Ollama</button>
             <button class="guide-tab" data-guide="lmstudio">Use with LM Studio</button>
             <button class="guide-tab" data-guide="opencode">Use with OpenCode</button>
-            <button class="guide-tab" data-guide="direct">API / Code</button>
+            <button class="guide-tab" data-guide="direct">Developer (Python)</button>
           </div>
 
           <div id="guide-ollama" class="guide-content">
@@ -331,7 +334,7 @@ ollama run gemini-flash</div>
           </div>
 
           <div id="guide-direct" class="guide-content" style="display:none">
-            <div class="guide-intro">Connect to free cloud models from your own Python scripts. All these providers use OpenAI-compatible APIs, so the same code works for most of them.</div>
+            <div class="guide-intro"><strong>This tab is for programmers.</strong> If you don't write code, use the <button class="guide-tab-switch" data-guide="ollama" style="background:none;border:none;color:var(--accent);cursor:pointer;text-decoration:underline;padding:0;font:inherit">Ollama</button> or <button class="guide-tab-switch" data-guide="lmstudio" style="background:none;border:none;color:var(--accent);cursor:pointer;text-decoration:underline;padding:0;font:inherit">LM Studio</button> tabs instead.</div>
             <div class="guide-platforms">
               <div class="guide-platform">
                 <div class="gp-header">

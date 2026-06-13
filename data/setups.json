@@ -40,8 +40,8 @@
       "successRate": 0.96,
       "setupSteps": [
         "Download Ollama from ollama.com",
-        "Open terminal, run: ollama pull qwen3:7b",
-        "Start chatting: ollama run qwen3:7b"
+        "Open terminal, run: ollama pull qwen2.5:7b",
+        "Start chatting: ollama run qwen2.5:7b"
       ],
       "knownIssues": [],
       "successStory": "Non-technical user set this up in 10 minutes. Uses it daily for writing emails and summarizing articles. Says 'I can't believe this is free and private'.",
@@ -133,8 +133,8 @@
       "successRate": 0.95,
       "setupSteps": [
         "Download Ollama from ollama.com",
-        "Open terminal, run: ollama pull qwen3:7b",
-        "Start: ollama run qwen3:7b"
+        "Open terminal, run: ollama pull qwen2.5:7b",
+        "Start: ollama run qwen2.5:7b"
       ],
       "knownIssues": [],
       "successStory": "Writer uses this on a MacBook Pro M3 Pro for drafting novels and editing. Says it 'understands narrative flow better than I expected a local model to'.",
