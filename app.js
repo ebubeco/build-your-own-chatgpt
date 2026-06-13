@@ -607,7 +607,7 @@
 
         ${primaryHTML}
         ${altHTML}
-        ${showPrimary ? compendiumLink : ''}
+        ${selectedTier ? compendiumLink : ''}
       </div>`;
 
     // wire up the compendium link via event delegation (already covered by global listener)
