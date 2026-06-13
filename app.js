@@ -27,6 +27,7 @@
   let beginnerMode = true;
   let showDevCode = false;
   let isAppleSilicon = false;
+  let currentResult = null;
 
   async function loadData() {
     const [m, g, s, gl, conf, cp] = await Promise.all([
@@ -273,16 +274,40 @@
     window.history.replaceState(null, '', newURL);
   }
 
+  function generateShareText() {
+    if (!currentResult) return window.location.href;
+    const r = currentResult;
+    const lines = [
+      `My AI setup (build-your-own-chatgpt.vercel.app)`,
+      ``,
+      `Hardware score: ${r.score}/10`,
+      ``,
+      `Can run:`,
+      ...r.canRun.map(item => `✓ ${item}`),
+      ``,
+      `Setup: ${r.modelName} via ${r.tool}`,
+      `Command: ${r.command}`,
+      ``,
+      window.location.href
+    ];
+    return lines.join('\n');
+  }
+
   function shareResult() {
     updateURL();
-    const url = window.location.href;
+    const text = generateShareText();
     const btn = document.getElementById('share-btn');
-    if (navigator.clipboard) {
-      navigator.clipboard.writeText(url).then(() => {
-        btn.textContent = 'Link copied!';
-        setTimeout(() => { btn.textContent = 'Share results'; }, 2000);
-      });
-    }
+    const copyToClip = (str) => {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(str).then(() => {
+          btn.textContent = 'Copied!';
+          setTimeout(() => { btn.textContent = 'Share results'; }, 2000);
+        }).catch(() => fallbackCopy(str, btn));
+      } else {
+        fallbackCopy(str, btn);
+      }
+    };
+    copyToClip(text);
   }
 
   function detectAppleSilicon() {
@@ -610,7 +635,17 @@
         ${selectedTier ? compendiumLink : ''}
       </div>`;
 
-    // wire up the compendium link via event delegation (already covered by global listener)
+    const modelName = primary ? primary.name.replace(/\s*\d+(\.\d+)?B\s*$/i, '').trim() : 'N/A';
+    const tool = primary ? (primary.toolRecommendation || 'Ollama') : 'Ollama';
+    const command = primary ? (primary.installCommand || 'ollama pull <model>') : 'ollama pull <model>';
+    currentResult = {
+      score,
+      canRun: capItems.filter(i => i.status !== 'not').map(i => i.label),
+      modelName,
+      tool,
+      command
+    };
+
     section.classList.remove('hidden');
     section.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
