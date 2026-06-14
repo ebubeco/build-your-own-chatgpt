@@ -57,6 +57,16 @@
     });
   }
 
+  function saveSetupSuccessToSupabase(data) {
+    postToSupabase('setup_success', {
+      model: data.model,
+      goal: data.goal,
+      hardware: data.hardware,
+      success: data.success,
+      created_at: data.timestamp
+    });
+  }
+
   function saveRecommendationToSupabase(data) {
     postToSupabase('recommendations', {
       goal: data.goal,
@@ -181,6 +191,101 @@
     return data;
   }
 
+  function saveSetupSuccess(model, hardware, goal, success) {
+    var key = 'succ_' + (goal || 'unknown') + '_' + (hardware || 'unknown') + '_' + (model || 'unknown').replace(/\s+/g, '_');
+    if (localStorage.getItem(key)) return;
+    var data = {
+      model: model,
+      hardware: hardware,
+      goal: goal,
+      success: success,
+      timestamp: new Date().toISOString()
+    };
+    try { localStorage.setItem(key, JSON.stringify(data)); } catch (e) { /* silent */ }
+    saveSetupSuccessToSupabase(data);
+    trackEvent('setup_success', { model: model, goal: goal, hardware: hardware, result: success });
+    return data;
+  }
+
+  function getModelSuccessRate(model) {
+    try {
+      var all = [];
+      for (var i = 0; i < localStorage.length; i++) {
+        var k = localStorage.key(i);
+        if (k && k.indexOf('succ_') === 0) {
+          try { all.push(JSON.parse(localStorage.getItem(k))); } catch (e) { /* skip */ }
+        }
+        if (k && k.indexOf('fb_') === 0) {
+          try {
+            var f = JSON.parse(localStorage.getItem(k));
+            if (f.recommendation === model) all.push({ model: f.recommendation, success: f.success ? 'yes' : 'no' });
+          } catch (e) { /* skip */ }
+        }
+      }
+      var modelEntries = all.filter(function (f) { return f.model === model; });
+      if (modelEntries.length < 3) return null;
+      var yesCount = modelEntries.filter(function (f) { return f.success === 'yes'; }).length;
+      return { total: modelEntries.length, successRate: Math.round((yesCount / modelEntries.length) * 100), count: yesCount };
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function getTopModelsBySuccess(limit) {
+    limit = limit || 10;
+    try {
+      var counts = {};
+      for (var i = 0; i < localStorage.length; i++) {
+        var k = localStorage.key(i);
+        if (k && k.indexOf('succ_') === 0) {
+          try {
+            var f = JSON.parse(localStorage.getItem(k));
+            if (!counts[f.model]) counts[f.model] = { model: f.model, total: 0, yes: 0, partial: 0 };
+            counts[f.model].total++;
+            if (f.success === 'yes') counts[f.model].yes++;
+            if (f.success === 'partial') counts[f.model].partial++;
+          } catch (e) { /* skip */ }
+        }
+        if (k && k.indexOf('fb_') === 0) {
+          try {
+            var f = JSON.parse(localStorage.getItem(k));
+            if (!counts[f.recommendation]) counts[f.recommendation] = { model: f.recommendation, total: 0, yes: 0, partial: 0 };
+            counts[f.recommendation].total++;
+            if (f.success) counts[f.recommendation].yes++;
+          } catch (e) { /* skip */ }
+        }
+      }
+      var sorted = Object.keys(counts).map(function (k) {
+        var c = counts[k];
+        c.successRate = Math.round((c.yes / c.total) * 100);
+        return c;
+      }).filter(function (c) { return c.total >= 3; }).sort(function (a, b) { return b.successRate - a.successRate; });
+      return sorted.slice(0, limit);
+    } catch (e) {
+      return [];
+    }
+  }
+
+  function getTopModelsByRecommendations(limit) {
+    limit = limit || 10;
+    try {
+      var counts = {};
+      for (var i = 0; i < localStorage.length; i++) {
+        var k = localStorage.key(i);
+        if (k && k.indexOf('rec_') === 0) {
+          try {
+            var f = JSON.parse(localStorage.getItem(k));
+            if (f.model) counts[f.model] = (counts[f.model] || 0) + 1;
+          } catch (e) { /* skip */ }
+        }
+      }
+      return Object.keys(counts).map(function (k) { return { model: k, count: counts[k] }; })
+        .sort(function (a, b) { return b.count - a.count; }).slice(0, limit);
+    } catch (e) {
+      return [];
+    }
+  }
+
   function getRecommendationStats() {
     try {
       var all = [];
@@ -250,6 +355,10 @@
     getPopularSetups: getPopularSetups,
     saveRecommendation: saveRecommendation,
     getRecommendationStats: getRecommendationStats,
+    saveSetupSuccess: saveSetupSuccess,
+    getModelSuccessRate: getModelSuccessRate,
+    getTopModelsBySuccess: getTopModelsBySuccess,
+    getTopModelsByRecommendations: getTopModelsByRecommendations,
     exportFeedbackData: exportFeedbackData
   };
 })();

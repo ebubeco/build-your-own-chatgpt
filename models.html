@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Local AI model leaderboard. See which models are most recommended, most successful, and have the highest satisfaction based on real community data.">
+  <title>Local AI Model Leaderboard (2026) — Community Rankings</title>
+  <link rel="canonical" href="https://build-your-own-chatgpt.vercel.app/models">
+  <meta property="og:title" content="Local AI Model Leaderboard (2026)">
+  <meta property="og:description" content="Community-powered rankings of local AI models. See what actually works based on real user setups and success reports.">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="style.css">
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="b8a7a476-7a85-402e-b042-1436ef463d65"></script>
+  <script async src="https://plausible.io/js/pa-DBTdINzLX2L2B_fXJF0u1.js"></script>
+  <script>window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()</script>
+  <style>
+    .lb-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+    .lb-table th { text-align: left; padding: 0.6rem 0.75rem; background: var(--surface); border-bottom: 2px solid var(--border); font-weight: 600; color: var(--text-secondary); font-size: 0.8rem; white-space: nowrap; }
+    .lb-table td { padding: 0.6rem 0.75rem; border-bottom: 1px solid var(--border-light); color: var(--text-primary); }
+    .lb-table tr:hover td { background: var(--surface); }
+    .lb-rank { font-weight: 700; color: var(--accent); font-size: 1rem; }
+    .lb-bar { display: inline-block; height: 0.5rem; border-radius: 4px; background: var(--accent); vertical-align: middle; margin-right: 0.5rem; }
+    .lb-empty { text-align: center; padding: 3rem 1rem; color: var(--text-tertiary); }
+    .lb-empty p { font-size: 0.9rem; margin-top: 0.5rem; }
+    .lb-tabs { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .lb-tab { padding: 0.5rem 1rem; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--surface); cursor: pointer; font-family: inherit; font-size: 0.85rem; color: var(--text-secondary); transition: all 0.15s; }
+    .lb-tab:hover { border-color: var(--accent); color: var(--accent); }
+    .lb-tab.active { border-color: var(--accent); background: var(--accent-light); color: var(--accent); font-weight: 600; }
+    .lb-note { font-size: 0.8rem; color: var(--text-tertiary); margin-top: 1rem; text-align: center; }
+  </style>
+</head>
+<body class="seo-page">
+  <main class="seo-content">
+    <a href="/" class="seo-back">&larr; Get your personalized setup</a>
+    <h1>Local AI Model Leaderboard</h1>
+    <p style="margin-bottom:1.5rem;color:var(--text-secondary);font-size:0.9rem">Community-powered rankings based on real recommendations and success reports. Data updates as more users contribute.</p>
+
+    <div class="lb-tabs">
+      <button class="lb-tab active" data-tab="most-recommended">Most Recommended</button>
+      <button class="lb-tab" data-tab="most-successful">Highest Success</button>
+      <button class="lb-tab" data-tab="most-popular-goal">By Goal</button>
+    </div>
+
+    <div id="lb-content">
+      <div class="lb-empty"><strong>Loading community data...</strong></div>
+    </div>
+
+    <p class="lb-note">Leaderboard data comes from users who share their setups and success reports. The more people use the wizard, the more accurate these rankings become.</p>
+
+    <section class="seo-section seo-cta" style="margin-top:2rem">
+      <h2>Not sure which model fits you?</h2>
+      <p>Tell us about your hardware and what you want to do. Get a personalized recommendation in under 60 seconds.</p>
+      <a href="/" class="btn-primary" style="display:inline-block;margin-top:1rem">Find Your Model</a>
+    </section>
+  </main>
+  <script src="analytics.js"></script>
+  <script>
+    (function () {
+      function render() {
+        var content = document.getElementById('lb-content');
+        if (typeof window.__analytics === 'undefined') {
+          content.innerHTML = '<div class="lb-empty"><strong>Analytics not loaded.</strong><p>Please visit the homepage first to generate some data.</p></div>';
+          return;
+        }
+        var activeTab = document.querySelector('.lb-tab.active');
+        var tab = activeTab ? activeTab.dataset.tab : 'most-recommended';
+        renderTab(tab);
+      }
+
+      function renderTab(tab) {
+        var content = document.getElementById('lb-content');
+        var html = '';
+        if (tab === 'most-recommended') {
+          var top = window.__analytics.getTopModelsByRecommendations(10);
+          if (top.length === 0) {
+            html = '<div class="lb-empty"><strong>No recommendation data yet.</strong><p>Use the wizard to get a recommendation and be the first to contribute.</p></div>';
+          } else {
+            html = '<div class="table-wrap"><table class="lb-table"><thead><tr><th>#</th><th>Model</th><th>Recommendations</th></tr></thead><tbody>';
+            top.forEach(function (m, i) {
+              html += '<tr><td class="lb-rank">' + (i + 1) + '</td><td><strong>' + m.model + '</strong></td><td>' + m.count + '</td></tr>';
+            });
+            html += '</tbody></table></div>';
+          }
+        } else if (tab === 'most-successful') {
+          var top = window.__analytics.getTopModelsBySuccess(10);
+          if (top.length === 0) {
+            html = '<div class="lb-empty"><strong>Not enough data yet.</strong><p>We need at least 3 success reports per model to rank by success rate.</p></div>';
+          } else {
+            html = '<div class="table-wrap"><table class="lb-table"><thead><tr><th>#</th><th>Model</th><th>Success Rate</th><th>Reports</th></tr></thead><tbody>';
+            top.forEach(function (m, i) {
+              html += '<tr><td class="lb-rank">' + (i + 1) + '</td><td><strong>' + m.model + '</strong></td><td><div style="display:flex;align-items:center"><span class="lb-bar" style="width:' + m.successRate + 'px;max-width:100px"></span>' + m.successRate + '%</div></td><td>' + m.total + '</td></tr>';
+            });
+            html += '</tbody></table></div>';
+          }
+        } else if (tab === 'most-popular-goal') {
+          var stats = window.__analytics.getRecommendationStats();
+          if (!stats || stats.total === 0) {
+            html = '<div class="lb-empty"><strong>No recommendation data yet.</strong><p>Use the wizard to generate recommendations.</p></div>';
+          } else {
+            html = '<div class="table-wrap"><table class="lb-table"><thead><tr><th>Goal</th><th>Count</th><th>Share</th></tr></thead><tbody>';
+            var goals = stats.goals || {};
+            var goalKeys = Object.keys(goals).sort(function (a, b) { return goals[b] - goals[a]; });
+            goalKeys.forEach(function (g) {
+              var pct = Math.round((goals[g] / stats.total) * 100);
+              html += '<tr><td><strong>' + g.charAt(0).toUpperCase() + g.slice(1) + '</strong></td><td>' + goals[g] + '</td><td><div style="display:flex;align-items:center"><span class="lb-bar" style="width:' + pct + 'px;max-width:100px"></span>' + pct + '%</div></td></tr>';
+            });
+            html += '</tbody></table></div>';
+          }
+        }
+        content.innerHTML = html;
+      }
+
+      document.querySelectorAll('.lb-tab').forEach(function (tab) {
+        tab.addEventListener('click', function () {
+          document.querySelectorAll('.lb-tab').forEach(function (t) { t.classList.remove('active'); });
+          tab.classList.add('active');
+          renderTab(tab.dataset.tab);
+        });
+      });
+
+      if (document.readyState === 'complete') render();
+      else window.addEventListener('load', render);
+    })();
+  </script>
+</body>
+</html>

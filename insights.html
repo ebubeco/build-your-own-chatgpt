@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="State of Local AI 2026 — Community insights powered by real user recommendations. See the most popular models, goals, and hardware setups.">
+  <title>Local AI Insights (2026) — Community Report</title>
+  <link rel="canonical" href="https://build-your-own-chatgpt.vercel.app/insights">
+  <meta property="og:title" content="Local AI Insights (2026)">
+  <meta property="og:description" content="Real community data on local AI usage. Based on actual recommendations and success reports from users.">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="style.css">
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="b8a7a476-7a85-402e-b042-1436ef463d65"></script>
+  <script async src="https://plausible.io/js/pa-DBTdINzLX2L2B_fXJF0u1.js"></script>
+  <script>window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()</script>
+  <style>
+    .insight-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+    .insight-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem; text-align: center; }
+    .insight-number { font-size: 2rem; font-weight: 700; color: var(--accent); line-height: 1.2; }
+    .insight-label { font-size: 0.82rem; color: var(--text-secondary); margin-top: 0.3rem; }
+    .insight-detail { font-size: 0.85rem; color: var(--text-primary); margin-top: 0.2rem; font-weight: 500; }
+  </style>
+</head>
+<body class="seo-page">
+  <main class="seo-content">
+    <a href="/" class="seo-back">&larr; Get your personalized setup</a>
+    <h1>State of Local AI 2026</h1>
+    <p style="margin-bottom:0.5rem;color:var(--text-secondary);font-size:0.9rem">Community-powered insights based on real recommendations and user success reports. Data updates automatically as more people use the wizard.</p>
+
+    <div id="insights-content">
+      <div class="lb-empty" id="insights-loading"><strong>Loading community insights...</strong></div>
+    </div>
+
+    <section class="seo-section seo-cta" style="margin-top:2rem">
+      <h2>Add Your Data</h2>
+      <p>Get a personalized recommendation and contribute to the community insights. Every setup helps make the data more accurate.</p>
+      <a href="/" class="btn-primary" style="display:inline-block;margin-top:1rem">Get My Setup</a>
+    </section>
+  </main>
+  <script src="analytics.js"></script>
+  <script>
+    (function () {
+      function render() {
+        var content = document.getElementById('insights-content');
+        if (typeof window.__analytics === 'undefined') {
+          content.innerHTML = '<div class="lb-empty"><strong>Analytics not loaded.</strong><p>Visit the homepage first to generate data.</p></div>';
+          return;
+        }
+        var stats = window.__analytics.getRecommendationStats();
+        var topSuccess = window.__analytics.getTopModelsBySuccess(5);
+        var topRecs = window.__analytics.getTopModelsByRecommendations(5);
+
+        if (!stats || stats.total === 0) {
+          content.innerHTML = '<div class="insight-grid"><div class="insight-card"><div class="insight-number">0</div><div class="insight-label">Recommendations</div></div></div><div class="lb-empty"><strong>No data yet.</strong><p>Be the first to use the wizard and contribute to the community insights.</p></div>';
+          return;
+        }
+
+        var html = '<div class="insight-grid">';
+        html += '<div class="insight-card"><div class="insight-number">' + stats.total + '</div><div class="insight-label">Recommendations</div></div>';
+        if (stats.topGoal) html += '<div class="insight-card"><div class="insight-number">' + stats.topGoal.charAt(0).toUpperCase() + stats.topGoal.slice(1) + '</div><div class="insight-label">Most Popular Goal</div></div>';
+        if (stats.topHardware) html += '<div class="insight-card"><div class="insight-number">' + stats.topHardware.replace(/-/g, ' ') + '</div><div class="insight-label">Most Common Hardware</div></div>';
+        if (stats.topModel) html += '<div class="insight-card"><div class="insight-number">' + stats.topModel + '</div><div class="insight-label">Most Recommended Model</div></div>';
+        html += '</div>';
+
+        if (topSuccess.length > 0) {
+          html += '<h2 style="margin-top:2rem">Highest Satisfaction Models</h2><div class="table-wrap"><table class="comp-table"><thead><tr><th>Model</th><th>Success Rate</th><th>Reports</th></tr></thead><tbody>';
+          topSuccess.forEach(function (m) {
+            html += '<tr><td><strong>' + m.model + '</strong></td><td><span style="color:var(--green);font-weight:600">' + m.successRate + '%</span></td><td>' + m.total + '</td></tr>';
+          });
+          html += '</tbody></table></div>';
+        }
+
+        if (topRecs.length > 0) {
+          html += '<h2 style="margin-top:2rem">Most Recommended Models</h2><div class="table-wrap"><table class="comp-table"><thead><tr><th>Model</th><th>Recommendations</th></tr></thead><tbody>';
+          topRecs.forEach(function (m) {
+            html += '<tr><td><strong>' + m.model + '</strong></td><td>' + m.count + '</td></tr>';
+          });
+          html += '</tbody></table></div>';
+        }
+
+        if (stats.goals) {
+          html += '<h2 style="margin-top:2rem">Goals Breakdown</h2><div class="table-wrap"><table class="comp-table"><thead><tr><th>Goal</th><th>Count</th><th>Share</th></tr></thead><tbody>';
+          var goalKeys = Object.keys(stats.goals).sort(function (a, b) { return stats.goals[b] - stats.goals[a]; });
+          goalKeys.forEach(function (g) {
+            var pct = Math.round((stats.goals[g] / stats.total) * 100);
+            html += '<tr><td>' + g.charAt(0).toUpperCase() + g.slice(1) + '</td><td>' + stats.goals[g] + '</td><td>' + pct + '%</td></tr>';
+          });
+          html += '</tbody></table></div>';
+        }
+
+        content.innerHTML = html;
+      }
+
+      if (document.readyState === 'complete') render();
+      else window.addEventListener('load', render);
+    })();
+  </script>
+</body>
+</html>

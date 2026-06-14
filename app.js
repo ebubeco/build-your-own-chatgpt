@@ -599,6 +599,12 @@
         const overlap = careerInfo.priorities.filter(p => m.bestFor && m.bestFor.includes(p)).length;
         score += overlap * 5;
       }
+      if (typeof window.__analytics !== 'undefined') {
+        var successRate = window.__analytics.getModelSuccessRate(m.name);
+        if (successRate && successRate.total >= 3) {
+          score += Math.round(successRate.successRate / 10);
+        }
+      }
       return { model: m, score };
     });
 
@@ -1153,6 +1159,7 @@
           <p class="feedback-prompt">Did this setup work?</p>
           <div class="feedback-btns">
             <button class="feedback-btn" data-feedback="yes">👍 Yes</button>
+            <button class="feedback-btn" data-feedback="partial">🤷 Partially</button>
             <button class="feedback-btn" data-feedback="no">👎 No</button>
           </div>
           <p class="feedback-thanks hidden">Thanks for your feedback!</p>
@@ -1677,11 +1684,11 @@
         const tierKey = selectedTier || 'unknown';
         const modelName = currentResult ? currentResult.modelName : 'unknown';
         if (typeof window.__analytics !== 'undefined') {
-          window.__analytics.saveFeedback(modelName, tierKey, goalKey, value === 'yes');
+          window.__analytics.saveSetupSuccess(modelName, tierKey, goalKey, value);
         } else {
-          const fallbackKey = 'fb_' + goalKey + '_' + tierKey + '_' + modelName.replace(/\s+/g, '_');
+          const fallbackKey = 'succ_' + goalKey + '_' + tierKey + '_' + modelName.replace(/\s+/g, '_');
           if (!localStorage.getItem(fallbackKey)) {
-            localStorage.setItem(fallbackKey, JSON.stringify({ recommendation: modelName, hardware: tierKey, goal: goalKey, success: value === 'yes', timestamp: new Date().toISOString().split('T')[0] }));
+            localStorage.setItem(fallbackKey, JSON.stringify({ model: modelName, hardware: tierKey, goal: goalKey, success: value, timestamp: new Date().toISOString() }));
           }
         }
         btn.closest('.feedback-section').querySelector('.feedback-btns').classList.add('hidden');
