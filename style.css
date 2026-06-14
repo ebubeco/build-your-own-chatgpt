@@ -1199,6 +1199,21 @@ body {
   font-weight: 600;
 }
 
+.rec-conf-reasons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-bottom: 0.75rem;
+}
+
+.rec-conf-reason {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  padding: 0.25rem 0.6rem;
+  background: var(--bg-alt);
+  border-radius: 6px;
+}
+
 .rec-desc {
   font-size: 0.95rem;
   color: var(--text-secondary);

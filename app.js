@@ -540,6 +540,32 @@
     selectTierAll();
   }
 
+  function generateSetupText(primary, alternatives, tier, goal) {
+    var goalLabel = goal ? goal.charAt(0).toUpperCase() + goal.slice(1) : 'General';
+    var tierLabel = tier || 'Unknown';
+    var lines = [
+      'My Local AI Setup',
+      '',
+      'Goal:',
+      goalLabel,
+      '',
+      'Hardware:',
+      tierLabel,
+      '',
+      'Recommended:',
+      primary ? primary.name : 'Unknown',
+      '',
+    ];
+    if (alternatives && alternatives.length > 0) {
+      lines.push('Alternatives:');
+      alternatives.forEach(function(m) { lines.push(m.name); });
+      lines.push('');
+    }
+    lines.push('Generated with Build Your Own ChatGPT');
+    lines.push('https://build-your-own-chatgpt.vercel.app/');
+    return lines.join('\n');
+  }
+
   function toggleDevCode() {
     showDevCode = !showDevCode;
     document.querySelectorAll('.install-box').forEach(box => {
@@ -607,11 +633,50 @@
     return { level: 'Very Low', color: 'var(--red)' };
   }
 
-  function getRecConfidence() {
+  function getRecConfidence(model, tier, goal) {
+    let value = 99;
+    var reasons = [];
+    const bStr = model ? model.size.match(/(\d+\.?\d*)/) : null;
+    const bSize = bStr ? parseFloat(bStr[1]) : 7;
+    const tierLimits = { 'no-gpu': 1, 'cpu-only': 3, 'budget-gpu': 7, 'power-gpu': 14, 'silicon-8-16gb': 7, 'silicon-24-48gb': 14, 'silicon-64-plus': 72 };
+    const limit = tierLimits[tier] || 7;
+
+    if (bSize > limit * 0.9) { value -= 10; reasons.push('Near minimum hardware limits'); }
+    else { reasons.push('Fits your hardware comfortably'); }
+
+    const cap = model ? getModelCapability(tier, bSize) : 'slow';
+    if (cap === 'slow') { value -= 10; reasons.push('Performance may be limited'); }
+    else if (cap === 'medium') { value -= 5; reasons.push('Moderate performance expected'); }
+    else { reasons.push('Good performance on your hardware'); }
+
+    if (model && !model.beginnerFriendly) { value -= 5; }
+
     const inferredCount = [goalInferred, hardwareInferred, careerInferred].filter(Boolean).length;
-    if (inferredCount === 0) return { level: 'High', color: 'var(--green)', estimated: false };
-    if (inferredCount === 1) return { level: 'Medium', color: 'var(--amber)', estimated: true };
-    return { level: 'Low', color: 'var(--red)', estimated: true };
+    if (inferredCount > 0) value -= inferredCount * 3;
+
+    if (model && model.practicalRating) {
+      const primaryGoal = { chat: 'chat', coding: 'coding', writing: 'writing', documents: 'writing', agents: 'agents', all: 'chat' }[goal] || 'chat';
+      const rating = model.practicalRating[primaryGoal] || 0;
+      if (rating >= 9) reasons.push('Excellent for your goal');
+      else if (rating >= 7) reasons.push('Strong match for your goal');
+      else reasons.push('Adequate for your goal');
+    }
+
+    if (reasons.length > 3) reasons = reasons.slice(0, 3);
+    value = Math.max(60, Math.min(99, value));
+
+    var label = 'Possible Match';
+    if (value >= 95) label = 'Excellent Match';
+    else if (value >= 85) label = 'Strong Match';
+    else if (value >= 75) label = 'Good Match';
+
+    var estimated = inferredCount > 0;
+    var color = 'var(--green)';
+    if (value < 75) color = 'var(--amber)';
+    if (value < 65) color = 'var(--red)';
+    if (estimated) color = 'var(--amber)';
+
+    return { value: value, label: label, color: color, reasons: reasons, estimated: estimated };
   }
 
   const BEST_FOR_LABELS = {
@@ -846,7 +911,7 @@
     if (showPrimary && primary) {
       const quantLabel = primary.recommendedQuant || 'Q4_K_M';
       const quantTip = getQuantizationTooltip(quantLabel);
-      const recConf = getRecConfidence();
+      const recConf = getRecConfidence(primary, tier, goal);
       const whyPoints = getWhyPoints(primary, tier, goal);
 
       primaryHTML = `
@@ -858,8 +923,8 @@
             <span class="rec-model-size">${primary.size}</span>
           </div>
           <div class="rec-confidence" style="color:${recConf.color}">
-            <span class="rec-conf-label">Rec. Confidence</span>
-            <span class="rec-conf-value">${recConf.level}</span>
+            <span class="rec-conf-label">${recConf.value}% Match</span>
+            <span class="rec-conf-value">${recConf.label}</span>
           </div>
           ${selectedCareer && CAREER_MAP[selectedCareer] ? `
           <div class="rec-career-badge">
@@ -867,6 +932,10 @@
             <span class="rec-career-label">${CAREER_MAP[selectedCareer].label}</span>
           </div>` : ''}
         </div>
+        ${recConf.reasons.length > 0 ? `
+        <div class="rec-conf-reasons">
+          ${recConf.reasons.map(r => `<div class="rec-conf-reason">✓ ${r}</div>`).join('')}
+        </div>` : ''}
         <p class="rec-desc">${wrapInGlossary(primary.description)}</p>
         <div class="rec-why">
           <div class="rec-why-title">Why We Picked This</div>
@@ -939,6 +1008,7 @@
         <div class="results-toolbar">
           <button id="share-btn" class="btn-share">Share text</button>
           <button id="share-link-btn" class="btn-share">Copy result link</button>
+          <button id="copy-setup-btn" class="btn-share">Copy Setup</button>
           <button id="dev-toggle-btn" class="btn-dev-toggle">Show install code (developers)</button>
         </div>
 
@@ -1114,6 +1184,11 @@
       tool,
       command
     };
+
+    try {
+      var persistData = { score: score, modelName: modelName, tool: tool, command: command, goal: selectedGoal, tier: selectedTier, career: selectedCareer, canRun: currentResult.canRun, timestamp: Date.now() };
+      localStorage.setItem('byoc_recommendation', JSON.stringify(persistData));
+    } catch (e) { /* silent */ }
 
     var communityHTML = '';
     if (typeof window.__analytics !== 'undefined') {
@@ -1376,6 +1451,29 @@
     }
 
     if (!state.tier) {
+      try {
+        var saved = localStorage.getItem('byoc_recommendation');
+        if (saved) {
+          var parsed = JSON.parse(saved);
+          if (parsed.goal && parsed.tier) {
+            selectedGoal = parsed.goal;
+            selectedTier = parsed.tier;
+            if (parsed.career) selectedCareer = parsed.career;
+            var goalCard = document.querySelector('.goal-card[data-goal="'+parsed.goal+'"]');
+            if (goalCard) goalCard.classList.add('selected');
+            var hwSection = document.getElementById('hw-section');
+            if (hwSection) hwSection.classList.remove('hidden');
+            var opt = gpusData.manualOptions.find(function(o) { return o.tier === parsed.tier; });
+            if (opt) {
+              var card = document.querySelector('[data-id="'+opt.id+'"]');
+              if (card) card.classList.add('selected');
+            }
+            renderResults(parsed.tier);
+            track('result_restored', { goal: parsed.goal, tier: parsed.tier });
+          }
+        }
+      } catch (e) { /* silent */ }
+      if (!selectedTier) {
       detectWebGPU().then(webgpuName => {
         const gpuName = webgpuName || detectGPU();
         const vramGB = detectVRAM();
@@ -1544,6 +1642,16 @@
         shareResult(e.target.closest('#share-btn'), 'text');
       } else if (e.target.closest('#share-link-btn')) {
         shareResult(e.target.closest('#share-link-btn'), 'link');
+      } else if (e.target.closest('#copy-setup-btn')) {
+        var btn = e.target.closest('#copy-setup-btn');
+        var text = generateSetupText(primary, alternatives, selectedTier, selectedGoal);
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(function() {
+            btn.textContent = 'Copied!';
+            setTimeout(function() { btn.textContent = 'Copy Setup'; }, 2000);
+          });
+        }
+        track('share_setup_clicked', { goal: selectedGoal, tier: selectedTier });
       } else if (e.target.closest('.feedback-btn') && !e.target.closest('.feedback-btn').disabled) {
         const btn = e.target.closest('.feedback-btn');
         const value = btn.dataset.feedback;
