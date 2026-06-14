@@ -1200,6 +1200,15 @@
       if (popular && popular.recommendation !== modelName) {
         communityHTML += '<div class="community-stats community-popular"><span class="community-rate">' + popular.successRate + '%</span><span class="community-label">Popular setup: <strong>' + popular.recommendation + '</strong> · ' + popular.total + ' users</span></div>';
       }
+      var recStats = window.__analytics.getRecommendationStats();
+      if (recStats && recStats.total > 0) {
+        communityHTML += '<div class="community-insights"><span class="community-heading">Community Insights</span>';
+        communityHTML += '<span class="community-stat">' + recStats.total + ' recommendations generated</span>';
+        if (recStats.topGoal) communityHTML += '<span class="community-stat">Most popular: <strong>' + recStats.topGoal.charAt(0).toUpperCase() + recStats.topGoal.slice(1) + '</strong></span>';
+        if (recStats.topModel) communityHTML += '<span class="community-stat">Top model: <strong>' + recStats.topModel + '</strong></span>';
+        if (recStats.topHardware) communityHTML += '<span class="community-stat">Common hardware: <strong>' + recStats.topHardware.replace(/-/g, ' ') + '</strong></span>';
+        communityHTML += '</div>';
+      }
     }
     var communityEl = section.querySelector('#community-section');
     if (communityEl) communityEl.innerHTML = communityHTML;
@@ -1234,6 +1243,15 @@
     section.classList.remove('hidden');
     section.scrollIntoView({ behavior: 'smooth', block: 'start' });
     track('recommendation_generated', { model: primary ? primary.ollamaTag || primary.name : 'none', goal: selectedGoal, hardware: selectedTier, hasCloudFallback: !!showCloud });
+    if (typeof window.__analytics !== 'undefined' && primary) {
+      window.__analytics.saveRecommendation(
+        primary.ollamaTag || primary.name,
+        selectedTier || 'unknown',
+        selectedGoal || 'unknown',
+        score || 0,
+        selectedCareer || null
+      );
+    }
   }
 
   function renderInstallBox(model) {

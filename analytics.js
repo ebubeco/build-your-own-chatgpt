@@ -5,6 +5,19 @@
   var SUPABASE_KEY = 'sb_publishable_MTznrw3Xenf4mP72ll8jVw_LD09jKo7';
   var queue = [];
 
+  function postToSupabase(table, body) {
+    fetch(SUPABASE_URL + '/rest/v1/' + table, {
+      method: 'POST',
+      headers: {
+        'apikey': SUPABASE_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_KEY,
+        'Content-Type': 'application/json',
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify(body)
+    }).catch(function () { /* silent */ });
+  }
+
   function trackEvent(eventName, properties) {
     var event = {
       name: eventName,
@@ -16,9 +29,12 @@
     if (typeof window.umami !== 'undefined' && window.umami.track) {
       try {
         window.umami.track(eventName, properties);
-      } catch (e) {
-        /* silent */
-      }
+      } catch (e) { /* silent */ }
+    }
+    if (typeof window.plausible !== 'undefined') {
+      try {
+        window.plausible(eventName, { props: properties || {} });
+      } catch (e) { /* silent */ }
     }
     if (typeof console !== 'undefined' && console.log) {
       console.log('[Analytics]', eventName, properties || '');
@@ -30,27 +46,25 @@
   }
 
   function saveFeedbackToSupabase(data) {
-    var url = SUPABASE_URL + '/rest/v1/feedback';
-    var body = {
+    postToSupabase('feedback', {
       recommendation: data.recommendation,
       hardware: data.hardware,
       goal: data.goal,
       success: data.success,
+      timestamp: data.timestamp,
+      reason: data.reason || null,
+      notes: data.notes || null
+    });
+  }
+
+  function saveRecommendationToSupabase(data) {
+    postToSupabase('recommendations', {
+      goal: data.goal,
+      hardware: data.hardware,
+      model: data.model,
+      confidence: data.confidence,
+      career: data.career || null,
       timestamp: data.timestamp
-    };
-    if (data.reason) body.reason = data.reason;
-    if (data.notes) body.notes = data.notes;
-    fetch(url, {
-      method: 'POST',
-      headers: {
-        'apikey': SUPABASE_KEY,
-        'Authorization': 'Bearer ' + SUPABASE_KEY,
-        'Content-Type': 'application/json',
-        'Prefer': 'return=minimal'
-      },
-      body: JSON.stringify(body)
-    }).catch(function () {
-      /* Supabase unavailable - localStorage fallback handles this */
     });
   }
 
@@ -151,6 +165,59 @@
     }
   }
 
+  function saveRecommendation(model, hardware, goal, confidence, career) {
+    var key = 'rec_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6);
+    var data = {
+      model: model,
+      hardware: hardware,
+      goal: goal,
+      confidence: confidence || 0,
+      career: career || null,
+      timestamp: new Date().toISOString()
+    };
+    try { localStorage.setItem(key, JSON.stringify(data)); } catch (e) { /* silent */ }
+    saveRecommendationToSupabase(data);
+    trackEvent('recommendation_generated', { model: model, goal: goal, hardware: hardware, confidence: confidence });
+    return data;
+  }
+
+  function getRecommendationStats() {
+    try {
+      var all = [];
+      for (var i = 0; i < localStorage.length; i++) {
+        var k = localStorage.key(i);
+        if (k && k.indexOf('rec_') === 0) {
+          try { all.push(JSON.parse(localStorage.getItem(k))); } catch (e) { /* skip */ }
+        }
+      }
+      if (all.length === 0) {
+        return { total: 0, topGoal: null, topModel: null, topHardware: null };
+      }
+      var goals = {}, models = {}, hw = {};
+      all.forEach(function (r) {
+        if (r.goal) goals[r.goal] = (goals[r.goal] || 0) + 1;
+        if (r.model) models[r.model] = (models[r.model] || 0) + 1;
+        if (r.hardware) hw[r.hardware] = (hw[r.hardware] || 0) + 1;
+      });
+      function top(map) {
+        var keys = Object.keys(map);
+        if (keys.length === 0) return null;
+        return keys.reduce(function (a, b) { return map[a] > map[b] ? a : b; });
+      }
+      return {
+        total: all.length,
+        topGoal: top(goals),
+        topModel: top(models),
+        topHardware: top(hw),
+        goals: goals,
+        models: models,
+        hw: hw
+      };
+    } catch (e) {
+      return { total: 0, topGoal: null, topModel: null, topHardware: null };
+    }
+  }
+
   function exportFeedbackData() {
     try {
       var all = [];
@@ -181,6 +248,8 @@
     getFeedback: getFeedback,
     getCommunityStats: getCommunityStats,
     getPopularSetups: getPopularSetups,
+    saveRecommendation: saveRecommendation,
+    getRecommendationStats: getRecommendationStats,
     exportFeedbackData: exportFeedbackData
   };
 })();
