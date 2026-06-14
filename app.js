@@ -1573,11 +1573,14 @@
         const tags = Array.from(section.querySelectorAll('.feedback-tag.selected')).map(t => t.dataset.tag);
         const text = section.querySelector('.feedback-textarea').value.trim();
         if (tags.length === 0 && !text) return;
-        const data = { tags, text: text || '' };
         const modelName = currentResult ? currentResult.modelName : 'unknown';
-        const key = 'fbt_' + (selectedGoal || 'unknown') + '_' + (selectedTier || 'unknown') + '_' + modelName.replace(/\s+/g, '_');
-        if (!localStorage.getItem(key)) {
-          localStorage.setItem(key, JSON.stringify(data));
+        if (typeof window.__analytics !== 'undefined' && window.__analytics.saveFeedbackDetails) {
+          window.__analytics.saveFeedbackDetails(modelName, selectedTier || 'unknown', selectedGoal || 'unknown', tags, text);
+        } else {
+          const fallbackKey = 'fbd_' + (selectedGoal || 'unknown') + '_' + (selectedTier || 'unknown') + '_' + modelName.replace(/\s+/g, '_');
+          if (!localStorage.getItem(fallbackKey)) {
+            localStorage.setItem(fallbackKey, JSON.stringify({ recommendation: modelName, hardware: selectedTier || 'unknown', goal: selectedGoal || 'unknown', success: false, reason: tags.join(','), notes: text || '', timestamp: new Date().toISOString().split('T')[0] }));
+          }
         }
         track('feedback_submitted', { result: 'text', tags: tags.join(','), hasText: !!text, model: modelName });
         section.querySelector('.feedback-tags').classList.add('hidden');

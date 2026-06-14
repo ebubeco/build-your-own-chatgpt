@@ -31,6 +31,15 @@
 
   function saveFeedbackToSupabase(data) {
     var url = SUPABASE_URL + '/rest/v1/feedback';
+    var body = {
+      recommendation: data.recommendation,
+      hardware: data.hardware,
+      goal: data.goal,
+      success: data.success,
+      timestamp: data.timestamp
+    };
+    if (data.reason) body.reason = data.reason;
+    if (data.notes) body.notes = data.notes;
     fetch(url, {
       method: 'POST',
       headers: {
@@ -39,13 +48,7 @@
         'Content-Type': 'application/json',
         'Prefer': 'return=minimal'
       },
-      body: JSON.stringify({
-        recommendation: data.recommendation,
-        hardware: data.hardware,
-        goal: data.goal,
-        success: data.success,
-        timestamp: data.timestamp
-      })
+      body: JSON.stringify(body)
     }).catch(function () {
       /* Supabase unavailable - localStorage fallback handles this */
     });
@@ -64,6 +67,25 @@
     localStorage.setItem(key, JSON.stringify(data));
     saveFeedbackToSupabase(data);
     trackEvent('feedback_submitted', { result: success ? 'positive' : 'negative', recommendation: recommendation, hardware: hardware, goal: goal });
+    return data;
+  }
+
+  function saveFeedbackDetails(recommendation, hardware, goal, tags, notes) {
+    var key = 'fbd_' + (goal || 'unknown') + '_' + (hardware || 'unknown') + '_' + (recommendation || 'unknown').replace(/\s+/g, '_');
+    if (localStorage.getItem(key)) return;
+    var reason = (tags && tags.length > 0) ? tags.join(',') : '';
+    var data = {
+      recommendation: recommendation,
+      hardware: hardware,
+      goal: goal,
+      success: false,
+      reason: reason,
+      notes: notes || '',
+      timestamp: new Date().toISOString().split('T')[0]
+    };
+    localStorage.setItem(key, JSON.stringify(data));
+    saveFeedbackToSupabase(data);
+    trackEvent('feedback_details', { tags: reason, hasNotes: !!notes, recommendation: recommendation, hardware: hardware, goal: goal });
     return data;
   }
 
@@ -134,7 +156,7 @@
       var all = [];
       for (var i = 0; i < localStorage.length; i++) {
         var k = localStorage.key(i);
-        if (k && k.indexOf('fb_') === 0) {
+        if (k && (k.indexOf('fb_') === 0 || k.indexOf('fbd_') === 0)) {
           try { all.push(JSON.parse(localStorage.getItem(k))); } catch (e) { /* skip */ }
         }
       }
@@ -155,6 +177,7 @@
     trackEvent: trackEvent,
     getQueue: getQueue,
     saveFeedback: saveFeedback,
+    saveFeedbackDetails: saveFeedbackDetails,
     getFeedback: getFeedback,
     getCommunityStats: getCommunityStats,
     getPopularSetups: getPopularSetups,
