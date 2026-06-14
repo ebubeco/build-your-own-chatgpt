@@ -11,6 +11,9 @@
   <meta property="og:image" content="https://build-your-own-chatgpt.vercel.app/og-image.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="stylesheet" href="style.css">
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="b8a7a476-7a85-402e-b042-1436ef463d65"></script>
+  <script async src="https://plausible.io/js/pa-DBTdINzLX2L2B_fXJF0u1.js"></script>
+  <script>window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()</script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -62,6 +65,54 @@
     </section>
 
     <section class="seo-section">
+      <h2>Offline AI Model Comparison</h2>
+      <div class="table-wrap">
+        <table class="comp-table">
+          <thead>
+            <tr>
+              <th>Model</th>
+              <th>Best For</th>
+              <th>RAM / VRAM</th>
+              <th>Storage</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Qwen 2.5 7B</strong></td>
+              <td>Best overall — chat, coding, writing</td>
+              <td>8GB VRAM / 16GB RAM</td>
+              <td>4.7 GB</td>
+            </tr>
+            <tr>
+              <td><strong>Llama 3.1 8B</strong></td>
+              <td>All-rounder, slightly larger</td>
+              <td>8GB VRAM / 16GB RAM</td>
+              <td>4.9 GB</td>
+            </tr>
+            <tr>
+              <td><strong>Phi-4-mini 3.8B</strong></td>
+              <td>CPU-only, low-spec laptops</td>
+              <td>8GB RAM</td>
+              <td>2.5 GB</td>
+            </tr>
+            <tr>
+              <td><strong>Qwen 2.5 Coder 7B</strong></td>
+              <td>Coding assistant</td>
+              <td>8GB VRAM / 16GB RAM</td>
+              <td>4.7 GB</td>
+            </tr>
+            <tr>
+              <td><strong>Qwen 2.5 1.5B</strong></td>
+              <td>Very low-spec, fast CPU</td>
+              <td>4GB RAM</td>
+              <td>1.1 GB</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="seo-section">
       <h2>Alternatives for Lower Specs</h2>
       <ul class="seo-alt-list">
         <li><strong>Phi-4-mini (3.8B):</strong> Runs on 8GB RAM, no GPU needed. Good for basic chat.</li>
@@ -100,11 +151,20 @@
       </div>
     </section>
 
+    <section class="seo-section">
+      <h2>Related Guides</h2>
+      <ul class="seo-alt-list">
+        <li><a href="/run-ai-without-gpu"><strong>Run Local AI Without a GPU</strong></a> — Complete guide to CPU-only inference on any laptop.</li>
+        <li><a href="/can-my-laptop-run-ai"><strong>Can My Laptop Run Local AI?</strong></a> — Check your hardware and find the right model.</li>
+      </ul>
+    </section>
+
     <section class="seo-section seo-cta">
       <h2>Get Your Offline AI Setup</h2>
       <p>Tell us about your hardware and get the exact model and command for your machine.</p>
       <a href="/" class="btn-primary" style="display:inline-block;margin-top:1rem">Start the Wizard</a>
     </section>
   </main>
+  <script src="analytics.js"></script>
 </body>
 </html>

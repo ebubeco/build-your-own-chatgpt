@@ -686,6 +686,43 @@ body {
   font-size: 0.9rem;
 }
 
+.table-wrap {
+  overflow-x: auto;
+  margin: 0.75rem 0;
+}
+
+.comp-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+.comp-table th {
+  text-align: left;
+  padding: 0.5rem 0.75rem;
+  background: var(--surface);
+  border-bottom: 2px solid var(--border);
+  font-weight: 600;
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+
+.comp-table td {
+  padding: 0.6rem 0.75rem;
+  border-bottom: 1px solid var(--border-light);
+  color: var(--text-primary);
+  line-height: 1.4;
+}
+
+.comp-table tr:last-child td {
+  border-bottom: none;
+}
+
+.comp-table tr:hover td {
+  background: var(--surface);
+}
+
 .seo-cta {
   text-align: center;
   padding: 2rem;

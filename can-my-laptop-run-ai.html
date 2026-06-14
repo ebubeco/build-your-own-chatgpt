@@ -11,6 +11,9 @@
   <meta property="og:image" content="https://build-your-own-chatgpt.vercel.app/og-image.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="stylesheet" href="style.css">
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="b8a7a476-7a85-402e-b042-1436ef463d65"></script>
+  <script async src="https://plausible.io/js/pa-DBTdINzLX2L2B_fXJF0u1.js"></script>
+  <script>window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()</script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -74,6 +77,26 @@
     </section>
 
     <section class="seo-section">
+      <h2>Storage Guide: How Much Disk Space?</h2>
+      <ul class="seo-alt-list">
+        <li><strong>1-3B models:</strong> 1-3 GB each. Phi-4-mini needs ~2.5 GB.</li>
+        <li><strong>7-8B models:</strong> 4-5 GB each. Qwen 2.5 7B is ~4.7 GB.</li>
+        <li><strong>14B+ models:</strong> 8-12 GB each. Larger outputs require more disk.</li>
+        <li><strong>Tip:</strong> You only download a model once. 20-30 GB free space lets you try several models.</li>
+      </ul>
+    </section>
+
+    <section class="seo-section">
+      <h2>CPU Guide: What Processor Do You Need?</h2>
+      <ul class="seo-alt-list">
+        <li><strong>Intel / AMD (x86):</strong> Any modern processor works. AVX2 support improves speed. Ollama runs natively on x86.</li>
+        <li><strong>Apple Silicon (M1-M4):</strong> Excellent for AI. Unified memory and Metal GPU acceleration deliver great speed even on 8GB base models.</li>
+        <li><strong>ARM (Windows/Linux):</strong> Works with Ollama but expect slightly slower inference vs x86. Preview support in some tools.</li>
+        <li><strong>Chromebook / ARM Mac:</strong> Limited local AI, but cloud options (Gemini, Claude) work well as alternatives.</li>
+      </ul>
+    </section>
+
+    <section class="seo-section">
       <h2>Can My Laptop Run AI? Quick Decision Guide</h2>
       <ul class="seo-alt-list">
         <li><strong>8GB RAM, no GPU:</strong> Yes, run Phi-4-mini or Qwen 2.5 1.5B. Good for basic chat.</li>
@@ -114,11 +137,20 @@
       </div>
     </section>
 
+    <section class="seo-section">
+      <h2>Related Guides</h2>
+      <ul class="seo-alt-list">
+        <li><a href="/best-offline-chatgpt"><strong>Best Offline ChatGPT Alternative</strong></a> — Compare top models for fully private, offline use.</li>
+        <li><a href="/run-ai-without-gpu"><strong>Run Local AI Without a GPU</strong></a> — CPU-only guide for laptops without dedicated graphics.</li>
+      </ul>
+    </section>
+
     <section class="seo-section seo-cta">
       <h2>Get Your Personalized Answer</h2>
       <p>Tell us about your specific laptop and what you want to do. Get your exact setup in under 60 seconds.</p>
       <a href="/" class="btn-primary" style="display:inline-block;margin-top:1rem">Check Your Laptop</a>
     </section>
   </main>
+  <script src="analytics.js"></script>
 </body>
 </html>

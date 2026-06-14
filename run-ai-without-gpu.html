@@ -11,6 +11,9 @@
   <meta property="og:image" content="https://build-your-own-chatgpt.vercel.app/og-image.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="stylesheet" href="style.css">
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="b8a7a476-7a85-402e-b042-1436ef463d65"></script>
+  <script async src="https://plausible.io/js/pa-DBTdINzLX2L2B_fXJF0u1.js"></script>
+  <script>window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()</script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -31,6 +34,43 @@
 
     <section class="seo-section">
       <p><strong>You don't need a dedicated GPU to run local AI.</strong> CPU-only inference works on any modern laptop or desktop. While slower than GPU acceleration, smaller models run comfortably on CPU and deliver useful results for chat, writing, and coding assistance.</p>
+    </section>
+
+    <section class="seo-section">
+      <h2>Minimum Requirements for CPU-Only AI</h2>
+      <div class="table-wrap">
+        <table class="comp-table">
+          <thead>
+            <tr>
+              <th>RAM</th>
+              <th>Max Model Size</th>
+              <th>Example Models</th>
+              <th>Response Speed</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>8 GB</strong></td>
+              <td>1-3B parameters</td>
+              <td>Phi-4-mini, Qwen 2.5 1.5B, Llama 3.2 3B</td>
+              <td>5-15 sec</td>
+            </tr>
+            <tr>
+              <td><strong>16 GB</strong></td>
+              <td>7-8B parameters</td>
+              <td>Qwen 2.5 7B, Llama 3.1 8B</td>
+              <td>20-40 sec</td>
+            </tr>
+            <tr>
+              <td><strong>32 GB+</strong></td>
+              <td>12-14B parameters</td>
+              <td>Qwen 2.5 14B, Llama 3.1 70B (quantized)</td>
+              <td>40-90 sec</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin-top:0.75rem;font-size:0.9rem;color:var(--text-secondary)">All figures are for CPU-only (no GPU). GPU acceleration improves speeds 5-10x.</p>
     </section>
 
     <section class="seo-section">
@@ -110,11 +150,20 @@
       </div>
     </section>
 
+    <section class="seo-section">
+      <h2>Related Guides</h2>
+      <ul class="seo-alt-list">
+        <li><a href="/best-offline-chatgpt"><strong>Best Offline ChatGPT Alternative</strong></a> — Full comparison of top offline models for privacy.</li>
+        <li><a href="/can-my-laptop-run-ai"><strong>Can My Laptop Run Local AI?</strong></a> — Check your hardware specs and find your match.</li>
+      </ul>
+    </section>
+
     <section class="seo-section seo-cta">
       <h2>Get Your CPU-Only Setup</h2>
       <p>Answer two questions and get the exact model and command for your specific laptop.</p>
       <a href="/" class="btn-primary" style="display:inline-block;margin-top:1rem">Find My Setup</a>
     </section>
   </main>
+  <script src="analytics.js"></script>
 </body>
 </html>
