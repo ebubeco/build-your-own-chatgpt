@@ -24,6 +24,7 @@
     { "source": "/careers/software-engineer", "destination": "/careers/software-engineer.html" },
     { "source": "/careers/student", "destination": "/careers/student.html" },
     { "source": "/careers/researcher", "destination": "/careers/researcher.html" },
-    { "source": "/careers/writer", "destination": "/careers/writer.html" }
+    { "source": "/careers/writer", "destination": "/careers/writer.html" },
+    { "source": "/compendium", "destination": "/compendium.html" }
   ]
 }
