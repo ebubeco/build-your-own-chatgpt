@@ -633,7 +633,7 @@
     const responseSpeed = bSize <= 3 ? 'Fast' : bSize <= 7 ? 'Fast (chat), Moderate (long docs)' : 'Moderate';
     const difficulty = model.beginnerFriendly ? 'Easy' : 'Moderate';
     const setupTime = model.setupComplexity === 'easy' ? '5 minutes' : '10 minutes';
-    return { startupTime, responseSpeed, storage: `${model.modelSizeGB}GB`, difficulty, setupTime, internetRequired: { label: 'No', detail: 'Runs fully on your device after setup.' } };
+    return { startupTime, responseSpeed, storage: `${model.modelSizeGB}GB`, difficulty, setupTime, privacy: { label: '🔒 Fully Local', detail: 'Your data never leaves your device. No account required.' }, internetRequired: { label: 'No', detail: 'Runs fully on your device after setup.' } };
   }
 
   function getWhyNotOthers(primary, tier, goal, allModels) {
@@ -869,7 +869,7 @@
         </div>
         <p class="rec-desc">${wrapInGlossary(primary.description)}</p>
         <div class="rec-why">
-          <div class="rec-why-title">Why this?</div>
+          <div class="rec-why-title">Why We Picked This</div>
           ${whyPoints.map(p => `<div class="rec-why-point">✓ ${p}</div>`).join('')}
         </div>
         ${primary.bestFor && primary.bestFor.length > 0 ? `
@@ -888,6 +888,7 @@
             <div class="rec-expect-row"><span class="rec-expect-label">Storage needed</span><span class="rec-expect-value">${e.storage}</span></div>
             <div class="rec-expect-row"><span class="rec-expect-label">Difficulty</span><span class="rec-expect-value">${e.difficulty}</span></div>
             <div class="rec-expect-row"><span class="rec-expect-label">Setup time</span><span class="rec-expect-value">${e.setupTime}</span></div>
+            <div class="rec-expect-row"><span class="rec-expect-label">Privacy</span><span class="rec-expect-value">${e.privacy.label}</span></div>
             <div class="rec-expect-row"><span class="rec-expect-label">Internet required</span><span class="rec-expect-value">${e.internetRequired.label} — ${e.internetRequired.detail}</span></div>
           </div>
         </div>`; })()}
