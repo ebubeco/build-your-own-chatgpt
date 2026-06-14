@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="google-site-verification" content="5YRiOefTK9mTwEJEnLIH6BQ5xmP0NkwyfiaBWZJbdCg">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Alibaba's compact model with strong multilingual support - writes well in English, Chinese, Spanish, and more. Better coding than the smaller models. Your first real private AI assistant. Install with Ollama, specs, and tips.">
+  <title>Qwen2.5-1.5B-Instruct Local AI Model — Specs, Install & Tips</title>
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="canonical" href="https://build-your-own-chatgpt.vercel.app/models/model-qwen-1-5b">
+  <meta property="og:title" content="Qwen2.5-1.5B-Instruct — Local AI Model">
+  <meta property="og:description" content="Alibaba's compact model with strong multilingual support - writes well in English, Chinese, Spanish, and more. Better coding than the smaller models. Your first real private AI assistant.">
+  <meta property="og:image" content="https://build-your-own-chatgpt.vercel.app/og-image.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="../style.css">
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="b8a7a476-7a85-402e-b042-1436ef463d65"></script>
+  <script async src="https://plausible.io/js/pa-DBTdINzLX2L2B_fXJF0u1.js"></script>
+  <script>window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()</script>
+  <style>
+    .model-page{max-width:800px;margin:0 auto;padding:0 1.5rem 3rem}
+    .model-page h1{font-family:"Outfit",sans-serif;font-size:clamp(1.6rem,3.5vw,2.4rem);font-weight:800;letter-spacing:-0.02em;margin:2rem 0 .3rem}
+    .model-page .subtitle{color:var(--text-secondary);font-size:1rem;margin-bottom:1.5rem}
+    .model-section{background:var(--bg-card);border:1.5px solid var(--border);border-radius:var(--radius);padding:1.25rem;margin-bottom:1.25rem;transition:all var(--transition)}
+    .model-section:hover{border-color:var(--accent);box-shadow:var(--shadow-glow)}
+    .model-section h2{font-family:"Outfit",sans-serif;font-size:1.15rem;font-weight:700;margin-bottom:.75rem}
+    .model-section h3{font-size:.95rem;font-weight:700;margin:.75rem 0 .4rem}
+    .install-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:1rem;margin-top:.75rem}
+    .install-label{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-tertiary);margin-bottom:.25rem}
+    .install-command{font-family:"SF Mono","Fira Code",monospace;font-size:.85rem;background:var(--code-bg,var(--surface));padding:.5rem .75rem;border-radius:var(--radius-sm);overflow-x:auto;white-space:nowrap;margin-bottom:.5rem}
+    .spec-table{width:100%;border-collapse:collapse;font-size:.85rem}
+    .spec-table td{padding:.45rem .6rem;border-bottom:1px solid var(--border)}
+    .spec-table td:first-child{font-weight:600;color:var(--text-secondary);width:40%}
+    .model-cta{text-align:center;padding:1.5rem;background:var(--accent-light);border-radius:var(--radius);margin-top:1.5rem}
+    .model-cta h2{font-family:"Outfit",sans-serif;font-size:1.2rem;font-weight:700;margin-bottom:.5rem}
+    .model-cta .btn-primary{display:inline-block;margin-top:.75rem}
+  </style>
+</head>
+<body class="seo-page">
+  <main class="model-page">
+    <a href="../" class="seo-back">&larr; Use the wizard</a>
+    <h1>Qwen2.5-1.5B-Instruct</h1>
+    <p class="subtitle">Alibaba's compact model with strong multilingual support - writes well in English, Chinese, Spanish, and more. Better coding than the smaller models. Your first real private AI assistant.</p>
+
+    <section class="model-section">
+      <h2>Specifications</h2>
+      <div class="table-wrap">
+        <table class="spec-table">
+          <tbody><tr><td>Model Size</td><td>1.1 GB</td></tr><tr><td>Context Window</td><td>8192 tokens</td></tr><tr><td>VRAM Required</td><td>1.8 GB</td></tr><tr><td>Recommended Quant</td><td>Q4_K_M</td></tr><tr><td>Best For</td><td>chat, writing, coding, research</td></tr><tr><td>Setup Difficulty</td><td>easy</td></tr><tr><td>Beginner Friendly</td><td>Yes</td></tr><tr><td>Platform</td><td>local</td></tr><tr><td>Startup Time</td><td>20-30 seconds</td></tr><tr><td>Setup Time</td><td>~5 minutes</td></tr></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="model-section">
+      <h2>Installation</h2>
+      <p>Install Ollama once, then pull Qwen2.5-1.5B-Instruct with one command:</p>
+      <div class="install-box">
+        <div class="install-label">Install Ollama</div>
+        <a href="https://ollama.com/download" target="_blank" class="btn-secondary" style="display:inline-block;margin-bottom:0.5rem">Download Ollama (free)</a>
+        <div class="install-label">Pull Qwen 1.5B</div>
+        <div class="install-command">ollama pull qwen2.5:1.5b</div>
+        <div class="install-label">Run</div>
+        <div class="install-command">ollama run qwen2.5:1.5b</div>
+      </div>
+    </section>
+
+    <section class="model-section">
+      <h3>Quantization Variants</h3><div class="table-wrap"><table class="comp-table"><thead><tr><th>Tag</th><th>Quality</th><th>Speed</th><th>Storage</th></tr></thead><tbody><tr><td><code>qwen2.5:1.5b</code></td><td>Good</td><td>Fast</td><td>~1.1GB</td></tr><tr><td><code>qwen2.5:1.5b-q8_0</code></td><td>Excellent</td><td>Moderate</td><td>~1.8GB</td></tr><tr><td><code>qwen2.5:1.5b-fp16</code></td><td>Best</td><td>Slow</td><td>~3.2GB</td></tr></tbody></table></div>
+    </section>
+
+    <section class="model-section">
+      <h2>Why Qwen 1.5B</h2>
+      <ul><li>Runs on your hardware</li><li>Free and private</li><li>Easy one-command install</li></ul>
+      
+    </section>
+
+    <section class="model-section">
+      <h3>Starter Prompts</h3><h4 style="text-transform:capitalize;margin:0.5rem 0 0.25rem;font-size:0.9rem">general</h4><ul><li><code>Explain [topic] in simple terms</code></li><li><code>Help me write about [subject]</code></li><li><code>Summarize this text: [paste text]</code></li></ul><h4 style="text-transform:capitalize;margin:0.5rem 0 0.25rem;font-size:0.9rem">coding</h4><ul><li><code>Review this code: [paste code]</code></li><li><code>Write a function that [describe task]</code></li><li><code>Explain this error: [paste error]</code></li></ul><h4 style="text-transform:capitalize;margin:0.5rem 0 0.25rem;font-size:0.9rem">writing</h4><ul><li><code>Improve this paragraph: [paste text]</code></li><li><code>Write an intro about [topic]</code></li><li><code>Make this more concise: [paste text]</code></li></ul>
+    </section>
+
+    <div class="model-cta">
+      <h2>Not sure if Qwen 1.5B is right for you?</h2>
+      <p>Tell us about your hardware and get a personalized recommendation.</p>
+      <a href="../" class="btn-primary">Find My Perfect Model</a>
+    </div>
+  </main>
+  <script src="../analytics.js"></script>
+</body>
+</html>

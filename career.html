@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="google-site-verification" content="5YRiOefTK9mTwEJEnLIH6BQ5xmP0NkwyfiaBWZJbdCg">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Find the best AI models for your career — software engineer, writer, researcher, data scientist, and more. Personalized AI recommendations for your profession.">
+  <meta property="og:title" content="AI Models for Your Career — Developer, Writer, Researcher & More">
+  <meta property="og:description" content="Get career-specific local AI recommendations. Find the best models for coding, writing, research, data science, and cybersecurity.">
+  <meta property="og:image" content="https://build-your-own-chatgpt.vercel.app/og-image.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <title>AI Models for Your Career — Developer, Writer, Researcher & More</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <script>!function(){var t=localStorage.getItem('theme');if(t==='dark'||(t===null&&window.matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark')}();</script>
+  <script async src="https://plausible.io/js/pa-DBTdINzLX2L2B_fXJF0u1.js"></script>
+  <script>window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()</script>
+  <style>
+    .cr-header { text-align: center; padding: 2rem 0 0; }
+    .cr-header h1 { font-family: 'Outfit', sans-serif; font-size: clamp(2rem,5vw,3rem); font-weight: 800; letter-spacing: -0.03em; background: linear-gradient(135deg, var(--text) 0%, var(--text-secondary) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .cr-header p { color: var(--text-secondary); max-width: 520px; margin: 0.5rem auto 2rem; font-size: 1rem; }
+    .cr-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; margin-bottom: 1.5rem; }
+    @media (max-width: 700px) { .cr-grid { grid-template-columns: 1fr; } }
+    .cr-card { background: var(--bg-card); backdrop-filter: blur(12px); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem; cursor: pointer; text-align: left; display: flex; flex-direction: column; gap: 0.25rem; transition: all var(--transition); color: var(--text-primary); font-family: inherit; }
+    .cr-card:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 4px 20px rgba(232,93,4,0.15); }
+    .cr-card.selected { border-color: var(--accent); background: rgba(232,93,4,0.06); box-shadow: 0 0 0 2px rgba(232,93,4,0.2); }
+    .cr-icon { font-size: 1.5rem; margin-bottom: 0.25rem; }
+    .cr-title { font-weight: 600; font-size: 0.85rem; }
+    .cr-desc { font-size: 0.75rem; color: var(--text-tertiary); line-height: 1.4; }
+    .cr-detail { display: none; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem; margin-bottom: 1.5rem; border-left: 4px solid var(--accent); animation: fadeUp 0.3s ease; }
+    .cr-detail.show { display: block; }
+    .cr-detail h2 { font-family: 'Outfit', sans-serif; font-size: 1.3rem; font-weight: 700; color: var(--text); margin-bottom: 0.3rem; }
+    .cr-detail h2 .cr-detail-icon { margin-right: 0.4rem; }
+    .cr-detail-desc { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 1rem; line-height: 1.6; }
+    .cr-priority-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1rem; }
+    .cr-priority-tag { font-size: 0.72rem; font-weight: 500; padding: 0.2rem 0.6rem; border-radius: 6px; background: var(--accent-light); color: var(--accent); }
+    .cr-model-list { display: flex; flex-direction: column; gap: 0.75rem; }
+    .cr-model-item { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 0.85rem 1rem; display: flex; justify-content: space-between; align-items: center; gap: 0.75rem; flex-wrap: wrap; }
+    .cr-model-left { display: flex; align-items: center; gap: 0.6rem; }
+    .cr-model-name { font-weight: 600; font-size: 0.9rem; color: var(--text); }
+    .cr-model-size { font-size: 0.7rem; color: var(--text-tertiary); background: var(--bg-warm); padding: 0.1rem 0.4rem; border-radius: 4px; }
+    .cr-model-cmd { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.75rem; background: var(--bg-warm); border: 1px solid var(--border); border-radius: 4px; padding: 0.3rem 0.6rem; color: var(--text-secondary); white-space: nowrap; }
+    .cr-model-why { font-size: 0.78rem; color: var(--text-tertiary); line-height: 1.4; margin-top: 0.3rem; width: 100%; }
+    .cr-not-found { text-align: center; padding: 3rem 1rem; color: var(--text-tertiary); }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  </style>
+</head>
+<body>
+  <nav class="site-topbar" role="navigation" aria-label="Site navigation">
+    <div class="container">
+      <div class="topbar-inner">
+        <span class="site-brand">🤖 Build Your Own ChatGPT</span>
+        <div style="display:flex;gap:0.75rem;align-items:center">
+          <a href="index.html" style="font-size:0.82rem;color:var(--text-secondary);text-decoration:none;font-weight:500">Home</a>
+          <a href="compendium.html" style="font-size:0.82rem;color:var(--text-secondary);text-decoration:none;font-weight:500">Models</a>
+          <a href="use-cases.html" style="font-size:0.82rem;color:var(--text-secondary);text-decoration:none;font-weight:500">Use Cases</a>
+          <a href="starter-pack.html" style="font-size:0.82rem;color:var(--text-secondary);text-decoration:none;font-weight:500">Starter Pack</a>
+          <a href="career.html" style="font-size:0.82rem;color:var(--accent);text-decoration:none;font-weight:600">Careers</a>
+          <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle theme"><span class="toggle-icon">🌙</span></button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container">
+    <div class="cr-header">
+      <h1>AI for Your Career</h1>
+      <p>Find the best local AI models for your profession. Click your role to see tailored recommendations with install commands.</p>
+    </div>
+
+    <div id="cr-loading" class="cr-not-found">Loading career recommendations...</div>
+    <div id="cr-grid" class="cr-grid" style="display:none"></div>
+    <div id="cr-detail" class="cr-detail"></div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-links">
+        <a href="https://github.com/ebubeco/build-your-own-chatgpt" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="index.html">Wizard</a>
+        <a href="compendium.html">Model Compendium</a>
+        <a href="use-cases.html">Use Cases</a>
+        <a href="starter-pack.html">Starter Pack</a>
+        <a href="career.html">Careers</a>
+      </div>
+      <p class="footer-tagline">Built for beginners. Your data never leaves your machine.</p>
+    </div>
+  </footer>
+
+  <script>
+    var modelMeta = {
+      'qwen-2-5-7b': { name: 'Qwen 2.5 7B', cmd: 'ollama pull qwen2.5:7b', size: '4.1GB', why: 'Best all-round model for most tasks. Great for coding, writing, and chat.' },
+      'qwen-3-14b': { name: 'Qwen 3 14B', cmd: 'ollama pull qwen3:14b', size: '8.2GB', why: 'Excellent for long-context work, research, and complex reasoning.' },
+      'deepseek-r1-8b': { name: 'DeepSeek R1 8B', cmd: 'ollama pull deepseek-r1:8b', size: '4.9GB', why: 'Top-tier reasoning and debugging. Chain-of-thought for complex problem solving.' },
+      'phi-4-mini': { name: 'Phi-4 Mini', cmd: 'ollama pull phi-4-mini', size: '2.5GB', why: 'Great for CPU-only setups. Excellent explanations and general chat.' },
+      'gemma-4-12b': { name: 'Gemma 4 12B', cmd: 'ollama pull gemma4:12b', size: '7.5GB', why: 'Follows instructions precisely. Great for structured writing and analysis.' },
+      'llama-3-2-3b': { name: 'Llama 3.2 3B', cmd: 'ollama pull llama3.2:3b', size: '1.9GB', why: 'Small, fast, and reliable. Works on almost any hardware.' },
+      'qwen-3-5-27b': { name: 'Qwen 3.5 27B', cmd: 'ollama pull qwen3.5:27b', size: '16GB', why: 'Best open model for agents and complex multi-step tasks.' },
+      'qwen-0-5b': { name: 'Qwen 0.5B', cmd: 'ollama pull qwen2.5:0.5b', size: '0.9GB', why: 'Ultra-light model for very old hardware. Fast but limited capability.' },
+      'qwen-1-5b': { name: 'Qwen 1.5B', cmd: 'ollama pull qwen2.5:1.5b', size: '1.1GB', why: 'Lightweight model that runs on basic hardware.' }
+    };
+
+    var roles = [];
+    var currentRole = null;
+
+    function selectRole(roleId) {
+      currentRole = roleId;
+      document.querySelectorAll('.cr-card').forEach(function(c) {
+        c.classList.toggle('selected', c.getAttribute('data-role') === roleId);
+      });
+      var role = roles.find(function(r) { return r.id === roleId; });
+      if (!role) return;
+      var box = document.getElementById('cr-detail');
+      box.className = 'cr-detail show';
+      var modelsHtml = role.matchedModels.filter(function(m) { return modelMeta[m]; }).map(function(m) {
+        var meta = modelMeta[m];
+        return '<div class="cr-model-item"><div class="cr-model-left"><span class="cr-model-name">' + meta.name + '</span><span class="cr-model-size">' + meta.size + '</span></div><span class="cr-model-cmd">' + meta.cmd + '</span><div class="cr-model-why">' + meta.why + '</div></div>';
+      }).join('');
+      if (!modelsHtml) modelsHtml = '<div class="cr-model-item" style="justify-content:center;color:var(--text-tertiary)">No specific model recommendations. Start with <strong>Qwen 2.5 7B</strong> (run <code style="background:var(--bg-warm);padding:0.1rem 0.35rem;border-radius:4px">ollama pull qwen2.5:7b</code>).</div>';
+      var priorityNames = { 'coding': 'Coding', 'reasoning': 'Reasoning', 'agents': 'Agents', 'writing': 'Writing', 'chat': 'Chat', 'research': 'Research', 'learning': 'Learning' };
+      box.innerHTML = '<h2><span class="cr-detail-icon">' + role.icon + '</span>' + role.label + '</h2><div class="cr-detail-desc">' + role.desc + '</div><div class="cr-priority-tags">' + (role.priorities || []).map(function(p) { return '<span class="cr-priority-tag">' + (priorityNames[p] || p) + '</span>'; }).join('') + '</div><div class="cr-model-list">' + modelsHtml + '</div>';
+      plausible('career-selected', { props: { role: roleId } });
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      fetch('data/roles.json').then(function(r) { return r.json(); }).then(function(data) {
+        roles = data.roles || [];
+        document.getElementById('cr-loading').style.display = 'none';
+        var grid = document.getElementById('cr-grid'); grid.style.display = 'grid';
+        grid.innerHTML = roles.map(function(r) {
+          return '<button class="cr-card" data-role="' + r.id + '" onclick="selectRole(\'' + r.id + '\')"><span class="cr-icon">' + r.icon + '</span><span class="cr-title">' + r.label + '</span><span class="cr-desc">' + r.desc + '</span></button>';
+        }).join('');
+      }).catch(function() {
+        document.getElementById('cr-loading').innerHTML = '⚠️ Could not load career data. Make sure <code>data/roles.json</code> exists.';
+      });
+
+    });
+  </script>
+  <script src="analytics.js"></script>
+  <script src="shared.js"></script>
+</body>
+</html>

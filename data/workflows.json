@@ -1,0 +1,82 @@
+{
+  "workflows": [
+    {
+      "id": "daily-chat",
+      "name": "Daily Assistant",
+      "icon": "💬",
+      "description": "Ask questions, brainstorm ideas, get advice. Your private ChatGPT replacement.",
+      "bestModelTier": "any",
+      "recommendedModels": ["qwen-2-5-7b", "phi-4-mini", "llama-3-2-3b"],
+      "tips": [
+        "Use Qwen 2.5 7B for best quality on budget GPUs",
+        "Phi-4 Mini is great for CPU-only setups",
+        "Models remember context in the same session"
+      ]
+    },
+    {
+      "id": "coding",
+      "name": "Coding Assistant",
+      "icon": "💻",
+      "description": "Write, debug, and refactor code. Explain complex functions. Generate boilerplate.",
+      "bestModelTier": "budget-gpu",
+      "recommendedModels": ["qwen-2-5-7b", "deepseek-r1-8b", "phi-4-mini"],
+      "tips": [
+        "DeepSeek R1 excels at debugging and reasoning about code",
+        "Qwen 2.5 7B is best for code generation and completion",
+        "Use Ollama with Continue.dev plugin for VS Code integration"
+      ]
+    },
+    {
+      "id": "writing",
+      "name": "Writing & Research",
+      "icon": "✍️",
+      "description": "Draft articles, edit content, summarize research papers, analyze documents.",
+      "bestModelTier": "budget-gpu",
+      "recommendedModels": ["qwen-2-5-7b", "qwen-3-14b", "gemma-4-12b"],
+      "tips": [
+        "Use Qwen 3 14B for long-form writing and research analysis",
+        "Gemma 4 12B excels at following complex writing instructions",
+        "32K+ context models can analyze entire research papers"
+      ]
+    },
+    {
+      "id": "agents",
+      "name": "AI Agents & Automation",
+      "icon": "🤖",
+      "description": "Build automated workflows, multi-step reasoning tasks, and agent chains.",
+      "bestModelTier": "power-gpu",
+      "recommendedModels": ["qwen-3-5-27b", "qwen-3-14b", "deepseek-r1-8b"],
+      "tips": [
+        "Qwen 3.5 27B is the best open model for agent workflows",
+        "DeepSeek R1's chain-of-thought is excellent for multi-step planning",
+        "Combine with LangChain or CrewAI for complex agent pipelines"
+      ]
+    },
+    {
+      "id": "documents",
+      "name": "Chat with Documents",
+      "icon": "📄",
+      "description": "Ask questions about PDFs, codebases, transcripts. Extract insights from long documents.",
+      "bestModelTier": "budget-gpu",
+      "recommendedModels": ["qwen-3-14b", "qwen-2-5-7b", "gemma-4-12b"],
+      "tips": [
+        "Use models with 32K+ context for full document analysis",
+        "Qwen 3 14B handles 32K context windows comfortably on 12GB VRAM",
+        "Pair with Open WebUI or AnythingLLM for RAG workflows"
+      ]
+    },
+    {
+      "id": "learning",
+      "name": "Learning & Tutoring",
+      "icon": "🎓",
+      "description": "Explain concepts, generate practice problems, tutor through difficult topics.",
+      "bestModelTier": "cpu-only",
+      "recommendedModels": ["phi-4-mini", "llama-3-2-3b", "qwen-1-5b"],
+      "tips": [
+        "Phi-4 Mini is excellent at explaining concepts clearly",
+        "Ask models to 'explain like I'm 5' for simpler explanations",
+        "Smaller models are fine for learning - speed matters less for study"
+      ]
+    }
+  ]
+}

@@ -34,71 +34,7 @@
   let careerInferred = false;
   let autoDetectCancelled = false;
 
-  const CAREER_MAP = {
-    'student': {
-      label: 'Student',
-      icon: '🎓',
-      desc: 'Learning, summarization, tutoring',
-      matchedModels: ['qwen-0-5b', 'qwen-1-5b', 'qwen-2-5-7b', 'gemma-4-12b', 'phi-4-mini'],
-      priorities: ['learning', 'writing', 'chat']
-    },
-    'software-engineer': {
-      label: 'Software Engineer',
-      icon: '💻',
-      desc: 'Coding, debugging, architecture',
-      matchedModels: ['qwen-2-5-7b', 'qwen-3-14b', 'deepseek-r1-8b', 'phi-4-mini'],
-      priorities: ['coding', 'reasoning', 'agents']
-    },
-    'data-scientist': {
-      label: 'Data Scientist',
-      icon: '📊',
-      desc: 'Statistics, notebooks, analysis',
-      matchedModels: ['qwen-2-5-7b', 'gemma-4-12b', 'qwen-3-14b'],
-      priorities: ['reasoning', 'coding', 'research']
-    },
-    'researcher': {
-      label: 'Researcher',
-      icon: '🔬',
-      desc: 'Long context, citations, synthesis',
-      matchedModels: ['qwen-2-5-7b', 'qwen-3-14b', 'deepseek-r1-8b', 'qwen-3-5-27b'],
-      priorities: ['research', 'writing', 'reasoning']
-    },
-    'writer': {
-      label: 'Writer',
-      icon: '✍️',
-      desc: 'Editing, drafting, creativity',
-      matchedModels: ['qwen-2-5-7b', 'gemma-4-12b', 'phi-4-mini', 'llama-3-2-3b'],
-      priorities: ['writing', 'chat', 'research']
-    },
-    'cybersecurity': {
-      label: 'Cybersecurity',
-      icon: '🔒',
-      desc: 'Threat modeling, audits, analysis',
-      matchedModels: ['deepseek-r1-8b', 'qwen-2-5-7b', 'qwen-3-14b'],
-      priorities: ['reasoning', 'agents', 'coding']
-    },
-    'product-manager': {
-      label: 'Product Manager',
-      icon: '📋',
-      desc: 'Planning, requirements, strategy',
-      matchedModels: ['qwen-2-5-7b', 'phi-4-mini', 'gemma-4-12b'],
-      priorities: ['writing', 'chat', 'research']
-    },
-    'entrepreneur': {
-      label: 'Entrepreneur',
-      icon: '🚀',
-      desc: 'Research, marketing, productivity',
-      matchedModels: ['qwen-2-5-7b', 'phi-4-mini', 'gemma-4-12b'],
-      priorities: ['chat', 'writing', 'research']
-    },
-    'other': {
-      label: 'Other / Not Sure',
-      icon: '🤷',
-      desc: 'General purpose — no career preference',
-      matchedModels: [],
-      priorities: []
-    }
-  };
+  let CAREER_MAP = {};
 
   function track(name, props) {
     if (typeof window.__analytics !== 'undefined') {
@@ -107,13 +43,14 @@
   }
 
   async function loadData() {
-    const [m, g, s, gl, conf, cp] = await Promise.all([
+    const [m, g, s, gl, conf, cp, r] = await Promise.all([
       fetch('data/models_compendium.json').then(r => r.json()),
       fetch('data/gpus.json').then(r => r.json()),
       fetch('data/setups.json').then(r => r.json()),
       fetch('data/glossary.json').then(r => r.json()),
       fetch('data/config.json').then(r => r.json()),
-      fetch('data/cloud_providers.json').then(r => r.json())
+      fetch('data/cloud_providers.json').then(r => r.json()),
+      fetch('data/roles.json').then(r => r.json())
     ]);
     modelsData = m;
     gpusData = g;
@@ -121,6 +58,18 @@
     glossaryData = gl;
     appConfig = conf;
     cloudProvidersData = cp;
+    CAREER_MAP = {};
+    if (r && r.roles) {
+      r.roles.forEach(role => {
+        CAREER_MAP[role.id] = {
+          label: role.label,
+          icon: role.icon,
+          desc: role.desc,
+          matchedModels: role.matchedModels,
+          priorities: role.priorities
+        };
+      });
+    }
   }
 
   function detectGPU() {
@@ -496,18 +445,14 @@
       card.setAttribute('aria-pressed', 'true');
     }
 
-    const subQs = document.getElementById('goal-sub-questions');
     const careerArea = document.getElementById('career-area');
     const hwSection = document.getElementById('hw-section');
 
     if (goal === 'unknown') {
-      if (subQs) subQs.classList.remove('hidden');
       if (careerArea) careerArea.classList.add('hidden');
       if (hwSection) hwSection.classList.add('hidden');
       return;
     }
-
-    if (subQs) subQs.classList.add('hidden');
 
     if (goal === 'all') {
       const showAllRow = document.getElementById('show-all-row');
@@ -1425,7 +1370,37 @@
     }
   }
 
-  async function init() {
+  function restoreUIState(state) {
+        if (state.goal) {
+            selectedGoal = state.goal;
+            const goalCard = document.querySelector(`.goal-card[data-goal="${state.goal}"]`);
+            if (goalCard) goalCard.classList.add('selected');
+            const careerArea = document.getElementById('career-area');
+            if (careerArea) careerArea.classList.remove('hidden');
+            const hwSection = document.getElementById('hw-section');
+            if (hwSection) hwSection.classList.remove('hidden');
+        }
+        if (state.career) {
+            selectedCareer = state.career;
+            const careerCard = document.querySelector(`.career-card[data-career="${state.career}"]`);
+            if (careerCard) {
+                careerCard.classList.add('selected');
+                careerCard.setAttribute('aria-pressed', 'true');
+            }
+        }
+        if (state.tier) {
+            selectedTier = state.tier;
+          const hwSection = document.getElementById('hw-section');
+          if (hwSection) hwSection.classList.remove('hidden');
+          const opt = gpusData.manualOptions.find(o => o.tier === state.tier);
+          if (opt) {
+              const card = document.querySelector(`[data-id="${opt.id}"]`);
+              if (card) card.classList.add('selected');
+          }
+          renderResults(state.tier);
+      }
+  }
+    async function init() {
     initTheme();
     track('wizard_started');
     try {
@@ -1445,35 +1420,8 @@
     showGuide('ollama');
     isAppleSilicon = detectAppleSilicon();
 
-    const state = decodeState();
-      if (state.goal) {
-        selectedGoal = state.goal;
-        const goalCard = document.querySelector(`.goal-card[data-goal="${state.goal}"]`);
-        if (goalCard) goalCard.classList.add('selected');
-        const careerArea = document.getElementById('career-area');
-        if (careerArea) careerArea.classList.remove('hidden');
-        const hwSection = document.getElementById('hw-section');
-        if (hwSection) hwSection.classList.remove('hidden');
-      }
-      if (state.career) {
-        selectedCareer = state.career;
-        const careerCard = document.querySelector(`.career-card[data-career="${state.career}"]`);
-        if (careerCard) {
-          careerCard.classList.add('selected');
-          careerCard.setAttribute('aria-pressed', 'true');
-        }
-      }
-      if (state.tier) {
-        selectedTier = state.tier;
-      const hwSection = document.getElementById('hw-section');
-      if (hwSection) hwSection.classList.remove('hidden');
-      const opt = gpusData.manualOptions.find(o => o.tier === state.tier);
-      if (opt) {
-        const card = document.querySelector(`[data-id="${opt.id}"]`);
-        if (card) card.classList.add('selected');
-      }
-      renderResults(state.tier);
-    }
+    var state = decodeState();
+    restoreUIState(state);
 
     if (!state.tier) {
       try {
@@ -1525,6 +1473,7 @@
         }
       });
     }
+  }
   }
 
   function handleHWSubQuestion(family) {
@@ -1645,9 +1594,6 @@
     const btnShowAll = document.getElementById('btn-show-all');
     if (btnShowAll) btnShowAll.addEventListener('click', selectTierAll);
 
-    const btnSkipGoal = document.getElementById('btn-skip-goal');
-    if (btnSkipGoal) btnSkipGoal.addEventListener('click', showAllModelsDirect);
-
     const btnShowAllHw = document.getElementById('btn-show-all-hw');
     if (btnShowAllHw) btnShowAllHw.addEventListener('click', selectTierAll);
 
@@ -1746,9 +1692,6 @@
       } else if (e.target.closest('.guide-tab-switch')) {
         const btn = e.target.closest('.guide-tab-switch');
         showGuide(btn.dataset.guide);
-      } else if (e.target.closest('.sub-question-btn')) {
-        const btn = e.target.closest('.sub-question-btn');
-        selectGoal(btn.dataset.mapsTo, true);
       } else if (e.target.closest('.hw-sub-btn')) {
         const btn = e.target.closest('.hw-sub-btn');
         handleHWSubQuestion(btn.dataset.family);

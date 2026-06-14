@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="google-site-verification" content="5YRiOefTK9mTwEJEnLIH6BQ5xmP0NkwyfiaBWZJbdCg">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Discover what you can do with local AI — chat, coding, writing, document analysis, agents, and more. All private, all on your machine.">
+  <meta property="og:title" content="Local AI Use Cases — What You Can Do with Private AI">
+  <meta property="og:description" content="Explore AI workflows that run entirely on your hardware. Chat, code, write, research — no cloud, no subscription.">
+  <meta property="og:image" content="https://build-your-own-chatgpt.vercel.app/og-image.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <title>Local AI Use Cases — What You Can Do with Private AI</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <script>!function(){var t=localStorage.getItem('theme');if(t==='dark'||(t===null&&window.matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark')}();</script>
+  <script async src="https://plausible.io/js/pa-DBTdINzLX2L2B_fXJF0u1.js"></script>
+  <script>window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()</script>
+  <style>
+    .wf-header { text-align: center; padding: 2rem 0 0; }
+    .wf-header h1 { font-family: 'Outfit', sans-serif; font-size: clamp(2rem,5vw,3rem); font-weight: 800; letter-spacing: -0.03em; background: linear-gradient(135deg, var(--text) 0%, var(--text-secondary) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .wf-header p { color: var(--text-secondary); max-width: 500px; margin: 0.5rem auto 1.5rem; font-size: 1rem; }
+    .wf-filter-bar { display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center; margin-bottom: 1.5rem; }
+    .wf-filter-btn { padding: 0.4rem 1rem; border-radius: 100px; border: 1px solid var(--border); background: var(--bg); color: var(--text-secondary); font-size: 0.82rem; font-weight: 600; cursor: pointer; font-family: inherit; transition: all var(--transition); }
+    .wf-filter-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .wf-filter-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .wf-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 0.75rem; margin-bottom: 1.5rem; }
+    .wf-card { background: var(--bg-card); backdrop-filter: blur(12px); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem; cursor: pointer; transition: all var(--transition); font-family: inherit; color: var(--text-primary); text-align: left; }
+    .wf-card:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 4px 20px rgba(232,93,4,0.12); }
+    .wf-card.expanded { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent), var(--shadow-md); }
+    .wf-card-icon { font-size: 1.5rem; display: block; margin-bottom: 0.3rem; }
+    .wf-card-title { font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 600; color: var(--text); }
+    .wf-card-desc { font-size: 0.78rem; color: var(--text-tertiary); line-height: 1.4; margin: 0.25rem 0 0.5rem; }
+    .wf-badges { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.5rem; }
+    .wf-badge { font-size: 0.7rem; font-weight: 500; padding: 0.15rem 0.5rem; border-radius: 6px; background: var(--bg-warm); color: var(--text-secondary); }
+    .wf-detail { display: none; padding-top: 0.5rem; border-top: 1px solid var(--border-light); margin-top: 0.5rem; }
+    .wf-card.expanded .wf-detail { display: block; animation: fadeUp 0.25s ease; }
+    .wf-tips { list-style: none; padding: 0; margin: 0.5rem 0 0; }
+    .wf-tips li { font-size: 0.78rem; color: var(--text-secondary); padding: 0.2rem 0; padding-left: 1rem; position: relative; line-height: 1.5; }
+    .wf-tips li::before { content: '→'; position: absolute; left: 0; color: var(--accent); font-weight: 600; }
+    .wf-tier-tag { font-size: 0.72rem; font-weight: 600; padding: 0.2rem 0.6rem; border-radius: 6px; display: inline-block; margin-bottom: 0.5rem; }
+    .model-map { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 2rem; padding: 1.25rem; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); }
+    .model-map-col { flex: 1; min-width: 160px; }
+    .model-map-title { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 0.5rem; }
+    .model-map-item { font-size: 0.82rem; color: var(--text-secondary); padding: 0.15rem 0; }
+    .model-map-item code { font-size: 0.75rem; font-family: 'SF Mono', monospace; background: var(--bg-warm); padding: 0.1rem 0.35rem; border-radius: 4px; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  </style>
+</head>
+<body>
+  <nav class="site-topbar" role="navigation" aria-label="Site navigation">
+    <div class="container">
+      <div class="topbar-inner">
+        <span class="site-brand">🤖 Build Your Own ChatGPT</span>
+        <div style="display:flex;gap:0.75rem;align-items:center">
+          <a href="index.html" style="font-size:0.82rem;color:var(--text-secondary);text-decoration:none;font-weight:500">Home</a>
+          <a href="compendium.html" style="font-size:0.82rem;color:var(--text-secondary);text-decoration:none;font-weight:500">Models</a>
+          <a href="use-cases.html" style="font-size:0.82rem;color:var(--accent);text-decoration:none;font-weight:600">Use Cases</a>
+          <a href="starter-pack.html" style="font-size:0.82rem;color:var(--text-secondary);text-decoration:none;font-weight:500">Starter Pack</a>
+          <a href="career.html" style="font-size:0.82rem;color:var(--text-secondary);text-decoration:none;font-weight:500">Careers</a>
+          <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle theme"><span class="toggle-icon">🌙</span></button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container">
+    <div class="wf-header">
+      <h1>Local AI Use Cases</h1>
+      <p>Everything you can do with private AI on your machine. Click any card to see details, tips, and recommended models.</p>
+    </div>
+
+    <div class="wf-filter-bar" id="tier-filters">
+      <button class="wf-filter-btn active" data-tier="all">All Tiers</button>
+      <button class="wf-filter-btn" data-tier="any">Any Hardware</button>
+      <button class="wf-filter-btn" data-tier="cpu-only">CPU Only</button>
+      <button class="wf-filter-btn" data-tier="budget-gpu">Budget GPU</button>
+      <button class="wf-filter-btn" data-tier="power-gpu">Power GPU</button>
+    </div>
+
+    <div id="wf-loading" style="text-align:center;padding:3rem 1rem;color:var(--text-tertiary)">Loading use cases...</div>
+    <div id="wf-grid" class="wf-grid" style="display:none"></div>
+    <div id="wf-empty" class="wf-filter-bar" style="display:none;padding:3rem 1rem;color:var(--text-tertiary);justify-content:center">No workflows found for this tier. Try a different filter.</div>
+
+    <div class="model-map">
+      <div class="model-map-col">
+        <div class="model-map-title">🆓 Free (CPU)</div>
+        <div class="model-map-item"><code>ollama pull phi-4-mini</code> — Best CPU model</div>
+        <div class="model-map-item"><code>ollama pull llama3.2:3b</code> — Tiny & fast</div>
+        <div class="model-map-item"><code>ollama pull qwen2.5:0.5b</code> — Ultra-light</div>
+      </div>
+      <div class="model-map-col">
+        <div class="model-map-title">💪 Budget GPU (8-12GB)</div>
+        <div class="model-map-item"><code>ollama pull qwen2.5:7b</code> — All-rounder</div>
+        <div class="model-map-item"><code>ollama pull qwen3:14b</code> — Long context</div>
+        <div class="model-map-item"><code>ollama pull deepseek-r1:8b</code> — Reasoning</div>
+      </div>
+      <div class="model-map-col">
+        <div class="model-map-title">🚀 Power GPU (16GB+)</div>
+        <div class="model-map-item"><code>ollama pull qwen3.5:27b</code> — Best open model</div>
+        <div class="model-map-item"><code>ollama pull qwen3:14b</code> — Fast & capable</div>
+        <div class="model-map-item"><code>ollama pull deepseek-r1:8b</code> — For agents</div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-links">
+        <a href="https://github.com/ebubeco/build-your-own-chatgpt" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="index.html">Wizard</a>
+        <a href="compendium.html">Model Compendium</a>
+        <a href="use-cases.html">Use Cases</a>
+        <a href="starter-pack.html">Starter Pack</a>
+        <a href="career.html">Careers</a>
+      </div>
+      <p class="footer-tagline">Built for beginners. Your data never leaves your machine.</p>
+    </div>
+  </footer>
+
+  <script>
+    var tierNames = { 'any': 'Any Hardware', 'cpu-only': 'CPU Only', 'budget-gpu': 'Budget GPU', 'power-gpu': 'Power GPU', 'no-gpu': 'No GPU' };
+    var modelPull = { 'qwen-2-5-7b': 'ollama pull qwen2.5:7b', 'phi-4-mini': 'ollama pull phi-4-mini', 'llama-3-2-3b': 'ollama pull llama3.2:3b', 'qwen-1-5b': 'ollama pull qwen2.5:0.5b', 'qwen-3-14b': 'ollama pull qwen3:14b', 'gemma-4-12b': 'ollama pull gemma4:12b', 'deepseek-r1-8b': 'ollama pull deepseek-r1:8b', 'qwen-3-5-27b': 'ollama pull qwen3.5:27b' };
+    var modelSizes = { 'qwen-2-5-7b': '4.1GB', 'phi-4-mini': '2.5GB', 'llama-3-2-3b': '1.9GB', 'qwen-1-5b': '0.9GB', 'qwen-3-14b': '8.2GB', 'gemma-4-12b': '7.5GB', 'deepseek-r1-8b': '4.9GB', 'qwen-3-5-27b': '16GB' };
+
+    var workflows = [];
+    var currentTier = 'all';
+
+    function filterWorkflows() {
+      var grid = document.getElementById('wf-grid');
+      var empty = document.getElementById('wf-empty');
+      var filtered = currentTier === 'all' ? workflows : workflows.filter(function(w) { return w.bestModelTier === currentTier || (currentTier === 'budget-gpu' && w.bestModelTier === 'any'); });
+      if (filtered.length === 0) { grid.style.display = 'none'; empty.style.display = 'flex'; return; }
+      empty.style.display = 'none'; grid.style.display = 'grid';
+      grid.innerHTML = filtered.map(function(w) { return '<div class="wf-card" onclick="toggleCard(this)" data-tier="' + w.bestModelTier + '"><span class="wf-card-icon">' + w.icon + '</span><div class="wf-card-title">' + w.name + '</div><div class="wf-card-desc">' + w.description + '</div><div class="wf-badges"><span class="wf-badge">' + (tierNames[w.bestModelTier] || w.bestModelTier) + '</span></div><div class="wf-detail"><div class="wf-section-title" style="font-size:0.75rem;font-weight:600;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.4rem">Recommended Models</div>'
+        + w.recommendedModels.map(function(m) { return '<div style="font-size:0.8rem;padding:0.2rem 0;display:flex;justify-content:space-between;align-items:center"><span style="font-weight:600;color:var(--text)">' + m + '</span><code style="font-size:0.7rem;background:var(--bg-warm);padding:0.1rem 0.4rem;border-radius:4px">' + (modelPull[m] || 'ollama pull ' + m) + '</code><span style="font-size:0.7rem;color:var(--text-tertiary)">' + (modelSizes[m] || '') + '</span></div>'; }).join('')
+        + '<ul class="wf-tips">' + w.tips.map(function(t) { return '<li>' + t + '</li>'; }).join('') + '</ul></div></div>'; }).join('');
+    }
+
+    function toggleCard(el) { el.classList.toggle('expanded'); }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      fetch('data/workflows.json').then(function(r) { return r.json(); }).then(function(data) {
+        workflows = data.workflows || [];
+        document.getElementById('wf-loading').style.display = 'none';
+        filterWorkflows();
+      }).catch(function() {
+        document.getElementById('wf-loading').innerHTML = '⚠️ Could not load workflows. Make sure <code>data/workflows.json</code> exists.';
+      });
+      document.getElementById('tier-filters').addEventListener('click', function(e) {
+        var btn = e.target.closest('.wf-filter-btn'); if (!btn) return;
+        document.querySelectorAll('.wf-filter-btn').forEach(function(b) { b.classList.remove('active'); });
+        btn.classList.add('active'); currentTier = btn.getAttribute('data-tier'); filterWorkflows();
+      });
+    });
+  </script>
+  <script src="analytics.js"></script>
+  <script src="shared.js"></script>
+</body>
+</html>

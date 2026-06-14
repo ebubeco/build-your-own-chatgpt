@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="google-site-verification" content="5YRiOefTK9mTwEJEnLIH6BQ5xmP0NkwyfiaBWZJbdCg">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="What is a local AI model? Learn about LLMs, quantization, context windows, and choosing the right model for your hardware.">
+  <title>What is a Local AI Model? — LLMs, Quantization & Context Windows</title>
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="canonical" href="https://build-your-own-chatgpt.vercel.app/about/model">
+  <meta property="og:title" content="What is a Local AI Model?">
+  <meta property="og:description" content="Learn about LLMs, quantization, context windows, and how to choose the right AI model for your hardware.">
+  <meta property="og:image" content="https://build-your-own-chatgpt.vercel.app/og-image.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="../style.css">
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="b8a7a476-7a85-402e-b042-1436ef463d65"></script>
+  <script async src="https://plausible.io/js/pa-DBTdINzLX2L2B_fXJF0u1.js"></script>
+  <script>window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()</script>
+</head>
+<body class="seo-page">
+  <main class="seo-content">
+    <a href="../" class="seo-back">&larr; Use the wizard</a>
+    <h1>What is a Local AI Model?</h1>
+    <section class="seo-section"><p><strong>A local AI model is a large language model (LLM) that runs entirely on your computer — no internet, no subscription, no data leaving your machine.</strong></p></section>
+    <section class="seo-section">
+      <h2>How LLMs Work</h2>
+      <p>Large language models are neural networks trained on vast amounts of text. They predict the next word in a sequence, which lets them generate human-like responses, write code, answer questions, and more. When you run a model locally with <a href="https://ollama.com" target="_blank">Ollama</a>, it downloads the model weights (typically 2-40GB) and runs inference using your computer's CPU, GPU, or both.</p>
+    </section>
+    <section class="seo-section">
+      <h2>Key Concepts</h2>
+      <ul class="seo-alt-list">
+        <li><strong>Model Size:</strong> Measured in parameters (e.g., 7B = 7 billion). More parameters = smarter but slower and needs more RAM/VRAM.</li>
+        <li><strong>Quantization:</strong> Compresses the model to use less memory while maintaining quality. Q4_K_M is the recommended default.</li>
+        <li><strong>Context Window:</strong> How many tokens (words/characters) the model can remember. Longer = better for conversations and large documents.</li>
+        <li><strong>VRAM vs RAM:</strong> GPU memory (VRAM) is fastest. CPU RAM works too but is slower. Apple Silicon unifies both.</li>
+      </ul>
+    </section>
+    <section class="seo-section">
+      <h2>Choosing a Model</h2>
+      <ul class="seo-alt-list">
+        <li><strong>No GPU / 8GB RAM:</strong> Phi-4-mini (3.8B), Llama 3.2 (1B/3B), Qwen 2.5 (1.5B)</li>
+        <li><strong>4-8GB VRAM / 16GB RAM:</strong> Qwen 2.5 (7B), Gemma 3 (9B), Mistral (7B)</li>
+        <li><strong>8-16GB VRAM / 32GB RAM:</strong> Qwen 2.5 (14B), Phi-4 (14B), DeepSeek R1 (8B)</li>
+        <li><strong>24GB+ VRAM / 64GB+ RAM:</strong> Qwen 2.5 (32B), DeepSeek R1 (32B), Qwen 3 (35B)</li>
+      </ul>
+    </section>
+    <section class="seo-section seo-cta">
+      <h2>Find Your Perfect Model</h2>
+      <p>Tell us about your computer and get a personalized recommendation with install commands.</p>
+      <a href="../" class="btn-primary" style="display:inline-block;margin-top:1rem">Get Recommended</a>
+    </section>
+  </main>
+  <script src="../analytics.js"></script>
+</body>
+</html>

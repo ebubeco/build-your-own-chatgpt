@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="google-site-verification" content="5YRiOefTK9mTwEJEnLIH6BQ5xmP0NkwyfiaBWZJbdCg">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Beginner's guide to running local AI. Step-by-step setup from zero to chatting with your own private AI. No experience needed.">
+  <meta property="og:title" content="Local AI Starter Pack — Everything You Need to Get Started">
+  <meta property="og:description" content="Complete beginner's guide: download Ollama, pick your model, run it locally. Free, private, works offline.">
+  <meta property="og:image" content="https://build-your-own-chatgpt.vercel.app/og-image.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <title>Local AI Starter Pack — Everything You Need to Get Started</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <script>!function(){var t=localStorage.getItem('theme');if(t==='dark'||(t===null&&window.matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark')}();</script>
+  <script async src="https://plausible.io/js/pa-DBTdINzLX2L2B_fXJF0u1.js"></script>
+  <script>window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()</script>
+  <style>
+    .sp-header { text-align: center; padding: 2rem 0 0; }
+    .sp-header h1 { font-family: 'Outfit', sans-serif; font-size: clamp(2rem,5vw,3rem); font-weight: 800; letter-spacing: -0.03em; background: linear-gradient(135deg, var(--text) 0%, var(--text-secondary) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .sp-header p { color: var(--text-secondary); max-width: 520px; margin: 0.5rem auto 2rem; font-size: 1rem; }
+    .sp-section { background: var(--bg-card); backdrop-filter: blur(12px); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.5rem; margin-bottom: 1.5rem; }
+    .sp-section h2 { font-family: 'Outfit', sans-serif; font-size: 1.4rem; font-weight: 700; color: var(--text); margin-bottom: 0.3rem; }
+    .sp-section h2 .sp-step-num { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; background: var(--accent); color: #fff; border-radius: 50%; font-size: 0.82rem; margin-right: 0.5rem; vertical-align: middle; }
+    .sp-section-desc { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1rem; line-height: 1.6; }
+    .sp-reqs { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 0.75rem; margin: 1rem 0; }
+    .sp-req { background: var(--surface); border: 1px solid var(--border-light); border-radius: var(--radius-sm); padding: 0.75rem; text-align: center; }
+    .sp-req-icon { font-size: 1.5rem; display: block; margin-bottom: 0.3rem; }
+    .sp-req-label { font-size: 0.85rem; font-weight: 600; color: var(--text); }
+    .sp-req-detail { font-size: 0.78rem; color: var(--text-tertiary); }
+    .sp-hw-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 0.75rem; margin: 1rem 0; }
+    .sp-hw-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem; cursor: pointer; text-align: left; transition: all var(--transition); font-family: inherit; color: var(--text-primary); }
+    .sp-hw-card:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: var(--shadow-sm); }
+    .sp-hw-card.selected { border-color: var(--accent); background: var(--accent-light); box-shadow: 0 0 0 1px var(--accent); }
+    .sp-hw-icon { font-size: 1.5rem; display: block; margin-bottom: 0.2rem; }
+    .sp-hw-title { font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 0.9rem; }
+    .sp-hw-desc { font-size: 0.75rem; color: var(--text-tertiary); line-height: 1.4; }
+    .sp-recommendation { display: none; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem; margin: 1rem 0; border-left: 4px solid var(--accent); animation: fadeUp 0.3s ease; }
+    .sp-recommendation.show { display: block; }
+    .sp-rec-title { font-family: 'Outfit', sans-serif; font-size: 1.1rem; font-weight: 700; color: var(--text); margin-bottom: 0.3rem; }
+    .sp-rec-desc { font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.75rem; }
+    .sp-rec-cmd { background: var(--bg-warm); border-radius: var(--radius-sm); padding: 0.75rem 1rem; margin-bottom: 0.5rem; font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.8rem; color: var(--text); border: 1px solid var(--border); white-space: pre; overflow-x: auto; }
+    .sp-prompts { list-style: none; padding: 0; margin: 0.75rem 0; }
+    .sp-prompts li { font-size: 0.82rem; color: var(--text-secondary); padding: 0.4rem 0; padding-left: 1.25rem; position: relative; line-height: 1.5; }
+    .sp-prompts li::before { content: '→'; position: absolute; left: 0; color: var(--accent); font-weight: 600; }
+    .sp-tip { background: rgba(232,93,4,0.06); border: 1px solid rgba(232,93,4,0.12); border-radius: var(--radius-sm); padding: 0.75rem 1rem; margin: 0.75rem 0; font-size: 0.82rem; color: var(--text-secondary); line-height: 1.5; }
+    .sp-tip strong { color: var(--text); }
+    .sp-troubleshoot { list-style: none; padding: 0; }
+    .sp-troubleshoot li { padding: 0.5rem 0; border-bottom: 1px solid var(--border-light); font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5; }
+    .sp-troubleshoot li:last-child { border-bottom: none; }
+    .sp-troubleshoot strong { color: var(--text); }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  </style>
+</head>
+<body>
+  <nav class="site-topbar" role="navigation" aria-label="Site navigation">
+    <div class="container">
+      <div class="topbar-inner">
+        <span class="site-brand">🤖 Build Your Own ChatGPT</span>
+        <div style="display:flex;gap:0.75rem;align-items:center">
+          <a href="index.html" style="font-size:0.82rem;color:var(--text-secondary);text-decoration:none;font-weight:500">Home</a>
+          <a href="compendium.html" style="font-size:0.82rem;color:var(--text-secondary);text-decoration:none;font-weight:500">Models</a>
+          <a href="use-cases.html" style="font-size:0.82rem;color:var(--text-secondary);text-decoration:none;font-weight:500">Use Cases</a>
+          <a href="starter-pack.html" style="font-size:0.82rem;color:var(--accent);text-decoration:none;font-weight:600">Starter Pack</a>
+          <a href="career.html" style="font-size:0.82rem;color:var(--text-secondary);text-decoration:none;font-weight:500">Careers</a>
+          <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle theme"><span class="toggle-icon">🌙</span></button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container">
+    <div class="sp-header">
+      <h1>Local AI Starter Pack</h1>
+      <p>A complete beginner's guide to running private AI on your computer. No experience needed. Works on most computers from the last 5 years.</p>
+    </div>
+
+    <div class="sp-section">
+      <h2>📋 What You Need</h2>
+      <p class="sp-section-desc">Local AI is surprisingly accessible. Here's what you need to get started:</p>
+      <div class="sp-reqs">
+        <div class="sp-req"><span class="sp-req-icon">💻</span><span class="sp-req-label">Any Computer</span><span class="sp-req-detail">Windows, Mac, or Linux</span></div>
+        <div class="sp-req"><span class="sp-req-icon">🧠</span><span class="sp-req-label">8GB+ RAM</span><span class="sp-req-detail">16GB recommended for best results</span></div>
+        <div class="sp-req"><span class="sp-req-icon">💾</span><span class="sp-req-label">5GB+ Free Space</span><span class="sp-req-detail">Models are 2-8GB each</span></div>
+        <div class="sp-req"><span class="sp-req-icon">🌐</span><span class="sp-req-label">Internet (once)</span><span class="sp-req-detail">Only to download the model</span></div>
+      </div>
+    </div>
+
+    <div class="sp-section">
+      <h2><span class="sp-step-num">1</span> Download Ollama</h2>
+      <p class="sp-section-desc">Ollama is the easiest way to run local AI. It handles all the complex setup automatically.</p>
+      <div style="text-align:center;margin:1.5rem 0">
+        <a href="https://ollama.com/download" target="_blank" class="btn-primary" style="display:inline-block;padding:0.75rem 2rem;font-size:1rem">⬇ Download Ollama (Free)</a>
+        <p style="font-size:0.78rem;color:var(--text-tertiary);margin-top:0.5rem">Works on Windows, macOS, and Linux</p>
+      </div>
+      <div class="sp-tip"><strong>💡 What is Ollama?</strong> It's a free, open-source tool that downloads, manages, and runs AI models. One command in your terminal and you're chatting with AI. No accounts, no subscriptions, no data leaving your computer.</div>
+    </div>
+
+    <div class="sp-section">
+      <h2><span class="sp-step-num">2</span> Pick Your Model</h2>
+      <p class="sp-section-desc">Click what kind of hardware you have. We'll recommend the best model for you.</p>
+      <div class="sp-hw-grid" id="hw-picker">
+        <button class="sp-hw-card" data-tier="no-gpu" data-model="phi-4-mini" data-cmd="ollama pull phi-4-mini" data-desc="Best for old laptops. Runs on CPU, no GPU needed." data-prompts='["Explain quantum computing in simple terms","Write a short story about a robot","Summarize this article for me","Give me 5 ideas for a blog post"]' data-size="2.5GB">
+          <span class="sp-hw-icon">🖥️</span><span class="sp-hw-title">Old Laptop / No GPU</span><span class="sp-hw-desc">2015 or older, no graphics card</span>
+        </button>
+        <button class="sp-hw-card" data-tier="cpu-only" data-model="phi-4-mini" data-cmd="ollama pull phi-4-mini" data-desc="Phi-4 Mini runs great on modern CPUs with 16GB+ RAM." data-prompts='["Explain how DNS works","Write a Python function to sort a list","What are the best practices for password security?","Create a meal plan for a week"]' data-size="2.5GB">
+          <span class="sp-hw-icon">💻</span><span class="sp-hw-title">Modern Laptop / No GPU</span><span class="sp-hw-desc">16-32GB RAM, integrated graphics</span>
+        </button>
+        <button class="sp-hw-card" data-tier="budget-gpu" data-model="qwen2.5:7b" data-cmd="ollama pull qwen2.5:7b" data-desc="Qwen 2.5 7B is the best all-rounder for budget GPUs." data-prompts='["Write a React component for a todo list","Explain the difference between HTTP and HTTPS","Draft a professional email requesting time off","Debug this code: [paste your code]"]' data-size="4.1GB">
+          <span class="sp-hw-icon">🎮</span><span class="sp-hw-title">Budget GPU (8-12GB)</span><span class="sp-hw-desc">RTX 3060, 4060, 3070, etc.</span>
+        </button>
+        <button class="sp-hw-card" data-tier="power-gpu" data-model="qwen3:14b" data-cmd="ollama pull qwen3:14b" data-desc="Qwen 3 14B gives you long context and excellent quality." data-prompts='["Analyze this codebase structure and suggest improvements","Write a comprehensive API design document","Explain this research paper in detail","Create a multi-step data processing pipeline"]' data-size="8.2GB">
+          <span class="sp-hw-icon">🚀</span><span class="sp-hw-title">Power GPU (16GB+)</span><span class="sp-hw-desc">RTX 4080, 4090, workstation</span>
+        </button>
+        <button class="sp-hw-card" data-tier="silicon" data-model="qwen2.5:7b" data-cmd="ollama pull qwen2.5:7b" data-desc="Apple Silicon runs Qwen 2.5 7B efficiently via Metal." data-prompts='["Help me learn a new programming language","What are good study techniques?","Explain machine learning basics","Write a bash script to backup files"]' data-size="4.1GB">
+          <span class="sp-hw-icon">🍎</span><span class="sp-hw-title">Apple Silicon (M1/M2/M3)</span><span class="sp-hw-desc">MacBook Air/Pro, Mac Mini, Studio</span>
+        </button>
+      </div>
+      <div id="sp-recommendation" class="sp-recommendation"></div>
+    </div>
+
+    <div class="sp-section">
+      <h2><span class="sp-step-num">3</span> Install and Run</h2>
+      <p class="sp-section-desc">Open your terminal (Command Prompt on Windows, Terminal on Mac) and run these commands:</p>
+      <div style="background:var(--bg-warm);border-radius:var(--radius-sm);padding:1rem;margin-bottom:1rem;border:1px solid var(--border)">
+        <div style="font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-tertiary);margin-bottom:0.5rem">Step 1: Download your model</div>
+        <div style="font-family:'SF Mono','Fira Code',monospace;font-size:0.82rem;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.6rem 0.75rem;white-space:pre;overflow-x:auto;margin-bottom:0.75rem" id="cmd-pull">ollama pull phi-4-mini</div>
+        <div style="font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-tertiary);margin-bottom:0.5rem">Step 2: Start chatting</div>
+        <div style="font-family:'SF Mono','Fira Code',monospace;font-size:0.82rem;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.6rem 0.75rem;white-space:pre;overflow-x:auto;margin-bottom:0.5rem">ollama run phi-4-mini</div>
+        <p style="font-size:0.78rem;color:var(--text-tertiary)">That's it! Type your questions and the AI responds right in your terminal.</p>
+      </div>
+    </div>
+
+    <div class="sp-section">
+      <h2>🎯 What to Try First</h2>
+      <p class="sp-section-desc">Sample prompts to try after your model is running:</p>
+      <ul class="sp-prompts" id="sample-prompts">
+        <li>Explain quantum computing in simple terms</li>
+        <li>Write a short story about a robot</li>
+        <li>Give me 5 ideas for a blog post</li>
+        <li>What are the best practices for password security?</li>
+      </ul>
+      <div class="sp-tip"><strong>💡 Pro tip:</strong> Type <code style="background:var(--bg-card);padding:0.1rem 0.35rem;border-radius:4px">/help</code> in the chat to see available commands. Type <code style="background:var(--bg-card);padding:0.1rem 0.35rem;border-radius:4px">/exit</code> to quit.</div>
+    </div>
+
+    <div class="sp-section">
+      <h2>🔧 Troubleshooting</h2>
+      <ul class="sp-troubleshoot">
+        <li><strong>"Ollama is not recognized"</strong> — Close and reopen your terminal after installing. On Windows, search for "Command Prompt" and try again.</li>
+        <li><strong>"Not enough space"</strong> — Models are 2-8GB. Check your free disk space. Try a smaller model like <code>ollama pull phi-4-mini</code> (2.5GB).</li>
+        <li><strong>"Out of memory"</strong> — Your model is too large for your RAM/VRAM. Close other applications and try a smaller model, or use a quantized version.</li>
+        <li><strong>Model is very slow</strong> — CPU-only inference is slower than GPU. This is normal. Use a smaller model for faster responses.</li>
+        <li><strong>"Connection error"</strong> — Check your internet connection. You only need internet to download the model. After that, it works fully offline.</li>
+        <li><strong>How do I use a different model?</strong> — Run <code>ollama pull [model-name]</code> then <code>ollama run [model-name]</code>. See the <a href="compendium.html" style="color:var(--accent)">Model Compendium</a> for options.</li>
+      </ul>
+      <div class="sp-tip"><strong>📚 Need more help?</strong> Visit the <a href="https://github.com/ollama/ollama" target="_blank" style="color:var(--accent)">Ollama GitHub</a> or use our <a href="index.html" style="color:var(--accent)">Wizard</a> for a personalized recommendation.</div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-links">
+        <a href="https://github.com/ebubeco/build-your-own-chatgpt" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="index.html">Wizard</a>
+        <a href="compendium.html">Model Compendium</a>
+        <a href="use-cases.html">Use Cases</a>
+        <a href="starter-pack.html">Starter Pack</a>
+        <a href="career.html">Careers</a>
+      </div>
+      <p class="footer-tagline">Built for beginners. Your data never leaves your machine.</p>
+    </div>
+  </footer>
+
+  <script>
+    var recBox = document.getElementById('sp-recommendation');
+    var cmdPull = document.getElementById('cmd-pull');
+    var samplePrompts = document.getElementById('sample-prompts');
+
+    document.getElementById('hw-picker').addEventListener('click', function(e) {
+      var card = e.target.closest('.sp-hw-card'); if (!card) return;
+      document.querySelectorAll('.sp-hw-card').forEach(function(c) { c.classList.remove('selected'); });
+      card.classList.add('selected');
+      var model = card.getAttribute('data-model');
+      var cmd = card.getAttribute('data-cmd');
+      var desc = card.getAttribute('data-desc');
+      var size = card.getAttribute('data-size');
+      var prompts = JSON.parse(card.getAttribute('data-prompts'));
+      cmdPull.textContent = cmd;
+      recBox.className = 'sp-recommendation show';
+      recBox.innerHTML = '<div class="sp-rec-title">✅ Recommended: <span style="color:var(--accent)">' + model + '</span></div><div class="sp-rec-desc">' + desc + '</div><div class="sp-rec-cmd">' + cmd + '</div><div class="sp-rec-desc" style="font-size:0.78rem;color:var(--text-tertiary)">Model size: ' + size + '</div><div style="font-size:0.85rem;font-weight:600;color:var(--text);margin-top:0.75rem;margin-bottom:0.3rem">Try these prompts:</div><ul class="sp-prompts">' + prompts.map(function(p) { return '<li>' + p + '</li>'; }).join('') + '</ul>';
+      samplePrompts.innerHTML = prompts.map(function(p) { return '<li>' + p + '</li>'; }).join('');
+      plausible('starter-pack-model', { props: { model: model, tier: card.getAttribute('data-tier') } });
+    });
+
+  </script>
+  <script src="analytics.js"></script>
+  <script src="shared.js"></script>
+</body>
+</html>

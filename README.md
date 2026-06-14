@@ -44,15 +44,13 @@ That's it. Private ChatGPT running on your machine.
 
 ## Hardware Tiers
 
-| Tier | Definition | Example Hardware | Best Models |
-|------|------------|-----------------|--------------|
-| **No GPU / Old Hardware** | No discrete GPU, runs on CPU RAM | 2015 laptops, office desktops | Qwen 0.5B, SmolLM2 1.7B, Llama 3.2 1B |
-| **CPU-Only (16-32GB RAM)** | Modern CPU with enough RAM | Modern laptops, desktops without dedicated GPU | Phi-4 Mini 3.8B, Llama 3.2 3B, Qwen 1.5B |
-| **Budget GPU (8-12GB VRAM)** | Entry-level dedicated GPU | RTX 3060, 4060, 3070 | Qwen 2.5 7B, Gemma 4 12B, Qwen 3 14B |
-| **Power GPU (16GB+ VRAM)** | High-end dedicated GPU | RTX 4080, 4090, RX 7900 XTX | Qwen 3.5 27B, DeepSeek R1 8B |
-| **Apple Silicon (8-16GB)** | Unified memory, Metal | MacBook Air M1/M2, Mac Mini M2 | Qwen 2.5 7B, Llama 3.1 8B |
-| **Apple Silicon (24-48GB)** | Unified memory, faster | MacBook Pro M3 Pro/Max | Qwen 3 14B |
-| **Apple Silicon (64GB+)** | Workstation-class | Mac Studio M2 Ultra, Mac Pro | Qwen 3.5 27B |
+| Tier | VRAM | Examples | RAM Needed |
+|------|------|---------|------------|
+| **No GPU / Integrated** | 0-4GB shared | Old laptops, Intel Iris, office PCs | 8GB min, 16GB recommended |
+| **Budget GPU** | 4-8GB dedicated | GTX 1660, RTX 3050, RX 6600 | 16GB |
+| **Mid-Range GPU** | 8-16GB dedicated | RTX 3060 12GB, RTX 4060, RX 6700 XT | 16GB |
+| **High-End GPU** | 16GB+ dedicated | RTX 3090, 4080, 4090, RX 7900 XTX | 32GB |
+| **Apple Silicon** | Unified memory | M1/M2/M3/M4 all variants | N/A — uses unified |
 
 ---
 

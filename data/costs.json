@@ -1,0 +1,90 @@
+{
+  "comparisons": [
+    {
+      "type": "local-vs-cloud",
+      "title": "Local AI vs ChatGPT Plus",
+      "local": {
+        "name": "Local AI (Ollama + RTX 3060)",
+        "upfront": "$300",
+        "monthly": "$0",
+        "yearly": "$0",
+        "notes": "One-time hardware cost. RTX 3060 12GB. Runs Qwen 2.5 7B at 30 tok/s.",
+        "privacyRating": 10,
+        "speedRating": 7
+      },
+      "cloud": {
+        "name": "ChatGPT Plus",
+        "upfront": "$0",
+        "monthly": "$20",
+        "yearly": "$240",
+        "notes": "GPT-4 and GPT-4o access. Internet required. Data trains their models.",
+        "privacyRating": 3,
+        "speedRating": 9
+      }
+    },
+    {
+      "type": "local-vs-cloud",
+      "title": "Local AI vs ChatGPT Pro",
+      "local": {
+        "name": "Local AI (RTX 4090 + Ollama)",
+        "upfront": "$1600",
+        "monthly": "$0",
+        "yearly": "$0",
+        "notes": "RTX 4090 24GB. Runs Qwen 3.5 27B at 50 tok/s. Matches Claude quality.",
+        "privacyRating": 10,
+        "speedRating": 8
+      },
+      "cloud": {
+        "name": "ChatGPT Pro",
+        "upfront": "$0",
+        "monthly": "$200",
+        "yearly": "$2400",
+        "notes": "Unlimited GPT-4 + o1. Best cloud models. Data trains models.",
+        "privacyRating": 2,
+        "speedRating": 9
+      }
+    },
+    {
+      "type": "local-vs-cloud",
+      "title": "Local AI vs GitHub Copilot",
+      "local": {
+        "name": "Local AI (Ollama + Qwen 2.5 7B)",
+        "upfront": "$300",
+        "monthly": "$0",
+        "yearly": "$0",
+        "notes": "Coding-focused. Works offline. Private. No telemetry.",
+        "privacyRating": 10,
+        "speedRating": 7
+      },
+      "cloud": {
+        "name": "GitHub Copilot",
+        "upfront": "$0",
+        "monthly": "$10",
+        "yearly": "$120",
+        "notes": "VS Code integration. Requires internet. Code sent to GitHub servers.",
+        "privacyRating": 4,
+        "speedRating": 9
+      }
+    }
+  ],
+  "breakEven": [
+    {
+      "hardware": "RTX 3060 12GB ($300)",
+      "vsService": "ChatGPT Plus ($20/mo)",
+      "breakEvenMonths": 15,
+      "note": "After 15 months, local AI is free. The GPU also helps with gaming and rendering."
+    },
+    {
+      "hardware": "RTX 4090 24GB ($1600)",
+      "vsService": "ChatGPT Pro ($200/mo)",
+      "breakEvenMonths": 8,
+      "note": "Breaks even in 8 months. Runs models that match or beat GPT-4 quality."
+    },
+    {
+      "hardware": "Mac Studio M2 Ultra 128GB ($4000)",
+      "vsService": "ChatGPT Pro + Copilot ($210/mo)",
+      "breakEvenMonths": 19,
+      "note": "Higher upfront but runs the largest open models. Also a production workstation."
+    }
+  ]
+}

@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://build-your-own-chatgpt.vercel.app/sitemap.xml

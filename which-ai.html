@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="google-site-verification" content="5YRiOefTK9mTwEJEnLIH6BQ5xmP0NkwyfiaBWZJbdCg">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Ollama vs LM Studio vs Jan — which local AI tool is right for you? Compare features, privacy, ease of use, and get a personalized recommendation.">
+  <meta property="og:title" content="Which Local AI Tool Should I Use? Ollama vs LM Studio vs Jan">
+  <meta property="og:description" content="Compare Ollama, LM Studio, and Jan side by side. Get a recommendation based on your experience level and preferences.">
+  <meta property="og:image" content="https://build-your-own-chatgpt.vercel.app/og-image.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <title>Which Local AI Tool Should I Use? Ollama vs LM Studio vs Jan</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script>!function(){var t=localStorage.getItem('theme');if(t==='dark'||(t===null&&window.matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark')}();</script>
+  <script async src="https://plausible.io/js/pa-DBTdINzLX2L2B_fXJF0u1.js"></script>
+  <script>window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()</script>
+  <style>
+    .which-page{max-width:960px;margin:0 auto;padding:0 1.5rem 3rem}
+    .which-page h1{font-family:'Outfit',sans-serif;font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;letter-spacing:-0.02em;margin:2rem 0 .5rem}
+    .which-page .subtitle{color:var(--text-secondary);font-size:1rem;margin-bottom:2rem}
+    .tool-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:2rem}
+    @media(max-width:700px){.tool-cards{grid-template-columns:1fr}}
+    .tool-card{background:var(--bg-card);border:1.5px solid var(--border);border-radius:var(--radius);padding:1.25rem;transition:all var(--transition)}
+    .tool-card:hover{border-color:var(--accent);box-shadow:var(--shadow-glow);transform:translateY(-2px)}
+    .tool-card .icon{font-size:2rem;margin-bottom:.5rem}
+    .tool-card h2{font-family:'Outfit',sans-serif;font-size:1.1rem;font-weight:700;margin-bottom:.2rem}
+    .tool-card .tag{display:inline-block;font-size:.72rem;font-weight:600;padding:.2rem .5rem;border-radius:20px;margin-bottom:.6rem}
+    .tool-card .tag.ollama{background:var(--accent-light);color:var(--accent)}
+    .tool-card .tag.lmstudio{background:#e6f0ff;color:#2266cc}
+    .tool-card .tag.jan{background:#f0e6ff;color:#8844cc}
+    .tool-card .desc{font-size:.85rem;color:var(--text-secondary);line-height:1.55;margin-bottom:.6rem}
+    .tool-card .pros-cons{font-size:.82rem}
+    .tool-card .pros-cons strong{display:block;margin-top:.4rem;font-size:.78rem;text-transform:uppercase;letter-spacing:.05em;color:var(--text-tertiary)}
+    .tool-card .pros-cons ul{margin:.2rem 0 0 1rem;color:var(--text-secondary);line-height:1.5}
+    .tool-card .dl-link{display:inline-block;margin-top:.6rem;padding:.4rem .8rem;border-radius:var(--radius-sm);font-size:.82rem;font-weight:600;text-decoration:none;transition:all var(--transition)}
+    .tool-card .dl-link.ollama{background:var(--accent);color:#fff}
+    .tool-card .dl-link.lmstudio{background:#2266cc;color:#fff}
+    .tool-card .dl-link.jan{background:#8844cc;color:#fff}
+    .tool-card .dl-link:hover{opacity:.85;transform:scale(1.03)}    .rec-selector{background:var(--bg-card);border:1.5px solid var(--border);border-radius:var(--radius);padding:1.5rem;margin-bottom:2rem}
+    .rec-selector h2{font-family:'Outfit',sans-serif;font-size:1.2rem;font-weight:700;margin-bottom:.5rem}
+    .rec-selector select{width:100%;max-width:400px;padding:.7rem .9rem;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-size:.95rem;background:var(--surface);color:var(--text);cursor:pointer;margin:1rem 0;transition:border-color var(--transition)}
+    .rec-selector select:focus{outline:none;border-color:var(--accent)}
+    .rec-result{padding:1rem;border-radius:var(--radius-sm);font-size:.95rem;line-height:1.5;display:none}
+    .rec-result.show{display:block}
+    .rec-result.r-ollama{background:var(--accent-light);border-left:4px solid var(--accent);color:var(--text)}
+    .rec-result.r-lmstudio{background:#e6f0ff;border-left:4px solid #2266cc;color:var(--text)}
+    .rec-result.r-jan{background:#f0e6ff;border-left:4px solid #8844cc;color:var(--text)}
+    .rec-result .rec-tool{font-weight:700;font-size:1.05rem}
+    .rec-result .rec-reason{margin-top:.3rem;font-size:.85rem;color:var(--text-secondary)}
+    .comp-table-wrap{overflow-x:auto;margin-bottom:2rem}
+    .comp-table{width:100%;border-collapse:collapse;font-size:.85rem;border-radius:var(--radius-sm);overflow:hidden;border:1px solid var(--border)}
+    .comp-table th,.comp-table td{padding:.65rem .75rem;text-align:left;border-bottom:1px solid var(--border)}
+    .comp-table th{background:var(--surface);font-weight:700;font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--text-secondary)}
+    .comp-table td:first-child{font-weight:600;color:var(--text);white-space:nowrap}
+    .comp-table tr:last-child td{border-bottom:none}
+    .comp-table .check{color:var(--green);font-weight:700}
+    .comp-table .cross{color:var(--red)}
+    .comp-table .partial{color:var(--amber)}
+  </style>
+</head>
+<body>
+  <nav class="site-topbar" role="navigation" aria-label="Site navigation">
+    <div class="container">
+      <div class="topbar-inner">
+        <span class="site-brand">🤖 Build Your Own ChatGPT</span>
+        <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle light/dark mode">
+          <span class="toggle-icon">🌙</span>
+          <span class="toggle-label">Dark mode</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="which-page">
+    <h1>Which Local AI Tool Should I Use?</h1>
+    <p class="subtitle">All three are free and run entirely on your machine. Pick based on how you like to work.</p>
+
+    <div class="tool-cards">
+      <div class="tool-card">
+        <div class="icon">🐳</div>
+        <h2>Ollama</h2>
+        <span class="tag ollama">Best for beginners</span>
+        <div class="desc">One command install. Minimal, terminal-based, but surprisingly simple. The largest model library and community.</div>
+        <div class="pros-cons"><strong>Pros</strong><ul><li>Simplest setup (one command)</li><li>Largest model selection</li><li>Runs on everything</li><li>Great documentation</li></ul><strong>Cons</strong><ul><li>Terminal only (no GUI)</li><li>Manual model management</li></ul></div>
+        <a class="dl-link ollama" href="https://ollama.com/download" target="_blank" rel="noopener">Download Ollama →</a>
+      </div>
+      <div class="tool-card">
+        <div class="icon">🖥️</div>
+        <h2>LM Studio</h2>
+        <span class="tag lmstudio">Best for GUI lovers</span>
+        <div class="desc">Polished desktop app. Browse, download, and chat with models in a beautiful interface. No terminal needed.</div>
+        <div class="pros-cons"><strong>Pros</strong><ul><li>Beautiful GUI</li><li>Built-in model browser</li><li>Click to install & run</li><li>Local HTTP server</li></ul><strong>Cons</strong><ul><li>Heavier install</li><li>Slightly fewer models</li></ul></div>
+        <a class="dl-link lmstudio" href="https://lmstudio.ai" target="_blank" rel="noopener">Download LM Studio →</a>
+      </div>
+      <div class="tool-card">
+        <div class="icon">🔒</div>
+        <h2>Jan</h2>
+        <span class="tag jan">Best for privacy nerds</span>
+        <div class="desc">100% open source. No telemetry, no analytics, fully offline. Built for maximum privacy and transparency.</div>
+        <div class="pros-cons"><strong>Pros</strong><ul><li>Fully open source</li><li>Zero telemetry</li><li>Works fully offline</li><li>Extensible via plugins</li></ul><strong>Cons</strong><ul><li>Smaller community</li><li>Fewer models out of box</li></ul></div>
+        <a class="dl-link jan" href="https://jan.ai" target="_blank" rel="noopener">Download Jan →</a>
+      </div>
+    </div>    <div class="comp-table-wrap">
+      <table class="comp-table">
+        <thead><tr><th>Feature</th><th>Ollama</th><th>LM Studio</th><th>Jan</th></tr></thead>
+        <tbody>
+          <tr><td>Install</td><td class="check">One command</td><td class="check">Download & open</td><td class="check">Download & open</td></tr>
+          <tr><td>Interface</td><td>Terminal (CLI)</td><td class="check">Desktop GUI</td><td class="check">Desktop GUI</td></tr>
+          <tr><td>Model Browser</td><td class="partial">Manual (ollama pull)</td><td class="check">Built-in</td><td class="partial">Built-in (limited)</td></tr>
+          <tr><td>Open Source</td><td class="check">Yes</td><td class="partial">Partially</td><td class="check">Fully</td></tr>
+          <tr><td>Privacy</td><td class="check">100% local</td><td class="check">100% local</td><td class="check">100% local, no telemetry</td></tr>
+          <tr><td>Ease of Use</td><td class="check">⭐⭐⭐</td><td class="check">⭐⭐⭐⭐⭐</td><td class="check">⭐⭐⭐⭐</td></tr>
+          <tr><td>Platform</td><td>Mac, Windows, Linux</td><td>Mac, Windows, Linux</td><td>Mac, Windows, Linux</td></tr>
+          <tr><td>Updates</td><td class="check">Very frequent</td><td class="check">Frequent</td><td class="partial">Regular</td></tr>
+          <tr><td>API / Server</td><td class="check">Built-in REST API</td><td class="check">Local HTTP server</td><td class="partial">Via extensions</td></tr>
+          <tr><td>Community</td><td class="check">Largest (100k+ GitHub)</td><td class="check">Large</td><td class="partial">Growing</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="rec-selector">
+      <h2>Get a Personalized Recommendation</h2>
+      <p class="section-desc" style="font-size:.9rem">Tell us what matters most to you and we'll pick the right tool.</p>
+      <select id="user-type">
+        <option value="">— What describes you best? —</option>
+        <option value="beginner">I want the simplest option. One command, done.</option>
+        <option value="gui">I prefer beautiful apps with a graphical interface.</option>
+        <option value="privacy">I want maximum privacy. Fully open source, no telemetry.</option>
+        <option value="developer">I need an API/server for my own projects.</option>
+      </select>
+      <div id="rec-ollama" class="rec-result r-ollama">
+        <div class="rec-tool">🐳 Use Ollama</div>
+        <div class="rec-reason">You value simplicity. Ollama installs with one command and has the largest model library. It's the fastest path to running local AI.</div>
+      </div>
+      <div id="rec-lmstudio" class="rec-result r-lmstudio">
+        <div class="rec-tool">🖥️ Use LM Studio</div>
+        <div class="rec-reason">You prefer a polished visual experience. LM Studio's GUI lets you browse, download, and chat with models without ever opening a terminal.</div>
+      </div>
+      <div id="rec-jan" class="rec-result r-jan">
+        <div class="rec-tool">🔒 Use Jan</div>
+        <div class="rec-reason">You care about maximum privacy. Jan is 100% open source with zero telemetry and works fully offline out of the box.</div>
+      </div>
+      <div id="rec-ollama-api" class="rec-result r-ollama">
+        <div class="rec-tool">🐳 Use Ollama</div>
+        <div class="rec-reason">You need an API. Ollama has a built-in REST API that's easy to integrate with your own tools and projects.</div>
+      </div>
+    </div>
+
+    <p class="tool-note" style="margin-top:1.5rem">💡 Our main site recommendations use Ollama — it has the simplest install and biggest community. But all three tools are excellent.</p>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-links">
+        <a href="https://github.com/ebubeco/build-your-own-chatgpt" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="/models">Leaderboard</a>
+        <a href="/insights">Insights</a>
+        <a href="/compendium">Compendium</a>
+        <a href="/">Wizard</a>
+      </div>
+      <p class="footer-tagline">Built for beginners. Your data never leaves your machine.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const sel = document.getElementById('user-type');
+      const results = {
+        'beginner': 'rec-ollama',
+        'gui': 'rec-lmstudio',
+        'privacy': 'rec-jan',
+        'developer': 'rec-ollama-api'
+      };
+      sel.addEventListener('change', function() {
+        document.querySelectorAll('.rec-result').forEach(r => r.classList.remove('show'));
+        const id = results[this.value];
+        if (id) document.getElementById(id).classList.add('show');
+      });
+    });
+  </script>
+  <script src="analytics.js"></script>
+  <script src="shared.js"></script>
+</body>
+</html>

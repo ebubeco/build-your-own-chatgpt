@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="google-site-verification" content="5YRiOefTK9mTwEJEnLIH6BQ5xmP0NkwyfiaBWZJbdCg">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="How local AI works explained simply: from installing Ollama and pulling a model to running your first prompt. Complete beginner's guide to running LLMs locally.">
+  <title>How Local AI Works: Beginner's Guide to Running LLMs Locally (2026)</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="canonical" href="https://build-your-own-chatgpt.vercel.app/how-local-ai-works">
+  <meta property="og:title" content="How Local AI Works: Beginner's Guide">
+  <meta property="og:description" content="Step-by-step guide to running local AI. Install Ollama, pull a model, and run your first prompt. No technical skills needed.">
+  <meta property="og:image" content="https://build-your-own-chatgpt.vercel.app/og-image.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="style.css">
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="b8a7a476-7a85-402e-b042-1436ef463d65"></script>
+  <script async src="https://plausible.io/js/pa-DBTdINzLX2L2B_fXJF0u1.js"></script>
+  <script>window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()</script>
+</head>
+<body class="seo-page">
+  <main class="seo-content">
+    <a href="/" class="seo-back">&larr; Use the wizard</a>
+    <h1>How Local AI Works: A Beginner's Guide</h1>
+    <section class="seo-section"><p><strong>Running local AI is simpler than you think. Install Ollama, pull a model with one command, and start chatting — all on your own computer, completely free and private.</strong></p></section>
+    <section class="seo-section">
+      <h2>Step 1: Install Ollama</h2>
+      <p><a href="https://ollama.com/download" target="_blank">Ollama</a> is a free, open-source tool that makes running local AI as simple as installing any other app. Download the installer for Windows, macOS, or Linux, run it, and Ollama runs in the background as a system service.</p>
+      <div class="install-box" style="margin-top:0.75rem"><div class="install-label">One command install (macOS/Linux)</div><div class="install-command">curl -fsSL https://ollama.com/install.sh | sh</div></div>
+    </section>
+    <section class="seo-section">
+      <h2>Step 2: Pull a Model</h2>
+      <p>Once Ollama is installed, open a terminal and pull a model. Models are identified by name and size tag. For most users, Qwen 2.5 7B is the best starting point:</p>
+      <div class="install-box" style="margin-top:0.75rem"><div class="install-label">Pull a model</div><div class="install-command">ollama pull qwen2.5:7b</div><div class="install-label">Download size</div><div class="install-command">~4.7GB (takes 2-10 minutes depending on internet speed)</div></div>
+    </section>
+    <section class="seo-section">
+      <h2>Step 3: Run Your First Prompt</h2>
+      <p>Start a chat session with the model:</p>
+      <div class="install-box" style="margin-top:0.75rem"><div class="install-label">Run the model</div><div class="install-command">ollama run qwen2.5:7b</div></div>
+      <p style="margin-top:0.75rem">You'll see a <code>>>> </code> prompt. Type your message and press Enter. The model will respond. That's it — you're running local AI!</p>
+    </section>
+    <section class="seo-section">
+      <h2>Step 4: Integrate with Tools</h2>
+      <ul class="seo-alt-list">
+        <li><strong>Open WebUI:</strong> A ChatGPT-like web interface that connects to your local Ollama. <code>docker run -d -p 3000:8080 ghcr.io/open-webui/open-webui:main</code></li>
+        <li><strong>VS Code + Continue:</strong> Code assistant in your editor. Install the Continue extension and point it to Ollama.</li>
+        <li><strong>MCP Servers:</strong> Connect local models to file systems, databases, and APIs via the Model Context Protocol.</li>
+      </ul>
+    </section>
+    <section class="seo-section seo-cta">
+      <h2>What Model Should You Use?</h2>
+      <p>Not sure which model fits your hardware? Get a personalized recommendation.</p>
+      <a href="/" class="btn-primary" style="display:inline-block;margin-top:1rem">Find My Model</a>
+    </section>
+  </main>
+  <script src="analytics.js"></script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+{
+  "name": "build-your-own-chatgpt",
+  "version": "1.0.0",
+  "description": "**Private AI on your hardware. Free forever. No subscriptions, no data sharing, runs offline.**",
+  "main": "analytics.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ebubeco/build-your-own-chatgpt.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/ebubeco/build-your-own-chatgpt/issues"
+  },
+  "homepage": "https://github.com/ebubeco/build-your-own-chatgpt#readme"
+}

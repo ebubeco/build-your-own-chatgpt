@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="google-site-verification" content="5YRiOefTK9mTwEJEnLIH6BQ5xmP0NkwyfiaBWZJbdCg">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Check if your PC can run local AI models. Interactive hardware compatibility checker for GPU, VRAM, RAM, and OS. Find models compatible with your setup.">
+  <meta property="og:title" content="AI Hardware Compatibility — Check Your PC for Local AI">
+  <meta property="og:description" content="Select your hardware tier and instantly see which local AI models are compatible. GPU detection, VRAM check, RAM check, OS check included.">
+  <meta property="og:image" content="https://build-your-own-chatgpt.vercel.app/og-image.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <title>AI Hardware Compatibility — Check Your PC for Local AI</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script async src="https://plausible.io/js/pa-DBTdINzLX2L2B_fXJF0u1.js"></script>
+  <style>
+    .comp-page { max-width: 1100px; margin: 0 auto; padding: 1.5rem; }
+    .comp-nav { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
+    .comp-nav a { color: var(--text-secondary); text-decoration: none; font-size: 0.85rem; padding: 0.3rem 0.75rem; border-radius: 6px; transition: all 0.15s; }
+    .comp-nav a:hover, .comp-nav a.active { color: var(--accent); background: var(--accent-light); }
+    .comp-page h1 { font-family: 'Outfit', sans-serif; font-size: 1.8rem; font-weight: 800; color: var(--text); margin-bottom: 0.25rem; }
+    .comp-page > p { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1.5rem; }
+    .hw-tier-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 0.75rem; margin-bottom: 1.5rem; }
+    .hw-tier-btn { background: var(--bg-card); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 1rem; cursor: pointer; text-align: left; display: flex; flex-direction: column; gap: 0.3rem; transition: all var(--transition); font-family: inherit; color: var(--text-primary); position: relative; }
+    .hw-tier-btn:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: var(--shadow-glow); }
+    .hw-tier-btn.selected { border-color: var(--accent); background: var(--surface); box-shadow: 0 0 0 1px var(--accent), var(--shadow-md); }
+    .hw-tier-icon { font-size: 1.5rem; }
+    .hw-tier-name { font-weight: 600; font-size: 0.95rem; }
+    .hw-tier-desc { font-size: 0.78rem; color: var(--text-tertiary); line-height: 1.4; }
+    .hw-tier-vram { font-size: 0.75rem; color: var(--accent); font-weight: 500; }
+    .detect-section { margin-bottom: 1.5rem; padding: 1rem; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); }
+    .detect-row { display: flex; align-items: center; gap: 1rem; padding: 0.5rem 0; border-bottom: 1px solid var(--border-light); flex-wrap: wrap; }
+    .detect-row:last-child { border-bottom: none; }
+    .detect-label { font-weight: 600; font-size: 0.85rem; min-width: 100px; color: var(--text); }
+    .detect-value { font-size: 0.85rem; color: var(--text-secondary); }
+    .detect-badge { font-size: 0.75rem; padding: 0.2rem 0.5rem; border-radius: 4px; font-weight: 600; }
+    .detect-badge.ok { background: #d4edda; color: #155724; }
+    .detect-badge.fail { background: #f8d7da; color: #721c24; }
+    .detect-badge.unknown { background: var(--bg); color: var(--text-tertiary); }
+    .results-panel { margin-top: 1.5rem; }
+    .results-panel h2 { font-family: 'Outfit', sans-serif; font-size: 1.3rem; font-weight: 700; color: var(--text); margin-bottom: 0.5rem; }
+    .results-panel > p { color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 1rem; }
+    .compat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 0.75rem; }
+    .compat-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem; transition: all 0.15s; }
+    .compat-card:hover { border-color: var(--accent); box-shadow: var(--shadow-sm); }
+    .compat-card-name { font-weight: 700; font-size: 0.9rem; color: var(--text); margin-bottom: 0.25rem; }
+    .compat-card-meta { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.4rem; }
+    .compat-card-desc { font-size: 0.8rem; color: var(--text-secondary); line-height: 1.4; }
+    .compat-card-install { margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px solid var(--border-light); }
+    .compat-card-install code { font-size: 0.75rem; background: var(--bg); padding: 0.25rem 0.5rem; border-radius: 4px; color: var(--text-secondary); word-break: break-all; }
+    .compat-card-rec { border-color: var(--accent); border-width: 1.5px; background: var(--accent-light); }
+    .compat-card-rec .compat-card-name::after { content: ' ★'; color: var(--accent); }
+    .no-results { padding: 2rem; text-align: center; color: var(--text-secondary); font-size: 0.9rem; }
+    .reset-btn { background: none; border: 1px solid var(--border); padding: 0.4rem 1rem; border-radius: var(--radius-sm); cursor: pointer; font-family: inherit; font-size: 0.8rem; color: var(--text-secondary); transition: all 0.15s; }
+    .reset-btn:hover { border-color: var(--accent); color: var(--accent); }
+    @media (max-width: 640px) { .hw-tier-grid { grid-template-columns: 1fr 1fr; } }
+  </style>
+</head>
+<body>
+  <nav class="site-topbar" role="navigation" aria-label="Site navigation">
+    <div class="container">
+      <div class="topbar-inner">
+        <span class="site-brand">🤖 Build Your Own ChatGPT</span>
+        <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle light/dark mode">
+          <span class="toggle-icon">🌙</span>
+          <span class="toggle-label">Dark mode</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+  <div class="comp-page">
+    <div class="comp-nav">
+      <a href="index.html">🏠 Wizard</a>
+      <a href="compendium.html">📚 Compendium</a>
+      <a href="compare.html">📊 Compare</a>
+      <a href="compatibility.html" class="active">🔧 Compatibility</a>
+      <a href="commands.html">⌨️ Commands</a>
+      <a href="models.html">🏆 Leaderboard</a>
+    </div>
+    <h1>Hardware Compatibility Checker</h1>
+    <p>Select your hardware tier to see which local AI models are compatible with your machine.</p>
+    <div class="detect-section" id="detect-section">
+      <div class="detect-row"><span class="detect-label">🖥️ OS</span><span class="detect-value" id="detect-os">Detecting...</span></div>
+      <div class="detect-row"><span class="detect-label">🎮 GPU</span><span class="detect-value" id="detect-gpu">Detecting...</span></div>
+      <div class="detect-row"><span class="detect-label">💾 VRAM</span><span class="detect-value" id="detect-vram">Detecting...</span></div>
+      <div class="detect-row"><span class="detect-label">📊 RAM</span><span class="detect-value" id="detect-ram">Detecting...</span></div>
+    </div>
+    <h2 style="font-family:'Outfit',sans-serif;font-size:1.1rem;font-weight:700;color:var(--text);margin-bottom:0.75rem;">Select Your Hardware Tier</h2>
+    <div class="hw-tier-grid" id="hw-tier-grid"></div>
+    <div class="results-panel" id="results-panel">
+      <h2>Compatible Models</h2>
+      <p id="results-summary">Select a hardware tier above to see compatible models.</p>
+      <div class="compat-grid" id="compat-grid"></div>
+    </div>
+  </div>
+  <script>
+    !function(){var t=localStorage.getItem('theme');if(t==='dark'||(t===null&&window.matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark')}();
+    document.getElementById('theme-toggle').addEventListener('click',function(){var e=document.documentElement;var t=e.getAttribute('data-theme');var n=t==='dark'?'light':'dark';e.setAttribute('data-theme',n);localStorage.setItem('theme',n);var o=document.querySelector('.toggle-icon');o.textContent=n==='dark'?'☀️':'🌙';document.querySelector('.toggle-label').textContent=n==='dark'?'Light mode':'Dark mode';});
+    if(localStorage.getItem('theme')==='dark'||(!localStorage.getItem('theme')&&window.matchMedia('(prefers-color-scheme:dark)').matches)){document.querySelector('.toggle-icon').textContent='☀️';document.querySelector('.toggle-label').textContent='Light mode';}
+  </script>
+  <script>
+    const HW_TIERS = [
+      {id:'no-gpu',icon:'🖥️',name:'No GPU / Old Hardware',desc:'Laptops from 2015 or earlier. CPU-only inference.',vram:'<1GB VRAM',maxVram:1,color:'#E24B4A'},
+      {id:'cpu-only',icon:'💻',name:'CPU-Only (16-32GB RAM)',desc:'Modern laptop or desktop with no dedicated GPU.',vram:'0-4GB VRAM',maxVram:4,color:'#BA7517'},
+      {id:'budget-gpu',icon:'🎮',name:'Budget GPU (8-12GB VRAM)',desc:'RTX 3060, 4060, 3070 or similar mid-range card.',vram:'4-12GB VRAM',maxVram:12,color:'#1D9E75'},
+      {id:'power-gpu',icon:'🚀',name:'Power GPU (16GB+ VRAM)',desc:'RTX 4080, 4090, or workstation GPUs.',vram:'12-100GB VRAM',maxVram:100,color:'#534AB7'},
+      {id:'silicon-8-16gb',icon:'🍎',name:'Apple Silicon (8-16GB)',desc:'MacBook Air/Pro M1/M2/M3 with 8-16GB unified.',vram:'8-16GB unified',maxVram:16,color:'#6B5CF5'},
+      {id:'silicon-24-48gb',icon:'🍎',name:'Apple Silicon (24-48GB)',desc:'MacBook Pro M3 Pro/Max, Mac Studio M2 Ultra.',vram:'24-48GB unified',maxVram:48,color:'#3D2FB8'},
+      {id:'silicon-64-plus',icon:'🍎',name:'Apple Silicon (64GB+)',desc:'Mac Studio M2 Ultra 128GB, Mac Pro.',vram:'64GB+ unified',maxVram:192,color:'#1D0FB8'}
+    ];
+    let allModels = [];
+    let selectedTier = null;
+
+    function detectHardware() {
+      const osEl = document.getElementById('detect-os');
+      const gpuEl = document.getElementById('detect-gpu');
+      const vramEl = document.getElementById('detect-vram');
+      const ramEl = document.getElementById('detect-ram');
+      const ua = navigator.userAgent;
+      let os = 'Unknown';
+      if(ua.includes('Win')) os = 'Windows';
+      else if(ua.includes('Mac')) os = 'macOS';
+      else if(ua.includes('Linux')) os = 'Linux';
+      else if(ua.includes('CrOS')) os = 'ChromeOS';
+      osEl.textContent = os;
+      try {
+        const canvas = document.createElement('canvas');
+        const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+        if(gl) {
+          const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+          const renderer = debugInfo ? gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL) : 'WebGL detected';
+          gpuEl.textContent = renderer;
+          const maxTexSize = gl.getParameter(gl.MAX_TEXTURE_SIZE);
+          const estimatedVram = Math.min(Math.max(Math.round(maxTexSize / 4096) * 2, 1), 24);
+          vramEl.textContent = '~' + estimatedVram + 'GB (estimated)';
+        } else {
+          gpuEl.textContent = 'No GPU detected';
+          vramEl.textContent = 'Unknown (likely CPU-only)';
+        }
+      } catch(e) {
+        gpuEl.textContent = 'Detection unavailable';
+        vramEl.textContent = 'Unknown';
+      }
+      if(navigator.deviceMemory) {
+        ramEl.textContent = navigator.deviceMemory + 'GB';
+      } else {
+        ramEl.textContent = 'Unknown (navigator.deviceMemory not supported)';
+      }
+    }
+
+    function renderTiers() {
+      const grid = document.getElementById('hw-tier-grid');
+      grid.innerHTML = HW_TIERS.map(t => `
+        <button class="hw-tier-btn" data-tier="${t.id}">
+          <span class="hw-tier-icon">${t.icon}</span>
+          <span class="hw-tier-name">${t.name}</span>
+          <span class="hw-tier-desc">${t.desc}</span>
+          <span class="hw-tier-vram">💾 ${t.vram}</span>
+        </button>
+      `).join('');
+      grid.addEventListener('click', e => {
+        const btn = e.target.closest('.hw-tier-btn');
+        if(!btn) return;
+        document.querySelectorAll('.hw-tier-btn').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        selectedTier = btn.dataset.tier;
+        renderResults();
+      });
+    }
+
+    function renderResults() {
+      const tier = HW_TIERS.find(t => t.id === selectedTier);
+      if(!tier) return;
+      const compatible = allModels.filter(m => {
+        if(m.tier === selectedTier) return true;
+        if(m.tier === 'no-gpu' && ['cpu-only','budget-gpu','power-gpu','silicon-8-16gb','silicon-24-48gb','silicon-64-plus'].includes(selectedTier)) return true;
+        if(m.tier === 'cpu-only' && ['budget-gpu','power-gpu','silicon-8-16gb','silicon-24-48gb','silicon-64-plus'].includes(selectedTier)) return true;
+        if(m.tier === 'budget-gpu' && ['power-gpu'].includes(selectedTier)) return true;
+        if(m.tier.startsWith('silicon') && selectedTier.startsWith('silicon')) {
+          const tierMax = HW_TIERS.find(t=>t.id===selectedTier)?.maxVram||0;
+          if((m.vramGB||0) <= tierMax) return true;
+        }
+        return false;
+      });
+      const recs = compatible.filter(m => m.highlight);
+      document.getElementById('results-summary').textContent = `${compatible.length} compatible models (${recs.length} recommended) for ${tier.name}.`;
+      const grid = document.getElementById('compat-grid');
+      if(compatible.length === 0) {
+        grid.innerHTML = '<div class="no-results">No models found for this tier.</div>';
+        return;
+      }
+      grid.innerHTML = compatible.map(m => {
+        const isRec = m.highlight;
+        return `<div class="compat-card${isRec?' compat-card-rec':''}">
+          <div class="compat-card-name">${m.name}</div>
+          <div class="compat-card-meta">
+            <span class="badge" style="font-size:0.7rem">${m.size||'?'}</span>
+            <span class="badge" style="font-size:0.7rem">💾 ${m.vramGB||'?'}GB</span>
+            ${m.contextLength?`<span class="badge" style="font-size:0.7rem">📐 ${m.contextLength.toLocaleString()}</span>`:''}
+          </div>
+          <div class="compat-card-desc">${m.description||''}</div>
+          <div class="compat-card-install"><code>${m.installCommand||'ollama pull '+m.ollamaTag}</code></div>
+        </div>`;
+      }).join('');
+    }
+
+    async function init() {
+      try {
+        const res = await fetch('data/models_compendium.json');
+        const data = await res.json();
+        allModels = data.models.map(m => ({...m, tier: m.tier}));
+      } catch(e) { console.error('Failed to load models:', e); }
+      detectHardware();
+      renderTiers();
+    }
+    init();
+  </script>
+  <script src="analytics.js"></script>
+  <script src="shared.js"></script>
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-links">
+        <a href="https://github.com/ebubeco/build-your-own-chatgpt" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="/models">Leaderboard</a>
+        <a href="/insights">Insights</a>
+        <a href="/compendium">Compendium</a>
+        <a href="/">Wizard</a>
+      </div>
+      <p class="footer-tagline">Built for beginners. Your data never leaves your machine.</p>
+    </div>
+  </footer>
+</body>
+</html>

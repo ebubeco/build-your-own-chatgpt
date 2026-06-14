@@ -102,7 +102,72 @@
       "description": "The smallest model we recommend. It runs on any computer, even a 10-year-old laptop. Great for learning how local AI works and simple tasks like summarization and brainstorming.",
       "toolRecommendation": "Ollama",
       "toolRecommendationReason": "Simplest install - one command, works on any hardware.",
-      "successStory": "A teacher ran this on her 2013 MacBook Air to summarize student essays offline."
+      "successStory": "A teacher ran this on her 2013 MacBook Air to summarize student essays offline.",
+      "quantVariants": [
+        {
+          "tag": "qwen2.5:0.5b",
+          "label": "Q4_K_M (recommended)",
+          "storage": "~0.4GB",
+          "quality": "Good",
+          "speed": "Fast"
+        },
+        {
+          "tag": "qwen2.5:0.5b-q8_0",
+          "label": "Q8 (high quality)",
+          "storage": "~0.7GB",
+          "quality": "Excellent",
+          "speed": "Moderate"
+        }
+      ],
+      "expectations": {
+        "startupTime": "10-15 seconds",
+        "storage": "~0GB",
+        "setupTime": "~5 minutes",
+        "difficulty": "Easy",
+        "internetRequired": "No",
+        "privacy": "Fully local"
+      },
+      "modelfileTemplate": "FROM qwen2.5:0.5b\nSYSTEM \"You are a helpful assistant.\"\nPARAMETER temperature 0.7\nPARAMETER num_ctx 4096",
+      "bestForDisplay": [
+        "Personal ChatGPT replacement",
+        "Writing and editing",
+        "Learning and tutoring",
+        "experiments"
+      ],
+      "why": [
+        "The smallest model we recommend. It runs on any computer, even a 10-year-old lap...",
+        "Simplest install - one command, works on any hardware.",
+        "Free forever — no subscription needed",
+        "Fully private — your data stays local"
+      ],
+      "whyNot": {
+        "high-end-gpu": "Consider a larger model if you have VRAM to spare"
+      },
+      "starterPrompts": {
+        "general": [
+          "Explain [topic] in simple terms",
+          "Help me write a professional email about [subject]",
+          "Summarize this text: [paste text]"
+        ],
+        "coding": [
+          "Help me understand this concept better",
+          "Give me examples of [topic]"
+        ],
+        "writing": [
+          "Improve the tone of this paragraph: [paste text]",
+          "Write an introduction for an article about [topic]",
+          "Make this more concise: [paste text]"
+        ]
+      },
+      "careerFit": [
+        "software-developer",
+        "student",
+        "content-creator",
+        "researcher"
+      ],
+      "platformType": "local",
+      "upgradeFrom": null,
+      "upgradeTo": "qwen-0-5b"
     },
     {
       "id": "smollm-1-7b",
@@ -134,7 +199,66 @@
       "description": "Made by HuggingFace specifically for consumer hardware. Better than its size suggests - good for writing and coding tasks. Best choice for very old computers.",
       "toolRecommendation": "Ollama",
       "toolRecommendationReason": "One-command install, optimized for low-end hardware.",
-      "successStory": "A student with a 2016 Chromebook used this for homework help without internet."
+      "successStory": "A student with a 2016 Chromebook used this for homework help without internet.",
+      "quantVariants": [
+        {
+          "tag": "smollm2:1.7b",
+          "label": "Q4_K_M (recommended)",
+          "storage": "~1.1GB",
+          "quality": "Good",
+          "speed": "Fast"
+        }
+      ],
+      "expectations": {
+        "startupTime": "10-15 seconds",
+        "storage": "~1GB",
+        "setupTime": "~5 minutes",
+        "difficulty": "Easy",
+        "internetRequired": "No",
+        "privacy": "Fully local"
+      },
+      "modelfileTemplate": "FROM smollm2:1.7b\nSYSTEM \"You are a helpful assistant.\"\nPARAMETER temperature 0.7\nPARAMETER num_ctx 4096",
+      "bestForDisplay": [
+        "Personal ChatGPT replacement",
+        "Writing and editing",
+        "Learning and tutoring",
+        "Coding help and review"
+      ],
+      "why": [
+        "Made by HuggingFace specifically for consumer hardware. Better than its size sug...",
+        "One-command install, optimized for low-end hardware.",
+        "Free forever — no subscription needed",
+        "Fully private — your data stays local"
+      ],
+      "whyNot": {
+        "high-end-gpu": "Consider a larger model if you have VRAM to spare"
+      },
+      "starterPrompts": {
+        "general": [
+          "Explain [topic] in simple terms",
+          "Help me write a professional email about [subject]",
+          "Summarize this text: [paste text]"
+        ],
+        "coding": [
+          "Review this code and suggest improvements: [paste code]",
+          "Write a Python function that [describe task]",
+          "Explain what this error means: [paste error]"
+        ],
+        "writing": [
+          "Improve the tone of this paragraph: [paste text]",
+          "Write an introduction for an article about [topic]",
+          "Make this more concise: [paste text]"
+        ]
+      },
+      "careerFit": [
+        "software-developer",
+        "student",
+        "content-creator",
+        "researcher"
+      ],
+      "platformType": "local",
+      "upgradeFrom": null,
+      "upgradeTo": "smollm-1-7b"
     },
     {
       "id": "llama-3-2-1b",
@@ -165,7 +289,64 @@
       "description": "Meta's smallest Llama model. Surprisingly capable for its size - better reasoning than older 3B models. The name 'Llama' is well-known, so it's easy to get help online.",
       "toolRecommendation": "Ollama",
       "toolRecommendationReason": "Meta's official Ollama release - well-supported, frequent updates.",
-      "successStory": "A retiree with a 2015 Dell laptop uses this daily to read and summarize news articles."
+      "successStory": "A retiree with a 2015 Dell laptop uses this daily to read and summarize news articles.",
+      "quantVariants": [
+        {
+          "tag": "llama3.2:1b",
+          "label": "Q4_K_M (recommended)",
+          "storage": "~0.8GB",
+          "quality": "Good",
+          "speed": "Fast"
+        }
+      ],
+      "expectations": {
+        "startupTime": "10-15 seconds",
+        "storage": "~1GB",
+        "setupTime": "~5 minutes",
+        "difficulty": "Easy",
+        "internetRequired": "No",
+        "privacy": "Fully local"
+      },
+      "modelfileTemplate": "FROM llama3.2:1b\nSYSTEM \"You are a helpful assistant.\"\nPARAMETER temperature 0.7\nPARAMETER num_ctx 4096",
+      "bestForDisplay": [
+        "Personal ChatGPT replacement",
+        "Writing and editing",
+        "Complex reasoning"
+      ],
+      "why": [
+        "Meta's smallest Llama model. Surprisingly capable for its size - better reasonin...",
+        "Meta's official Ollama release - well-supported, frequent updates.",
+        "Free forever — no subscription needed",
+        "Fully private — your data stays local"
+      ],
+      "whyNot": {
+        "high-end-gpu": "Consider a larger model if you have VRAM to spare"
+      },
+      "starterPrompts": {
+        "general": [
+          "Explain [topic] in simple terms",
+          "Help me write a professional email about [subject]",
+          "Summarize this text: [paste text]"
+        ],
+        "coding": [
+          "Help me understand this concept better",
+          "Give me examples of [topic]"
+        ],
+        "writing": [
+          "Improve the tone of this paragraph: [paste text]",
+          "Write an introduction for an article about [topic]",
+          "Make this more concise: [paste text]"
+        ]
+      },
+      "careerFit": [
+        "software-developer",
+        "student",
+        "content-creator",
+        "researcher"
+      ],
+      "platformType": "local",
+      "upgradeFrom": null,
+      "upgradeTo": "llama-3-2-1b"
     },
     {
       "id": "qwen-1-5b",
@@ -197,7 +378,73 @@
       "description": "Alibaba's compact model with strong multilingual support - writes well in English, Chinese, Spanish, and more. Better coding than the smaller models. Your first real private AI assistant.",
       "toolRecommendation": "Ollama",
       "toolRecommendationReason": "One command to install, works on 16GB RAM without GPU.",
-      "successStory": "A writer replaced ChatGPT free with this for drafting articles on her MacBook Pro without Touch Bar."
+      "successStory": "A writer replaced ChatGPT free with this for drafting articles on her MacBook Pro without Touch Bar.",
+      "quantVariants": [
+        {
+          "tag": "qwen2.5:1.5b",
+          "label": "Q4_K_M (recommended)",
+          "storage": "~1.1GB",
+          "quality": "Good",
+          "speed": "Fast"
+        },
+        {
+          "tag": "qwen2.5:1.5b-q8_0",
+          "label": "Q8 (high quality)",
+          "storage": "~1.8GB",
+          "quality": "Excellent",
+          "speed": "Moderate"
+        }
+      ],
+      "expectations": {
+        "startupTime": "10-15 seconds",
+        "storage": "~1GB",
+        "setupTime": "~5 minutes",
+        "difficulty": "Easy",
+        "internetRequired": "No",
+        "privacy": "Fully local"
+      },
+      "modelfileTemplate": "FROM qwen2.5:1.5b\nSYSTEM \"You are a helpful assistant.\"\nPARAMETER temperature 0.7\nPARAMETER num_ctx 4096",
+      "bestForDisplay": [
+        "Personal ChatGPT replacement",
+        "Writing and editing",
+        "Coding help and review",
+        "Research and summarization"
+      ],
+      "why": [
+        "Alibaba's compact model with strong multilingual support - writes well in Englis...",
+        "One command to install, works on 16GB RAM without GPU.",
+        "Free forever — no subscription needed",
+        "Fully private — your data stays local"
+      ],
+      "whyNot": {
+        "high-end-gpu": "Consider a larger model if you have VRAM to spare"
+      },
+      "starterPrompts": {
+        "general": [
+          "Explain [topic] in simple terms",
+          "Help me write a professional email about [subject]",
+          "Summarize this text: [paste text]"
+        ],
+        "coding": [
+          "Review this code and suggest improvements: [paste code]",
+          "Write a Python function that [describe task]",
+          "Explain what this error means: [paste error]"
+        ],
+        "writing": [
+          "Improve the tone of this paragraph: [paste text]",
+          "Write an introduction for an article about [topic]",
+          "Make this more concise: [paste text]"
+        ]
+      },
+      "careerFit": [
+        "software-developer",
+        "student",
+        "content-creator",
+        "researcher"
+      ],
+      "platformType": "local",
+      "upgradeFrom": null,
+      "upgradeTo": "qwen-1-5b"
     },
     {
       "id": "phi-4-mini",
@@ -229,7 +476,73 @@
       "description": "Microsoft's best small model. Remarkably good at coding and following instructions. 16K context means it can read long documents. The sweet spot for CPU-only users.",
       "toolRecommendation": "Ollama",
       "toolRecommendationReason": "Fast CPU inference, great coding performance, one install command.",
-      "successStory": "A developer writes Python scripts locally using this on a laptop with no GPU. Says it's 'almost as good as GPT-4 for small tasks'."
+      "successStory": "A developer writes Python scripts locally using this on a laptop with no GPU. Says it's 'almost as good as GPT-4 for small tasks'.",
+      "quantVariants": [
+        {
+          "tag": "phi4-mini:3.8b",
+          "label": "Q4_K_M (recommended)",
+          "storage": "~2.5GB",
+          "quality": "Good",
+          "speed": "Fast"
+        },
+        {
+          "tag": "phi4-mini:3.8b-q8_0",
+          "label": "Q8 (high quality)",
+          "storage": "~4GB",
+          "quality": "Excellent",
+          "speed": "Moderate"
+        }
+      ],
+      "expectations": {
+        "startupTime": "20-30 seconds",
+        "storage": "~3GB",
+        "setupTime": "~5 minutes",
+        "difficulty": "Easy",
+        "internetRequired": "No",
+        "privacy": "Fully local"
+      },
+      "modelfileTemplate": "FROM phi4-mini:3.8b\nSYSTEM \"You are a helpful assistant.\"\nPARAMETER temperature 0.7\nPARAMETER num_ctx 4096",
+      "bestForDisplay": [
+        "Coding help and review",
+        "Writing and editing",
+        "Personal ChatGPT replacement",
+        "Complex reasoning"
+      ],
+      "why": [
+        "Microsoft's best small model. Remarkably good at coding and following instructio...",
+        "Fast CPU inference, great coding performance, one install command.",
+        "Free forever — no subscription needed",
+        "Fully private — your data stays local"
+      ],
+      "whyNot": {
+        "high-end-gpu": "Consider a larger model if you have VRAM to spare"
+      },
+      "starterPrompts": {
+        "general": [
+          "Explain [topic] in simple terms",
+          "Help me write a professional email about [subject]",
+          "Summarize this text: [paste text]"
+        ],
+        "coding": [
+          "Review this code and suggest improvements: [paste code]",
+          "Write a Python function that [describe task]",
+          "Explain what this error means: [paste error]"
+        ],
+        "writing": [
+          "Improve the tone of this paragraph: [paste text]",
+          "Write an introduction for an article about [topic]",
+          "Make this more concise: [paste text]"
+        ]
+      },
+      "careerFit": [
+        "software-developer",
+        "student",
+        "content-creator",
+        "researcher"
+      ],
+      "platformType": "local",
+      "upgradeFrom": null,
+      "upgradeTo": "phi-4-mini"
     },
     {
       "id": "llama-3-2-3b",
@@ -261,7 +574,72 @@
       "description": "The best all-around model for CPU-only setups. Great chat, solid writing, decent coding. The 'Llama' name means you'll find help easily online. Your upgrade path to a GPU later.",
       "toolRecommendation": "Ollama",
       "toolRecommendationReason": "Meta's official release, massive community, one install command.",
-      "successStory": "A journalist uses this on a 2020 MacBook Air to draft articles and interview summaries - works completely offline."
+      "successStory": "A journalist uses this on a 2020 MacBook Air to draft articles and interview summaries - works completely offline.",
+      "quantVariants": [
+        {
+          "tag": "llama3.2:3b",
+          "label": "Q4_K_M (recommended)",
+          "storage": "~2GB",
+          "quality": "Good",
+          "speed": "Fast"
+        },
+        {
+          "tag": "llama3.2:3b-q8_0",
+          "label": "Q8 (high quality)",
+          "storage": "~3.3GB",
+          "quality": "Excellent",
+          "speed": "Moderate"
+        }
+      ],
+      "expectations": {
+        "startupTime": "10-15 seconds",
+        "storage": "~2GB",
+        "setupTime": "~5 minutes",
+        "difficulty": "Easy",
+        "internetRequired": "No",
+        "privacy": "Fully local"
+      },
+      "modelfileTemplate": "FROM llama3.2:3b\nSYSTEM \"You are a helpful assistant.\"\nPARAMETER temperature 0.7\nPARAMETER num_ctx 4096",
+      "bestForDisplay": [
+        "Personal ChatGPT replacement",
+        "Writing and editing",
+        "General purpose assistant",
+        "Complex reasoning"
+      ],
+      "why": [
+        "The best all-around model for CPU-only setups. Great chat, solid writing, decent...",
+        "Meta's official release, massive community, one install command.",
+        "Free forever — no subscription needed",
+        "Fully private — your data stays local"
+      ],
+      "whyNot": {
+        "high-end-gpu": "Consider a larger model if you have VRAM to spare"
+      },
+      "starterPrompts": {
+        "general": [
+          "Explain [topic] in simple terms",
+          "Help me write a professional email about [subject]",
+          "Summarize this text: [paste text]"
+        ],
+        "coding": [
+          "Help me understand this concept better",
+          "Give me examples of [topic]"
+        ],
+        "writing": [
+          "Improve the tone of this paragraph: [paste text]",
+          "Write an introduction for an article about [topic]",
+          "Make this more concise: [paste text]"
+        ]
+      },
+      "careerFit": [
+        "software-developer",
+        "student",
+        "content-creator",
+        "researcher"
+      ],
+      "platformType": "local",
+      "upgradeFrom": null,
+      "upgradeTo": "llama-3-2-3b"
     },
     {
       "id": "qwen-2-5-7b",
@@ -294,7 +672,81 @@
       "description": "The best all-around model for most people. Excels at coding, writes beautifully, strong reasoning, and supports 32K context. This is what we recommend for RTX 3060 owners. Period.",
       "toolRecommendation": "Ollama",
       "toolRecommendationReason": "Fast inference on 8GB VRAM, great community support, one install command.",
-      "successStory": "An indie developer replaced their $20/mo ChatGPT subscription with this on an RTX 3060. Uses it for coding, writing docs, and debugging - says it 'never lets them down'."
+      "successStory": "An indie developer replaced their $20/mo ChatGPT subscription with this on an RTX 3060. Uses it for coding, writing docs, and debugging - says it 'never lets them down'.",
+      "quantVariants": [
+        {
+          "tag": "qwen2.5:7b",
+          "label": "Q4_K_M (recommended)",
+          "storage": "~4.7GB",
+          "quality": "Good",
+          "speed": "Fast"
+        },
+        {
+          "tag": "qwen2.5:7b-q8_0",
+          "label": "Q8 (high quality)",
+          "storage": "~7.7GB",
+          "quality": "Excellent",
+          "speed": "Moderate"
+        },
+        {
+          "tag": "qwen2.5:7b-fp16",
+          "label": "FP16 (maximum)",
+          "storage": "~14GB",
+          "quality": "Best",
+          "speed": "Slow"
+        }
+      ],
+      "expectations": {
+        "startupTime": "20-30 seconds",
+        "storage": "~5GB",
+        "setupTime": "~5 minutes",
+        "difficulty": "Easy",
+        "internetRequired": "No",
+        "privacy": "Fully local"
+      },
+      "modelfileTemplate": "FROM qwen2.5:7b\nSYSTEM \"You are a helpful assistant.\"\nPARAMETER temperature 0.7\nPARAMETER num_ctx 4096",
+      "bestForDisplay": [
+        "Coding help and review",
+        "Writing and editing",
+        "Research and summarization",
+        "AI agent workflows",
+        "Personal ChatGPT replacement"
+      ],
+      "why": [
+        "The best all-around model for most people. Excels at coding, writes beautifully,...",
+        "Fast inference on 8GB VRAM, great community support, one install command.",
+        "Free forever — no subscription needed",
+        "Fully private — your data stays local"
+      ],
+      "whyNot": {
+        "high-end-gpu": "Consider a larger model if you have VRAM to spare"
+      },
+      "starterPrompts": {
+        "general": [
+          "Explain [topic] in simple terms",
+          "Help me write a professional email about [subject]",
+          "Summarize this text: [paste text]"
+        ],
+        "coding": [
+          "Review this code and suggest improvements: [paste code]",
+          "Write a Python function that [describe task]",
+          "Explain what this error means: [paste error]"
+        ],
+        "writing": [
+          "Improve the tone of this paragraph: [paste text]",
+          "Write an introduction for an article about [topic]",
+          "Make this more concise: [paste text]"
+        ]
+      },
+      "careerFit": [
+        "software-developer",
+        "student",
+        "content-creator",
+        "researcher"
+      ],
+      "platformType": "local",
+      "upgradeFrom": null,
+      "upgradeTo": "qwen-2-5-7b"
     },
     {
       "id": "gemma-4-12b",
@@ -326,7 +778,73 @@
       "description": "Google's best open model in this size range. Exceptional at following complex instructions, coding, and reasoning. 12B means it fits on most modern GPUs. Great if Qwen doesn't work for your use case.",
       "toolRecommendation": "Ollama",
       "toolRecommendationReason": "Google's official Ollama support, runs well on 10GB+ VRAM.",
-      "successStory": "A data scientist uses this for data analysis and Python scripting on an RTX 3070. Says it 'actually understands what I'm asking for'."
+      "successStory": "A data scientist uses this for data analysis and Python scripting on an RTX 3070. Says it 'actually understands what I'm asking for'.",
+      "quantVariants": [
+        {
+          "tag": "gemma3:12b",
+          "label": "Q4_K_M (recommended)",
+          "storage": "~7.2GB",
+          "quality": "Good",
+          "speed": "Fast"
+        },
+        {
+          "tag": "gemma3:12b-q8_0",
+          "label": "Q8 (high quality)",
+          "storage": "~12GB",
+          "quality": "Excellent",
+          "speed": "Moderate"
+        }
+      ],
+      "expectations": {
+        "startupTime": "20-30 seconds",
+        "storage": "~7GB",
+        "setupTime": "~5 minutes",
+        "difficulty": "Easy",
+        "internetRequired": "No",
+        "privacy": "Fully local"
+      },
+      "modelfileTemplate": "FROM gemma3:12b\nSYSTEM \"You are a helpful assistant.\"\nPARAMETER temperature 0.7\nPARAMETER num_ctx 4096",
+      "bestForDisplay": [
+        "Coding help and review",
+        "Complex reasoning",
+        "Research and summarization",
+        "AI agent workflows"
+      ],
+      "why": [
+        "Google's best open model in this size range. Exceptional at following complex in...",
+        "Google's official Ollama support, runs well on 10GB+ VRAM.",
+        "Free forever — no subscription needed",
+        "Fully private — your data stays local"
+      ],
+      "whyNot": {
+        "high-end-gpu": "Consider a larger model if you have VRAM to spare"
+      },
+      "starterPrompts": {
+        "general": [
+          "Explain [topic] in simple terms",
+          "Help me write a professional email about [subject]",
+          "Summarize this text: [paste text]"
+        ],
+        "coding": [
+          "Review this code and suggest improvements: [paste code]",
+          "Write a Python function that [describe task]",
+          "Explain what this error means: [paste error]"
+        ],
+        "writing": [
+          "Improve the tone of this paragraph: [paste text]",
+          "Write an introduction for an article about [topic]",
+          "Make this more concise: [paste text]"
+        ]
+      },
+      "careerFit": [
+        "software-developer",
+        "student",
+        "content-creator",
+        "researcher"
+      ],
+      "platformType": "local",
+      "upgradeFrom": null,
+      "upgradeTo": null
     },
     {
       "id": "qwen-3-14b",
@@ -358,7 +876,73 @@
       "description": "The step up from 7B. Better reasoning, better coding, better at complex tasks. Requires careful setup on 8GB VRAM (use Q4_K_M quantization), but runs smoothly on 12GB+. If you want one model that does everything well.",
       "toolRecommendation": "Ollama",
       "toolRecommendationReason": "Best quality-to-VRAM ratio, runs on RTX 3060 with careful setup.",
-      "successStory": "A programmer uses this for full-stack development on an RTX 4070. Says it 'catches bugs I miss and suggests architectural improvements'."
+      "successStory": "A programmer uses this for full-stack development on an RTX 4070. Says it 'catches bugs I miss and suggests architectural improvements'.",
+      "quantVariants": [
+        {
+          "tag": "qwen3:14b",
+          "label": "Q4_K_M (recommended)",
+          "storage": "~9GB",
+          "quality": "Good",
+          "speed": "Fast"
+        },
+        {
+          "tag": "qwen3:14b-q8_0",
+          "label": "Q8 (high quality)",
+          "storage": "~15GB",
+          "quality": "Excellent",
+          "speed": "Moderate"
+        }
+      ],
+      "expectations": {
+        "startupTime": "20-30 seconds",
+        "storage": "~9GB",
+        "setupTime": "~5 minutes",
+        "difficulty": "Medium",
+        "internetRequired": "No",
+        "privacy": "Fully local"
+      },
+      "modelfileTemplate": "FROM qwen3:14b\nSYSTEM \"You are a helpful assistant.\"\nPARAMETER temperature 0.7\nPARAMETER num_ctx 4096",
+      "bestForDisplay": [
+        "Coding help and review",
+        "AI agent workflows",
+        "Research and summarization",
+        "Writing and editing"
+      ],
+      "why": [
+        "The step up from 7B. Better reasoning, better coding, better at complex tasks. R...",
+        "Best quality-to-VRAM ratio, runs on RTX 3060 with careful setup.",
+        "Free forever — no subscription needed",
+        "Fully private — your data stays local"
+      ],
+      "whyNot": {
+        "high-end-gpu": "Consider a larger model if you have VRAM to spare"
+      },
+      "starterPrompts": {
+        "general": [
+          "Explain [topic] in simple terms",
+          "Help me write a professional email about [subject]",
+          "Summarize this text: [paste text]"
+        ],
+        "coding": [
+          "Review this code and suggest improvements: [paste code]",
+          "Write a Python function that [describe task]",
+          "Explain what this error means: [paste error]"
+        ],
+        "writing": [
+          "Improve the tone of this paragraph: [paste text]",
+          "Write an introduction for an article about [topic]",
+          "Make this more concise: [paste text]"
+        ]
+      },
+      "careerFit": [
+        "software-developer",
+        "student",
+        "content-creator",
+        "researcher"
+      ],
+      "platformType": "local",
+      "upgradeFrom": null,
+      "upgradeTo": null
     },
     {
       "id": "qwen-3-5-27b",
@@ -391,7 +975,74 @@
       "description": "One of the best open models in the world right now. Matches Claude 3.5 Sonnet on many benchmarks. Requires 20GB+ VRAM to run properly. If you have a 4090 or Mac M3 Pro+, this is your model.",
       "toolRecommendation": "Ollama",
       "toolRecommendationReason": "Fast inference on 24GB VRAM, one install command.",
-      "successStory": "A solo founder runs a full AI startup assistant - coding, research, writing, customer support - on a single RTX 4090. Says it's 'essentially a senior developer on call 24/7'."
+      "successStory": "A solo founder runs a full AI startup assistant - coding, research, writing, customer support - on a single RTX 4090. Says it's 'essentially a senior developer on call 24/7'.",
+      "quantVariants": [
+        {
+          "tag": "qwen3.5:27b",
+          "label": "Q4_K_M (recommended)",
+          "storage": "~16.5GB",
+          "quality": "Good",
+          "speed": "Fast"
+        },
+        {
+          "tag": "qwen3.5:27b-q8_0",
+          "label": "Q8 (high quality)",
+          "storage": "~28GB",
+          "quality": "Excellent",
+          "speed": "Slow"
+        }
+      ],
+      "expectations": {
+        "startupTime": "20-30 seconds",
+        "storage": "~17GB",
+        "setupTime": "~5 minutes",
+        "difficulty": "Medium",
+        "internetRequired": "No",
+        "privacy": "Fully local"
+      },
+      "modelfileTemplate": "FROM qwen3.5:27b\nSYSTEM \"You are a helpful assistant.\"\nPARAMETER temperature 0.7\nPARAMETER num_ctx 4096",
+      "bestForDisplay": [
+        "Coding help and review",
+        "AI agent workflows",
+        "Research and summarization",
+        "Writing and editing",
+        "Complex reasoning"
+      ],
+      "why": [
+        "One of the best open models in the world right now. Matches Claude 3.5 Sonnet on...",
+        "Fast inference on 24GB VRAM, one install command.",
+        "Free forever — no subscription needed",
+        "Fully private — your data stays local"
+      ],
+      "whyNot": {
+        "high-end-gpu": "Consider a larger model if you have VRAM to spare"
+      },
+      "starterPrompts": {
+        "general": [
+          "Explain [topic] in simple terms",
+          "Help me write a professional email about [subject]",
+          "Summarize this text: [paste text]"
+        ],
+        "coding": [
+          "Review this code and suggest improvements: [paste code]",
+          "Write a Python function that [describe task]",
+          "Explain what this error means: [paste error]"
+        ],
+        "writing": [
+          "Improve the tone of this paragraph: [paste text]",
+          "Write an introduction for an article about [topic]",
+          "Make this more concise: [paste text]"
+        ]
+      },
+      "careerFit": [
+        "software-developer",
+        "student",
+        "content-creator",
+        "researcher"
+      ],
+      "platformType": "local",
+      "upgradeFrom": null,
+      "upgradeTo": null
     },
     {
       "id": "deepseek-r1-8b",
@@ -423,10 +1074,76 @@
       "description": "DeepSeek's reasoning model - think step by step before answering. Excellent for complex problems, debugging, research, and agent workflows. Surprisingly efficient - runs on 8GB VRAM.",
       "toolRecommendation": "Ollama",
       "toolRecommendationReason": "One command install, best reasoning model in its size class.",
-      "successStory": "A graduate student uses this for research paper analysis and math problem-solving. Says it 'actually shows its work, which is gold for verifying answers'."
+      "successStory": "A graduate student uses this for research paper analysis and math problem-solving. Says it 'actually shows its work, which is gold for verifying answers'.",
+      "quantVariants": [
+        {
+          "tag": "deepseek-r1:8b",
+          "label": "Q4_K_M (recommended)",
+          "storage": "~5.2GB",
+          "quality": "Good",
+          "speed": "Fast"
+        },
+        {
+          "tag": "deepseek-r1:8b-q8_0",
+          "label": "Q8 (high quality)",
+          "storage": "~9GB",
+          "quality": "Excellent",
+          "speed": "Moderate"
+        }
+      ],
+      "expectations": {
+        "startupTime": "20-30 seconds",
+        "storage": "~5GB",
+        "setupTime": "~5 minutes",
+        "difficulty": "Easy",
+        "internetRequired": "No",
+        "privacy": "Fully local"
+      },
+      "modelfileTemplate": "FROM deepseek-r1:8b\nSYSTEM \"You are a helpful assistant.\"\nPARAMETER temperature 0.7\nPARAMETER num_ctx 4096",
+      "bestForDisplay": [
+        "Complex reasoning",
+        "AI agent workflows",
+        "Coding help and review",
+        "Research and summarization"
+      ],
+      "why": [
+        "DeepSeek's reasoning model - think step by step before answering. Excellent for ...",
+        "One command install, best reasoning model in its size class.",
+        "Free forever — no subscription needed",
+        "Fully private — your data stays local"
+      ],
+      "whyNot": {
+        "high-end-gpu": "Consider a larger model if you have VRAM to spare"
+      },
+      "starterPrompts": {
+        "general": [
+          "Explain [topic] in simple terms",
+          "Help me write a professional email about [subject]",
+          "Summarize this text: [paste text]"
+        ],
+        "coding": [
+          "Review this code and suggest improvements: [paste code]",
+          "Write a Python function that [describe task]",
+          "Explain what this error means: [paste error]"
+        ],
+        "writing": [
+          "Improve the tone of this paragraph: [paste text]",
+          "Write an introduction for an article about [topic]",
+          "Make this more concise: [paste text]"
+        ]
+      },
+      "careerFit": [
+        "software-developer",
+        "student",
+        "content-creator",
+        "researcher"
+      ],
+      "platformType": "local",
+      "upgradeFrom": null,
+      "upgradeTo": null
     },
     {
-      "id": "qwen-3-7b-silicon",
+      "id": "qwen-2-5-7b-silicon",
       "name": "Qwen 2.5 7B (Apple Silicon)",
       "fullName": "qwen2.5:7b",
       "size": "7B",
@@ -455,7 +1172,80 @@
       "description": "Fast on Apple Silicon with Metal. Great all-rounder for M1/M2/M3 Macs with 16GB. Handles coding, writing, and chat at speeds that feel natural.",
       "toolRecommendation": "Ollama",
       "toolRecommendationReason": "Metal GPU acceleration works out of the box on Mac. No extra setup needed.",
-      "successStory": "A designer uses this on a MacBook Pro M2 16GB for coding side projects and writing. Says it 'never freezes my machine like cloud AI does'."
+      "successStory": "A designer uses this on a MacBook Pro M2 16GB for coding side projects and writing. Says it 'never freezes my machine like cloud AI does'.",
+      "quantVariants": [
+        {
+          "tag": "qwen2.5:7b",
+          "label": "Q4_K_M (recommended)",
+          "storage": "~4.7GB",
+          "quality": "Good",
+          "speed": "Fast"
+        },
+        {
+          "tag": "qwen2.5:7b-q8_0",
+          "label": "Q8 (high quality)",
+          "storage": "~7.7GB",
+          "quality": "Excellent",
+          "speed": "Moderate"
+        },
+        {
+          "tag": "qwen2.5:7b-fp16",
+          "label": "FP16 (maximum)",
+          "storage": "~14GB",
+          "quality": "Best",
+          "speed": "Slow"
+        }
+      ],
+      "expectations": {
+        "startupTime": "20-30 seconds",
+        "storage": "~5GB",
+        "setupTime": "~5 minutes",
+        "difficulty": "Easy",
+        "internetRequired": "No",
+        "privacy": "Fully local"
+      },
+      "modelfileTemplate": "FROM qwen2.5:7b\nSYSTEM \"You are a helpful assistant.\"\nPARAMETER temperature 0.7\nPARAMETER num_ctx 4096",
+      "bestForDisplay": [
+        "Personal ChatGPT replacement",
+        "Coding help and review",
+        "Writing and editing",
+        "AI agent workflows"
+      ],
+      "why": [
+        "Fast on Apple Silicon with Metal. Great all-rounder for M1/M2/M3 Macs with 16GB....",
+        "Metal GPU acceleration works out of the box on Mac. No extra setup needed.",
+        "Free forever — no subscription needed",
+        "Fully private — your data stays local"
+      ],
+      "whyNot": {
+        "high-end-gpu": "Consider a larger model if you have VRAM to spare"
+      },
+      "starterPrompts": {
+        "general": [
+          "Explain [topic] in simple terms",
+          "Help me write a professional email about [subject]",
+          "Summarize this text: [paste text]"
+        ],
+        "coding": [
+          "Review this code and suggest improvements: [paste code]",
+          "Write a Python function that [describe task]",
+          "Explain what this error means: [paste error]"
+        ],
+        "writing": [
+          "Improve the tone of this paragraph: [paste text]",
+          "Write an introduction for an article about [topic]",
+          "Make this more concise: [paste text]"
+        ]
+      },
+      "careerFit": [
+        "software-developer",
+        "student",
+        "content-creator",
+        "researcher"
+      ],
+      "platformType": "local",
+      "upgradeFrom": null,
+      "upgradeTo": "qwen-2-5-7b-silicon"
     },
     {
       "id": "llama-3-1-8b-silicon",
@@ -486,7 +1276,71 @@
       "description": "Meta's flagship 8B model. Excellent chat quality and well-aligned responses. Metal makes this feel snappy on Mac.",
       "toolRecommendation": "Ollama",
       "toolRecommendationReason": "Native Mac support, Metal GPU acceleration, one command install.",
-      "successStory": "A writer uses this on a MacBook Air M2 for brainstorming and drafting. Says it's 'like having a thoughtful editor available at 2am'."
+      "successStory": "A writer uses this on a MacBook Air M2 for brainstorming and drafting. Says it's 'like having a thoughtful editor available at 2am'.",
+      "quantVariants": [
+        {
+          "tag": "deepseek-r1:8b",
+          "label": "Q4_K_M (recommended)",
+          "storage": "~5.2GB",
+          "quality": "Good",
+          "speed": "Fast"
+        },
+        {
+          "tag": "deepseek-r1:8b-q8_0",
+          "label": "Q8 (high quality)",
+          "storage": "~9GB",
+          "quality": "Excellent",
+          "speed": "Moderate"
+        }
+      ],
+      "expectations": {
+        "startupTime": "20-30 seconds",
+        "storage": "~5GB",
+        "setupTime": "~5 minutes",
+        "difficulty": "Easy",
+        "internetRequired": "No",
+        "privacy": "Fully local"
+      },
+      "modelfileTemplate": "FROM llama3.1:8b\nSYSTEM \"You are a helpful assistant.\"\nPARAMETER temperature 0.7\nPARAMETER num_ctx 4096",
+      "bestForDisplay": [
+        "Personal ChatGPT replacement",
+        "Writing and editing",
+        "Complex reasoning"
+      ],
+      "why": [
+        "Meta's flagship 8B model. Excellent chat quality and well-aligned responses. Met...",
+        "Native Mac support, Metal GPU acceleration, one command install.",
+        "Free forever — no subscription needed",
+        "Fully private — your data stays local"
+      ],
+      "whyNot": {
+        "high-end-gpu": "Consider a larger model if you have VRAM to spare"
+      },
+      "starterPrompts": {
+        "general": [
+          "Explain [topic] in simple terms",
+          "Help me write a professional email about [subject]",
+          "Summarize this text: [paste text]"
+        ],
+        "coding": [
+          "Help me understand this concept better",
+          "Give me examples of [topic]"
+        ],
+        "writing": [
+          "Improve the tone of this paragraph: [paste text]",
+          "Write an introduction for an article about [topic]",
+          "Make this more concise: [paste text]"
+        ]
+      },
+      "careerFit": [
+        "software-developer",
+        "student",
+        "content-creator",
+        "researcher"
+      ],
+      "platformType": "local",
+      "upgradeFrom": null,
+      "upgradeTo": null
     },
     {
       "id": "qwen-3-14b-silicon",
@@ -518,7 +1372,73 @@
       "description": "The sweet spot for MacBook Pro M3 Pro or Mac Studio M2 Ultra. Significantly better than 7B models. Runs at good speeds with Metal on 24GB+ unified memory.",
       "toolRecommendation": "Ollama",
       "toolRecommendationReason": "Metal backend on Mac handles 14B well with unified memory architecture.",
-      "successStory": "A developer runs this on a Mac Studio M2 Ultra 64GB. Says it 'replaces Copilot for most tasks and my laptop stays cool'."
+      "successStory": "A developer runs this on a Mac Studio M2 Ultra 64GB. Says it 'replaces Copilot for most tasks and my laptop stays cool'.",
+      "quantVariants": [
+        {
+          "tag": "qwen3:14b",
+          "label": "Q4_K_M (recommended)",
+          "storage": "~9GB",
+          "quality": "Good",
+          "speed": "Fast"
+        },
+        {
+          "tag": "qwen3:14b-q8_0",
+          "label": "Q8 (high quality)",
+          "storage": "~15GB",
+          "quality": "Excellent",
+          "speed": "Moderate"
+        }
+      ],
+      "expectations": {
+        "startupTime": "20-30 seconds",
+        "storage": "~9GB",
+        "setupTime": "~5 minutes",
+        "difficulty": "Easy",
+        "internetRequired": "No",
+        "privacy": "Fully local"
+      },
+      "modelfileTemplate": "FROM qwen3:14b\nSYSTEM \"You are a helpful assistant.\"\nPARAMETER temperature 0.7\nPARAMETER num_ctx 4096",
+      "bestForDisplay": [
+        "Coding help and review",
+        "AI agent workflows",
+        "Research and summarization",
+        "Writing and editing"
+      ],
+      "why": [
+        "The sweet spot for MacBook Pro M3 Pro or Mac Studio M2 Ultra. Significantly bett...",
+        "Metal backend on Mac handles 14B well with unified memory architecture.",
+        "Free forever — no subscription needed",
+        "Fully private — your data stays local"
+      ],
+      "whyNot": {
+        "high-end-gpu": "Consider a larger model if you have VRAM to spare"
+      },
+      "starterPrompts": {
+        "general": [
+          "Explain [topic] in simple terms",
+          "Help me write a professional email about [subject]",
+          "Summarize this text: [paste text]"
+        ],
+        "coding": [
+          "Review this code and suggest improvements: [paste code]",
+          "Write a Python function that [describe task]",
+          "Explain what this error means: [paste error]"
+        ],
+        "writing": [
+          "Improve the tone of this paragraph: [paste text]",
+          "Write an introduction for an article about [topic]",
+          "Make this more concise: [paste text]"
+        ]
+      },
+      "careerFit": [
+        "software-developer",
+        "student",
+        "content-creator",
+        "researcher"
+      ],
+      "platformType": "local",
+      "upgradeFrom": null,
+      "upgradeTo": null
     },
     {
       "id": "qwen-3-5-27b-silicon",
@@ -550,7 +1470,73 @@
       "description": "Top-tier model on Mac Studio M2 Ultra 128GB or MacBook Pro M3 Max 64GB+. Matches or beats Claude 3.5 Sonnet on many tasks. Metal makes this surprisingly practical on Apple hardware.",
       "toolRecommendation": "Ollama",
       "toolRecommendationReason": "Unified memory on Mac means no VRAM bottleneck. 128GB Mac Studio can run this at full speed.",
-      "successStory": "A founder runs their entire startup's AI stack on a Mac Studio M2 Ultra 128GB - coding, research, writing, and customer support. Says it's 'essentially a senior developer on call 24/7'."
+      "successStory": "A founder runs their entire startup's AI stack on a Mac Studio M2 Ultra 128GB - coding, research, writing, and customer support. Says it's 'essentially a senior developer on call 24/7'.",
+      "quantVariants": [
+        {
+          "tag": "qwen3.5:27b",
+          "label": "Q4_K_M (recommended)",
+          "storage": "~16.5GB",
+          "quality": "Good",
+          "speed": "Fast"
+        },
+        {
+          "tag": "qwen3.5:27b-q8_0",
+          "label": "Q8 (high quality)",
+          "storage": "~28GB",
+          "quality": "Excellent",
+          "speed": "Slow"
+        }
+      ],
+      "expectations": {
+        "startupTime": "20-30 seconds",
+        "storage": "~17GB",
+        "setupTime": "~5 minutes",
+        "difficulty": "Medium",
+        "internetRequired": "No",
+        "privacy": "Fully local"
+      },
+      "modelfileTemplate": "FROM qwen3.5:27b\nSYSTEM \"You are a helpful assistant.\"\nPARAMETER temperature 0.7\nPARAMETER num_ctx 4096",
+      "bestForDisplay": [
+        "Coding help and review",
+        "AI agent workflows",
+        "Research and summarization",
+        "Writing and editing"
+      ],
+      "why": [
+        "Top-tier model on Mac Studio M2 Ultra 128GB or MacBook Pro M3 Max 64GB+. Matches...",
+        "Unified memory on Mac means no VRAM bottleneck. 128GB Mac Studio can run this at full speed.",
+        "Free forever — no subscription needed",
+        "Fully private — your data stays local"
+      ],
+      "whyNot": {
+        "high-end-gpu": "Consider a larger model if you have VRAM to spare"
+      },
+      "starterPrompts": {
+        "general": [
+          "Explain [topic] in simple terms",
+          "Help me write a professional email about [subject]",
+          "Summarize this text: [paste text]"
+        ],
+        "coding": [
+          "Review this code and suggest improvements: [paste code]",
+          "Write a Python function that [describe task]",
+          "Explain what this error means: [paste error]"
+        ],
+        "writing": [
+          "Improve the tone of this paragraph: [paste text]",
+          "Write an introduction for an article about [topic]",
+          "Make this more concise: [paste text]"
+        ]
+      },
+      "careerFit": [
+        "software-developer",
+        "student",
+        "content-creator",
+        "researcher"
+      ],
+      "platformType": "local",
+      "upgradeFrom": null,
+      "upgradeTo": null
     },
     {
       "id": "llama-3-1-8b-instant-groq",
@@ -580,7 +1566,70 @@
       "description": "Ultra-fast inference (1000 TPS) via Groq's LPU hardware. Great for batch processing and real-time chat.",
       "toolRecommendation": "Groq Console",
       "toolRecommendationReason": "14,400 RPD free tier",
-      "highlight": true
+      "highlight": true,
+      "quantVariants": [
+        {
+          "tag": "deepseek-r1:8b",
+          "label": "Q4_K_M (recommended)",
+          "storage": "~5.2GB",
+          "quality": "Good",
+          "speed": "Fast"
+        },
+        {
+          "tag": "deepseek-r1:8b-q8_0",
+          "label": "Q8 (high quality)",
+          "storage": "~9GB",
+          "quality": "Excellent",
+          "speed": "Moderate"
+        }
+      ],
+      "expectations": {
+        "startupTime": "20-30 seconds",
+        "storage": "~5GB",
+        "setupTime": "~5 minutes",
+        "difficulty": "Easy",
+        "internetRequired": "No",
+        "privacy": "Fully local"
+      },
+      "modelfileTemplate": "FROM groq/llama-3.1-8b-instant\nSYSTEM \"You are a helpful assistant.\"\nPARAMETER temperature 0.7\nPARAMETER num_ctx 4096",
+      "bestForDisplay": [
+        "Personal ChatGPT replacement",
+        "AI agent workflows"
+      ],
+      "why": [
+        "Ultra-fast inference (1000 TPS) via Groq's LPU hardware. Great for batch process...",
+        "14,400 RPD free tier",
+        "Free forever — no subscription needed",
+        "Fully private — your data stays local"
+      ],
+      "whyNot": {
+        "high-end-gpu": "Consider a larger model if you have VRAM to spare"
+      },
+      "starterPrompts": {
+        "general": [
+          "Explain [topic] in simple terms",
+          "Help me write a professional email about [subject]",
+          "Summarize this text: [paste text]"
+        ],
+        "coding": [
+          "Help me understand this concept better",
+          "Give me examples of [topic]"
+        ],
+        "writing": [
+          "Improve the tone of this paragraph: [paste text]",
+          "Write an introduction for an article about [topic]",
+          "Make this more concise: [paste text]"
+        ]
+      },
+      "careerFit": [
+        "software-developer",
+        "student",
+        "content-creator",
+        "researcher"
+      ],
+      "platformType": "local",
+      "upgradeFrom": null,
+      "upgradeTo": null
     },
     {
       "id": "llama-4-scout-groq",
@@ -610,7 +1659,63 @@
       "description": "Fast inference with Llama 4 Scout. Good for fast overrides and chat.",
       "toolRecommendation": "Groq Console",
       "toolRecommendationReason": "30K TPM free tier",
-      "highlight": false
+      "highlight": false,
+      "quantVariants": [
+        {
+          "tag": "groq/llama-4-scout",
+          "label": "Q4_K_M (recommended)",
+          "storage": "~5GB",
+          "quality": "Good",
+          "speed": "Fast"
+        }
+      ],
+      "expectations": {
+        "startupTime": "20-30 seconds",
+        "storage": "~5GB",
+        "setupTime": "~5 minutes",
+        "difficulty": "Easy",
+        "internetRequired": "No",
+        "privacy": "Fully local"
+      },
+      "modelfileTemplate": "FROM groq/llama-4-scout\nSYSTEM \"You are a helpful assistant.\"\nPARAMETER temperature 0.7\nPARAMETER num_ctx 4096",
+      "bestForDisplay": [
+        "Personal ChatGPT replacement",
+        "Writing and editing"
+      ],
+      "why": [
+        "Fast inference with Llama 4 Scout. Good for fast overrides and chat....",
+        "30K TPM free tier",
+        "Free forever — no subscription needed",
+        "Fully private — your data stays local"
+      ],
+      "whyNot": {
+        "high-end-gpu": "Consider a larger model if you have VRAM to spare"
+      },
+      "starterPrompts": {
+        "general": [
+          "Explain [topic] in simple terms",
+          "Help me write a professional email about [subject]",
+          "Summarize this text: [paste text]"
+        ],
+        "coding": [
+          "Help me understand this concept better",
+          "Give me examples of [topic]"
+        ],
+        "writing": [
+          "Improve the tone of this paragraph: [paste text]",
+          "Write an introduction for an article about [topic]",
+          "Make this more concise: [paste text]"
+        ]
+      },
+      "careerFit": [
+        "software-developer",
+        "student",
+        "content-creator",
+        "researcher"
+      ],
+      "platformType": "local",
+      "upgradeFrom": null,
+      "upgradeTo": null
     },
     {
       "id": "qwen3-32b-groq",
@@ -641,7 +1746,65 @@
       "description": "Top-tier coding and bilingual model running at 600 TPS on Groq.",
       "toolRecommendation": "Groq Console",
       "toolRecommendationReason": "60 RPM free tier",
-      "highlight": true
+      "highlight": true,
+      "quantVariants": [
+        {
+          "tag": "groq/qwen3-32b",
+          "label": "Q4_K_M (recommended)",
+          "storage": "~5GB",
+          "quality": "Good",
+          "speed": "Fast"
+        }
+      ],
+      "expectations": {
+        "startupTime": "20-30 seconds",
+        "storage": "~5GB",
+        "setupTime": "~5 minutes",
+        "difficulty": "Easy",
+        "internetRequired": "No",
+        "privacy": "Fully local"
+      },
+      "modelfileTemplate": "FROM groq/qwen3-32b\nSYSTEM \"You are a helpful assistant.\"\nPARAMETER temperature 0.7\nPARAMETER num_ctx 4096",
+      "bestForDisplay": [
+        "Coding help and review",
+        "Personal ChatGPT replacement",
+        "Research and summarization"
+      ],
+      "why": [
+        "Top-tier coding and bilingual model running at 600 TPS on Groq....",
+        "60 RPM free tier",
+        "Free forever — no subscription needed",
+        "Fully private — your data stays local"
+      ],
+      "whyNot": {
+        "high-end-gpu": "Consider a larger model if you have VRAM to spare"
+      },
+      "starterPrompts": {
+        "general": [
+          "Explain [topic] in simple terms",
+          "Help me write a professional email about [subject]",
+          "Summarize this text: [paste text]"
+        ],
+        "coding": [
+          "Review this code and suggest improvements: [paste code]",
+          "Write a Python function that [describe task]",
+          "Explain what this error means: [paste error]"
+        ],
+        "writing": [
+          "Improve the tone of this paragraph: [paste text]",
+          "Write an introduction for an article about [topic]",
+          "Make this more concise: [paste text]"
+        ]
+      },
+      "careerFit": [
+        "software-developer",
+        "student",
+        "content-creator",
+        "researcher"
+      ],
+      "platformType": "local",
+      "upgradeFrom": null,
+      "upgradeTo": null
     },
     {
       "id": "llama-3-3-70b-groq",
@@ -672,7 +1835,64 @@
       "description": "General-purpose heavyweight model with fast batch ranking. 400 TPS.",
       "toolRecommendation": "Groq Console",
       "toolRecommendationReason": "12K TPM free tier",
-      "highlight": true
+      "highlight": true,
+      "quantVariants": [
+        {
+          "tag": "groq/llama-3.3-70b",
+          "label": "Q4_K_M (recommended)",
+          "storage": "~5GB",
+          "quality": "Good",
+          "speed": "Fast"
+        }
+      ],
+      "expectations": {
+        "startupTime": "20-30 seconds",
+        "storage": "~5GB",
+        "setupTime": "~5 minutes",
+        "difficulty": "Easy",
+        "internetRequired": "No",
+        "privacy": "Fully local"
+      },
+      "modelfileTemplate": "FROM groq/llama-3.3-70b\nSYSTEM \"You are a helpful assistant.\"\nPARAMETER temperature 0.7\nPARAMETER num_ctx 4096",
+      "bestForDisplay": [
+        "Personal ChatGPT replacement",
+        "Complex reasoning",
+        "AI agent workflows"
+      ],
+      "why": [
+        "General-purpose heavyweight model with fast batch ranking. 400 TPS....",
+        "12K TPM free tier",
+        "Free forever — no subscription needed",
+        "Fully private — your data stays local"
+      ],
+      "whyNot": {
+        "high-end-gpu": "Consider a larger model if you have VRAM to spare"
+      },
+      "starterPrompts": {
+        "general": [
+          "Explain [topic] in simple terms",
+          "Help me write a professional email about [subject]",
+          "Summarize this text: [paste text]"
+        ],
+        "coding": [
+          "Help me understand this concept better",
+          "Give me examples of [topic]"
+        ],
+        "writing": [
+          "Improve the tone of this paragraph: [paste text]",
+          "Write an introduction for an article about [topic]",
+          "Make this more concise: [paste text]"
+        ]
+      },
+      "careerFit": [
+        "software-developer",
+        "student",
+        "content-creator",
+        "researcher"
+      ],
+      "platformType": "local",
+      "upgradeFrom": null,
+      "upgradeTo": null
     },
     {
       "id": "gpt-oss-120b-cerebras",
@@ -703,7 +1923,65 @@
       "description": "Maximum speed for a large model. ~3,000 TPS on Cerebras Wafer-Scale hardware.",
       "toolRecommendation": "Cerebras Console",
       "toolRecommendationReason": "1M tokens/day",
-      "highlight": true
+      "highlight": true,
+      "quantVariants": [
+        {
+          "tag": "cerebras/gpt-oss-120b",
+          "label": "Q4_K_M (recommended)",
+          "storage": "~5GB",
+          "quality": "Good",
+          "speed": "Fast"
+        }
+      ],
+      "expectations": {
+        "startupTime": "20-30 seconds",
+        "storage": "~5GB",
+        "setupTime": "~5 minutes",
+        "difficulty": "Easy",
+        "internetRequired": "No",
+        "privacy": "Fully local"
+      },
+      "modelfileTemplate": "FROM cerebras/gpt-oss-120b\nSYSTEM \"You are a helpful assistant.\"\nPARAMETER temperature 0.7\nPARAMETER num_ctx 4096",
+      "bestForDisplay": [
+        "Complex reasoning",
+        "Coding help and review",
+        "Research and summarization"
+      ],
+      "why": [
+        "Maximum speed for a large model. ~3,000 TPS on Cerebras Wafer-Scale hardware....",
+        "1M tokens/day",
+        "Free forever — no subscription needed",
+        "Fully private — your data stays local"
+      ],
+      "whyNot": {
+        "high-end-gpu": "Consider a larger model if you have VRAM to spare"
+      },
+      "starterPrompts": {
+        "general": [
+          "Explain [topic] in simple terms",
+          "Help me write a professional email about [subject]",
+          "Summarize this text: [paste text]"
+        ],
+        "coding": [
+          "Review this code and suggest improvements: [paste code]",
+          "Write a Python function that [describe task]",
+          "Explain what this error means: [paste error]"
+        ],
+        "writing": [
+          "Improve the tone of this paragraph: [paste text]",
+          "Write an introduction for an article about [topic]",
+          "Make this more concise: [paste text]"
+        ]
+      },
+      "careerFit": [
+        "software-developer",
+        "student",
+        "content-creator",
+        "researcher"
+      ],
+      "platformType": "local",
+      "upgradeFrom": null,
+      "upgradeTo": null
     },
     {
       "id": "llama-3-1-8b-cerebras",
@@ -733,7 +2011,70 @@
       "description": "2,600+ TPS on Cerebras. Incredible for batch processing.",
       "toolRecommendation": "Cerebras Console",
       "toolRecommendationReason": "Wafer-scale speed",
-      "highlight": false
+      "highlight": false,
+      "quantVariants": [
+        {
+          "tag": "deepseek-r1:8b",
+          "label": "Q4_K_M (recommended)",
+          "storage": "~5.2GB",
+          "quality": "Good",
+          "speed": "Fast"
+        },
+        {
+          "tag": "deepseek-r1:8b-q8_0",
+          "label": "Q8 (high quality)",
+          "storage": "~9GB",
+          "quality": "Excellent",
+          "speed": "Moderate"
+        }
+      ],
+      "expectations": {
+        "startupTime": "20-30 seconds",
+        "storage": "~5GB",
+        "setupTime": "~5 minutes",
+        "difficulty": "Easy",
+        "internetRequired": "No",
+        "privacy": "Fully local"
+      },
+      "modelfileTemplate": "FROM cerebras/llama-3.1-8b\nSYSTEM \"You are a helpful assistant.\"\nPARAMETER temperature 0.7\nPARAMETER num_ctx 4096",
+      "bestForDisplay": [
+        "Personal ChatGPT replacement",
+        "AI agent workflows"
+      ],
+      "why": [
+        "2,600+ TPS on Cerebras. Incredible for batch processing....",
+        "Wafer-scale speed",
+        "Free forever — no subscription needed",
+        "Fully private — your data stays local"
+      ],
+      "whyNot": {
+        "high-end-gpu": "Consider a larger model if you have VRAM to spare"
+      },
+      "starterPrompts": {
+        "general": [
+          "Explain [topic] in simple terms",
+          "Help me write a professional email about [subject]",
+          "Summarize this text: [paste text]"
+        ],
+        "coding": [
+          "Help me understand this concept better",
+          "Give me examples of [topic]"
+        ],
+        "writing": [
+          "Improve the tone of this paragraph: [paste text]",
+          "Write an introduction for an article about [topic]",
+          "Make this more concise: [paste text]"
+        ]
+      },
+      "careerFit": [
+        "software-developer",
+        "student",
+        "content-creator",
+        "researcher"
+      ],
+      "platformType": "local",
+      "upgradeFrom": null,
+      "upgradeTo": null
     },
     {
       "id": "deepseek-r1-openrouter",
@@ -764,7 +2105,65 @@
       "description": "Top-tier reasoning model with visible Chain of Thought. Excellent for RLHF ranking and failure taxonomy.",
       "toolRecommendation": "OpenRouter",
       "toolRecommendationReason": "Standardized API with failover",
-      "highlight": true
+      "highlight": true,
+      "quantVariants": [
+        {
+          "tag": "openrouter/deepseek-r1",
+          "label": "Q4_K_M (recommended)",
+          "storage": "~5GB",
+          "quality": "Good",
+          "speed": "Fast"
+        }
+      ],
+      "expectations": {
+        "startupTime": "20-30 seconds",
+        "storage": "~5GB",
+        "setupTime": "~5 minutes",
+        "difficulty": "Easy",
+        "internetRequired": "No",
+        "privacy": "Fully local"
+      },
+      "modelfileTemplate": "FROM openrouter/deepseek-r1\nSYSTEM \"You are a helpful assistant.\"\nPARAMETER temperature 0.7\nPARAMETER num_ctx 4096",
+      "bestForDisplay": [
+        "Complex reasoning",
+        "Coding help and review",
+        "Research and summarization"
+      ],
+      "why": [
+        "Top-tier reasoning model with visible Chain of Thought. Excellent for RLHF ranki...",
+        "Standardized API with failover",
+        "Free forever — no subscription needed",
+        "Fully private — your data stays local"
+      ],
+      "whyNot": {
+        "high-end-gpu": "Consider a larger model if you have VRAM to spare"
+      },
+      "starterPrompts": {
+        "general": [
+          "Explain [topic] in simple terms",
+          "Help me write a professional email about [subject]",
+          "Summarize this text: [paste text]"
+        ],
+        "coding": [
+          "Review this code and suggest improvements: [paste code]",
+          "Write a Python function that [describe task]",
+          "Explain what this error means: [paste error]"
+        ],
+        "writing": [
+          "Improve the tone of this paragraph: [paste text]",
+          "Write an introduction for an article about [topic]",
+          "Make this more concise: [paste text]"
+        ]
+      },
+      "careerFit": [
+        "software-developer",
+        "student",
+        "content-creator",
+        "researcher"
+      ],
+      "platformType": "local",
+      "upgradeFrom": null,
+      "upgradeTo": null
     },
     {
       "id": "gemini-2-5-flash",
@@ -795,7 +2194,64 @@
       "description": "Native search grounding, 1M context, and excellent multimodal capabilities.",
       "toolRecommendation": "Google AI Studio",
       "toolRecommendationReason": "1,500 req/day",
-      "highlight": true
+      "highlight": true,
+      "quantVariants": [
+        {
+          "tag": "google/gemini-2.5-flash",
+          "label": "Q4_K_M (recommended)",
+          "storage": "~5GB",
+          "quality": "Good",
+          "speed": "Fast"
+        }
+      ],
+      "expectations": {
+        "startupTime": "20-30 seconds",
+        "storage": "~5GB",
+        "setupTime": "~5 minutes",
+        "difficulty": "Easy",
+        "internetRequired": "No",
+        "privacy": "Fully local"
+      },
+      "modelfileTemplate": "FROM google/gemini-2.5-flash\nSYSTEM \"You are a helpful assistant.\"\nPARAMETER temperature 0.7\nPARAMETER num_ctx 4096",
+      "bestForDisplay": [
+        "Personal ChatGPT replacement",
+        "Research and summarization",
+        "multimodal"
+      ],
+      "why": [
+        "Native search grounding, 1M context, and excellent multimodal capabilities....",
+        "1,500 req/day",
+        "Free forever — no subscription needed",
+        "Fully private — your data stays local"
+      ],
+      "whyNot": {
+        "high-end-gpu": "Consider a larger model if you have VRAM to spare"
+      },
+      "starterPrompts": {
+        "general": [
+          "Explain [topic] in simple terms",
+          "Help me write a professional email about [subject]",
+          "Summarize this text: [paste text]"
+        ],
+        "coding": [
+          "Help me understand this concept better",
+          "Give me examples of [topic]"
+        ],
+        "writing": [
+          "Improve the tone of this paragraph: [paste text]",
+          "Write an introduction for an article about [topic]",
+          "Make this more concise: [paste text]"
+        ]
+      },
+      "careerFit": [
+        "software-developer",
+        "student",
+        "content-creator",
+        "researcher"
+      ],
+      "platformType": "local",
+      "upgradeFrom": null,
+      "upgradeTo": null
     },
     {
       "id": "nex-n2-pro-siliconflow",
@@ -824,7 +2280,62 @@
       "description": "Effectively $0/M tokens on SiliconFlow. Good for basic screening and chat.",
       "toolRecommendation": "SiliconFlow",
       "toolRecommendationReason": "Free screening",
-      "highlight": false
+      "highlight": false,
+      "quantVariants": [
+        {
+          "tag": "siliconflow/nex-n2-pro",
+          "label": "Q4_K_M (recommended)",
+          "storage": "~5GB",
+          "quality": "Good",
+          "speed": "Fast"
+        }
+      ],
+      "expectations": {
+        "startupTime": "20-30 seconds",
+        "storage": "~5GB",
+        "setupTime": "~5 minutes",
+        "difficulty": "Easy",
+        "internetRequired": "No",
+        "privacy": "Fully local"
+      },
+      "modelfileTemplate": "FROM siliconflow/nex-n2-pro\nSYSTEM \"You are a helpful assistant.\"\nPARAMETER temperature 0.7\nPARAMETER num_ctx 4096",
+      "bestForDisplay": [
+        "Personal ChatGPT replacement"
+      ],
+      "why": [
+        "Effectively $0/M tokens on SiliconFlow. Good for basic screening and chat....",
+        "Free screening",
+        "Free forever — no subscription needed",
+        "Fully private — your data stays local"
+      ],
+      "whyNot": {
+        "high-end-gpu": "Consider a larger model if you have VRAM to spare"
+      },
+      "starterPrompts": {
+        "general": [
+          "Explain [topic] in simple terms",
+          "Help me write a professional email about [subject]",
+          "Summarize this text: [paste text]"
+        ],
+        "coding": [
+          "Help me understand this concept better",
+          "Give me examples of [topic]"
+        ],
+        "writing": [
+          "Improve the tone of this paragraph: [paste text]",
+          "Write an introduction for an article about [topic]",
+          "Make this more concise: [paste text]"
+        ]
+      },
+      "careerFit": [
+        "software-developer",
+        "student",
+        "content-creator",
+        "researcher"
+      ],
+      "platformType": "local",
+      "upgradeFrom": null,
+      "upgradeTo": null
     },
     {
       "id": "nvidia-nemotron-ultra",
@@ -854,7 +2365,64 @@
       "description": "1M context window, high-quality reasoning, especially strong in cybersecurity eval.",
       "toolRecommendation": "OpenRouter",
       "toolRecommendationReason": "1M context",
-      "highlight": true
+      "highlight": true,
+      "quantVariants": [
+        {
+          "tag": "openrouter/nemotron-ultra",
+          "label": "Q4_K_M (recommended)",
+          "storage": "~5GB",
+          "quality": "Good",
+          "speed": "Fast"
+        }
+      ],
+      "expectations": {
+        "startupTime": "20-30 seconds",
+        "storage": "~5GB",
+        "setupTime": "~5 minutes",
+        "difficulty": "Easy",
+        "internetRequired": "No",
+        "privacy": "Fully local"
+      },
+      "modelfileTemplate": "FROM openrouter/nemotron-ultra\nSYSTEM \"You are a helpful assistant.\"\nPARAMETER temperature 0.7\nPARAMETER num_ctx 4096",
+      "bestForDisplay": [
+        "Complex reasoning",
+        "Coding help and review"
+      ],
+      "why": [
+        "1M context window, high-quality reasoning, especially strong in cybersecurity ev...",
+        "1M context",
+        "Free forever — no subscription needed",
+        "Fully private — your data stays local"
+      ],
+      "whyNot": {
+        "high-end-gpu": "Consider a larger model if you have VRAM to spare"
+      },
+      "starterPrompts": {
+        "general": [
+          "Explain [topic] in simple terms",
+          "Help me write a professional email about [subject]",
+          "Summarize this text: [paste text]"
+        ],
+        "coding": [
+          "Review this code and suggest improvements: [paste code]",
+          "Write a Python function that [describe task]",
+          "Explain what this error means: [paste error]"
+        ],
+        "writing": [
+          "Improve the tone of this paragraph: [paste text]",
+          "Write an introduction for an article about [topic]",
+          "Make this more concise: [paste text]"
+        ]
+      },
+      "careerFit": [
+        "software-developer",
+        "student",
+        "content-creator",
+        "researcher"
+      ],
+      "platformType": "local",
+      "upgradeFrom": null,
+      "upgradeTo": null
     }
   ]
 }

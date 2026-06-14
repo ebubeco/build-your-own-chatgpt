@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="google-site-verification" content="5YRiOefTK9mTwEJEnLIH6BQ5xmP0NkwyfiaBWZJbdCg">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="See how much you save with local AI vs ChatGPT Plus, Pro, and GitHub Copilot. Interactive break-even calculator included.">
+  <meta property="og:title" content="Local AI Cost vs Cloud — How Much You Save Calculator">
+  <meta property="og:description" content="Compare local AI vs cloud costs. Break-even calculator shows when your hardware pays for itself.">
+  <meta property="og:image" content="https://build-your-own-chatgpt.vercel.app/og-image.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <title>Local AI Cost vs Cloud — How Much You Save Calculator</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script>!function(){var t=localStorage.getItem('theme');if(t==='dark'||(t===null&&window.matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark')}();</script>
+  <script async src="https://plausible.io/js/pa-DBTdINzLX2L2B_fXJF0u1.js"></script>
+  <script>window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()</script>
+  <style>
+    :root{--card-bg:var(--bg-card);--rating-bar-h:6px;--rating-bar-radius:3px}
+    .cost-page{max-width:960px;margin:0 auto;padding:0 1.5rem 3rem}
+    .cost-page h1{font-family:'Outfit',sans-serif;font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;letter-spacing:-0.02em;margin:2rem 0 .5rem}
+    .cost-page .subtitle{color:var(--text-secondary);font-size:1rem;margin-bottom:2rem}
+    .comp-card{background:var(--bg-card);border:1.5px solid var(--border);border-radius:var(--radius);padding:1.25rem;margin-bottom:1.5rem;transition:all var(--transition)}
+    .comp-card:hover{border-color:var(--accent);box-shadow:var(--shadow-glow)}
+    .comp-card h2{font-family:'Outfit',sans-serif;font-size:1.2rem;font-weight:700;margin-bottom:1rem}
+    .comp-split{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+    @media(max-width:640px){.comp-split{grid-template-columns:1fr}}
+    .side-card{border:1px solid var(--border);border-radius:var(--radius-sm);padding:1rem;background:var(--surface)}
+    .side-card.local{border-color:var(--green)}
+    .side-card.cloud{border-color:var(--accent)}
+    .side-card h3{font-size:.95rem;font-weight:700;margin-bottom:.3rem}
+    .side-card .price{font-size:1.5rem;font-weight:800;color:var(--text);margin:.3rem 0}
+    .side-card .price span{font-size:.8rem;font-weight:400;color:var(--text-tertiary)}
+    .side-card .notes{font-size:.78rem;color:var(--text-secondary);line-height:1.5}
+    .rating-row{display:flex;align-items:center;gap:.5rem;margin-top:.5rem;font-size:.78rem;font-weight:600}
+    .rating-bar{flex:1;height:var(--rating-bar-h);background:var(--border);border-radius:var(--rating-bar-radius);overflow:hidden}
+    .rating-fill{height:100%;border-radius:var(--rating-bar-radius);transition:width .6s ease}
+    .rating-fill.green{background:var(--green)}
+    .rating-fill.amber{background:var(--amber)}
+    .rating-fill.accent{background:var(--accent)}
+    .be-section{background:var(--bg-card);border:1.5px solid var(--border);border-radius:var(--radius);padding:1.5rem;margin-top:2rem}
+    .be-section h2{font-family:'Outfit',sans-serif;font-size:1.2rem;font-weight:700;margin-bottom:1rem}
+    .be-form{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
+    @media(max-width:480px){.be-form{grid-template-columns:1fr}}
+    .be-label{font-size:.78rem;font-weight:600;color:var(--text-secondary);margin-bottom:.25rem;display:block}
+    .be-input{width:100%;padding:.6rem .75rem;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-size:.95rem;background:var(--surface);color:var(--text);transition:border-color var(--transition)}
+    .be-input:focus{outline:none;border-color:var(--accent)}
+    .be-result{font-size:1.8rem;font-weight:800;text-align:center;padding:1rem;border-radius:var(--radius-sm);margin-top:.5rem}
+    .be-result.green{background:var(--green);color:#fff}
+    .be-result.amber{background:var(--amber);color:#fff}
+    .be-result.normal{background:var(--accent-light);color:var(--accent)}
+    .be-table{width:100%;border-collapse:collapse;margin-top:1.5rem;font-size:.85rem}
+    .be-table th,.be-table td{padding:.6rem .75rem;text-align:left;border-bottom:1px solid var(--border)}
+    .be-table th{font-weight:600;color:var(--text-secondary);font-size:.72rem;text-transform:uppercase;letter-spacing:.05em}
+    .be-table td:last-child{font-weight:700;color:var(--green)}
+  </style>
+</head>
+<body>  <nav class="site-topbar" role="navigation" aria-label="Site navigation">
+    <div class="container">
+      <div class="topbar-inner">
+        <span class="site-brand">🤖 Build Your Own ChatGPT</span>
+        <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle light/dark mode">
+          <span class="toggle-icon">🌙</span>
+          <span class="toggle-label">Dark mode</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="cost-page">
+    <h1>Local AI Cost vs Cloud</h1>
+    <p class="subtitle">Compare costs, privacy, and speed. See exactly how much you save running AI locally.</p>
+
+    <div id="comparisons"></div>
+
+    <section class="be-section">
+      <h2>Break-Even Calculator</h2>
+      <p class="section-desc" style="margin-bottom:1rem;font-size:.9rem">Enter your hardware cost and monthly cloud spend to see when local AI pays for itself.</p>
+      <div class="be-form">
+        <div>
+          <label class="be-label" for="hw-cost">Hardware Cost ($)</label>
+          <input class="be-input" type="number" id="hw-cost" value="300" min="0" step="50">
+        </div>
+        <div>
+          <label class="be-label" for="monthly-cloud">Monthly Cloud Spend ($)</label>
+          <input class="be-input" type="number" id="monthly-cloud" value="20" min="0" step="5">
+        </div>
+      </div>
+      <div id="be-output" class="be-result normal">You break even in <strong>15 months</strong></div>
+      <p class="tool-note" style="margin-top:.75rem">After breaking even, every month is pure savings. Your GPU also helps with gaming, rendering, and other compute tasks.</p>
+    </section>
+
+    <section class="be-section" style="margin-top:1.5rem">
+      <h2>Pre-Computed Break-Even Examples</h2>
+      <table class="be-table">
+        <thead><tr><th>Hardware</th><th>vs Service</th><th>Break-Even</th><th>Note</th></tr></thead>
+        <tbody id="be-table-body"></tbody>
+      </table>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-links">
+        <a href="https://github.com/ebubeco/build-your-own-chatgpt" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="/models">Leaderboard</a>
+        <a href="/insights">Insights</a>
+        <a href="/compendium">Compendium</a>
+        <a href="/">Wizard</a>
+      </div>
+      <p class="footer-tagline">Built for beginners. Your data never leaves your machine.</p>
+    </div>
+  </footer>
+
+  <script>
+    const COLORS = { privacy: 'green', speed: 'accent' };    function ratingBar(label, val, max) {
+      const color = COLORS[label] || 'amber';
+      const pct = Math.round((val / max) * 100);
+      return `<div class="rating-row"><span>${label.charAt(0).toUpperCase()+label.slice(1)}</span><div class="rating-bar"><div class="rating-fill ${color}" style="width:${pct}%"></div></div><span>${val}/10</span></div>`;
+    }
+    function renderComparison(c) {
+      const maxP = Math.max(c.local.privacyRating, c.cloud.privacyRating, 10);
+      const maxS = Math.max(c.local.speedRating, c.cloud.speedRating, 10);
+      return `<div class="comp-card"><h2>${c.title}</h2><div class="comp-split">
+        <div class="side-card local"><h3>${c.local.name}</h3><div class="price">${c.local.upfront} <span>upfront</span> · $0/mo</div>
+          ${ratingBar('privacy',c.local.privacyRating,maxP)}${ratingBar('speed',c.local.speedRating,maxS)}
+          <p class="notes" style="margin-top:.5rem">${c.local.notes}</p>
+        </div>
+        <div class="side-card cloud"><h3>${c.cloud.name}</h3><div class="price">${c.cloud.upfront} <span>upfront</span> · ${c.cloud.monthly}/mo</div>
+          ${ratingBar('privacy',c.cloud.privacyRating,maxP)}${ratingBar('speed',c.cloud.speedRating,maxS)}
+          <p class="notes" style="margin-top:.5rem">${c.cloud.notes}</p>
+        </div>
+      </div></div>`;
+    }
+    function calcBreakEven() {
+      const hw = parseFloat(document.getElementById('hw-cost').value) || 0;
+      const mo = parseFloat(document.getElementById('monthly-cloud').value) || 0;
+      const el = document.getElementById('be-output');
+      if (mo <= 0) { el.className='be-result normal'; el.innerHTML='Monthly spend is $0 — you are already saving!'; return; }
+      const months = Math.ceil(hw / mo);
+      const yrs = (months / 12).toFixed(1);
+      el.className = months <= 12 ? 'be-result green' : months <= 24 ? 'be-result amber' : 'be-result normal';
+      el.innerHTML = `You break even in <strong>${months} months</strong> (${yrs} years)`;
+    }
+    async function init() {
+      try {
+        const res = await fetch('data/costs.json');
+        const data = await res.json();
+        document.getElementById('comparisons').innerHTML = data.comparisons.map(renderComparison).join('');
+        document.getElementById('be-table-body').innerHTML = data.breakEven.map(b =>
+          `<tr><td>${b.hardware}</td><td>${b.vsService}</td><td>${b.breakEvenMonths} months</td><td style="font-size:.78rem;color:var(--text-tertiary)">${b.note}</td></tr>`
+        ).join('');
+      } catch(e) { document.getElementById('comparisons').innerHTML='<p style="color:var(--red)">Failed to load cost data.</p>'; }
+      document.getElementById('hw-cost').addEventListener('input', calcBreakEven);
+      document.getElementById('monthly-cloud').addEventListener('input', calcBreakEven);
+      calcBreakEven();
+    }
+    document.addEventListener('DOMContentLoaded', init);
+  </script>
+  <script src="analytics.js"></script>
+  <script src="shared.js"></script>
+</body>
+</html>

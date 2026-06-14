@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="google-site-verification" content="5YRiOefTK9mTwEJEnLIH6BQ5xmP0NkwyfiaBWZJbdCg">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Compare free local AI models side by side. Sort by size, VRAM, context length, coding, writing, or reasoning ratings. Find the best offline LLM for your hardware.">
+  <meta property="og:title" content="Local AI Model Comparison — Compare Free Offline LLMs">
+  <meta property="og:description" content="Interactive comparison table of every open local AI model. Sort by coding, writing, reasoning, size, VRAM, and tier. Find your perfect match.">
+  <meta property="og:image" content="https://build-your-own-chatgpt.vercel.app/og-image.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <title>Local AI Model Comparison — Compare Free Offline LLMs</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script async src="https://plausible.io/js/pa-DBTdINzLX2L2B_fXJF0u1.js"></script>
+  <style>
+    .cmp-page { max-width: 1200px; margin: 0 auto; padding: 1.5rem; }
+    .cmp-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem; }
+    .cmp-header h1 { font-family: 'Outfit', sans-serif; font-size: 1.8rem; font-weight: 800; color: var(--text); margin: 0; }
+    .cmp-header p { color: var(--text-secondary); font-size: 0.9rem; margin: 0.25rem 0 0; }
+    .cmp-nav { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
+    .cmp-nav a { color: var(--text-secondary); text-decoration: none; font-size: 0.85rem; padding: 0.3rem 0.75rem; border-radius: 6px; transition: all 0.15s; }
+    .cmp-nav a:hover, .cmp-nav a.active { color: var(--accent); background: var(--accent-light); }
+    .cmp-controls { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 1rem; align-items: center; }
+    .cmp-search { flex: 1; min-width: 200px; padding: 0.5rem 0.75rem; border: 1px solid var(--border); border-radius: 8px; font-size: 0.875rem; background: var(--surface); color: var(--text); outline: none; }
+    .cmp-search:focus { border-color: var(--accent); }
+    .cmp-select { padding: 0.45rem 2rem 0.45rem 0.75rem; border: 1px solid var(--border); border-radius: 8px; font-size: 0.8rem; background: var(--surface); color: var(--text); cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 0.5rem center; }
+    .cmp-select:focus { outline: none; border-color: var(--accent); }
+    .cmp-table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: var(--radius); }
+    .cmp-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    .cmp-table th { padding: 0.7rem 0.75rem; text-align: left; background: var(--surface); border-bottom: 2px solid var(--border); font-weight: 600; color: var(--text-secondary); font-size: 0.75rem; white-space: nowrap; cursor: pointer; user-select: none; position: relative; }
+    .cmp-table th:hover { color: var(--accent); }
+    .cmp-table th .sort-arrow { margin-left: 0.3rem; font-size: 0.65rem; }
+    .cmp-table td { padding: 0.6rem 0.75rem; border-bottom: 1px solid var(--border-light); color: var(--text-primary); }
+    .cmp-table tr:last-child td { border-bottom: none; }
+    .cmp-table tr:hover td { background: var(--surface); }
+    .cmp-table tr.rec-row td { background: var(--accent-light); }
+    .cmp-table tr.rec-row td:first-child { border-left: 3px solid var(--accent); }
+    .rating-bar { display: inline-flex; align-items: center; gap: 0.4rem; }
+    .rating-bar-fill { width: 50px; height: 5px; background: var(--border); border-radius: 3px; overflow: hidden; display: inline-block; vertical-align: middle; }
+    .rating-bar-fill-inner { height: 100%; border-radius: 3px; }
+    .rating-text { font-weight: 700; font-size: 0.75rem; min-width: 16px; }
+    .badge-tier { font-size: 0.7rem; padding: 0.15rem 0.45rem; border-radius: 4px; font-weight: 600; white-space: nowrap; }
+    .badge-rec { font-size: 0.65rem; padding: 0.15rem 0.4rem; border-radius: 3px; background: var(--accent); color: #fff; font-weight: 700; }
+    .cmp-stats { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem; }
+    .cmp-stat-box { padding: 0.5rem 1rem; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); text-align: center; }
+    .cmp-stat-num { font-size: 1.2rem; font-weight: 700; color: var(--accent); display: block; }
+    .cmp-stat-label { font-size: 0.7rem; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.05em; }
+    @media (max-width: 640px) { .cmp-header { flex-direction: column; align-items: flex-start; } .cmp-controls { flex-direction: column; } }
+  </style>
+</head>
+<body>
+  <nav class="site-topbar" role="navigation" aria-label="Site navigation">
+    <div class="container">
+      <div class="topbar-inner">
+        <span class="site-brand">🤖 Build Your Own ChatGPT</span>
+        <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle light/dark mode">
+          <span class="toggle-icon">🌙</span>
+          <span class="toggle-label">Dark mode</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+  <div class="cmp-page">
+    <div class="cmp-nav">
+      <a href="index.html">🏠 Wizard</a>
+      <a href="compendium.html">📚 Compendium</a>
+      <a href="compare.html" class="active">📊 Compare</a>
+      <a href="compatibility.html">🔧 Compatibility</a>
+      <a href="commands.html">⌨️ Commands</a>
+      <a href="models.html">🏆 Leaderboard</a>
+    </div>
+    <div class="cmp-header">
+      <div>
+        <h1>Model Comparison</h1>
+        <p>Compare every local AI model side by side. Sort by any column.</p>
+      </div>
+    </div>
+    <div class="cmp-stats" id="cmp-stats">
+      <div class="cmp-stat-box"><span class="cmp-stat-num" id="total-models">0</span><span class="cmp-stat-label">Models</span></div>
+      <div class="cmp-stat-box"><span class="cmp-stat-num" id="total-tiers">0</span><span class="cmp-stat-label">Tiers</span></div>
+      <div class="cmp-stat-box"><span class="cmp-stat-num" id="rec-count">0</span><span class="cmp-stat-label">Recommended</span></div>
+    </div>
+    <div class="cmp-controls">
+      <input type="text" id="cmp-search" class="cmp-search" placeholder="Search models...">
+      <select id="cmp-tier-filter" class="cmp-select">
+        <option value="all">All Tiers</option>
+        <option value="no-gpu">No GPU</option>
+        <option value="cpu-only">CPU-Only</option>
+        <option value="budget-gpu">Budget GPU</option>
+        <option value="power-gpu">Power GPU</option>
+        <option value="silicon-8-16gb">Apple Silicon 8-16GB</option>
+        <option value="silicon-24-48gb">Apple Silicon 24-48GB</option>
+        <option value="silicon-64-plus">Apple Silicon 64GB+</option>
+      </select>
+      <button id="cmp-toggle-rec" class="cmp-select" style="padding:0.45rem 0.75rem;border:1px solid var(--border);border-radius:8px;background:var(--surface);color:var(--text-secondary);cursor:pointer;font-size:0.8rem;">⭐ Recommended only</button>
+    </div>
+    <div class="cmp-table-wrap">
+      <table class="cmp-table" id="cmp-table">
+        <thead>
+          <tr>
+            <th data-sort="name">Model <span class="sort-arrow">▲</span></th>
+            <th data-sort="size">Size <span class="sort-arrow"></span></th>
+            <th data-sort="vramGB">VRAM <span class="sort-arrow"></span></th>
+            <th data-sort="contextLength">Context <span class="sort-arrow"></span></th>
+            <th data-sort="chat">Chat <span class="sort-arrow"></span></th>
+            <th data-sort="coding">Coding <span class="sort-arrow"></span></th>
+            <th data-sort="writing">Writing <span class="sort-arrow"></span></th>
+            <th data-sort="reasoning">Reasoning <span class="sort-arrow"></span></th>
+            <th data-sort="tier">Tier <span class="sort-arrow"></span></th>
+          </tr>
+        </thead>
+        <tbody id="cmp-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+  <script>
+    !function(){var t=localStorage.getItem('theme');if(t==='dark'||(t===null&&window.matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark')}();
+    document.getElementById('theme-toggle').addEventListener('click',function(){var e=document.documentElement;var t=e.getAttribute('data-theme');var n=t==='dark'?'light':'dark';e.setAttribute('data-theme',n);localStorage.setItem('theme',n);var o=document.querySelector('.toggle-icon');o.textContent=n==='dark'?'☀️':'🌙';document.querySelector('.toggle-label').textContent=n==='dark'?'Light mode':'Dark mode';});
+    if(localStorage.getItem('theme')==='dark'||(!localStorage.getItem('theme')&&window.matchMedia('(prefers-color-scheme:dark)').matches)){document.querySelector('.toggle-icon').textContent='☀️';document.querySelector('.toggle-label').textContent='Light mode';}
+  </script>
+  <script>
+    const TIER_COLORS = {'no-gpu':'#E24B4A','cpu-only':'#BA7517','budget-gpu':'#1D9E75','power-gpu':'#534AB7','silicon-8-16gb':'#6B5CF5','silicon-24-48gb':'#3D2FB8','silicon-64-plus':'#1D0FB8'};
+    const TIER_NAMES = {'no-gpu':'No GPU','cpu-only':'CPU-Only','budget-gpu':'Budget GPU','power-gpu':'Power GPU','silicon-8-16gb':'Silicon 8-16GB','silicon-24-48gb':'Silicon 24-48GB','silicon-64-plus':'Silicon 64GB+'};
+    let allModels = [];
+    let activeSort = {col:'name',dir:'asc'};
+    let searchQuery = '';
+    let tierFilter = 'all';
+    let recOnly = false;
+
+    function getVal(m, col) {
+      if(col==='name') return m.name.toLowerCase();
+      if(col==='tier') return m.tier||'';
+      if(col==='size') { let s=m.size||'0B'; let n=parseFloat(s); if(s.includes('x')) n*=8; return n; }
+      if(col==='vramGB') return m.vramGB||0;
+      if(col==='contextLength') return m.contextLength||0;
+      if(col==='chat') return m.practicalRating?.chat||0;
+      if(col==='coding') return m.practicalRating?.coding||0;
+      if(col==='writing') return m.practicalRating?.writing||0;
+      if(col==='reasoning') return m.practicalRating?.reasoning||0;
+      return '';
+    }
+
+    function filterModels() {
+      return allModels.filter(m => {
+        if(tierFilter!=='all' && m.tier!==tierFilter) return false;
+        if(recOnly && !m.highlight) return false;
+        if(searchQuery) {
+          const q = searchQuery.toLowerCase();
+          const s = [m.name, m.fullName||'', m.tier, m.description||'', m.size].join(' ').toLowerCase();
+          if(!s.includes(q)) return false;
+        }
+        return true;
+      });
+    }
+
+    function sortModels(models) {
+      return [...models].sort((a,b) => {
+        let va = getVal(a, activeSort.col);
+        let vb = getVal(b, activeSort.col);
+        if(typeof va==='string') { let c = va.localeCompare(vb); return activeSort.dir==='asc'?c:-c; }
+        return activeSort.dir==='asc'?va-vb:vb-va;
+      });
+    }
+
+    function renderRating(val) {
+      const pct = Math.min(val*10, 100);
+      const color = val>=9?'#1a8a45':val>=7?'#b36b00':'#cc2222';
+      return `<span class="rating-bar"><span class="rating-bar-fill"><span class="rating-bar-fill-inner" style="width:${pct}%;background:${color}"></span></span><span class="rating-text" style="color:${color}">${val}</span></span>`;
+    }
+
+    function render() {
+      const filtered = sortModels(filterModels());
+      const tbody = document.getElementById('cmp-tbody');
+      tbody.innerHTML = filtered.map(m => {
+        const tierName = TIER_NAMES[m.tier]||m.tier;
+        const tierColor = TIER_COLORS[m.tier]||'#888';
+        const isRec = m.highlight;
+        return `<tr class="${isRec?'rec-row':''}">
+          <td><strong>${m.name}</strong>${isRec?' <span class="badge-rec">★ REC</span>':''}</td>
+          <td><span class="badge" style="font-size:0.75rem">${m.size||'—'}</span></td>
+          <td>${m.vramGB?m.vramGB+'GB':'—'}</td>
+          <td>${m.contextLength?m.contextLength.toLocaleString():'—'}</td>
+          <td>${m.practicalRating?.chat?renderRating(m.practicalRating.chat):'—'}</td>
+          <td>${m.practicalRating?.coding?renderRating(m.practicalRating.coding):'—'}</td>
+          <td>${m.practicalRating?.writing?renderRating(m.practicalRating.writing):'—'}</td>
+          <td>${m.practicalRating?.reasoning?renderRating(m.practicalRating.reasoning):'—'}</td>
+          <td><span class="badge-tier" style="background:${tierColor}22;color:${tierColor};border:1px solid ${tierColor}44">${tierName}</span></td>
+        </tr>`;
+      }).join('');
+    }
+
+    async function init() {
+      try {
+        const res = await fetch('data/models_compendium.json');
+        const data = await res.json();
+        allModels = data.models.map(m => ({...m, tier: m.tier}));
+        document.getElementById('total-models').textContent = allModels.length;
+        document.getElementById('total-tiers').textContent = new Set(allModels.map(m=>m.tier)).size;
+        document.getElementById('rec-count').textContent = allModels.filter(m=>m.highlight).length;
+        render();
+      } catch(e) { console.error('Failed to load models:', e); }
+    }
+
+    document.getElementById('cmp-search').addEventListener('input', e => { searchQuery = e.target.value; render(); });
+    document.getElementById('cmp-tier-filter').addEventListener('change', e => { tierFilter = e.target.value; render(); });
+    document.getElementById('cmp-toggle-rec').addEventListener('click', function() { recOnly = !recOnly; this.style.borderColor = recOnly?'var(--accent)':'var(--border)'; this.style.color = recOnly?'var(--accent)':'var(--text-secondary)'; render(); });
+    document.getElementById('cmp-table').querySelectorAll('th[data-sort]').forEach(th => {
+      th.addEventListener('click', () => {
+        const col = th.dataset.sort;
+        if(activeSort.col===col) activeSort.dir = activeSort.dir==='asc'?'desc':'asc';
+        else { activeSort.col = col; activeSort.dir = 'asc'; }
+        th.querySelectorAll('.sort-arrow').forEach(a => a.textContent = '');
+        const arrow = th.querySelector('.sort-arrow');
+        if(arrow) arrow.textContent = activeSort.dir==='asc'?'▲':'▼';
+        render();
+      });
+    });
+    init();
+  </script>
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-links">
+        <a href="https://github.com/ebubeco/build-your-own-chatgpt" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="/models">Leaderboard</a>
+        <a href="/insights">Insights</a>
+        <a href="/compendium">Compendium</a>
+        <a href="/">Wizard</a>
+      </div>
+      <p class="footer-tagline">Built for beginners. Your data never leaves your machine.</p>
+    </div>
+  </footer>
+  <script src="analytics.js"></script>
+  <script src="shared.js"></script>
+</body>
+</html>

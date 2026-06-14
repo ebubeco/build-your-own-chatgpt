@@ -1,30 +1,4 @@
 {
-  "rewrites": [
-    { "source": "/rtx-3060-local-ai", "destination": "/rtx-3060-local-ai.html" },
-    { "source": "/rtx-4060-local-ai", "destination": "/rtx-4060-local-ai.html" },
-    { "source": "/rtx-4070-local-ai", "destination": "/rtx-4070-local-ai.html" },
-    { "source": "/rtx-5080-local-ai", "destination": "/rtx-5080-local-ai.html" },
-    { "source": "/m2-mac-local-ai", "destination": "/m2-mac-local-ai.html" },
-    { "source": "/m3-mac-local-ai", "destination": "/m3-mac-local-ai.html" },
-    { "source": "/8gb-ram-local-ai", "destination": "/8gb-ram-local-ai.html" },
-    { "source": "/16gb-ram-local-ai", "destination": "/16gb-ram-local-ai.html" },
-    { "source": "/cpu-only-local-ai", "destination": "/cpu-only-local-ai.html" },
-    { "source": "/old-laptop-local-ai", "destination": "/old-laptop-local-ai.html" },
-    { "source": "/best-local-ai-no-gpu", "destination": "/best-local-ai-no-gpu.html" },
-    { "source": "/no-gpu-local-ai", "destination": "/best-local-ai-no-gpu.html" },
-    { "source": "/can-my-laptop-run-ai", "destination": "/can-my-laptop-run-ai.html" },
-    { "source": "/run-ai-without-gpu", "destination": "/run-ai-without-gpu.html" },
-    { "source": "/best-offline-chatgpt", "destination": "/best-offline-chatgpt.html" },
-    { "source": "/best-free-chatgpt-alternative", "destination": "/best-free-chatgpt-alternative.html" },
-    { "source": "/private-ai-for-work", "destination": "/private-ai-for-work.html" },
-    { "source": "/local-ai-for-students", "destination": "/local-ai-for-students.html" },
-    { "source": "/chatgpt-without-subscription", "destination": "/chatgpt-without-subscription.html" },
-    { "source": "/models", "destination": "/models.html" },
-    { "source": "/insights", "destination": "/insights.html" },
-    { "source": "/careers/software-engineer", "destination": "/careers/software-engineer.html" },
-    { "source": "/careers/student", "destination": "/careers/student.html" },
-    { "source": "/careers/researcher", "destination": "/careers/researcher.html" },
-    { "source": "/careers/writer", "destination": "/careers/writer.html" },
-    { "source": "/compendium", "destination": "/compendium.html" }
-  ]
+  "cleanUrls": true,
+  "trailingSlash": false
 }
