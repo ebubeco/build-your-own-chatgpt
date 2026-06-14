@@ -7,7 +7,7 @@ Two ways to use this project:
 | Tool | What it does | Best for |
 |------|-------------|----------|
 | **Build Your Own ChatGPT** ([`index.html`](index.html)) | Decision wizard — tells you the exact model for your hardware | Getting started with 1 recommendation |
-| **Free AI Models Compendium** ([`compendium.html`](compendium.html)) | Full catalog — search and compare 53+ models | Exploring all options |
+| **Free AI Models Compendium** ([`compendium.html`](compendium.html)) | Full catalog — search and compare 25+ models | Exploring all options |
 
 ---
 
@@ -46,12 +46,13 @@ That's it. Private ChatGPT running on your machine.
 
 | Tier | Definition | Example Hardware | Best Models |
 |------|------------|-----------------|--------------|
-| **No GPU / CPU only** | No discrete GPU, runs on RAM | Old laptops, office desktops | Qwen 0.5B, SmolLM2 1.7B, Llama 3.2 1B |
-| **Integrated GPU** | Shared VRAM 1–4GB | Intel Iris, AMD Vega | Phi-4 Mini 3.8B, Llama 3.2 3B, Qwen 1.5B |
-| **Budget GPU** | 4–8GB dedicated VRAM | GTX 1660, RTX 3060 6GB | Qwen 2.5 7B, Gemma 3 12B, DeepSeek Coder 6.7B |
-| **Mid GPU** | 8–12GB VRAM | RTX 3060 12GB, RTX 4060 | Qwen 2.5 7B, Llama 3.1 8B, Phi-4 14B |
-| **Power GPU** | 16GB+ VRAM | RTX 3080, 4090, RX 7900 XTX | Qwen 2.5 32B, DeepSeek R1 32B, Phi-4 14B |
-| **Apple Silicon** | Unified memory, Metal | M1/M2/M3/M4 all variants | Qwen 2.5 7B (Metal), Llama 3.1 8B, Phi-4 Mini |
+| **No GPU / Old Hardware** | No discrete GPU, runs on CPU RAM | 2015 laptops, office desktops | Qwen 0.5B, SmolLM2 1.7B, Llama 3.2 1B |
+| **CPU-Only (16-32GB RAM)** | Modern CPU with enough RAM | Modern laptops, desktops without dedicated GPU | Phi-4 Mini 3.8B, Llama 3.2 3B, Qwen 1.5B |
+| **Budget GPU (8-12GB VRAM)** | Entry-level dedicated GPU | RTX 3060, 4060, 3070 | Qwen 2.5 7B, Gemma 4 12B, Qwen 3 14B |
+| **Power GPU (16GB+ VRAM)** | High-end dedicated GPU | RTX 4080, 4090, RX 7900 XTX | Qwen 3.5 27B, DeepSeek R1 8B |
+| **Apple Silicon (8-16GB)** | Unified memory, Metal | MacBook Air M1/M2, Mac Mini M2 | Qwen 2.5 7B, Llama 3.1 8B |
+| **Apple Silicon (24-48GB)** | Unified memory, faster | MacBook Pro M3 Pro/Max | Qwen 3 14B |
+| **Apple Silicon (64GB+)** | Workstation-class | Mac Studio M2 Ultra, Mac Pro | Qwen 3.5 27B |
 
 ---
 
@@ -60,36 +61,46 @@ That's it. Private ChatGPT running on your machine.
 ### Coding
 | Tier | Recommended | Alternative |
 |------|-------------|-------------|
-| No GPU | Phi-4 Mini 3.8B | Qwen 1.5B |
-| Budget GPU | Qwen 2.5 Coder 7B | DeepSeek Coder 6.7B |
-| Power GPU | Qwen 2.5 Coder 32B | DeepSeek R1 32B |
-| Apple Silicon | Qwen 2.5 7B (Metal) | Phi-4 Mini |
+| No GPU / Old Hardware | Phi-4 Mini 3.8B | Qwen 1.5B |
+| CPU-Only | Llama 3.2 3B | Phi-4 Mini 3.8B |
+| Budget GPU | Qwen 2.5 7B | Gemma 4 12B |
+| Power GPU | Qwen 3.5 27B | DeepSeek R1 8B |
+| Apple Silicon 8-16GB | Qwen 2.5 7B | Llama 3.1 8B |
+| Apple Silicon 24-48GB | Qwen 3 14B | Qwen 2.5 7B |
+| Apple Silicon 64GB+ | Qwen 3.5 27B | Qwen 3 14B |
 
 ### Writing
 | Tier | Recommended | Alternative |
 |------|-------------|-------------|
-| No GPU | Llama 3.2 3B | Qwen 1.5B |
-| Budget GPU | Qwen 2.5 7B | Llama 3.1 8B |
-| Power GPU | Qwen 2.5 32B | Llama 3.1 70B |
+| No GPU / Old Hardware | SmolLM2 1.7B | Llama 3.2 1B |
+| CPU-Only | Llama 3.2 3B | Phi-4 Mini 3.8B |
+| Budget GPU | Qwen 2.5 7B | Qwen 3 14B |
+| Power GPU | Qwen 3.5 27B | DeepSeek R1 8B |
+| Apple Silicon 8-16GB | Qwen 2.5 7B | Llama 3.1 8B |
 
-### Reasoning / Math
+### Reasoning / Research
 | Tier | Recommended | Alternative |
 |------|-------------|-------------|
-| Budget GPU | Gemma 3 12B | Qwen 2.5 14B |
-| Power GPU | DeepSeek R1 32B | DeepSeek R1 70B |
+| Budget GPU | Gemma 4 12B | Qwen 2.5 7B |
+| Power GPU | DeepSeek R1 8B | Qwen 3.5 27B |
+| Apple Silicon 24-48GB | Qwen 3 14B | Qwen 2.5 7B |
 
 ---
 
 ## Features
 
-- **Goal-first flow** — pick what you want to do first, then find hardware match
+- **Goal + career flow** — pick what you want to do and your role (developer, researcher, writer, etc.) for smarter recommendations
 - **Confidence indicator** — High / Medium-High / Medium / Low shows how well a model fits
 - **"Why this?" points** — 4–7 clear reasons for each recommendation
-- **Capability preview** — see task-based abilities ("Private ChatGPT: Excellent", "Coding Assistant: Good")
-- **Cloud fallback** — when local AI is genuinely too slow, free alternatives are shown (Gemini, Groq, OpenRouter)
-- **Shareable URLs** — `?goal=coding&tier=power-gpu` encodes your picks for bookmarking/sharing
-- **Apple Silicon support** — unified memory tiers with Metal GPU acceleration
+- **Capability preview** — task-based ratings ("Private ChatGPT: Excellent", "Coding Assistant: Good")
+- **"What to Expect"** — shows what each model can and can't handle well
+- **Cloud fallback** — when local AI is too slow, free alternatives are shown (Gemini, Groq, OpenRouter)
+- **Shareable results** — share text or copy a result link for your setup
+- **Feedback buttons** — 👍 Yes / 👎 No with tag-based details (Wrong Rec, Too Technical, etc.) stored to Supabase + localStorage
+- **Apple Silicon support** — 3 unified memory tiers with Metal GPU acceleration
 - **Quantization tooltips** — hover to see what Q2_K through F16 mean for quality and size
+- **Hardware auto-detect** — suggests your tier based on GPU detection
+- **Analytics** — Umami + Plausible for privacy-friendly usage tracking
 
 ---
 
@@ -97,28 +108,38 @@ That's it. Private ChatGPT running on your machine.
 
 ```
 build-your-own-chatgpt/
-├── index.html          # Main wizard (1 recommendation + 2 alternatives)
-├── compendium.html     # Full catalog (53+ models, search, filters, table view)
-├── app.js              # Wizard logic (recommendation engine, confidence scoring)
-├── compendium.css      # Compendium styles
-├── style.css           # Main stylesheet
+├── index.html                  # Main wizard (1 recommendation + 2 alternatives)
+├── compendium.html             # Full catalog (25+ models, search, filters, table view)
+├── app.js                      # Wizard logic (recommendation engine, scoring, feedback UI)
+├── analytics.js                # Umami + Plausible tracking, Supabase feedback, export
+├── compendium.css              # Compendium styles
+├── style.css                   # Main stylesheet
+├── server.js                   # Local dev server (port 3333)
+├── sitemap.xml                 # SEO sitemap (17 URLs)
+├── favicon.svg
+├── anchored-summary.md         # Project progress tracking
+├── generate-seo.js             # SEO landing page generator script
+├── *.html                      # 18 SEO landing pages (rtx-3060-local-ai, cpu-only, etc.)
 ├── data/
-│   ├── models.json     # 15 core models with detailed metadata
-│   ├── gpus.json       # Hardware database with VRAM specs
-│   ├── setups.json     # Tool setup instructions
-│   └── glossary.json   # AI terminology explainer
-└── favicon.svg
+│   ├── models_compendium.json  # Primary model database (25 models, 7 tiers)
+│   ├── models.json             # Secondary model database (used for compendium browse)
+│   ├── gpus.json               # Hardware database with VRAM specs and GPU map
+│   ├── setups.json             # Curated setups with success stories and steps
+│   ├── config.json             # Tier configs (readiness scores, context caps)
+│   ├── cloud_providers.json    # Free cloud AI alternatives
+│   └── glossary.json           # AI terminology explainer
 ```
 
 ---
 
 ## How Recommendations Work
 
-The recommendation engine scores each model across your hardware tier:
+The recommendation engine scores each model across your hardware tier and career:
 
 ```
 Score = bestFor match (+40)
       + goal rating (1–10 × 5pts)
+      + career affinity bonus (+15)
       + beginnerFriendly bonus (+10)
       + fast capability bonus (+20)
       + slow capability penalty (−5)
@@ -137,13 +158,15 @@ Confidence levels are determined by:
 
 ## Cloud Alternatives
 
-When your hardware can't run local models well, three free cloud options are recommended:
+When your hardware can't run local models well, free cloud options are recommended directly in the wizard:
 
 | Service | Best for | Free tier | Link |
 |---------|----------|-----------|------|
-| **Gemini 2.0 Flash** | General use, free, multimodal | 1,500 req/day | [gemini.google.com](https://gemini.google.com) |
+| **Gemini 2.5 Flash** | General use, free, multimodal | 1,500 req/day | [gemini.google.com](https://gemini.google.com) |
 | **Groq** | Speed — 1,000 tokens/sec | 14,400 req/min | [console.groq.com](https://console.groq.com) |
 | **OpenRouter** | Variety — 27+ free models | Varies | [openrouter.ai](https://openrouter.ai) |
+| **Cerebras** | Fast inference, large models | Free tier | [cerebras.ai](https://cerebras.ai) |
+| **SiliconFlow** | Serverless API, many models | Free tier | [siliconflow.ai](https://siliconflow.ai) |
 
 ---
 
@@ -151,7 +174,7 @@ When your hardware can't run local models well, three free cloud options are rec
 
 The Free AI Models Compendium (`compendium.html`) is a standalone page that uses the same data structure as the wizard. It adds:
 
-- **53+ models** across all tiers and providers
+- **25+ models** across all tiers and providers
 - **Search** across name, description, specialties, and size
 - **Filters** by tier, specialty (coding, writing, reasoning, agents, vision), and provider
 - **Sort** by name, size, coding rating, writing rating, or reasoning rating
@@ -159,22 +182,21 @@ The Free AI Models Compendium (`compendium.html`) is a standalone page that uses
 - **Copy install commands** — one click to copy the Ollama pull command
 - **Highlighted models** — ★ marks top recommendations
 
-To expand the model database, add entries to `data/models.json` following the existing structure with fields: `name`, `size`, `tier`, `vramGB`, `contextLength`, `practicalRating`, `bestFor`, `ollamaTag`, `installCommand`, `description`, `beginnerFriendly`, and `highlight`.
+To expand the model database, add entries to `data/models_compendium.json` following the existing structure with fields: `id`, `name`, `size`, `tier`, `vramGB`, `contextLength`, `practicalRating`, `bestFor`, `ollamaTag`, `installCommand`, `description`, `beginnerFriendly`, and `highlight`.
 
 ---
 
 ## Privacy & Freedom
 
-All models on this site are **fully offline-capable**:
+All local models on this site are **fully offline-capable**:
 
 - Your data never leaves your machine
 - No API calls, no subscriptions, no rate limits
 - Run on planes, in basements, or off-grid
 - Models are open weights licensed permissively (Apache 2.0, MIT, Llama 3.2)
+- Cloud fallback options are clearly labeled and only shown when genuinely needed
 
 ---
-
-
 
 ## Contributing
 
