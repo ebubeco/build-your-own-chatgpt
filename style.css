@@ -2188,6 +2188,15 @@ body {
   color: var(--text-tertiary);
 }
 
+.footer-dev {
+  margin-top: 0.5rem;
+  font-size: 0.7rem;
+  opacity: 0.3;
+  transition: opacity 0.3s;
+}
+.footer-dev:hover { opacity: 0.7; }
+.footer-dev a { color: var(--text-tertiary); text-decoration: none; }
+
 /* ===== DIVIDER ===== */
 .divider {
   border: none;

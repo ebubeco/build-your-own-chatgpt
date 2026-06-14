@@ -23,6 +23,12 @@
   <link rel="preload" href="data/models_compendium.json" as="fetch" crossorigin="anonymous">
   <link rel="preload" href="data/cloud_providers.json" as="fetch" crossorigin="anonymous">
   <script defer src="https://cloud.umami.is/script.js" data-website-id="b8a7a476-7a85-402e-b042-1436ef463d65"></script>
+  <!-- Privacy-friendly analytics by Plausible -->
+  <script async src="https://plausible.io/js/pa-DBTdINzLX2L2B_fXJF0u1.js"></script>
+  <script>
+    window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+    plausible.init()
+  </script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -510,6 +516,7 @@ print(response.text)</div>
         <li>✓ Readiness Scores</li>
         <li>✓ Hardware Detection</li>
         <li>✓ SEO Landing Pages</li>
+        <li>✓ Feedback Storage (Supabase)</li>
       </ul>
     </div>
   </div>
@@ -522,6 +529,7 @@ print(response.text)</div>
         <a href="https://huggingface.co" target="_blank" rel="noopener noreferrer">Hugging Face</a>
       </div>
       <p class="footer-tagline">Built for beginners. Your data never leaves your machine.</p>
+      <p class="footer-dev"><a href="#" onclick="if(window.__analytics){window.__analytics.exportFeedbackData()}return false" title="Export feedback data (dev only)">📋 Export feedback</a></p>
     </div>
   </footer>
 

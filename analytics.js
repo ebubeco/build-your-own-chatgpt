@@ -1,6 +1,8 @@
 (function () {
   'use strict';
 
+  var SUPABASE_URL = 'https://fxeygjmygxnirvsrndaa.supabase.co';
+  var SUPABASE_KEY = 'sb_publishable_MTznrw3Xenf4mP72ll8jVw_LD09jKo7';
   var queue = [];
 
   function trackEvent(eventName, properties) {
@@ -27,6 +29,28 @@
     return queue.slice();
   }
 
+  function saveFeedbackToSupabase(data) {
+    var url = SUPABASE_URL + '/rest/v1/feedback';
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'apikey': SUPABASE_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_KEY,
+        'Content-Type': 'application/json',
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify({
+        recommendation: data.recommendation,
+        hardware: data.hardware,
+        goal: data.goal,
+        success: data.success,
+        timestamp: data.timestamp
+      })
+    }).catch(function () {
+      /* Supabase unavailable - localStorage fallback handles this */
+    });
+  }
+
   function saveFeedback(recommendation, hardware, goal, success) {
     var key = 'fb_' + (goal || 'unknown') + '_' + (hardware || 'unknown') + '_' + (recommendation || 'unknown').replace(/\s+/g, '_');
     if (localStorage.getItem(key)) return;
@@ -38,6 +62,7 @@
       timestamp: new Date().toISOString().split('T')[0]
     };
     localStorage.setItem(key, JSON.stringify(data));
+    saveFeedbackToSupabase(data);
     trackEvent('feedback_submitted', { result: success ? 'positive' : 'negative', recommendation: recommendation, hardware: hardware, goal: goal });
     return data;
   }
@@ -104,12 +129,35 @@
     }
   }
 
+  function exportFeedbackData() {
+    try {
+      var all = [];
+      for (var i = 0; i < localStorage.length; i++) {
+        var k = localStorage.key(i);
+        if (k && k.indexOf('fb_') === 0) {
+          try { all.push(JSON.parse(localStorage.getItem(k))); } catch (e) { /* skip */ }
+        }
+      }
+      if (all.length === 0) { alert('No feedback data to export.'); return; }
+      var blob = new Blob([JSON.stringify(all, null, 2)], { type: 'application/json' });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = 'feedback-export-' + new Date().toISOString().split('T')[0] + '.json';
+      a.click();
+      URL.revokeObjectURL(url);
+    } catch (e) {
+      alert('Export failed: ' + e.message);
+    }
+  }
+
   window.__analytics = {
     trackEvent: trackEvent,
     getQueue: getQueue,
     saveFeedback: saveFeedback,
     getFeedback: getFeedback,
     getCommunityStats: getCommunityStats,
-    getPopularSetups: getPopularSetups
+    getPopularSetups: getPopularSetups,
+    exportFeedbackData: exportFeedbackData
   };
 })();
