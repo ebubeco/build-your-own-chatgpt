@@ -1,76 +1,92 @@
 {
   "roles": [
     {
-      "id": "student",
-      "label": "Student",
-      "icon": "🎓",
-      "desc": "Learning, summarization, tutoring",
-      "matchedModels": ["qwen-0-5b", "qwen-1-5b", "qwen-2-5-7b", "gemma-4-12b", "phi-4-mini"],
-      "priorities": ["learning", "writing", "chat"]
-    },
-    {
-      "id": "software-engineer",
-      "label": "Software Engineer",
+      "id": "software-developer",
+      "label": "Software Developer",
       "icon": "💻",
-      "desc": "Coding, debugging, architecture",
-      "matchedModels": ["qwen-2-5-7b", "qwen-3-14b", "deepseek-r1-8b", "phi-4-mini"],
-      "priorities": ["coding", "reasoning", "agents"]
+      "desc": "Write, debug, and refactor code. Generate boilerplate and explain complex functions.",
+      "matchedModels": ["qwen2.5:7b", "deepseek-r1:8b", "phi4-mini:3.8b"],
+      "priorities": ["coding", "reasoning"],
+      "primaryUses": ["Code generation", "Code review", "Debugging", "Documentation", "Architecture planning"],
+      "recommendedCloud": ["GitHub Copilot", "Cursor", "Claude claude.ai"],
+      "recommendedTools": ["Ollama", "OpenCode", "Continue (VS Code extension)"]
     },
     {
-      "id": "data-scientist",
-      "label": "Data Scientist",
-      "icon": "📊",
-      "desc": "Statistics, notebooks, analysis",
-      "matchedModels": ["qwen-2-5-7b", "gemma-4-12b", "qwen-3-14b"],
-      "priorities": ["reasoning", "coding", "research"]
+      "id": "content-creator",
+      "label": "Content Creator / Writer",
+      "icon": "✍️",
+      "desc": "Draft articles, edit content, brainstorm ideas, and create copy.",
+      "matchedModels": ["qwen2.5:7b", "llama3.2:3b", "phi4-mini:3.8b"],
+      "priorities": ["writing", "chat"],
+      "primaryUses": ["Drafting", "Editing", "SEO content", "Social media posts", "Ideation"],
+      "recommendedCloud": ["Claude claude.ai", "ChatGPT", "Gemini"],
+      "recommendedTools": ["Ollama + OpenWebUI", "LM Studio"]
     },
     {
       "id": "researcher",
-      "label": "Researcher",
+      "label": "Researcher / Academic",
       "icon": "🔬",
-      "desc": "Long context, citations, synthesis",
-      "matchedModels": ["qwen-2-5-7b", "qwen-3-14b", "deepseek-r1-8b", "qwen-3-5-27b"],
-      "priorities": ["research", "writing", "reasoning"]
+      "desc": "Analyze papers, summarize research, and explore complex topics.",
+      "matchedModels": ["deepseek-r1:8b", "qwen3:14b", "phi4-mini:3.8b"],
+      "priorities": ["reasoning", "research"],
+      "primaryUses": ["Literature review", "Summarization", "Data analysis", "Writing assistance", "Citation checking"],
+      "recommendedCloud": ["Perplexity", "Claude claude.ai", "Gemini Advanced"],
+      "recommendedTools": ["Ollama + AnythingLLM", "LM Studio + document Q&A"]
     },
     {
-      "id": "writer",
-      "label": "Writer",
-      "icon": "✍️",
-      "desc": "Editing, drafting, creativity",
-      "matchedModels": ["qwen-2-5-7b", "gemma-4-12b", "phi-4-mini", "llama-3-2-3b"],
-      "priorities": ["writing", "chat", "research"]
+      "id": "student",
+      "label": "Student",
+      "icon": "🎓",
+      "desc": "Learn concepts, get homework help, and study effectively.",
+      "matchedModels": ["phi4-mini:3.8b", "llama3.2:3b", "qwen2.5:1.5b"],
+      "priorities": ["learning", "chat"],
+      "primaryUses": ["Explaining concepts", "Essay help", "Study guides", "Problem solving", "Language learning"],
+      "recommendedCloud": ["ChatGPT free", "Gemini free", "Claude free"],
+      "recommendedTools": ["Ollama (beginner-friendly)", "LM Studio"]
     },
     {
-      "id": "cybersecurity",
-      "label": "Cybersecurity",
-      "icon": "🔒",
-      "desc": "Threat modeling, audits, analysis",
-      "matchedModels": ["deepseek-r1-8b", "qwen-2-5-7b", "qwen-3-14b"],
-      "priorities": ["reasoning", "agents", "coding"]
+      "id": "data-analyst",
+      "label": "Data Analyst / Data Scientist",
+      "icon": "📊",
+      "desc": "Generate Python/SQL code, analyze data, and create visualizations.",
+      "matchedModels": ["qwen2.5:7b", "deepseek-r1:8b", "qwen3:14b"],
+      "priorities": ["coding", "reasoning"],
+      "primaryUses": ["Python/SQL code generation", "Data interpretation", "Report writing", "Statistical analysis", "Visualization code"],
+      "recommendedCloud": ["Claude claude.ai (code)", "ChatGPT with code interpreter", "Gemini Advanced"],
+      "recommendedTools": ["Ollama", "OpenCode", "Jupyter + Ollama integration"]
     },
     {
-      "id": "product-manager",
-      "label": "Product Manager",
-      "icon": "📋",
-      "desc": "Planning, requirements, strategy",
-      "matchedModels": ["qwen-2-5-7b", "phi-4-mini", "gemma-4-12b"],
-      "priorities": ["writing", "chat", "research"]
+      "id": "marketer",
+      "label": "Marketer / Growth",
+      "icon": "📣",
+      "desc": "Create ad copy, email campaigns, SEO content, and marketing materials.",
+      "matchedModels": ["qwen2.5:7b", "llama3.2:3b"],
+      "priorities": ["writing", "chat"],
+      "primaryUses": ["Ad copy", "Email campaigns", "SEO content", "A/B testing ideas", "Campaign briefs"],
+      "recommendedCloud": ["Claude claude.ai", "ChatGPT", "Perplexity for research"],
+      "recommendedTools": ["Ollama + OpenWebUI", "LM Studio"]
     },
     {
-      "id": "entrepreneur",
-      "label": "Entrepreneur",
-      "icon": "🚀",
-      "desc": "Research, marketing, productivity",
-      "matchedModels": ["qwen-2-5-7b", "phi-4-mini", "gemma-4-12b"],
-      "priorities": ["chat", "writing", "research"]
+      "id": "business-owner",
+      "label": "Small Business Owner",
+      "icon": "🏢",
+      "desc": "Draft professional emails, create business plans, and streamline operations.",
+      "matchedModels": ["phi4-mini:3.8b", "qwen2.5:7b"],
+      "priorities": ["chat", "writing"],
+      "primaryUses": ["Customer emails", "Business plans", "Social content", "Process documentation", "Meeting summaries"],
+      "recommendedCloud": ["ChatGPT", "Claude claude.ai", "Gemini"],
+      "recommendedTools": ["Ollama", "LM Studio (easy setup)"]
     },
     {
-      "id": "other",
-      "label": "Other / Not Sure",
-      "icon": "🤷",
-      "desc": "General purpose — no career preference",
-      "matchedModels": [],
-      "priorities": []
+      "id": "creative",
+      "label": "Creative (Artist / Designer)",
+      "icon": "🎨",
+      "desc": "Develop creative concepts, write scripts, and explore artistic ideas.",
+      "matchedModels": ["qwen2.5:7b", "llama3.2:3b", "gemma4:12b"],
+      "priorities": ["chat", "writing"],
+      "primaryUses": ["Concept development", "Script writing", "World building", "Game dialogue", "Lyrics and poetry"],
+      "recommendedCloud": ["Claude claude.ai", "ChatGPT", "Gemini"],
+      "recommendedTools": ["Ollama + OpenWebUI", "LM Studio"]
     }
   ]
 }

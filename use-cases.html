@@ -75,9 +75,9 @@
     <div class="wf-filter-bar" id="tier-filters">
       <button class="wf-filter-btn active" data-tier="all">All Tiers</button>
       <button class="wf-filter-btn" data-tier="any">Any Hardware</button>
-      <button class="wf-filter-btn" data-tier="cpu-only">CPU Only</button>
+      <button class="wf-filter-btn" data-tier="no-gpu">CPU Only</button>
       <button class="wf-filter-btn" data-tier="budget-gpu">Budget GPU</button>
-      <button class="wf-filter-btn" data-tier="power-gpu">Power GPU</button>
+      <button class="wf-filter-btn" data-tier="high-end-gpu">Power GPU</button>
     </div>
 
     <div id="wf-loading" style="text-align:center;padding:3rem 1rem;color:var(--text-tertiary)">Loading use cases...</div>
@@ -121,9 +121,29 @@
   </footer>
 
   <script>
-    var tierNames = { 'any': 'Any Hardware', 'cpu-only': 'CPU Only', 'budget-gpu': 'Budget GPU', 'power-gpu': 'Power GPU', 'no-gpu': 'No GPU' };
-    var modelPull = { 'qwen-2-5-7b': 'ollama pull qwen2.5:7b', 'phi-4-mini': 'ollama pull phi-4-mini', 'llama-3-2-3b': 'ollama pull llama3.2:3b', 'qwen-1-5b': 'ollama pull qwen2.5:0.5b', 'qwen-3-14b': 'ollama pull qwen3:14b', 'gemma-4-12b': 'ollama pull gemma4:12b', 'deepseek-r1-8b': 'ollama pull deepseek-r1:8b', 'qwen-3-5-27b': 'ollama pull qwen3.5:27b' };
-    var modelSizes = { 'qwen-2-5-7b': '4.1GB', 'phi-4-mini': '2.5GB', 'llama-3-2-3b': '1.9GB', 'qwen-1-5b': '0.9GB', 'qwen-3-14b': '8.2GB', 'gemma-4-12b': '7.5GB', 'deepseek-r1-8b': '4.9GB', 'qwen-3-5-27b': '16GB' };
+    var tierNames = { 'any': 'Any Hardware', 'no-gpu': 'CPU Only', 'budget-gpu': 'Budget GPU', 'high-end-gpu': 'Power GPU', 'no-gpu': 'No GPU' };
+    var modelPull = {
+      'qwen2.5:7b': 'ollama pull qwen2.5:7b',
+      'phi4-mini:3.8b': 'ollama pull phi4-mini:3.8b',
+      'llama3.2:3b': 'ollama pull llama3.2:3b',
+      'qwen2.5:0.5b': 'ollama pull qwen2.5:0.5b',
+      'qwen2.5:1.5b': 'ollama pull qwen2.5:1.5b',
+      'qwen3:14b': 'ollama pull qwen3:14b',
+      'gemma4:12b': 'ollama pull gemma4:12b',
+      'deepseek-r1:8b': 'ollama pull deepseek-r1:8b',
+      'qwen3.5:27b': 'ollama pull qwen3.5:27b'
+    };
+    var modelSizes = {
+      'qwen2.5:7b': '4.1GB',
+      'phi4-mini:3.8b': '2.5GB',
+      'llama3.2:3b': '1.9GB',
+      'qwen2.5:0.5b': '0.9GB',
+      'qwen2.5:1.5b': '1.8GB',
+      'qwen3:14b': '8.2GB',
+      'gemma4:12b': '7.5GB',
+      'deepseek-r1:8b': '4.9GB',
+      'qwen3.5:27b': '16GB'
+    };
 
     var workflows = [];
     var currentTier = 'all';

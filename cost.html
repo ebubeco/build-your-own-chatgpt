@@ -23,6 +23,60 @@
     .cost-page{max-width:960px;margin:0 auto;padding:0 1.5rem 3rem}
     .cost-page h1{font-family:'Outfit',sans-serif;font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;letter-spacing:-0.02em;margin:2rem 0 .5rem}
     .cost-page .subtitle{color:var(--text-secondary);font-size:1rem;margin-bottom:2rem}
+    .cost-form{background:var(--bg-card);border:1.5px solid var(--border);border-radius:var(--radius);padding:1.5rem;margin-bottom:2rem}
+    .form-group{margin-bottom:1.25rem}
+    .form-group label{display:block;font-size:.82rem;font-weight:700;color:var(--text-secondary);margin-bottom:.4rem;text-transform:uppercase;letter-spacing:.05em}
+    .form-group select,.form-group input{width:100%;padding:.65rem .75rem;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-size:.95rem;background:var(--surface);color:var(--text);transition:border-color var(--transition);font-family:inherit}
+    .form-group select:focus,.form-group input:focus{outline:none;border-color:var(--accent)}
+    .form-group .hint{font-size:.75rem;color:var(--text-tertiary);margin-top:.25rem;display:block}
+    .sub-item{display:flex;align-items:center;gap:.5rem;padding:.5rem 0;border-bottom:1px solid var(--border-light);font-size:.9rem}
+    .sub-item:last-child{border-bottom:none}
+    .sub-item input[type=checkbox]{width:auto}
+    .sub-item .sub-name{font-weight:600;color:var(--text)}
+    .sub-item .sub-price{color:var(--text-tertiary);font-size:.82rem}
+    .sub-item .sub-capability{font-size:.75rem;color:var(--text-secondary);margin-left:auto}
+    .cost-btn{display:block;width:100%;padding:.85rem;background:var(--accent);color:#fff;border:none;border-radius:var(--radius-sm);font-size:1rem;font-weight:700;cursor:pointer;font-family:inherit;transition:opacity var(--transition)}
+    .cost-btn:hover{opacity:.9}
+    .cost-result{display:none;animation:fadeIn .3s ease}
+    @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+    .cost-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin:1.5rem 0}
+    .cost-card{background:var(--bg-card);border:1.5px solid var(--border);border-radius:var(--radius);padding:1.25rem;text-align:center}
+    .cost-card h3{font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--text-secondary);margin-bottom:.5rem}
+    .cost-big{font-size:2rem;font-weight:800;color:var(--accent)}
+    .cost-annual{font-size:.78rem;color:var(--text-tertiary);margin-top:.25rem}
+    .savings-highlight{background:linear-gradient(135deg,var(--accent-light),var(--bg-card));border:1.5px solid var(--accent);border-radius:var(--radius);padding:1.5rem;text-align:center;margin:1.5rem 0}
+    .savings-highlight h3{font-size:.82rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--text-secondary);margin-bottom:.5rem}
+    .savings-num{font-size:2.5rem;font-weight:800;color:var(--green)}
+    .cost-table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:.9rem}
+    .cost-table th,.cost-table td{padding:.65rem .75rem;text-align:left;border-bottom:1px solid var(--border)}
+    .cost-table th{font-weight:600;color:var(--text-secondary);font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;background:var(--surface)}
+    .cost-table td:last-child{color:var(--text-secondary);font-size:.82rem}
+    .cost-table td:nth-child(2){font-weight:700;color:var(--text)}
+    .cta-box{background:var(--bg-card);border:1.5px solid var(--accent);border-radius:var(--radius);padding:1.25rem;text-align:center;margin-top:1.5rem}
+    .cta-box p{font-size:.9rem;color:var(--text-secondary);margin-bottom:.75rem}
+    .cta-btn{display:inline-block;padding:.65rem 1.5rem;background:var(--accent);color:#fff;text-decoration:none;border-radius:var(--radius-sm);font-weight:600;font-size:.9rem;transition:opacity var(--transition)}
+    .cta-btn:hover{opacity:.9}
+    .be-result.green{background:var(--green);color:#fff}
+    .be-result.amber{background:var(--amber);color:#fff}
+    .be-result.normal{background:var(--accent-light);color:var(--accent)}
+    .be-section{background:var(--bg-card);border:1.5px solid var(--border);border-radius:var(--radius);padding:1.5rem;margin-top:2rem}
+    .be-section h2{font-family:'Outfit',sans-serif;font-size:1.2rem;font-weight:700;margin-bottom:1rem}
+    .be-form{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
+    @media(max-width:480px){.be-form{grid-template-columns:1fr}}
+    .be-label{font-size:.78rem;font-weight:600;color:var(--text-secondary);margin-bottom:.25rem;display:block}
+    .be-input{width:100%;padding:.6rem .75rem;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-size:.95rem;background:var(--surface);color:var(--text);transition:border-color var(--transition);font-family:inherit}
+    .be-input:focus{outline:none;border-color:var(--accent)}
+    .be-outcome{font-size:1.8rem;font-weight:800;text-align:center;padding:1rem;border-radius:var(--radius-sm);margin-top:.5rem}
+    .be-table{width:100%;border-collapse:collapse;margin-top:1.5rem;font-size:.85rem}
+    .be-table th,.be-table td{padding:.6rem .75rem;text-align:left;border-bottom:1px solid var(--border)}
+    .be-table th{font-weight:600;color:var(--text-secondary);font-size:.72rem;text-transform:uppercase;letter-spacing:.05em}
+    .be-table td:last-child{font-weight:700;color:var(--green)}
+    .rating-row{display:flex;align-items:center;gap:.5rem;margin-top:.5rem;font-size:.78rem;font-weight:600}
+    .rating-bar{flex:1;height:var(--rating-bar-h);background:var(--border);border-radius:var(--rating-bar-radius);overflow:hidden}
+    .rating-fill{height:100%;border-radius:var(--rating-bar-radius);transition:width .6s ease}
+    .rating-fill.green{background:var(--green)}
+    .rating-fill.amber{background:var(--amber)}
+    .rating-fill.accent{background:var(--accent)}
     .comp-card{background:var(--bg-card);border:1.5px solid var(--border);border-radius:var(--radius);padding:1.25rem;margin-bottom:1.5rem;transition:all var(--transition)}
     .comp-card:hover{border-color:var(--accent);box-shadow:var(--shadow-glow)}
     .comp-card h2{font-family:'Outfit',sans-serif;font-size:1.2rem;font-weight:700;margin-bottom:1rem}
@@ -35,30 +89,10 @@
     .side-card .price{font-size:1.5rem;font-weight:800;color:var(--text);margin:.3rem 0}
     .side-card .price span{font-size:.8rem;font-weight:400;color:var(--text-tertiary)}
     .side-card .notes{font-size:.78rem;color:var(--text-secondary);line-height:1.5}
-    .rating-row{display:flex;align-items:center;gap:.5rem;margin-top:.5rem;font-size:.78rem;font-weight:600}
-    .rating-bar{flex:1;height:var(--rating-bar-h);background:var(--border);border-radius:var(--rating-bar-radius);overflow:hidden}
-    .rating-fill{height:100%;border-radius:var(--rating-bar-radius);transition:width .6s ease}
-    .rating-fill.green{background:var(--green)}
-    .rating-fill.amber{background:var(--amber)}
-    .rating-fill.accent{background:var(--accent)}
-    .be-section{background:var(--bg-card);border:1.5px solid var(--border);border-radius:var(--radius);padding:1.5rem;margin-top:2rem}
-    .be-section h2{font-family:'Outfit',sans-serif;font-size:1.2rem;font-weight:700;margin-bottom:1rem}
-    .be-form{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
-    @media(max-width:480px){.be-form{grid-template-columns:1fr}}
-    .be-label{font-size:.78rem;font-weight:600;color:var(--text-secondary);margin-bottom:.25rem;display:block}
-    .be-input{width:100%;padding:.6rem .75rem;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-size:.95rem;background:var(--surface);color:var(--text);transition:border-color var(--transition)}
-    .be-input:focus{outline:none;border-color:var(--accent)}
-    .be-result{font-size:1.8rem;font-weight:800;text-align:center;padding:1rem;border-radius:var(--radius-sm);margin-top:.5rem}
-    .be-result.green{background:var(--green);color:#fff}
-    .be-result.amber{background:var(--amber);color:#fff}
-    .be-result.normal{background:var(--accent-light);color:var(--accent)}
-    .be-table{width:100%;border-collapse:collapse;margin-top:1.5rem;font-size:.85rem}
-    .be-table th,.be-table td{padding:.6rem .75rem;text-align:left;border-bottom:1px solid var(--border)}
-    .be-table th{font-weight:600;color:var(--text-secondary);font-size:.72rem;text-transform:uppercase;letter-spacing:.05em}
-    .be-table td:last-child{font-weight:700;color:var(--green)}
   </style>
 </head>
-<body>  <nav class="site-topbar" role="navigation" aria-label="Site navigation">
+<body>
+  <nav class="site-topbar" role="navigation" aria-label="Site navigation">
     <div class="container">
       <div class="topbar-inner">
         <span class="site-brand">🤖 Build Your Own ChatGPT</span>
@@ -71,96 +105,220 @@
   </nav>
 
   <main class="cost-page">
-    <h1>Local AI Cost vs Cloud</h1>
-    <p class="subtitle">Compare costs, privacy, and speed. See exactly how much you save running AI locally.</p>
+    <h1>Local AI vs Subscription</h1>
+    <p class="subtitle">Calculate whether running local AI is cheaper than ChatGPT Plus. See your exact savings.</p>
 
-    <div id="comparisons"></div>
+    <div class="cost-form">
+      <div class="form-group">
+        <label>Your hardware tier</label>
+        <select id="tier-select">
+          <option value="">Select your hardware...</option>
+          <option value="no-gpu">No GPU / Integrated Graphics</option>
+          <option value="budget-gpu">Budget GPU (4-8GB VRAM)</option>
+          <option value="mid-gpu">Mid-Range GPU (8-16GB VRAM)</option>
+          <option value="high-end-gpu">High-End GPU (16GB+ VRAM)</option>
+          <option value="apple">Apple Silicon (M1/M2/M3/M4)</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Current AI subscriptions (select all you pay for)</label>
+        <div id="subscriptions-list"></div>
+      </div>
+
+      <div class="form-group">
+        <label>How much do you use AI per day?</label>
+        <select id="usage">
+          <option value="light">Light — about 1 hour/day</option>
+          <option value="moderate" selected>Moderate — about 3 hours/day</option>
+          <option value="heavy">Heavy — 6+ hours/day</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Electricity cost (USD per kWh)</label>
+        <input type="number" id="electricity" value="0.13" step="0.01" min="0.01" max="1.00">
+        <span class="hint">Global average is ~$0.13. Check your electricity bill.</span>
+      </div>
+
+      <button class="cost-btn" onclick="calculateCosts()">Calculate My Savings</button>
+    </div>
+
+    <div id="cost-result" class="cost-result"></div>
 
     <section class="be-section">
-      <h2>Break-Even Calculator</h2>
-      <p class="section-desc" style="margin-bottom:1rem;font-size:.9rem">Enter your hardware cost and monthly cloud spend to see when local AI pays for itself.</p>
+      <h2>Quick Break-Even Calculator</h2>
       <div class="be-form">
         <div>
-          <label class="be-label" for="hw-cost">Hardware Cost ($)</label>
-          <input class="be-input" type="number" id="hw-cost" value="300" min="0" step="50">
+          <label class="be-label">Hardware cost ($)</label>
+          <input type="number" id="hw-cost" class="be-input" value="300" min="0">
         </div>
         <div>
-          <label class="be-label" for="monthly-cloud">Monthly Cloud Spend ($)</label>
-          <input class="be-input" type="number" id="monthly-cloud" value="20" min="0" step="5">
+          <label class="be-label">Monthly subscription ($)</label>
+          <input type="number" id="monthly-cloud" class="be-input" value="20" min="0">
         </div>
       </div>
-      <div id="be-output" class="be-result normal">You break even in <strong>15 months</strong></div>
-      <p class="tool-note" style="margin-top:.75rem">After breaking even, every month is pure savings. Your GPU also helps with gaming, rendering, and other compute tasks.</p>
-    </section>
-
-    <section class="be-section" style="margin-top:1.5rem">
-      <h2>Pre-Computed Break-Even Examples</h2>
+      <div id="be-outcome" class="be-outcome normal">Enter values above</div>
       <table class="be-table">
-        <thead><tr><th>Hardware</th><th>vs Service</th><th>Break-Even</th><th>Note</th></tr></thead>
+        <thead>
+          <tr>
+            <th>Hardware</th>
+            <th>vs Service</th>
+            <th>Break-Even</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
         <tbody id="be-table-body"></tbody>
       </table>
     </section>
+
+    <div id="comparisons"></div>
   </main>
 
   <footer class="footer">
     <div class="container">
       <div class="footer-links">
         <a href="https://github.com/ebubeco/build-your-own-chatgpt" target="_blank" rel="noopener noreferrer">GitHub</a>
-        <a href="/models">Leaderboard</a>
-        <a href="/insights">Insights</a>
-        <a href="/compendium">Compendium</a>
-        <a href="/">Wizard</a>
+        <a href="index.html">Wizard</a>
+        <a href="compendium.html">Model Compendium</a>
+        <a href="use-cases.html">Use Cases</a>
+        <a href="starter-pack.html">Starter Pack</a>
+        <a href="career.html">Careers</a>
       </div>
       <p class="footer-tagline">Built for beginners. Your data never leaves your machine.</p>
     </div>
   </footer>
 
   <script>
-    const COLORS = { privacy: 'green', speed: 'accent' };    function ratingBar(label, val, max) {
-      const color = COLORS[label] || 'amber';
-      const pct = Math.round((val / max) * 100);
-      return `<div class="rating-row"><span>${label.charAt(0).toUpperCase()+label.slice(1)}</span><div class="rating-bar"><div class="rating-fill ${color}" style="width:${pct}%"></div></div><span>${val}/10</span></div>`;
+    document.getElementById('theme-toggle').addEventListener('click', function() {
+      var t = document.documentElement.getAttribute('data-theme');
+      var n = t === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', n);
+      localStorage.setItem('theme', n);
+      document.querySelector('.toggle-icon').textContent = n === 'dark' ? '☀️' : '🌙';
+      document.querySelector('.toggle-label').textContent = n === 'dark' ? 'Light mode' : 'Dark mode';
+    });
+    if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme:dark)').matches)) {
+      document.querySelector('.toggle-icon').textContent = '☀️';
+      document.querySelector('.toggle-label').textContent = 'Light mode';
     }
+
+    let costsData = null;
+    let gpusData = null;
+
+    function ratingBar(val, max) {
+      var pct = Math.round((val / max) * 100);
+      var cls = val >= 8 ? 'green' : val >= 5 ? 'amber' : 'accent';
+      return '<div class="rating-row"><div class="rating-bar"><div class="rating-fill ' + cls + '" style="width:' + pct + '%"></div></div><span>' + val + '/' + max + '</span></div>';
+    }
+
     function renderComparison(c) {
-      const maxP = Math.max(c.local.privacyRating, c.cloud.privacyRating, 10);
-      const maxS = Math.max(c.local.speedRating, c.cloud.speedRating, 10);
-      return `<div class="comp-card"><h2>${c.title}</h2><div class="comp-split">
-        <div class="side-card local"><h3>${c.local.name}</h3><div class="price">${c.local.upfront} <span>upfront</span> · $0/mo</div>
-          ${ratingBar('privacy',c.local.privacyRating,maxP)}${ratingBar('speed',c.local.speedRating,maxS)}
-          <p class="notes" style="margin-top:.5rem">${c.local.notes}</p>
-        </div>
-        <div class="side-card cloud"><h3>${c.cloud.name}</h3><div class="price">${c.cloud.upfront} <span>upfront</span> · ${c.cloud.monthly}/mo</div>
-          ${ratingBar('privacy',c.cloud.privacyRating,maxP)}${ratingBar('speed',c.cloud.speedRating,maxS)}
-          <p class="notes" style="margin-top:.5rem">${c.cloud.notes}</p>
-        </div>
-      </div></div>`;
+      return '<div class="comp-card"><h2>' + c.title + '</h2><div class="comp-split"><div class="side-card local"><h3>Local AI</h3><div class="price">' + c.local.monthly + '<span>/mo</span></div><div style="font-size:.75rem;font-weight:700;color:var(--green);margin-bottom:.5rem">' + c.local.yearly + '/year</div><p class="notes">' + c.local.notes + '</p><div style="margin-top:.5rem;font-size:.78rem"><div style="font-weight:600;margin-bottom:.2rem">Privacy</div>' + ratingBar(c.local.privacyRating, 10) + '<div style="font-weight:600;margin:.5rem 0 .2rem">Speed</div>' + ratingBar(c.local.speedRating, 10) + '</div></div><div class="side-card cloud"><h3>' + c.cloud.name + '</h3><div class="price">' + c.cloud.monthly + '<span>/mo</span></div><div style="font-size:.75rem;font-weight:700;color:var(--accent);margin-bottom:.5rem">' + c.cloud.yearly + '/year</div><p class="notes">' + c.cloud.notes + '</p><div style="margin-top:.5rem;font-size:.78rem"><div style="font-weight:600;margin-bottom:.2rem">Privacy</div>' + ratingBar(c.cloud.privacyRating, 10) + '<div style="font-weight:600;margin:.5rem 0 .2rem">Speed</div>' + ratingBar(c.cloud.speedRating, 10) + '</div></div></div></div>';
     }
+
     function calcBreakEven() {
-      const hw = parseFloat(document.getElementById('hw-cost').value) || 0;
-      const mo = parseFloat(document.getElementById('monthly-cloud').value) || 0;
-      const el = document.getElementById('be-output');
-      if (mo <= 0) { el.className='be-result normal'; el.innerHTML='Monthly spend is $0 — you are already saving!'; return; }
-      const months = Math.ceil(hw / mo);
-      const yrs = (months / 12).toFixed(1);
-      el.className = months <= 12 ? 'be-result green' : months <= 24 ? 'be-result amber' : 'be-result normal';
-      el.innerHTML = `You break even in <strong>${months} months</strong> (${yrs} years)`;
+      var hw = parseFloat(document.getElementById('hw-cost').value) || 0;
+      var monthly = parseFloat(document.getElementById('monthly-cloud').value) || 0;
+      var el = document.getElementById('be-outcome');
+      if (hw <= 0 || monthly <= 0) { el.className = 'be-outcome normal'; el.innerHTML = 'Enter hardware and monthly costs above'; return; }
+      var months = Math.ceil(hw / monthly);
+      var yrs = (months / 12).toFixed(1);
+      el.className = months <= 12 ? 'be-outcome green' : months <= 24 ? 'be-outcome amber' : 'be-outcome normal';
+      el.innerHTML = 'You break even in <strong>' + months + ' months</strong> (' + yrs + ' years)';
     }
+
+    async function calculateCosts() {
+      var tierId = document.getElementById('tier-select').value;
+      var usage = document.getElementById('usage').value;
+      var elecRate = parseFloat(document.getElementById('electricity').value) || 0.13;
+
+      var gpu = gpusData ? gpusData.find(function(g) { return g.id === tierId; }) : null;
+      var hoursMap = { light: 1, moderate: 3, heavy: 6 };
+      var hoursPerDay = hoursMap[usage] || 3;
+
+      var powerDrawMap = { 'no-gpu': 15, 'budget-gpu': 120, 'mid-gpu': 200, 'high-end-gpu': 350, 'apple': 20 };
+      var powerDraw = (powerDrawMap[tierId] || 15) / 1000;
+      var dailyElec = powerDraw * hoursPerDay * elecRate;
+      var monthlyElec = dailyElec * 30;
+
+      var hardwareCostMap = { 'no-gpu': 0, 'budget-gpu': 150, 'mid-gpu': 280, 'high-end-gpu': 650, 'apple': 0 };
+      var hardwareCost = hardwareCostMap[tierId] || 0;
+
+      var subBoxes = document.querySelectorAll('#subscriptions-list input:checked');
+      var monthlySubCost = 0;
+      subBoxes.forEach(function(box) { monthlySubCost += parseFloat(box.value) || 0; });
+
+      var annualSubCost = monthlySubCost * 12;
+      var annualElec = monthlyElec * 12;
+      var netSavings = annualSubCost - annualElec - (hardwareCost / 3);
+      var breakEven = monthlySubCost > monthlyElec && hardwareCost > 0 ? Math.ceil(hardwareCost / (monthlySubCost - monthlyElec)) : null;
+
+      var result = document.getElementById('cost-result');
+      result.style.display = 'block';
+      var gpuName = gpu ? gpu.displayName : (tierId || 'your hardware');
+      var savingsColor = netSavings > 0 ? 'var(--green)' : 'var(--accent)';
+      var savingsSign = netSavings >= 0 ? '+$' : '-$';
+
+      result.innerHTML = '<h2 style="font-family:Outfit,sans-serif;font-size:1.3rem;font-weight:700;margin-bottom:1rem">Your Cost Breakdown</h2>' +
+        '<div class="cost-cards">' +
+        '<div class="cost-card"><h3>Current subscriptions</h3><div class="cost-big">$' + monthlySubCost.toFixed(0) + '/mo</div><div class="cost-annual">$' + annualSubCost.toFixed(0) + '/year</div></div>' +
+        '<div class="cost-card"><h3>Local AI (electricity)</h3><div class="cost-big">$' + monthlyElec.toFixed(2) + '/mo</div><div class="cost-annual">$' + annualElec.toFixed(2) + '/year</div></div>' +
+        (hardwareCost > 0 ? '<div class="cost-card"><h3>One-time hardware</h3><div class="cost-big">$' + hardwareCost + '</div><div class="cost-annual">One-time cost</div></div>' : '') +
+        '</div>' +
+        (monthlySubCost > 0 ? '<div class="savings-highlight"><h3>Annual savings with local AI (3-year amortized)</h3><div class="savings-num" style="color:' + savingsColor + '">' + savingsSign + Math.abs(netSavings).toFixed(0) + '</div>' +
+        (breakEven ? '<p style="margin-top:.5rem;font-size:.9rem;color:var(--text-secondary)"><strong>Break-even:</strong> ' + breakEven + ' months (' + (breakEven / 12).toFixed(1) + ' years)</p>' : '<p style="margin-top:.5rem;font-size:.9rem;color:var(--text-secondary)">No hardware cost needed for your tier</p>') +
+        '</div>' : '') +
+        '<table class="cost-table"><thead><tr><th>Item</th><th>Cost</th><th>Details</th></tr></thead><tbody>' +
+        '<tr><td>Software</td><td>$0</td><td>Ollama, LM Studio, OpenWebUI — all free</td></tr>' +
+        '<tr><td>Monthly electricity</td><td>$' + monthlyElec.toFixed(2) + '</td><td>' + hoursPerDay + 'hrs/day at $' + elecRate + '/kWh on ' + gpuName + '</td></tr>' +
+        '<tr><td>Hardware (one-time)</td><td>$' + hardwareCost + '</td><td>' + (tierId === 'no-gpu' || tierId === 'apple' ? 'Use existing hardware' : 'Approx. used ' + gpuName) + '</td></tr>' +
+        '</tbody></table>' +
+        '<div class="cta-box"><p>Ready to set up local AI on your ' + gpuName + '?</p><a href="index.html' + (tierId ? '?tier=' + tierId : '') + '" class="cta-btn">Get my setup →</a></div>';
+      result.scrollIntoView({ behavior: 'smooth' });
+      plausible('cost_calculated', { props: { tier: tierId, monthlySub: monthlySubCost } });
+    }
+
     async function init() {
       try {
-        const res = await fetch('data/costs.json');
-        const data = await res.json();
-        document.getElementById('comparisons').innerHTML = data.comparisons.map(renderComparison).join('');
-        document.getElementById('be-table-body').innerHTML = data.breakEven.map(b =>
-          `<tr><td>${b.hardware}</td><td>${b.vsService}</td><td>${b.breakEvenMonths} months</td><td style="font-size:.78rem;color:var(--text-tertiary)">${b.note}</td></tr>`
-        ).join('');
-      } catch(e) { document.getElementById('comparisons').innerHTML='<p style="color:var(--red)">Failed to load cost data.</p>'; }
+        var res = await Promise.all([
+          fetch('data/costs.json').then(function(r) { return r.json(); }),
+          fetch('data/gpus.json').then(function(r) { return r.json(); })
+        ]);
+        costsData = res[0];
+        gpusData = res[1];
+
+        document.getElementById('comparisons').innerHTML = (costsData.comparisons || []).map(renderComparison).join('');
+        document.getElementById('be-table-body').innerHTML = (costsData.breakEven || []).map(function(b) {
+          return '<tr><td>' + b.hardware + '</td><td>' + b.vsService + '</td><td>' + b.breakEvenMonths + ' months</td><td>' + b.note + '</td></tr>';
+        }).join('');
+
+        var tierSel = document.getElementById('tier-select');
+        gpusData.forEach(function(g) {
+          var opt = document.createElement('option');
+          opt.value = g.id;
+          opt.textContent = g.uiLabel;
+          tierSel.appendChild(opt);
+        });
+
+        var subList = document.getElementById('subscriptions-list');
+        var subs = costsData.cloudSubscriptions || [];
+        subList.innerHTML = subs.map(function(s) {
+          return '<div class="sub-item">' +
+            '<input type="checkbox" id="sub-' + s.id + '" value="' + s.monthlyPrice + '">' +
+            '<label for="sub-' + s.id + '" style="flex:1;cursor:pointer"><span class="sub-name">' + s.name + '</span> <span class="sub-price">— $' + s.monthlyPrice + '/mo</span></label>' +
+            '<span class="sub-capability">' + (s.bestFor ? s.bestFor.slice(0, 2).join(', ') : '') + '</span>' +
+            '</div>';
+        }).join('');
+      } catch(e) {
+        document.getElementById('comparisons').innerHTML = '<p style="color:var(--red)">Failed to load cost data.</p>';
+      }
       document.getElementById('hw-cost').addEventListener('input', calcBreakEven);
       document.getElementById('monthly-cloud').addEventListener('input', calcBreakEven);
       calcBreakEven();
     }
     document.addEventListener('DOMContentLoaded', init);
   </script>
-  <script src="analytics.js"></script>
   <script src="shared.js"></script>
+  <script src="analytics.js"></script>
 </body>
 </html>

@@ -158,15 +158,6 @@
           </button>
         </div>
 
-        <div id="career-area" class="hidden" style="margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--border)">
-          <h2>What best describes you?</h2>
-          <p class="section-desc">Your career helps us recommend models suited to your daily work.</p>
-          <div id="career-options" class="career-grid"></div>
-          <div style="text-align:center;margin-top:0.75rem">
-            <button class="skip-career-btn" id="btn-skip-career">Skip — not sure what I do</button>
-          </div>
-        </div>
-
         <div id="show-all-row" style="text-align:center;margin-top:0.75rem;display:none">
           <button class="show-all-btn" id="btn-show-all">Show all models (browse everything)</button>
         </div>
@@ -199,6 +190,15 @@
       </section>
 
       <section id="results-section" class="results-section hidden"></section>
+
+      <div id="career-area" class="hidden" style="margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--border)">
+        <h2>What best describes you?</h2>
+        <p class="section-desc">Your career helps us recommend models suited to your daily work.</p>
+        <div id="career-options" class="career-grid"></div>
+        <div style="text-align:center;margin-top:0.75rem">
+          <button class="skip-career-btn" id="btn-skip-career">Skip — not sure what I do</button>
+        </div>
+      </div>
 
       <section class="section">
         <label class="beginner-toggle">
@@ -519,13 +519,12 @@ print(response.text)</div>
     <div class="container">
       <div class="footer-links">
         <a href="https://github.com/ebubeco/build-your-own-chatgpt" target="_blank" rel="noopener noreferrer">GitHub</a>
-        <a href="/models">Leaderboard</a>
-        <a href="/insights">Insights</a>
+        <a href="/compendium.html">Model Catalog</a>
         <a href="https://ollama.com" target="_blank" rel="noopener noreferrer">Ollama</a>
         <a href="https://huggingface.co" target="_blank" rel="noopener noreferrer">Hugging Face</a>
       </div>
       <p class="footer-tagline">Built for beginners. Your data never leaves your machine.</p>
-      <p class="footer-dev"><a href="#" onclick="if(window.__analytics){window.__analytics.exportFeedbackData()}return false" title="Export feedback data (dev only)">📋 Export feedback</a></p>
+      <p class="footer-dev"><a href="#" id="export-feedback-btn" style="display:none;" onclick="if(window.__analytics){window.__analytics.exportFeedbackData()}return false" title="Export feedback data (dev only)">📋 Export feedback</a></p>
     </div>
   </footer>
 
@@ -598,5 +597,6 @@ print(response.text)</div>
 
   <script src="analytics.js"></script>
   <script src="app.js"></script>
+  <script src="shared.js"></script>
 </body>
 </html>

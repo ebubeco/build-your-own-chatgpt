@@ -1,84 +1,84 @@
 {
-  "prompts": [
-    {
-      "id": "code-review",
-      "category": "coding",
-      "title": "Code Review",
-      "prompt": "Review this code for bugs, performance issues, and security vulnerabilities. Suggest specific fixes:\n\n```\n[Paste your code here]\n```",
-      "model": "deepseek-r1:8b",
-      "tips": "DeepSeek R1's chain-of-thought reasoning makes it especially good at finding subtle bugs"
-    },
-    {
-      "id": "explain-code",
-      "category": "coding",
-      "title": "Explain Code",
-      "prompt": "Explain what this code does in simple terms. Assume I'm a junior developer:\n\n```\n[Paste your code here]\n```",
-      "model": "phi4-mini:3.8b",
-      "tips": "Phi-4 Mini is excellent at clear explanations. Add 'line by line' for detailed breakdowns"
-    },
-    {
-      "id": "generate-boilerplate",
-      "category": "coding",
-      "title": "Generate Boilerplate",
-      "prompt": "Create a [language/framework] [type of component] that [description of what it should do]. Include error handling and input validation.",
-      "model": "qwen2.5:7b",
-      "tips": "Qwen 2.5 7B generates the most complete and correct boilerplate code"
-    },
-    {
-      "id": "debug-error",
-      "category": "coding",
-      "title": "Debug Error Message",
-      "prompt": "I'm getting this error:\n```\n[Paste error message]\n```\n\nHere's my code:\n```\n[Paste your code]\n```\n\nWhat's causing this and how do I fix it?",
-      "model": "deepseek-r1:8b",
-      "tips": "Include the full error stack trace for best results"
-    },
-    {
-      "id": "draft-article",
-      "category": "writing",
-      "title": "Draft Article",
-      "prompt": "Write a [type of article] about [topic]. Target audience: [audience]. Tone: [formal/casual/persuasive]. Length: [word count] words. Include an outline first.",
-      "model": "qwen2.5:7b",
-      "tips": "Ask for outline first, then approve before full draft. Gives you control over direction"
-    },
-    {
-      "id": "summarize",
-      "category": "writing",
-      "title": "Summarize Text",
-      "prompt": "Summarize the following text in [bullet points / paragraph] format. Capture the key points and conclusions:\n\n[Paste text here]",
-      "model": "phi4-mini:3.8b",
-      "tips": "Phi-4 Mini gives concise, accurate summaries. Add 'at a [grade level] reading level' for accessibility"
-    },
-    {
-      "id": "brainstorm",
-      "category": "chat",
-      "title": "Brainstorm Ideas",
-      "prompt": "I need ideas for [topic/ problem]. Give me [number] creative approaches. For each idea, explain the pros and cons and how to get started.",
-      "model": "qwen2.5:7b",
-      "tips": "Ask for 'unconventional' ideas to get more creative suggestions. Follow up on promising ones"
-    },
-    {
-      "id": "research-analysis",
-      "category": "research",
-      "title": "Research Paper Analysis",
-      "prompt": "Analyze this research paper abstract/methodology. Tell me:\n1. What problem does it solve?\n2. What's the key innovation?\n3. What are the limitations?\n4. How does it compare to [alternative approach]?\n\n[Paste text here]",
-      "model": "qwen3:14b",
-      "tips": "Qwen 3 14B's larger context window (32K) can process full paper sections in one go"
-    },
-    {
-      "id": "agent-workflow",
-      "category": "agents",
-      "title": "Design Agent Workflow",
-      "prompt": "Design an AI agent workflow that:\n1. [Task 1]\n2. [Task 2]\n3. [Task 3]\n\nFor each step, specify: input, processing logic, output, and how it passes to the next step.",
-      "model": "qwen3.5:27b",
-      "tips": "Best with Qwen 3.5 27B. Its reasoning abilities make complex workflow design much more coherent"
-    },
-    {
-      "id": "learning-concept",
-      "category": "learning",
-      "title": "Learn a Concept",
-      "prompt": "Teach me [concept] from scratch. Use this structure:\n1. Simple analogy (what's it like in real life)\n2. Core concept (2-3 sentences)\n3. Example (concrete)\n4. Practice question\n5. Common mistake to avoid",
-      "model": "phi4-mini:3.8b",
-      "tips": "Phi-4 Mini is the best teacher among small models. Follow up with 'give me a harder example'"
-    }
-  ]
+  "byGoal": {
+    "coding": [
+      {
+        "id": "code-review",
+        "title": "Code Review",
+        "prompt": "Review this code for bugs, performance issues, and security vulnerabilities. Suggest specific fixes:\n\n```\n[Paste your code here]\n```",
+        "model": "deepseek-r1:8b",
+        "tips": "DeepSeek R1's chain-of-thought reasoning makes it especially good at finding subtle bugs"
+      },
+      {
+        "id": "explain-code",
+        "title": "Explain Code",
+        "prompt": "Explain what this code does in simple terms. Assume I'm a junior developer:\n\n```\n[Paste your code here]\n```",
+        "model": "phi4-mini:3.8b",
+        "tips": "Phi-4 Mini is excellent at clear explanations. Add 'line by line' for detailed breakdowns"
+      },
+      {
+        "id": "generate-boilerplate",
+        "title": "Generate Boilerplate",
+        "prompt": "Create a [language/framework] [type of component] that [description of what it should do]. Include error handling and input validation.",
+        "model": "qwen2.5:7b",
+        "tips": "Qwen 2.5 7B generates the most complete and correct boilerplate code"
+      },
+      {
+        "id": "debug-error",
+        "title": "Debug Error Message",
+        "prompt": "I'm getting this error:\n```\n[Paste error message]\n```\n\nHere's my code:\n```\n[Paste your code]\n```\n\nWhat's causing this and how do I fix it?",
+        "model": "deepseek-r1:8b",
+        "tips": "Include the full error stack trace for best results"
+      }
+    ],
+    "writing": [
+      {
+        "id": "draft-article",
+        "title": "Draft Article",
+        "prompt": "Write a [type of article] about [topic]. Target audience: [audience]. Tone: [formal/casual/persuasive]. Length: [word count] words. Include an outline first.",
+        "model": "qwen2.5:7b",
+        "tips": "Ask for outline first, then approve before full draft. Gives you control over direction"
+      },
+      {
+        "id": "summarize",
+        "title": "Summarize Text",
+        "prompt": "Summarize the following text in [bullet points / paragraph] format. Capture the key points and conclusions:\n\n[Paste text here]",
+        "model": "phi4-mini:3.8b",
+        "tips": "Phi-4 Mini gives concise, accurate summaries. Add 'at a [grade level] reading level' for accessibility"
+      },
+      {
+        "id": "brainstorm",
+        "title": "Brainstorm Ideas",
+        "prompt": "I need ideas for [topic/problem]. Give me [number] creative approaches. For each idea, explain the pros and cons and how to get started.",
+        "model": "qwen2.5:7b",
+        "tips": "Ask for 'unconventional' ideas to get more creative suggestions. Follow up on promising ones"
+      }
+    ],
+    "research": [
+      {
+        "id": "research-analysis",
+        "title": "Research Paper Analysis",
+        "prompt": "Analyze this research paper abstract/methodology. Tell me:\n1. What problem does it solve?\n2. What's the key innovation?\n3. What are the limitations?\n4. How does it compare to [alternative approach]?\n\n[Paste text here]",
+        "model": "deepseek-r1:8b",
+        "tips": "DeepSeek R1's reasoning abilities make complex paper analysis much more thorough"
+      }
+    ],
+    "agents": [
+      {
+        "id": "agent-workflow",
+        "title": "Design Agent Workflow",
+        "prompt": "Design an AI agent workflow that:\n1. [Task 1]\n2. [Task 2]\n3. [Task 3]\n\nFor each step, specify: input, processing logic, output, and how it passes to the next step.",
+        "model": "qwen2.5:14b",
+        "tips": "Use this with Qwen 2.5 14B or higher. Its reasoning abilities make complex workflow design much more coherent"
+      }
+    ],
+    "learning": [
+      {
+        "id": "learning-concept",
+        "title": "Learn a Concept",
+        "prompt": "Teach me [concept] from scratch. Use this structure:\n1. Simple analogy (what's it like in real life)\n2. Core concept (2-3 sentences)\n3. Example (concrete)\n4. Practice question\n5. Common mistake to avoid",
+        "model": "phi4-mini:3.8b",
+        "tips": "Phi-4 Mini is the best teacher among small models. Follow up with 'give me a harder example'"
+      }
+    ]
+  }
 }

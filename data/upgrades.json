@@ -1,58 +1,69 @@
 {
-  "upgrades": [
+  "gpuUpgrades": [
     {
-      "from": "no-gpu",
-      "to": "budget-gpu",
-      "label": "Add a dedicated GPU",
-      "cost": "$200-$400",
-      "description": "An RTX 3060 12GB unlocks 7B-14B models at good speeds. Best bang for your buck in local AI.",
-      "impact": "Moves from CPU-only (0.5B-3B models) to running 7B-14B models at 20-40 tok/s. Night and day difference.",
-      "gpuOptions": ["RTX 3060 12GB", "RTX 4060 8GB", "RTX 3070 8GB"]
+      "fromTier": "no-gpu",
+      "toTier": "budget-gpu",
+      "recommendedGPUs": [
+        { "name": "RTX 3060 6GB", "vram": "6GB", "approxPriceUSD": 150, "used": true, "notes": "Best used value for local AI" },
+        { "name": "RTX 3050 8GB", "vram": "8GB", "approxPriceUSD": 200, "used": false, "notes": "New card, good VRAM for price" },
+        { "name": "RX 6600", "vram": "8GB", "approxPriceUSD": 140, "used": true, "notes": "AMD alternative, good Linux support" }
+      ],
+      "unlocks": ["qwen2.5:7b on GPU", "Full 7B model acceleration", "10-20x speed increase vs CPU"],
+      "estimatedSpeedup": "10-20x faster inference"
     },
     {
-      "from": "cpu-only",
-      "to": "budget-gpu",
-      "label": "Add a budget GPU",
-      "cost": "$200-$400",
-      "description": "Even an RTX 3060 12GB transforms CPU-only setups. You go from small models to running Qwen 2.5 7B comfortably.",
-      "impact": "3-7 tok/s CPU → 20-40 tok/s GPU. Enables coding assistants and real-time chat.",
-      "gpuOptions": ["RTX 3060 12GB", "RTX 4060 8GB", "RTX 3070 8GB"]
+      "fromTier": "budget-gpu",
+      "toTier": "mid-gpu",
+      "recommendedGPUs": [
+        { "name": "RTX 3060 12GB", "vram": "12GB", "approxPriceUSD": 250, "used": true, "notes": "Best VRAM per dollar in 2026" },
+        { "name": "RTX 4060 Ti 16GB", "vram": "16GB", "approxPriceUSD": 400, "used": false, "notes": "16GB new, future-proof" },
+        { "name": "RTX 3070 Ti", "vram": "8GB", "approxPriceUSD": 280, "used": true, "notes": "Faster but less VRAM" }
+      ],
+      "unlocks": ["qwen2.5:14b at Q4", "phi4:14b", "Larger context windows", "Faster 7B inference"],
+      "estimatedSpeedup": "Additional 2-3x vs budget GPU"
     },
     {
-      "from": "budget-gpu",
-      "to": "power-gpu",
-      "label": "Upgrade to a high-end GPU",
-      "cost": "$700-$1600",
-      "description": "RTX 4090 24GB or similar. Run the best open models (Qwen 3.5 27B, Llama 4) at full speed.",
-      "impact": "Enables 27B-70B models at 30-60 tok/s. Matches Claude 3.5 Sonnet quality locally.",
-      "gpuOptions": ["RTX 4080 Super 16GB", "RTX 4090 24GB", "RTX 5090 32GB"]
+      "fromTier": "mid-gpu",
+      "toTier": "high-end-gpu",
+      "recommendedGPUs": [
+        { "name": "RTX 3090", "vram": "24GB", "approxPriceUSD": 600, "used": true, "notes": "24GB VRAM king of used market" },
+        { "name": "RTX 4080 16GB", "vram": "16GB", "approxPriceUSD": 750, "used": false, "notes": "Fastest mid-high option" },
+        { "name": "RTX 4090", "vram": "24GB", "approxPriceUSD": 1600, "used": false, "notes": "Best overall, high cost" }
+      ],
+      "unlocks": ["qwen2.5:32b", "deepseek-r1:32b", "Full 33B models", "Multi-model concurrent"],
+      "estimatedSpeedup": "Additional 2-4x vs mid GPU"
+    }
+  ],
+  "ramUpgrades": [
+    {
+      "fromGb": 8,
+      "toGb": 16,
+      "approxPriceUSD": 35,
+      "unlocks": ["qwen2.5:7b on CPU-only", "Better CPU offloading", "Smoother multitasking"],
+      "notes": "Most impactful single upgrade for laptop users"
     },
     {
-      "from": "silicon-8-16gb",
-      "to": "silicon-24-48gb",
-      "label": "Upgrade Mac to 24GB+ unified memory",
-      "cost": "$400-$800",
-      "description": "More unified memory means bigger models. 24GB+ lets you run 14B models smoothly with Metal acceleration.",
-      "impact": "7B models at 20-30 tok/s → 14B-27B models at 15-25 tok/s. Big quality jump.",
-      "gpuOptions": ["MacBook Pro M3 Pro 18GB", "MacBook Pro M3 Max 36GB", "Mac Studio M2 Ultra 64GB"]
+      "fromGb": 16,
+      "toGb": 32,
+      "approxPriceUSD": 65,
+      "unlocks": ["qwen2.5:14b with CPU offload", "Large context windows", "Better agent performance"],
+      "notes": "Recommended for power users"
     },
     {
-      "from": "silicon-24-48gb",
-      "to": "silicon-64-plus",
-      "label": "Upgrade to 64GB+ unified memory",
-      "cost": "$800-$2000",
-      "description": "Mac Studio M2 Ultra 128GB or MacBook Pro M3 Max 128GB. Run the largest open models locally.",
-      "impact": "Enables 27B-70B models at 20-30 tok/s. Workstation-class AI on your desk.",
-      "gpuOptions": ["Mac Studio M2 Ultra 128GB", "MacBook Pro M3 Max 128GB", "Mac Pro 192GB"]
-    },
+      "fromGb": 32,
+      "toGb": 64,
+      "approxPriceUSD": 120,
+      "unlocks": ["Run multiple models simultaneously", "Full 32B with CPU offload", "Agent workflows"],
+      "notes": "Only needed for advanced use cases"
+    }
+  ],
+  "storageUpgrades": [
     {
-      "from": "no-gpu",
-      "to": "silicon-8-16gb",
-      "label": "Switch to Apple Silicon Mac",
-      "cost": "$800-$1400",
-      "description": "MacBook Air M1/M2 or Mac Mini M2 with 16GB unified memory. Metal GPU acceleration works out of the box.",
-      "impact": "Runs 7B models at 15-25 tok/s with Metal. No GPU configuration needed.",
-      "gpuOptions": ["MacBook Air M2 16GB", "Mac Mini M2 16GB", "MacBook Pro M1 16GB"]
+      "note": "SSD recommended for model loading speed",
+      "minRecommended": "500GB free",
+      "optimalRecommended": "1TB+ SSD",
+      "approxPriceUSD": 60,
+      "speedImpact": "3-5x faster model loading vs HDD"
     }
   ]
 }

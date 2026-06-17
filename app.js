@@ -128,9 +128,10 @@
   }
 
   function getTierFromVRAM(vramGB) {
-    if (vramGB >= 16) return 'power-gpu';
+    if (vramGB >= 16) return 'high-end-gpu';
+    if (vramGB >= 8) return 'mid-gpu';
     if (vramGB >= 4) return 'budget-gpu';
-    return 'cpu-only';
+    return 'no-gpu';
   }
 
   function matchGPUName(name) {
@@ -138,9 +139,7 @@
     const gpuMap = gpusData.gpuMap;
     if (name.includes('Apple') || name.includes('M1') || name.includes('M2') || name.includes('M3') || name.includes('M4')) {
       const mem = detectUnifiedMemory();
-      if (mem >= 64) return { tier: 'silicon-64-plus', vramGB: mem, name: 'Apple Silicon (64GB+)' };
-      if (mem >= 24) return { tier: 'silicon-24-48gb', vramGB: mem, name: 'Apple Silicon (24-48GB)' };
-      return { tier: 'silicon-8-16gb', vramGB: mem || 16, name: 'Apple Silicon (8-16GB)' };
+      return { tier: 'apple', vramGB: mem || 16, name: 'Apple Silicon (' + (mem || 16) + 'GB)', ram: mem || 16 };
     }
     for (const [key, val] of Object.entries(gpuMap)) {
       if (name.includes(key.replace('NVIDIA ', '').replace('AMD ', ''))) {
@@ -163,8 +162,8 @@
     const vramGB = detectVRAM();
     const match = matchGPUName(gpuName);
     if (!match) return { gpu: gpuName, vram: vramGB, tier: getTierFromVRAM(vramGB) };
-    const isSilicon = match.tier && match.tier.startsWith('silicon-');
-    const memLabel = isSilicon ? (match.vramGB ? Math.round(match.vramGB / 1024) + 'GB unified' : 'Unified Memory') : (match.vramGB + 'GB VRAM');
+    const isSilicon = match.tier === 'apple';
+    const memLabel = isSilicon ? ((match.ram || match.vramGB) + 'GB unified') : (match.vramGB + 'GB VRAM');
     const name = (gpuName.includes('Apple') || gpuName.includes('M1') || gpuName.includes('M2') || gpuName.includes('M3') || gpuName.includes('M4')) ? (match.name || 'Apple Silicon') : (match.name || gpuName);
     return { gpu: name, vram: memLabel, tier: match.tier, vramGB: match.vramGB };
   }
@@ -192,7 +191,7 @@
   }
 
   function getReadinessBreakdown(tier) {
-    return appConfig.readinessBreakdowns[tier] || appConfig.readinessBreakdowns['cpu-only'];
+    return appConfig.readinessBreakdowns[tier] || appConfig.readinessBreakdowns['no-gpu'];
   }
 
   function getRatingClass(rating) {
@@ -335,11 +334,10 @@
       card.setAttribute('aria-pressed', 'true');
     }
 
-    const careerArea = document.getElementById('career-area');
-    if (careerArea) careerArea.classList.add('hidden');
-
-    const hwSection = document.getElementById('hw-section');
-    if (hwSection) {
+    var resultsSection = document.getElementById('results-section');
+    var hasResults = resultsSection && resultsSection.innerHTML && resultsSection.innerHTML.trim().length > 0;
+    var hwSection = document.getElementById('hw-section');
+    if (hwSection && !hasResults) {
       hwSection.classList.remove('hidden');
       hwSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
@@ -445,11 +443,9 @@
       card.setAttribute('aria-pressed', 'true');
     }
 
-    const careerArea = document.getElementById('career-area');
     const hwSection = document.getElementById('hw-section');
 
     if (goal === 'unknown') {
-      if (careerArea) careerArea.classList.add('hidden');
       if (hwSection) hwSection.classList.add('hidden');
       return;
     }
@@ -457,20 +453,11 @@
     if (goal === 'all') {
       const showAllRow = document.getElementById('show-all-row');
       if (showAllRow) showAllRow.style.display = 'block';
-      if (careerArea) {
-        careerArea.classList.remove('hidden');
-        careerArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
       if (hwSection) {
         hwSection.classList.remove('hidden');
         hwSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
       return;
-    }
-
-    if (careerArea) {
-      careerArea.classList.remove('hidden');
-      careerArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   }
 
@@ -570,8 +557,8 @@
     const bStr = model.size.match(/(\d+\.?\d*)/);
     const bSize = bStr ? parseFloat(bStr[1]) : 7;
     const cap = getModelCapability(tier, bSize);
-    const tierLimits = { 'no-gpu': 1, 'cpu-only': 3, 'budget-gpu': 7, 'power-gpu': 14, 'silicon-8-16gb': 7, 'silicon-24-48gb': 14, 'silicon-64-plus': 72 };
-    const limit = tierLimits[tier] || 7;
+    const tierLimits = { 'no-gpu': 1, 'budget-gpu': 4, 'mid-gpu': 12, 'high-end-gpu': 27, 'apple': 72 };
+    const limit = tierLimits[tier] || 2;
     const primaryGoal = { chat: 'chat', coding: 'coding', writing: 'writing', documents: 'writing', agents: 'agents', all: 'chat' }[goal] || 'chat';
     const rating = (model.practicalRating && model.practicalRating[primaryGoal]) || 5;
     const hasCareerMatch = career && CAREER_MAP[career] && CAREER_MAP[career].matchedModels.includes(model.id);
@@ -589,8 +576,8 @@
     var reasons = [];
     const bStr = model ? model.size.match(/(\d+\.?\d*)/) : null;
     const bSize = bStr ? parseFloat(bStr[1]) : 7;
-    const tierLimits = { 'no-gpu': 1, 'cpu-only': 3, 'budget-gpu': 7, 'power-gpu': 14, 'silicon-8-16gb': 7, 'silicon-24-48gb': 14, 'silicon-64-plus': 72 };
-    const limit = tierLimits[tier] || 7;
+    const tierLimits = { 'no-gpu': 1, 'budget-gpu': 4, 'mid-gpu': 12, 'high-end-gpu': 27, 'apple': 72 };
+    const limit = tierLimits[tier] || 2;
 
     if (bSize > limit * 0.9) { value -= 10; reasons.push('Near minimum hardware limits'); }
     else { reasons.push('Fits your hardware comfortably'); }
@@ -655,9 +642,9 @@
   function getWhyNotOthers(primary, tier, goal, allModels) {
     const goalMap = { 'chat': 'chat', 'coding': 'coding', 'writing': 'writing', 'documents': 'writing', 'agents': 'agents', 'all': 'chat' };
     const primaryGoal = goalMap[goal] || 'chat';
-    const tierLimits = { 'no-gpu': 1, 'cpu-only': 3, 'budget-gpu': 7, 'power-gpu': 14, 'silicon-8-16gb': 7, 'silicon-24-48gb': 14, 'silicon-64-plus': 72 };
-    const modelLimit = tierLimits[tier] || 7;
-    const tierVramMap = { 'no-gpu': 0, 'cpu-only': 0, 'budget-gpu': 4, 'power-gpu': 16, 'silicon-8-16gb': 8, 'silicon-24-48gb': 16, 'silicon-64-plus': 48 };
+    const tierLimits = { 'no-gpu': 1, 'budget-gpu': 4, 'mid-gpu': 12, 'high-end-gpu': 27, 'apple': 72 };
+    const modelLimit = tierLimits[tier] || 2;
+    const tierVramMap = { 'no-gpu': 0, 'budget-gpu': 6, 'mid-gpu': 12, 'high-end-gpu': 24, 'apple': 48 };
     const vramLimit = tierVramMap[tier] || 0;
 
     const others = allModels.filter(m => m.tier === tier && m.id !== primary.id);
@@ -702,52 +689,43 @@
   function getUpgradeInfo(tier) {
     const map = {
       'no-gpu': {
-        to: 'cpu-only',
-        label: 'Upgrade to a laptop with 8GB+ RAM or add a budget GPU',
+        to: 'budget-gpu',
+        label: 'Add a budget GPU (GTX 1660, used RTX 3060)',
         fromScore: 4,
         toScore: 6,
-        unlocks: ['Run 1.5B-3B models comfortably', 'Better chat & writing', 'Coding basics'],
-        models: ['Qwen2.5:1.5B', 'Phi-4-mini'],
-        note: 'Even a small GPU (RTX 3050, used RTX 3060) makes a big difference'
-      },
-      'cpu-only': {
-        to: 'budget-gpu',
-        label: 'Add a dedicated GPU (RTX 3060 12GB or similar)',
-        fromScore: 6,
-        toScore: 8,
-        unlocks: ['GPU-accelerated 7B models', 'Real-time chat', 'Coding assistant'],
-        models: ['Qwen2.5:7B', 'Mistral 7B', 'Llama 3.1 8B'],
-        note: 'A used RTX 3060 12GB costs ~$200 and is the best value for local AI'
+        unlocks: ['GPU-accelerated models', 'Better chat & writing', 'Coding basics'],
+        models: ['Qwen2.5:7B', 'Phi-4-mini'],
+        note: 'Even a small GPU makes a big difference'
       },
       'budget-gpu': {
-        to: 'power-gpu',
+        to: 'mid-gpu',
+        label: 'Upgrade to an 8-12GB GPU (RTX 3060 12GB, RTX 4060)',
+        fromScore: 6,
+        toScore: 8,
+        unlocks: ['Comfortable 7B-12B model support', 'Real-time chat', 'Coding assistant'],
+        models: ['Qwen2.5:7B', 'Gemma 4 12B', 'Llama 3.1 8B'],
+        note: 'A used RTX 3060 12GB costs ~$200 and is the best value for local AI'
+      },
+      'mid-gpu': {
+        to: 'high-end-gpu',
         label: 'Upgrade to a 16GB+ GPU (RTX 4070 Ti Super, used RTX 3090)',
         fromScore: 8,
         toScore: 10,
         unlocks: ['Run 14B-30B models', 'Better coding & reasoning', 'Larger context'],
-        models: ['Qwen2.5:14B', 'Codestral 22B', 'Llama 3.1 70B (Q4)'],
+        models: ['Qwen3:14B', 'Qwen3.5:27B', 'DeepSeek R1 32B'],
         note: 'A used RTX 3090 (24GB) is the best upgrade for high-end local AI'
       },
-      'silicon-8-16gb': {
-        to: 'silicon-24-48gb',
-        label: 'Upgrade to a Mac with 24-48GB unified memory',
+      'apple': {
+        to: 'apple-higher',
+        label: 'Upgrade to a Mac with more unified memory',
         fromScore: 7,
         toScore: 9,
-        unlocks: ['Run 14B models with Metal acceleration', 'Better multi-tasking', 'Larger context windows'],
-        models: ['Qwen2.5:14B', 'Llama 3.1 70B (Q2 quant)'],
-        note: 'M3 Pro or M2 Pro with 24-48GB memory unlocks much larger models'
-      },
-      'silicon-24-48gb': {
-        to: 'silicon-64-plus',
-        label: 'Upgrade to 64GB+ unified memory (M3 Max, M2 Ultra)',
-        fromScore: 9,
-        toScore: 10,
-        unlocks: ['Run 30B+ models smoothly', 'Real-time vision', 'Multi-model workflows'],
-        models: ['Qwen2.5:32B', 'Llama 3.1 70B (Q4)', 'DeepSeek Coder V2'],
-        note: 'Mac Studio M2 Ultra 128GB or M3 Max 64GB+ for workstation-class AI'
+        unlocks: ['Run larger models with Metal acceleration', 'Better multi-tasking', 'Larger context windows'],
+        models: ['Qwen3:14B', 'Qwen3.5:27B'],
+        note: 'More unified memory unlocks much larger models on Apple Silicon'
       }
     };
-    if (tier === 'power-gpu' || tier === 'silicon-64-plus') return { maxed: true };
+    if (tier === 'high-end-gpu') return { maxed: true };
     return map[tier] || null;
   }
 
@@ -756,8 +734,8 @@
     const bStr = model.size.match(/(\d+\.?\d*)/);
     const bSize = bStr ? parseFloat(bStr[1]) : 7;
     const cap = getModelCapability(tier, bSize);
-    const tierLimits = { 'no-gpu': 1, 'cpu-only': 3, 'budget-gpu': 7, 'power-gpu': 14, 'silicon-8-16gb': 7, 'silicon-24-48gb': 14, 'silicon-64-plus': 72 };
-    const limit = tierLimits[tier] || 7;
+    const tierLimits = { 'no-gpu': 1, 'budget-gpu': 4, 'mid-gpu': 12, 'high-end-gpu': 27, 'apple': 72 };
+    const limit = tierLimits[tier] || 2;
 
     if (bSize <= limit) points.push(`Runs comfortably on your hardware`);
     else if (bSize <= limit * 1.5) points.push(`Slightly larger than ideal but works`);
@@ -806,12 +784,12 @@
       else if (breakdown.agents >= 4) items.slow.push({ icon: '🤖', label: 'Simple Agents', note: 'Limited capabilities' });
     }
 
-    const weakTiers = ['no-gpu', 'cpu-only', 'budget-gpu'];
+    const weakTiers = ['no-gpu', 'budget-gpu'];
     if (weakTiers.includes(tier)) {
       items.not.push({ icon: '🦙', label: '70B+ Models', note: 'Needs 14GB+ VRAM' });
       items.not.push({ icon: '👁️', label: 'Real-time Vision', note: 'Needs dedicated GPU' });
     }
-    if (weakTiers.includes(tier) || tier === 'silicon-8-16gb') {
+    if (weakTiers.includes(tier)) {
       items.not.push({ icon: '🧠', label: 'Large Agent Swarms', note: 'Needs more memory' });
     }
 
@@ -823,6 +801,8 @@
       console.warn('Data not loaded yet');
       return;
     }
+    const careerArea = document.getElementById('career-area');
+    if (careerArea) careerArea.classList.add('hidden');
     const tierInfo = getTierInfo(tier);
     if (!tierInfo) {
       console.warn('Unknown tier:', tier);
@@ -1194,6 +1174,7 @@
 
     section.classList.remove('hidden');
     section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (careerArea) careerArea.classList.remove('hidden');
     track('recommendation_generated', { model: primary ? primary.ollamaTag || primary.name : 'none', goal: selectedGoal, hardware: selectedTier, hasCloudFallback: !!showCloud });
     if (typeof window.__analytics !== 'undefined' && primary) {
       window.__analytics.saveRecommendation(
@@ -1375,8 +1356,6 @@
             selectedGoal = state.goal;
             const goalCard = document.querySelector(`.goal-card[data-goal="${state.goal}"]`);
             if (goalCard) goalCard.classList.add('selected');
-            const careerArea = document.getElementById('career-area');
-            if (careerArea) careerArea.classList.remove('hidden');
             const hwSection = document.getElementById('hw-section');
             if (hwSection) hwSection.classList.remove('hidden');
         }
@@ -1402,6 +1381,11 @@
   }
     async function init() {
     initTheme();
+    // Show export button only when ?dev=true in URL
+    if (new URLSearchParams(location.search).has('dev')) {
+      var exportBtn = document.getElementById('export-feedback-btn');
+      if (exportBtn) exportBtn.style.display = 'inline';
+    }
     track('wizard_started');
     try {
       await loadData();
@@ -1455,8 +1439,8 @@
           const match = matchGPUName(gpuName);
           if (match) {
             banner.classList.remove('hidden');
-            const isSilicon = match.tier && match.tier.startsWith('silicon-');
-            const memLabel = isSilicon ? `${Math.round(match.vramGB / 1024)}GB unified` : `${match.vramGB}GB VRAM`;
+            const isSilicon = match.tier === 'apple';
+            const memLabel = isSilicon ? `${Math.round(match.vramGB)}GB unified` : `${match.vramGB}GB VRAM`;
             banner.innerHTML = `🖥️ Detected: <strong>${match.name}</strong> (${memLabel}) - selecting automatically...`;
             setTimeout(() => {
               if (autoDetectCancelled) return;
@@ -1496,9 +1480,9 @@
       container.innerHTML = `
         <p class="sub-question-prompt">Can it play modern games?</p>
         <div class="sub-question-grid">
-          <button class="hw-followup-btn" data-hw-tier="${isDesktop ? 'power-gpu' : 'budget-gpu'}">🎮 Yes</button>
-          <button class="hw-followup-btn" data-hw-tier="cpu-only">❌ No</button>
-          <button class="hw-followup-btn" data-hw-tier="${isDesktop ? 'budget-gpu' : 'cpu-only'}">❓ Not Sure</button>
+          <button class="hw-followup-btn" data-hw-tier="${isDesktop ? 'high-end-gpu' : 'mid-gpu'}">🎮 Yes</button>
+          <button class="hw-followup-btn" data-hw-tier="no-gpu">❌ No</button>
+          <button class="hw-followup-btn" data-hw-tier="${isDesktop ? 'mid-gpu' : 'no-gpu'}">❓ Not Sure</button>
         </div>`;
       container.scrollIntoView({ behavior: 'smooth', block: 'center' });
       return;
@@ -1508,9 +1492,9 @@
       container.innerHTML = `
         <p class="sub-question-prompt">Which Mac?</p>
         <div class="sub-question-grid">
-          <button class="hw-followup-btn" data-hw-tier="silicon-8-16gb">🍎 Apple Silicon (M1/M2/M3/M4)</button>
-          <button class="hw-followup-btn" data-hw-tier="cpu-only">💻 Intel Mac</button>
-          <button class="hw-followup-btn" data-hw-tier="silicon-8-16gb">❓ Not Sure</button>
+          <button class="hw-followup-btn" data-hw-tier="apple">🍎 Apple Silicon (M1/M2/M3/M4)</button>
+          <button class="hw-followup-btn" data-hw-tier="no-gpu">💻 Intel Mac</button>
+          <button class="hw-followup-btn" data-hw-tier="apple">❓ Not Sure</button>
         </div>`;
       container.scrollIntoView({ behavior: 'smooth', block: 'center' });
       return;
@@ -1681,10 +1665,14 @@
       } else if (e.target.closest('#btn-skip-career')) {
         const careerArea = document.getElementById('career-area');
         if (careerArea) careerArea.classList.add('hidden');
-        const hwSection = document.getElementById('hw-section');
-        if (hwSection) {
-          hwSection.classList.remove('hidden');
-          hwSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        var resultsSection = document.getElementById('results-section');
+        var hasResults = resultsSection && !resultsSection.classList.contains('hidden') && resultsSection.innerHTML && resultsSection.innerHTML.trim().length > 0;
+        if (!hasResults) {
+          var hwSection = document.getElementById('hw-section');
+          if (hwSection) {
+            hwSection.classList.remove('hidden');
+            hwSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
         }
       } else if (e.target.closest('#compendium-link-btn')) {
         e.preventDefault();

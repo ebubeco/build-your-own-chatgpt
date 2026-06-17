@@ -106,13 +106,13 @@
         <button class="sp-hw-card" data-tier="no-gpu" data-model="phi-4-mini" data-cmd="ollama pull phi-4-mini" data-desc="Best for old laptops. Runs on CPU, no GPU needed." data-prompts='["Explain quantum computing in simple terms","Write a short story about a robot","Summarize this article for me","Give me 5 ideas for a blog post"]' data-size="2.5GB">
           <span class="sp-hw-icon">🖥️</span><span class="sp-hw-title">Old Laptop / No GPU</span><span class="sp-hw-desc">2015 or older, no graphics card</span>
         </button>
-        <button class="sp-hw-card" data-tier="cpu-only" data-model="phi-4-mini" data-cmd="ollama pull phi-4-mini" data-desc="Phi-4 Mini runs great on modern CPUs with 16GB+ RAM." data-prompts='["Explain how DNS works","Write a Python function to sort a list","What are the best practices for password security?","Create a meal plan for a week"]' data-size="2.5GB">
+        <button class="sp-hw-card" data-tier="no-gpu" data-model="phi-4-mini" data-cmd="ollama pull phi-4-mini" data-desc="Phi-4 Mini runs great on modern CPUs with 16GB+ RAM." data-prompts='["Explain how DNS works","Write a Python function to sort a list","What are the best practices for password security?","Create a meal plan for a week"]' data-size="2.5GB">
           <span class="sp-hw-icon">💻</span><span class="sp-hw-title">Modern Laptop / No GPU</span><span class="sp-hw-desc">16-32GB RAM, integrated graphics</span>
         </button>
         <button class="sp-hw-card" data-tier="budget-gpu" data-model="qwen2.5:7b" data-cmd="ollama pull qwen2.5:7b" data-desc="Qwen 2.5 7B is the best all-rounder for budget GPUs." data-prompts='["Write a React component for a todo list","Explain the difference between HTTP and HTTPS","Draft a professional email requesting time off","Debug this code: [paste your code]"]' data-size="4.1GB">
           <span class="sp-hw-icon">🎮</span><span class="sp-hw-title">Budget GPU (8-12GB)</span><span class="sp-hw-desc">RTX 3060, 4060, 3070, etc.</span>
         </button>
-        <button class="sp-hw-card" data-tier="power-gpu" data-model="qwen3:14b" data-cmd="ollama pull qwen3:14b" data-desc="Qwen 3 14B gives you long context and excellent quality." data-prompts='["Analyze this codebase structure and suggest improvements","Write a comprehensive API design document","Explain this research paper in detail","Create a multi-step data processing pipeline"]' data-size="8.2GB">
+        <button class="sp-hw-card" data-tier="high-end-gpu" data-model="qwen3:14b" data-cmd="ollama pull qwen3:14b" data-desc="Qwen 3 14B gives you long context and excellent quality." data-prompts='["Analyze this codebase structure and suggest improvements","Write a comprehensive API design document","Explain this research paper in detail","Create a multi-step data processing pipeline"]' data-size="8.2GB">
           <span class="sp-hw-icon">🚀</span><span class="sp-hw-title">Power GPU (16GB+)</span><span class="sp-hw-desc">RTX 4080, 4090, workstation</span>
         </button>
         <button class="sp-hw-card" data-tier="silicon" data-model="qwen2.5:7b" data-cmd="ollama pull qwen2.5:7b" data-desc="Apple Silicon runs Qwen 2.5 7B efficiently via Metal." data-prompts='["Help me learn a new programming language","What are good study techniques?","Explain machine learning basics","Write a bash script to backup files"]' data-size="4.1GB">
@@ -158,6 +158,8 @@
       </ul>
       <div class="sp-tip"><strong>📚 Need more help?</strong> Visit the <a href="https://github.com/ollama/ollama" target="_blank" style="color:var(--accent)">Ollama GitHub</a> or use our <a href="index.html" style="color:var(--accent)">Wizard</a> for a personalized recommendation.</div>
     </div>
+
+    <div id="sp-checklist" class="sp-section" style="display:none"></div>
   </main>
 
   <footer class="footer">
@@ -175,9 +177,38 @@
   </footer>
 
   <script>
+var promptsData = null;
     var recBox = document.getElementById('sp-recommendation');
     var cmdPull = document.getElementById('cmd-pull');
     var samplePrompts = document.getElementById('sample-prompts');
+
+    function renderChecklist(model, cmd) {
+      var checklist = document.getElementById('sp-checklist');
+      if (!checklist) return;
+      checklist.style.display = 'block';
+      checklist.innerHTML = '<h3 style="font-family:Outfit,sans-serif;font-size:1.1rem;font-weight:700;margin-bottom:.75rem">📋 First Week Checklist</h3>' +
+        '<ul style="list-style:none;padding:0;margin:0">' +
+        '<li style="display:flex;align-items:flex-start;gap:.5rem;padding:.4rem 0;border-bottom:1px solid var(--border-light);font-size:.88rem"><input type="checkbox" style="margin-top:.15rem;width:auto;flex-shrink:0"> <span>Download Ollama from <a href="https://ollama.com/download" target="_blank" style="color:var(--accent)">ollama.com/download</a></span></li>' +
+        '<li style="display:flex;align-items:flex-start;gap:.5rem;padding:.4rem 0;border-bottom:1px solid var(--border-light);font-size:.88rem"><input type="checkbox" style="margin-top:.15rem;width:auto;flex-shrink:0"> <span>Run: <code style="background:var(--bg-warm);padding:.1rem .35rem;border-radius:4px;font-size:.8rem">' + cmd + '</code></span></li>' +
+        '<li style="display:flex;align-items:flex-start;gap:.5rem;padding:.4rem 0;border-bottom:1px solid var(--border-light);font-size:.88rem"><input type="checkbox" style="margin-top:.15rem;width:auto;flex-shrink:0"> <span>Test it: <code style="background:var(--bg-warm);padding:.1rem .35rem;border-radius:4px;font-size:.8rem">ollama run ' + model + ' "Hello"</code></span></li>' +
+        '<li style="display:flex;align-items:flex-start;gap:.5rem;padding:.4rem 0;border-bottom:1px solid var(--border-light);font-size:.88rem"><input type="checkbox" style="margin-top:.15rem;width:auto;flex-shrink:0"> <span>Install <a href="https://lmstudio.ai" target="_blank" style="color:var(--accent)">LM Studio</a> (or OpenWebUI) for a GUI</span></li>' +
+        '<li style="display:flex;align-items:flex-start;gap:.5rem;padding:.4rem 0;border-bottom:1px solid var(--border-light);font-size:.88rem"><input type="checkbox" style="margin-top:.15rem;width:auto;flex-shrink:0"> <span>Create a custom Modelfile with your system prompt</span></li>' +
+        '<li style="display:flex;align-items:flex-start;gap:.5rem;padding:.4rem 0;border-bottom:1px solid var(--border-light);font-size:.88rem"><input type="checkbox" style="margin-top:.15rem;width:auto;flex-shrink:0"> <span>Try 5 different tasks to find what the model does best</span></li>' +
+        '<li style="display:flex;align-items:flex-start;gap:.5rem;padding:.4rem 0;font-size:.88rem"><input type="checkbox" style="margin-top:.15rem;width:auto;flex-shrink:0"> <span>Share your setup: <a href="index.html" style="color:var(--accent)">build-your-own-chatgpt.vercel.app</a></span></li>' +
+        '</ul>';
+    }
+
+    function renderStarterPrompts(goal) {
+      if (!promptsData) return;
+      var goalKey = goal || 'general';
+      var promptsObj = promptsData.byGoal[goalKey] || promptsData.byGoal['general'];
+      if (!promptsObj || !promptsObj.prompts) return;
+      var ul = document.getElementById('sample-prompts');
+      if (!ul) return;
+      ul.innerHTML = promptsObj.prompts.slice(0, 5).map(function(p) {
+        return '<li style="padding:.3rem 0;border-bottom:1px solid var(--border-light);font-size:.85rem;color:var(--text-secondary)">' + p.replace(/\[.*?\]/g, '<span style="color:var(--accent);font-weight:600">[' + p.match(/\[(.*?)\]/)[1] + ']</span>') + '</li>';
+      }).join('');
+    }
 
     document.getElementById('hw-picker').addEventListener('click', function(e) {
       var card = e.target.closest('.sp-hw-card'); if (!card) return;
@@ -190,11 +221,16 @@
       var prompts = JSON.parse(card.getAttribute('data-prompts'));
       cmdPull.textContent = cmd;
       recBox.className = 'sp-recommendation show';
-      recBox.innerHTML = '<div class="sp-rec-title">✅ Recommended: <span style="color:var(--accent)">' + model + '</span></div><div class="sp-rec-desc">' + desc + '</div><div class="sp-rec-cmd">' + cmd + '</div><div class="sp-rec-desc" style="font-size:0.78rem;color:var(--text-tertiary)">Model size: ' + size + '</div><div style="font-size:0.85rem;font-weight:600;color:var(--text);margin-top:0.75rem;margin-bottom:0.3rem">Try these prompts:</div><ul class="sp-prompts">' + prompts.map(function(p) { return '<li>' + p + '</li>'; }).join('') + '</ul>';
+      recBox.innerHTML = '<div class="sp-rec-title">✅ Recommended: <span style="color:var(--accent)">' + model + '</span></div><div class="sp-rec-desc">' + desc + '</div><div class="sp-rec-cmd">' + cmd + '</div><div class="sp-rec-desc" style="font-size:.78rem;color:var(--text-tertiary)">Model size: ' + size + '</div><div style="font-size:.85rem;font-weight:600;color:var(--text);margin-top:.75rem;margin-bottom:.3rem">Try these prompts:</div><ul class="sp-prompts">' + prompts.map(function(p) { return '<li>' + p + '</li>'; }).join('') + '</ul>';
       samplePrompts.innerHTML = prompts.map(function(p) { return '<li>' + p + '</li>'; }).join('');
+      renderChecklist(model, cmd);
+      renderStarterPrompts(null);
       plausible('starter-pack-model', { props: { model: model, tier: card.getAttribute('data-tier') } });
     });
 
+    fetch('data/prompts.json').then(function(r) { return r.json(); }).then(function(data) {
+      promptsData = data;
+    }).catch(function() { promptsData = null; });
   </script>
   <script src="analytics.js"></script>
   <script src="shared.js"></script>

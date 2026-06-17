@@ -4,54 +4,64 @@
   <meta name="google-site-verification" content="5YRiOefTK9mTwEJEnLIH6BQ5xmP0NkwyfiaBWZJbdCg">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Complete Ollama commands cheat sheet. All CLI commands: pull, run, list, show, cp, rm, push, create, help, stop, ps. Includes Modelfile syntax and examples.">
-  <meta property="og:title" content="Ollama Commands Cheat Sheet — Complete CLI Reference">
-  <meta property="og:description" content="Full reference of every Ollama command with syntax, examples, and copy-to-clipboard. Modelfile syntax included.">
+  <meta name="description" content="Generate exact Ollama commands for any model — pull, run, Modelfile, API setup, OpenWebUI integration.">
+  <meta property="og:title" content="Ollama Command Generator — Build Your Own ChatGPT">
+  <meta property="og:description" content="Pick a model and use case. Get every command you need, ready to copy.">
   <meta property="og:image" content="https://build-your-own-chatgpt.vercel.app/og-image.jpg">
   <meta name="twitter:card" content="summary_large_image">
-  <title>Ollama Commands Cheat Sheet — Complete CLI Reference</title>
+  <title>Ollama Command Generator — Build Your Own ChatGPT</title>
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <script>!function(){var t=localStorage.getItem('theme');if(t==='dark'||(t===null&&window.matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark')}();</script>
   <script async src="https://plausible.io/js/pa-DBTdINzLX2L2B_fXJF0u1.js"></script>
+  <script>window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()</script>
   <style>
-    .cmd-page { max-width: 960px; margin: 0 auto; padding: 1.5rem; }
-    .cmd-nav { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
-    .cmd-nav a { color: var(--text-secondary); text-decoration: none; font-size: 0.85rem; padding: 0.3rem 0.75rem; border-radius: 6px; transition: all 0.15s; }
-    .cmd-nav a:hover, .cmd-nav a.active { color: var(--accent); background: var(--accent-light); }
-    .cmd-page h1 { font-family: 'Outfit', sans-serif; font-size: 1.8rem; font-weight: 800; color: var(--text); margin-bottom: 0.25rem; }
-    .cmd-page > .subtitle { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 2rem; }
-    .cmd-section { margin-bottom: 2rem; }
-    .cmd-section h2 { font-family: 'Outfit', sans-serif; font-size: 1.3rem; font-weight: 700; color: var(--text); margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--border); display: flex; align-items: center; gap: 0.5rem; }
-    .cmd-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem; margin-bottom: 0.75rem; transition: border-color 0.15s; }
-    .cmd-card:hover { border-color: var(--accent); }
-    .cmd-card-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 0.5rem; margin-bottom: 0.5rem; }
-    .cmd-card-name { font-family: 'JetBrains Mono', monospace; font-size: 1rem; font-weight: 600; color: var(--accent); }
-    .cmd-card-desc { font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.5rem; }
-    .cmd-box { display: flex; align-items: center; gap: 0.5rem; background: var(--bg); border: 1px solid var(--border-light); border-radius: var(--radius-sm); padding: 0.5rem 0.75rem; margin-bottom: 0.4rem; }
-    .cmd-box code { flex: 1; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: var(--text); overflow-x: auto; white-space: nowrap; }
-    .cmd-copy-btn { background: none; border: 1px solid var(--border); border-radius: 6px; padding: 0.3rem; cursor: pointer; color: var(--text-tertiary); display: flex; align-items: center; transition: all 0.15s; flex-shrink: 0; }
-    .cmd-copy-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-light); }
-    .cmd-copy-btn.copied { color: var(--green); border-color: var(--green); }
-    .cmd-note { font-size: 0.78rem; color: var(--text-tertiary); padding: 0.3rem 0.75rem; background: var(--surface); border-left: 3px solid var(--accent); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
-    .cmd-example { font-size: 0.82rem; color: var(--text-secondary); margin-top: 0.25rem; }
-    .cmd-example strong { color: var(--text); font-weight: 600; }
-    .cmd-modelfile-section { margin-top: 2rem; }
-    .cmd-modelfile-section h3 { font-family: 'Outfit', sans-serif; font-size: 1.1rem; font-weight: 700; color: var(--text); margin-bottom: 0.75rem; }
-    .modelfile-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 0.75rem; }
-    .modelfile-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem; }
-    .modelfile-card:hover { border-color: var(--accent); }
-    .modelfile-key { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; font-weight: 600; color: var(--accent); margin-bottom: 0.25rem; }
-    .modelfile-desc { font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 0.4rem; }
-    .modelfile-example { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--text-tertiary); background: var(--bg); padding: 0.4rem 0.5rem; border-radius: 4px; overflow-x: auto; white-space: pre-wrap; word-break: break-all; }
-    .cmd-quick-links { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.5rem; }
-    .cmd-quick-link { font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; padding: 0.25rem 0.6rem; background: var(--surface); border: 1px solid var(--border); border-radius: 6px; color: var(--text-secondary); text-decoration: none; transition: all 0.15s; }
-    .cmd-quick-link:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-light); }
-    .cmd-tip { padding: 0.75rem 1rem; background: var(--amber-light); border: 1px solid rgba(179,107,0,0.2); border-radius: var(--radius-sm); margin-bottom: 1.5rem; font-size: 0.85rem; color: var(--text-secondary); }
-    .cmd-tip strong { color: var(--amber); }
-    @media (max-width: 640px) { .cmd-card-header { flex-direction: column; } }
+    .cmd-gen-page{max-width:960px;margin:0 auto;padding:0 1.5rem 3rem}
+    .cmd-gen-page h1{font-family:'Outfit',sans-serif;font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;letter-spacing:-0.02em;margin:2rem 0 .5rem}
+    .cmd-gen-page .subtitle{color:var(--text-secondary);font-size:1rem;margin-bottom:2rem}
+    .cmd-form{background:var(--bg-card);border:1.5px solid var(--border);border-radius:var(--radius);padding:1.5rem;margin-bottom:2rem}
+    .form-group{margin-bottom:1.25rem}
+    .form-group label{display:block;font-size:.82rem;font-weight:700;color:var(--text-secondary);margin-bottom:.4rem;text-transform:uppercase;letter-spacing:.05em}
+    .form-group select,.form-group input{width:100%;padding:.65rem .75rem;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-size:.95rem;background:var(--surface);color:var(--text);transition:border-color var(--transition);font-family:inherit;box-sizing:border-box}
+    .form-group select:focus,.form-group input:focus{outline:none;border-color:var(--accent)}
+    .model-picker{position:relative}
+    .model-picker input{width:100%;padding:.65rem .75rem;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-size:.95rem;background:var(--surface);color:var(--text);font-family:inherit;box-sizing:border-box}
+    .model-picker input:focus{outline:none;border-color:var(--accent)}
+    .model-dropdown{position:absolute;top:100%;left:0;right:0;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-sm);margin-top:.25rem;z-index:100;display:none;max-height:280px;overflow-y:auto;box-shadow:var(--shadow-md)}
+    .dropdown-item{padding:.6rem .9rem;cursor:pointer;font-size:.88rem;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border-light);transition:background var(--transition)}
+    .dropdown-item:last-child{border-bottom:none}
+    .dropdown-item:hover{background:var(--surface)}
+    .dropdown-item strong{color:var(--text);font-weight:600}
+    .dropdown-item span{color:var(--text-tertiary);font-size:.75rem;font-family:'SF Mono',monospace}
+    .cmd-gen-btn{display:block;width:100%;padding:.75rem;background:var(--accent);color:#fff;border:none;border-radius:var(--radius-sm);font-size:1rem;font-weight:700;cursor:pointer;font-family:inherit;transition:opacity var(--transition)}
+    .cmd-gen-btn:hover{opacity:.9}
+    .cmd-gen-btn:disabled{background:var(--border);color:var(--text-tertiary);cursor:not-allowed}
+    .cmd-output{display:none;margin-top:2rem}
+    .cmd-block{background:var(--bg-card);border:1.5px solid var(--border);border-radius:var(--radius);padding:1.25rem;margin-bottom:1.25rem}
+    .cmd-block h3{font-family:'Outfit',sans-serif;font-size:1rem;font-weight:700;margin-bottom:.75rem;color:var(--text)}
+    .cmd-block pre{background:var(--bg);border:1px solid var(--border-light);border-radius:var(--radius-sm);padding:.65rem .9rem;font-family:'JetBrains Mono',monospace;font-size:.82rem;color:var(--text);overflow-x:auto;margin-bottom:.5rem;white-space:pre-wrap;word-break:break-all}
+    .cmd-block p{font-size:.82rem;color:var(--text-secondary);margin:.35rem 0}
+    .cmd-block p code{font-family:'JetBrains Mono',monospace;background:var(--bg-warm);padding:.1rem .35rem;border-radius:4px;font-size:.78rem}
+    .cmd-copy-btn{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:.35rem .9rem;cursor:pointer;font-size:.82rem;font-weight:600;color:var(--text);font-family:inherit;transition:all var(--transition)}
+    .cmd-copy-btn:hover{border-color:var(--accent);color:var(--accent)}
+    .cmd-copy-btn.copied{border-color:var(--green);color:var(--green)}
+    .cmd-selected{display:inline-flex;align-items:center;gap:.4rem;padding:.35rem .9rem;background:var(--accent-light);border:1px solid var(--accent);border-radius:100px;font-size:.82rem;font-weight:600;color:var(--accent);margin-bottom:1rem}
+    .cmd-selected span{font-family:'JetBrains Mono',monospace;font-size:.78rem}
+    .api-note{margin-top:.5rem;padding:.5rem .75rem;background:var(--bg-warm);border-left:3px solid var(--accent);border-radius:0 var(--radius-sm) var(--radius-sm) 0;font-size:.82rem;color:var(--text-secondary)}
+    .cheat-nav{display:flex;gap:.75rem;flex-wrap:wrap;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:1px solid var(--border)}
+    .cheat-nav a{color:var(--text-secondary);text-decoration:none;font-size:.85rem;padding:.3rem .75rem;border-radius:6px;transition:all .15s}
+    .cheat-nav a:hover,.cheat-nav a.active{color:var(--accent);background:var(--accent-light)}
+    .cheat-section{margin-bottom:2rem}
+    .cheat-section h2{font-family:'Outfit',sans-serif;font-size:1.2rem;font-weight:700;color:var(--text);margin-bottom:1rem;padding-bottom:.5rem;border-bottom:2px solid var(--border);display:flex;align-items:center;gap:.5rem}
+    .cheat-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:.9rem;margin-bottom:.65rem;transition:border-color .15s}
+    .cheat-card:hover{border-color:var(--accent)}
+    .cheat-card-name{font-family:'JetBrains Mono',monospace;font-size:.95rem;font-weight:600;color:var(--accent);margin-bottom:.3rem}
+    .cheat-card-desc{font-size:.82rem;color:var(--text-secondary);margin-bottom:.5rem}
+    .cheat-box{display:flex;align-items:center;gap:.5rem;background:var(--bg);border:1px solid var(--border-light);border-radius:var(--radius-sm);padding:.45rem .7rem}
+    .cheat-box code{flex:1;font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--text);overflow-x:auto;white-space:nowrap}
   </style>
 </head>
 <body>
@@ -66,138 +76,334 @@
       </div>
     </div>
   </nav>
-  <div class="cmd-page">
-    <div class="cmd-nav">
+
+  <main class="cmd-gen-page">
+    <div class="cheat-nav">
       <a href="index.html">🏠 Wizard</a>
       <a href="compendium.html">📚 Compendium</a>
       <a href="compare.html">📊 Compare</a>
       <a href="compatibility.html">🔧 Compatibility</a>
-      <a href="commands.html" class="active">⌨️ Commands</a>
-      <a href="models.html">🏆 Leaderboard</a>
+      <a href="#" class="active">⌨️ Commands</a>
     </div>
-    <h1>Ollama Commands Cheat Sheet</h1>
-    <p class="subtitle">Complete CLI reference for Ollama — the easiest way to run local AI models.</p>
-    <div class="cmd-quick-links" id="cmd-quick-links"></div>
-    <div class="cmd-tip"><strong>💡 Pro tip:</strong> Click the 📋 button on any command to copy it to your clipboard. All commands assume you have <a href="https://ollama.com/download" target="_blank" style="color:var(--accent)">Ollama installed</a>.</div>
-    <div id="cmd-sections"></div>
-  </div>
-  <script>
-    !function(){var t=localStorage.getItem('theme');if(t==='dark'||(t===null&&window.matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark')}();
-    document.getElementById('theme-toggle').addEventListener('click',function(){var e=document.documentElement;var t=e.getAttribute('data-theme');var n=t==='dark'?'light':'dark';e.setAttribute('data-theme',n);localStorage.setItem('theme',n);var o=document.querySelector('.toggle-icon');o.textContent=n==='dark'?'☀️':'🌙';document.querySelector('.toggle-label').textContent=n==='dark'?'Light mode':'Dark mode';});
-    if(localStorage.getItem('theme')==='dark'||(!localStorage.getItem('theme')&&window.matchMedia('(prefers-color-scheme:dark)').matches)){document.querySelector('.toggle-icon').textContent='☀️';document.querySelector('.toggle-label').textContent='Light mode';}
-  </script>
-  <script>
-    const COMMANDS = [
-      {id:'pull',name:'ollama pull',desc:'Download a model from the Ollama registry to your local machine.',syntax:'ollama pull <model>[:<tag>]',example:'ollama pull qwen2.5:7b',note:'Tags let you pick specific quantizations or sizes. Omit the tag for the default (usually 4-bit quantized).'},
-      {id:'run',name:'ollama run',desc:'Run a model and start an interactive chat session right in the terminal.',syntax:'ollama run <model>[:<tag>]',example:'ollama run qwen2.5:7b',note:'If the model is not downloaded yet, Ollama pulls it automatically first. Press Ctrl+D to exit the chat.'},
-      {id:'list',name:'ollama list',desc:'List all models you have downloaded locally.',syntax:'ollama list',example:'ollama list',note:'Shows model name, size, and modification date. Use "ollama ls" as a shorter alias.'},
-      {id:'show',name:'ollama show',desc:'Display detailed information about a model, including parameters, Modelfile contents, and system prompt.',syntax:'ollama show <model>',example:'ollama show qwen2.5:7b --modelfile',note:'Add --modelfile to see the full Modelfile. Add --parameters to see the model parameters used.'},
-      {id:'cp',name:'ollama cp',desc:'Create a copy of a local model under a new name.',syntax:'ollama cp <source> <destination>',example:'ollama cp qwen2.5:7b my-custom-qwen',note:'Useful for creating named snapshots of models before modifying them with a custom Modelfile.'},
-      {id:'rm',name:'ollama rm',desc:'Remove a downloaded model from your local machine to free up disk space.',syntax:'ollama rm <model>',example:'ollama rm qwen2.5:0.5b',note:'Removes the model files permanently. You can always pull it again later.'},
-      {id:'push',name:'ollama push',desc:'Upload a custom model to the Ollama registry (requires login).',syntax:'ollama push <username>/<model>[:<tag>]',example:'ollama push myuser/my-custom-model',note:'You must be logged in with "ollama login" first. Only push models you have rights to share.'},
-      {id:'create',name:'ollama create',desc:'Create a new model from a Modelfile. Used for custom configurations.',syntax:'ollama create <name> -f <Modelfile>',example:'ollama create my-model -f ./Modelfile',note:'The Modelfile can reference existing models, set parameters, add system prompts, and configure template formats.'},
-      {id:'help',name:'ollama help',desc:'Show the built-in help text for Ollama commands.',syntax:'ollama help [command]',example:'ollama help pull',note:'Omitting the command shows general help with all available commands.'},
-      {id:'stop',name:'ollama stop',desc:'Stop a running model and free up its memory.',syntax:'ollama stop <model>',example:'ollama stop qwen2.5:7b',note:'Useful when you want to free VRAM without killing the Ollama server process.'},
-      {id:'ps',name:'ollama ps',desc:'Show which models are currently loaded in memory.',syntax:'ollama ps',example:'ollama ps',note:'Helps you see what is consuming VRAM. Models stay loaded for a few minutes after last use to speed up re-loading.'}
-    ];
-    const MODELEFILE_DIRECTIVES = [
-      {key:'FROM',desc:'Base model or source to build from. Required.',example:'FROM qwen2.5:7b'},
-      {key:'SYSTEM',desc:'System prompt that sets the behavior of the model.',example:'SYSTEM "You are a helpful coding assistant."'},
-      {key:'TEMPLATE',desc:'Custom prompt template in Go template syntax.',example:'TEMPLATE """{{ .System }}\nUser: {{ .Prompt }}\nAssistant: """'},
-      {key:'PARAMETER',desc:'Set inference parameters like temperature, top_p, context length.',example:'PARAMETER temperature 0.7\nPARAMETER num_ctx 4096'},
-      {key:'LICENSE',desc:'Embed a license for your custom model.',example:'LICENSE MIT'},
-      {key:'MESSAGE',desc:'Pre-author messages for few-shot examples in the template.',example:'MESSAGE user "Explain quantum computing in one sentence."'},
-      {key:'ADAPTER',desc:'Apply a LoRA adapter to the base model (QLoRA fine-tuning).',example:'ADAPTER ./my-lora-adapter.safetensors'}
-    ];
 
-    function escapeHtml(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+    <h1>Ollama Command Generator</h1>
+    <p class="subtitle">Pick a model and use case — get every command you need, ready to copy.</p>
 
-    function render() {
-      const links = document.getElementById('cmd-quick-links');
-      links.innerHTML = COMMANDS.map(c => `<a href="#cmd-${c.id}" class="cmd-quick-link">${escapeHtml(c.name)}</a>`).join('');
-
-      const sections = document.getElementById('cmd-sections');
-      sections.innerHTML = `<div class="cmd-section"><h2>📋 Commands</h2>
-        ${COMMANDS.map(c => `<div class="cmd-card" id="cmd-${c.id}">
-          <div class="cmd-card-header">
-            <div>
-              <div class="cmd-card-name">${escapeHtml(c.name)}</div>
-              <div class="cmd-card-desc">${escapeHtml(c.desc)}</div>
-            </div>
-          </div>
-          <div class="cmd-box">
-            <code>${escapeHtml(c.syntax)}</code>
-            <button class="cmd-copy-btn" data-cmd="${escapeHtml(c.example)}" title="Copy example command" aria-label="Copy command">📋</button>
-          </div>
-          <div class="cmd-example"><strong>Example:</strong> <code>${escapeHtml(c.example)}</code></div>
-          <div class="cmd-note">${escapeHtml(c.note)}</div>
-        </div>`).join('')}
-      </div><div class="cmd-modelfile-section">
-        <h2>📄 Modelfile Reference</h2>
-        <p style="color:var(--text-secondary);font-size:0.85rem;margin-bottom:1rem;">A Modelfile is like a Dockerfile for AI models. It lets you customize any base model.</p>
-        <div class="modelfile-grid">
-          ${MODELEFILE_DIRECTIVES.map(d => `<div class="modelfile-card">
-            <div class="modelfile-key">${escapeHtml(d.key)}</div>
-            <div class="modelfile-desc">${escapeHtml(d.desc)}</div>
-            <div class="modelfile-example">${escapeHtml(d.example)}</div>
-          </div>`).join('')}
+    <div class="cmd-form">
+      <div class="form-group">
+        <label>Model</label>
+        <div class="model-picker">
+          <input type="text" id="model-search" placeholder="Search model (e.g. qwen2.5:7b, llama3.3:8b)..." autocomplete="off">
+          <div id="model-dropdown" class="model-dropdown"></div>
         </div>
-        <div class="cmd-card" style="margin-top:1rem;">
-          <div class="cmd-card-header"><div><div class="cmd-card-name">Full Modelfile Example</div><div class="cmd-card-desc">Complete Modelfile that customizes Qwen 2.5 7B for coding.</div></div></div>
-          <div class="cmd-box">
-            <code style="white-space:pre-wrap;">FROM qwen2.5:7b
-SYSTEM "You are an expert Python developer."
-PARAMETER temperature 0.3
-PARAMETER num_ctx 8192
-TEMPLATE """{{ .System }}
-User: {{ .Prompt }}
-Assistant: """</code>
-            <button class="cmd-copy-btn" data-cmd='ollama create my-coder -f Modelfile' title="Copy create command">📋</button>
-          </div>
-          <div class="cmd-example"><strong>Create it:</strong> <code>ollama create my-coder -f Modelfile</code></div>
-          <div class="cmd-example"><strong>Run it:</strong> <code>ollama run my-coder</code></div>
-          <div class="cmd-note">Save the Modelfile content above to a file named "Modelfile" (no extension), then run the create command.</div>
-        </div>
-      </div>`;
+        <div id="selected-display" style="display:none" class="cmd-selected"></div>
+      </div>
 
-      document.querySelectorAll('.cmd-copy-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-          const cmd = this.dataset.cmd;
-          navigator.clipboard.writeText(cmd).then(() => {
-            const orig = this.textContent;
-            this.textContent = '✓';
-            this.classList.add('copied');
-            setTimeout(() => { this.textContent = orig; this.classList.remove('copied'); }, 1500);
-          }).catch(() => {
-            const ta = document.createElement('textarea');
-            ta.value = cmd;
-            document.body.appendChild(ta);
-            ta.select();
-            document.execCommand('copy');
-            document.body.removeChild(ta);
-            const orig = this.textContent;
-            this.textContent = '✓';
-            this.classList.add('copied');
-            setTimeout(() => { this.textContent = orig; this.classList.remove('copied'); }, 1500);
-          });
-        });
-      });
-    }
-    render();
-  </script>
-  <script src="analytics.js"></script>
-  <script src="shared.js"></script>
+      <div class="form-group">
+        <label>Quality vs Speed</label>
+        <select id="quant-pref">
+          <option value="recommended">Recommended (Q4_K_M) — best balance</option>
+          <option value="quality">High Quality (Q8) — needs more VRAM</option>
+          <option value="small">Smallest (Q2) — fastest, lower quality</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Use Case</label>
+        <select id="use-case">
+          <option value="general">General chat</option>
+          <option value="coding">Coding assistant</option>
+          <option value="writing">Writing helper</option>
+          <option value="documents">Document Q&A</option>
+          <option value="api">API / developer mode</option>
+        </select>
+      </div>
+
+      <button id="gen-btn" class="cmd-gen-btn" onclick="generateCommands()" disabled>Generate Commands</button>
+    </div>
+
+    <div id="commands-output" class="cmd-output"></div>
+
+    <section class="cheat-section">
+      <h2>📋 All Ollama Commands</h2>
+
+      <div class="cheat-card">
+        <div class="cheat-card-name">ollama pull</div>
+        <div class="cheat-card-desc">Download a model from the Ollama library</div>
+        <div class="cheat-box"><code id="cmd-pull-ex">ollama pull qwen2.5:7b</code><button class="cmd-copy-btn" onclick="copyCmd(this, 'ollama pull qwen2.5:7b')">Copy</button></div>
+      </div>
+
+      <div class="cheat-card">
+        <div class="cheat-card-name">ollama run</div>
+        <div class="cheat-card-desc">Start a chat session with a model directly in terminal</div>
+        <div class="cheat-box"><code id="cmd-run-ex">ollama run qwen2.5:7b</code><button class="cmd-copy-btn" onclick="copyCmd(this, 'ollama run qwen2.5:7b')">Copy</button></div>
+      </div>
+
+      <div class="cheat-card">
+        <div class="cheat-card-name">ollama list</div>
+        <div class="cheat-card-desc">Show all installed models</div>
+        <div class="cheat-box"><code>ollama list</code><button class="cmd-copy-btn" onclick="copyCmd(this, 'ollama list')">Copy</button></div>
+      </div>
+
+      <div class="cheat-card">
+        <div class="cheat-card-name">ollama show</div>
+        <div class="cheat-card-desc">Display model details (parameters, size, modified date)</div>
+        <div class="cheat-box"><code>ollama show qwen2.5:7b</code><button class="cmd-copy-btn" onclick="copyCmd(this, 'ollama show qwen2.5:7b')">Copy</button></div>
+      </div>
+
+      <div class="cheat-card">
+        <div class="cheat-card-name">ollama create</div>
+        <div class="cheat-card-desc">Create a custom model from a Modelfile</div>
+        <div class="cheat-box"><code>ollama create my-model -f Modelfile</code><button class="cmd-copy-btn" onclick="copyCmd(this, 'ollama create my-model -f Modelfile')">Copy</button></div>
+      </div>
+
+      <div class="cheat-card">
+        <div class="cheat-card-name">ollama cp</div>
+        <div class="cheat-card-desc">Copy a model to create a new variant</div>
+        <div class="cheat-box"><code>ollama cp qwen2.5:7b my-custom-qwen</code><button class="cmd-copy-btn" onclick="copyCmd(this, 'ollama cp qwen2.5:7b my-custom-qwen')">Copy</button></div>
+      </div>
+
+      <div class="cheat-card">
+        <div class="cheat-card-name">ollama rm</div>
+        <div class="cheat-card-desc">Delete a model from your system</div>
+        <div class="cheat-box"><code>ollama rm qwen2.5:7b</code><button class="cmd-copy-btn" onclick="copyCmd(this, 'ollama rm qwen2.5:7b')">Copy</button></div>
+      </div>
+
+      <div class="cheat-card">
+        <div class="cheat-card-name">ollama serve</div>
+        <div class="cheat-card-desc">Start the Ollama server (API available at localhost:11434)</div>
+        <div class="cheat-box"><code>ollama serve</code><button class="cmd-copy-btn" onclick="copyCmd(this, 'ollama serve')">Copy</button></div>
+      </div>
+
+      <div class="cheat-card">
+        <div class="cheat-card-name">ollama ps</div>
+        <div class="cheat-card-desc">Show currently running models</div>
+        <div class="cheat-box"><code>ollama ps</code><button class="cmd-copy-btn" onclick="copyCmd(this, 'ollama ps')">Copy</button></div>
+      </div>
+
+      <div class="cheat-card">
+        <div class="cheat-card-name">ollama stop</div>
+        <div class="cheat-card-desc">Stop a running model</div>
+        <div class="cheat-box"><code>ollama stop qwen2.5:7b</code><button class="cmd-copy-btn" onclick="copyCmd(this, 'ollama stop qwen2.5:7b')">Copy</button></div>
+      </div>
+    </section>
+
+    <section class="cheat-section">
+      <h2>⚙️ Modelfile Reference</h2>
+      <div class="cheat-card">
+        <div class="cheat-card-name">Basic Modelfile Structure</div>
+        <div class="cheat-card-desc">Create a custom model with system prompt and parameters</div>
+        <div class="cheat-box" style="flex-direction:column;align-items:flex-start;gap:.5rem"><pre style="margin:0;width:100%;white-space:pre-wrap"><code>FROM qwen2.5:7b
+SYSTEM "You are a helpful coding assistant."
+PARAMETER temperature 0.7
+PARAMETER num_ctx 4096
+PARAMETER top_p 0.9</code></pre><button class="cmd-copy-btn" onclick="copyCmd(this, 'FROM qwen2.5:7b\nSYSTEM \"You are a helpful coding assistant.\"\nPARAMETER temperature 0.7\nPARAMETER num_ctx 4096')">Copy</button></div>
+      </div>
+      <div class="cheat-card">
+        <div class="cheat-card-name">Common Parameters</div>
+        <div class="cheat-card-desc">Most useful parameters to customize model behavior</div>
+        <div class="cheat-box" style="flex-direction:column;align-items:flex-start;gap:.3rem"><pre style="margin:0;width:100%"><code>temperature 0.7      # Creativity (0=exact, 1=creative)
+num_ctx 4096        # Context window size
+top_p 0.9           # Nucleus sampling threshold
+top_k 40            # Consider top K tokens
+repeat_penalty 1.1  # Penalize repetition
+stop []             # Stop sequences (comma-separated)</code></pre><button class="cmd-copy-btn" onclick="copyCmd(this, 'PARAMETER temperature 0.7\nPARAMETER num_ctx 4096\nPARAMETER top_p 0.9')">Copy</button></div>
+      </div>
+      <div class="cheat-card">
+        <div class="cheat-card-name">Quantization Options</div>
+        <div class="cheat-card-desc">Reduce model size with minimal quality loss</div>
+        <div class="cheat-box"><code>ollama create my-model:q4 -f Modelfile</code><button class="cmd-copy-btn" onclick="copyCmd(this, 'ollama create my-model:q4 -f Modelfile')">Copy</button></div>
+        <p style="font-size:.78rem;color:var(--text-secondary);margin:.3rem 0 0">Then pull the base model and run: <code>ollama create my-model:q4 -f Modelfile qwen2.5:7b-q4_K_M</code></p>
+      </div>
+    </section>
+
+    <section class="cheat-section">
+      <h2>🌐 API Reference</h2>
+      <div class="cheat-card">
+        <div class="cheat-card-name">Generate Endpoint (curl)</div>
+        <div class="cheat-card-desc">Basic text generation via the Ollama API</div>
+        <div class="cheat-box" style="flex-direction:column;align-items:flex-start;gap:.5rem"><pre style="margin:0;width:100%"><code>curl http://localhost:11434/api/generate \
+  -d '{"model":"qwen2.5:7b","prompt":"Hello","stream":false}'</code></pre><button class="cmd-copy-btn" onclick="copyCmd(this, \"curl http://localhost:11434/api/generate -d '{\\\"model\\\":\\\"qwen2.5:7b\\\",\\\"prompt\\\":\\\"Hello\\\",\\\"stream\\\":false}'\")">Copy</button></div>
+      </div>
+      <div class="cheat-card">
+        <div class="cheat-card-name">Chat Endpoint (curl)</div>
+        <div class="cheat-card-desc">Conversation-style API with message history</div>
+        <div class="cheat-box" style="flex-direction:column;align-items:flex-start;gap:.5rem"><pre style="margin:0;width:100%"><code>curl http://localhost:11434/api/chat \
+  -d '{"model":"qwen2.5:7b","messages":[{"role":"user","content":"Hello"}]}'</code></pre><button class="cmd-copy-btn" onclick="copyCmd(this, \"curl http://localhost:11434/api/chat -d '{\\\"model\\\":\\\"qwen2.5:7b\\\",\\\"messages\\\":[{\\\"role\\\":\\\"user\\\",\\\"content\\\":\\\"Hello\\\"}]}'\")">Copy</button></div>
+      </div>
+      <div class="cheat-card">
+        <div class="cheat-card-name">OpenAI-Compatible Endpoint</div>
+        <div class="cheat-card-desc">Use Ollama with any OpenAI SDK-compatible tool</div>
+        <div class="cheat-box" style="flex-direction:column;align-items:flex-start;gap:.5rem"><pre style="margin:0;width:100%"><code>curl http://localhost:11434/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -d '{"model":"qwen2.5:7b","messages":[{"role":"user","content":"Hello"}]}'</code></pre><button class="cmd-copy-btn" onclick="copyCmd(this, \"curl http://localhost:11434/v1/chat/completions -H 'Content-Type: application/json' -d '{\\\"model\\\":\\\"qwen2.5:7b\\\",\\\"messages\\\":[{\\\"role\\\":\\\"user\\\",\\\"content\\\":\\\"Hello\\\"}]}'\")">Copy</button></div>
+        <div class="api-note">Set base URL to <code>http://localhost:11434/v1</code> when using OpenAI SDK with Ollama.</div>
+      </div>
+    </section>
+
+    <section class="cheat-section">
+      <h2>🐳 Docker / OpenWebUI</h2>
+      <div class="cheat-card">
+        <div class="cheat-card-name">Start OpenWebUI</div>
+        <div class="cheat-card-desc">Full-featured chat interface (requires Docker)</div>
+        <div class="cheat-box" style="flex-direction:column;align-items:flex-start;gap:.5rem"><pre style="margin:0;width:100%"><code>docker run -d -p 3000:8080 \
+  --add-host=host.docker.internal:host-gateway \
+  ghcr.io/open-webui/open-webui:main</code></pre><button class="cmd-copy-btn" onclick="copyCmd(this, 'docker run -d -p 3000:8080 --add-host=host.docker.internal:host-gateway ghcr.io/open-webui/open-webui:main')">Copy</button></div>
+        <p style="font-size:.78rem;color:var(--text-secondary);margin:.3rem 0 0">Then open <code>http://localhost:3000</code> in your browser.</p>
+      </div>
+      <div class="cheat-card">
+        <div class="cheat-card-name">Ollama + OpenWebUI (docker-compose)</div>
+        <div class="cheat-card-desc">Run both Ollama and OpenWebUI together</div>
+        <div class="cheat-box" style="flex-direction:column;align-items:flex-start;gap:.5rem"><pre style="margin:0;width:100%"><code>services:
+  ollama:
+    image: ollama/ollama:latest
+    volumes:
+      - ollama:/root/.ollama
+    ports:
+      - "11434:11434"
+  open-webui:
+    image: ghcr.io/open-webui/open-webui:main
+    ports:
+      - "3000:8080"
+    environment:
+      - OLLAMA_BASE_URL=http://ollama:11434
+    depends_on:
+      - ollama</code></pre><button class="cmd-copy-btn" onclick="copyCmd(this, 'docker run -d -p 3000:8080 --add-host=host.docker.internal:host-gateway ghcr.io/open-webui/open-webui:main')">Copy</button></div>
+      </div>
+    </section>
+  </main>
+
   <footer class="footer">
     <div class="container">
       <div class="footer-links">
         <a href="https://github.com/ebubeco/build-your-own-chatgpt" target="_blank" rel="noopener noreferrer">GitHub</a>
-        <a href="/models">Leaderboard</a>
-        <a href="/insights">Insights</a>
-        <a href="/compendium">Compendium</a>
-        <a href="/">Wizard</a>
+        <a href="index.html">Wizard</a>
+        <a href="compendium.html">Model Compendium</a>
+        <a href="use-cases.html">Use Cases</a>
+        <a href="starter-pack.html">Starter Pack</a>
+        <a href="career.html">Careers</a>
       </div>
       <p class="footer-tagline">Built for beginners. Your data never leaves your machine.</p>
     </div>
   </footer>
+
+  <script>
+    document.getElementById('theme-toggle').addEventListener('click', function() {
+      var t = document.documentElement.getAttribute('data-theme');
+      var n = t === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', n);
+      localStorage.setItem('theme', n);
+      document.querySelector('.toggle-icon').textContent = n === 'dark' ? '☀️' : '🌙';
+      document.querySelector('.toggle-label').textContent = n === 'dark' ? 'Light mode' : 'Dark mode';
+    });
+    if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme:dark)').matches)) {
+      document.querySelector('.toggle-icon').textContent = '☀️';
+      document.querySelector('.toggle-label').textContent = 'Light mode';
+    }
+
+    var allModels = [];
+    var selectedModel = null;
+
+    function initSearch() {
+      var input = document.getElementById('model-search');
+      var dropdown = document.getElementById('model-dropdown');
+      input.addEventListener('input', function() {
+        var q = input.value.toLowerCase().trim();
+        dropdown.style.display = 'none';
+        if (!q) return;
+        var results = allModels.filter(function(m) {
+          return m.name.toLowerCase().includes(q) || (m.ollamaTag || '').toLowerCase().includes(q) || (m.id || '').toLowerCase().includes(q);
+        }).slice(0, 8);
+        if (results.length === 0) return;
+        dropdown.innerHTML = results.map(function(m) {
+          return '<div class="dropdown-item" data-id="' + m.id + '"><strong>' + m.name + '</strong><span>' + m.ollamaTag + '</span></div>';
+        }).join('');
+        dropdown.style.display = 'block';
+      });
+      dropdown.addEventListener('click', function(e) {
+        var item = e.target.closest('.dropdown-item');
+        if (!item) return;
+        pickModel(item.dataset.id);
+        dropdown.style.display = 'none';
+        input.value = '';
+      });
+      document.addEventListener('click', function(e) {
+        if (!e.target.closest('.model-picker')) dropdown.style.display = 'none';
+      });
+    }
+
+    function pickModel(id) {
+      selectedModel = allModels.find(function(m) { return m.id === id; });
+      if (!selectedModel) return;
+      var display = document.getElementById('selected-display');
+      display.style.display = 'inline-flex';
+      display.innerHTML = 'Selected: <span>' + selectedModel.name + '</span> (' + selectedModel.ollamaTag + ')';
+      document.getElementById('gen-btn').disabled = false;
+    }
+
+    function getOllamaTag(model, quantPref) {
+      if (!model.quantVariants || !model.quantVariants.length) return model.ollamaTag;
+      if (quantPref === 'quality') {
+        var vq = model.quantVariants.find(function(v) { return v.tag && v.tag.toLowerCase().includes('q8'); });
+        return vq ? vq.tag : model.ollamaTag;
+      }
+      if (quantPref === 'small') {
+        var vs = model.quantVariants.find(function(v) { return v.tag && v.tag.toLowerCase().includes('q2'); });
+        return vs ? vs.tag : model.ollamaTag;
+      }
+      return model.ollamaTag;
+    }
+
+    function getSystemPrompt(useCase) {
+      var templates = {
+        general: 'You are a helpful assistant. Be concise and accurate.',
+        coding: 'You are an expert software engineer. Provide working, well-commented code. Always include error handling.',
+        writing: 'You are a professional editor. Improve clarity while preserving the author\'s voice.',
+        documents: 'You are a document analyst. Extract information accurately. Flag ambiguity clearly.',
+        api: 'You are a helpful assistant.'
+      };
+      return templates[useCase] || templates.general;
+    }
+
+    function generateCommands() {
+      if (!selectedModel) return;
+      var quantPref = document.getElementById('quant-pref').value;
+      var useCase = document.getElementById('use-case').value;
+      var tag = getOllamaTag(selectedModel, quantPref);
+      var systemPrompt = getSystemPrompt(useCase);
+      var modelfile = 'FROM ' + tag + '\nSYSTEM "' + systemPrompt + '"\nPARAMETER temperature ' + (useCase === 'coding' ? '0.2' : '0.7') + '\nPARAMETER num_ctx 4096';
+      var output = document.getElementById('commands-output');
+      output.style.display = 'block';
+
+      var apiNote = useCase === 'api' ? '<div class="cmd-block"><h3>6. OpenAI-Compatible Endpoint</h3><pre><code>curl http://localhost:11434/v1/chat/completions \\\n  -H "Content-Type: application/json" \\\n  -d \'{"model":"' + tag + '","messages":[{"role":"user","content":"Hello"}]}\'</code></pre><div class="api-note">Set base URL to <code>http://localhost:11434/v1</code> when using OpenAI SDK with Ollama.</div></div>' : '';
+
+      output.innerHTML =
+        '<div class="cmd-block"><h3>1. Download the model</h3><pre><code>ollama pull ' + tag + '</code></pre><button class="cmd-copy-btn" onclick="copyCmd(this, \'ollama pull ' + tag + '\')">Copy</button></div>' +
+        '<div class="cmd-block"><h3>2. Run in terminal</h3><pre><code>ollama run ' + tag + '</code></pre><button class="cmd-copy-btn" onclick="copyCmd(this, \'ollama run ' + tag + '\')">Copy</button></div>' +
+        '<div class="cmd-block"><h3>3. Start API server</h3><pre><code>ollama serve</code></pre><p>API available at: <code>http://localhost:11434</code></p><button class="cmd-copy-btn" onclick="copyCmd(this, \'ollama serve\')">Copy</button></div>' +
+        '<div class="cmd-block"><h3>4. Custom Modelfile (system prompt for ' + useCase + ')</h3><pre><code>' + modelfile.replace(/</g, '<').replace(/>/g, '>') + '</code></pre><button class="cmd-copy-btn" onclick="copyCmd(this, \'' + modelfile.replace(/\\/g, '\\\\').replace(/'/g, "\\'") + '\')">Copy Modelfile</button><p>Save as <code>Modelfile</code>, then run: <code>ollama create my-assistant -f Modelfile</code></p></div>' +
+        '<div class="cmd-block"><h3>5. API call example (curl)</h3><pre><code>curl http://localhost:11434/api/generate -d \'{"model":"' + tag + '","prompt":"Hello, how are you?","stream":false}\'</code></pre><button class="cmd-copy-btn" onclick="copyCmd(this, \'curl http://localhost:11434/api/generate -d \\\'{"model":"' + tag + '","prompt":"Hello","stream":false}\\\'\')">Copy</button></div>' +
+        apiNote +
+        '<p style="font-size:.85rem;color:var(--text-secondary);margin-top:1rem">Replace <code>localhost:11434</code> with your server IP if accessing remotely.</p>';
+      output.scrollIntoView({ behavior: 'smooth' });
+      plausible('commands_generated', { props: { model: selectedModel.id, useCase: useCase } });
+    }
+
+    function copyCmd(btn, text) {
+      navigator.clipboard.writeText(text).then(function() {
+        btn.classList.add('copied');
+        var orig = btn.textContent;
+        btn.textContent = '✓ Copied';
+        setTimeout(function() { btn.classList.remove('copied'); btn.textContent = orig; }, 2000);
+      });
+    }
+
+    fetch('data/models.json').then(function(r) { return r.json(); }).then(function(data) {
+      allModels = data.models || [];
+      initSearch();
+    });
+  </script>
+  <script src="shared.js"></script>
+  <script src="analytics.js"></script>
 </body>
 </html>

@@ -86,5 +86,190 @@
       "breakEvenMonths": 19,
       "note": "Higher upfront but runs the largest open models. Also a production workstation."
     }
+  ],
+  "cloudSubscriptions": [
+    {
+      "id": "chatgpt-plus",
+      "name": "ChatGPT Plus",
+      "provider": "OpenAI",
+      "monthlyPrice": 20,
+      "yearlyPrice": 200,
+      "capabilities": {
+        "chat": 10,
+        "coding": 9,
+        "analysis": 9,
+        "imageGen": 8,
+        "reasoning": 9,
+        "agents": 8
+      },
+      "privacyRating": 3,
+      "speedRating": 9,
+      "bestFor": [
+        "general-purpose AI",
+        "coding assistance",
+        "writing and brainstorming",
+        "complex reasoning"
+      ],
+      "description": "OpenAI's premium subscription with GPT-4 and GPT-4o access. Best-in-class chat and coding capabilities. Requires internet connection.",
+      "models": [
+        "GPT-4o",
+        "GPT-4",
+        "GPT-3.5 Turbo"
+      ],
+      "limits": "Unlimited messages with GPT-4o, 50 messages with o1 pro",
+      "url": "https://chat.openai.com"
+    },
+    {
+      "id": "claude-pro",
+      "name": "Claude Pro",
+      "provider": "Anthropic",
+      "monthlyPrice": 20,
+      "yearlyPrice": 200,
+      "capabilities": {
+        "chat": 9,
+        "coding": 9,
+        "analysis": 10,
+        "imageGen": 6,
+        "reasoning": 10,
+        "agents": 8
+      },
+      "privacyRating": 6,
+      "speedRating": 8,
+      "bestFor": [
+        "writing and content creation",
+        "deep analysis",
+        "long documents",
+        "nuanced reasoning"
+      ],
+      "description": "Anthropic's Claude 3.5 Sonnet with 200K context window. Best-in-class for writing, analysis, and thoughtful nuanced responses.",
+      "models": [
+        "Claude 3.5 Sonnet",
+        "Claude 3 Opus",
+        "Claude 3 Haiku"
+      ],
+      "limits": "Priority access during peak times",
+      "url": "https://claude.ai"
+    },
+    {
+      "id": "gemini-pro",
+      "name": "Gemini Pro",
+      "provider": "Google",
+      "monthlyPrice": 20,
+      "yearlyPrice": 200,
+      "capabilities": {
+        "chat": 8,
+        "coding": 8,
+        "analysis": 9,
+        "imageGen": 10,
+        "reasoning": 9,
+        "agents": 7
+      },
+      "privacyRating": 5,
+      "speedRating": 8,
+      "bestFor": [
+        "research and data analysis",
+        "multimodal tasks",
+        "integration with Google ecosystem",
+        "reasoning tasks"
+      ],
+      "description": "Google's flagship AI with strong reasoning and multimodal capabilities. Integrated with Google Docs, Sheets, and other Google services.",
+      "models": [
+        "Gemini 1.5 Pro",
+        "Gemini 1.5 Flash",
+        "Gemini 2.0"
+      ],
+      "limits": "2M token context window",
+      "url": "https://gemini.google.com"
+    },
+    {
+      "id": "copilot-pro",
+      "name": "Copilot Pro",
+      "provider": "Microsoft",
+      "monthlyPrice": 22,
+      "yearlyPrice": 220,
+      "capabilities": {
+        "chat": 8,
+        "coding": 9,
+        "analysis": 8,
+        "imageGen": 8,
+        "reasoning": 8,
+        "agents": 7
+      },
+      "privacyRating": 4,
+      "speedRating": 8,
+      "bestFor": [
+        "Microsoft Office integration",
+        "coding with VS Code",
+        "Windows users",
+        "productivity workflows"
+      ],
+      "description": "Microsoft's premium AI powered by GPT-4 Turbo. Deep integration with Office 365, Windows, and Edge. Best for Microsoft ecosystem users.",
+      "models": [
+        "GPT-4 Turbo",
+        "DALL-E 3"
+      ],
+      "limits": "100 boosts per day for Image Creator",
+      "url": "https://copilot.microsoft.com"
+    },
+    {
+      "id": "github-copilot",
+      "name": "GitHub Copilot",
+      "provider": "GitHub/Microsoft",
+      "monthlyPrice": 10,
+      "yearlyPrice": 100,
+      "capabilities": {
+        "chat": 6,
+        "coding": 10,
+        "analysis": 5,
+        "imageGen": 0,
+        "reasoning": 5,
+        "agents": 4
+      },
+      "privacyRating": 4,
+      "speedRating": 9,
+      "bestFor": [
+        "code completion",
+        "code review",
+        "bug detection",
+        "IDE integration"
+      ],
+      "description": "AI pair programmer from GitHub. Best-in-class code completion and generation. Deeply integrated into VS Code and JetBrains IDEs.",
+      "models": [
+        "Codex (GPT-4 fine-tuned for code)"
+      ],
+      "limits": "Unlimited code completions, 50 chat messages",
+      "url": "https://github.com/features/copilot"
+    },
+    {
+      "id": "perplexity-pro",
+      "name": "Perplexity Pro",
+      "provider": "Perplexity AI",
+      "monthlyPrice": 20,
+      "yearlyPrice": 200,
+      "capabilities": {
+        "chat": 8,
+        "coding": 7,
+        "analysis": 8,
+        "imageGen": 0,
+        "reasoning": 8,
+        "agents": 6
+      },
+      "privacyRating": 6,
+      "speedRating": 8,
+      "bestFor": [
+        "research with real-time web search",
+        "cited sources",
+        "fact-checking",
+        "academic research"
+      ],
+      "description": "AI-powered search engine with GPT-4, Claude, and Gemini access. Best for research with real-time web citations and source verification.",
+      "models": [
+        "GPT-4o",
+        "Claude 3.5 Sonnet",
+        "Sonar Large"
+      ],
+      "limits": "600 Pro searches per day, 6000 with Copilot",
+      "url": "https://perplexity.ai"
+    }
   ]
 }

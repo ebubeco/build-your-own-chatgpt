@@ -4,12 +4,12 @@
   <meta name="google-site-verification" content="5YRiOefTK9mTwEJEnLIH6BQ5xmP0NkwyfiaBWZJbdCg">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Ollama vs LM Studio vs Jan — which local AI tool is right for you? Compare features, privacy, ease of use, and get a personalized recommendation.">
-  <meta property="og:title" content="Which Local AI Tool Should I Use? Ollama vs LM Studio vs Jan">
-  <meta property="og:description" content="Compare Ollama, LM Studio, and Jan side by side. Get a recommendation based on your experience level and preferences.">
+  <meta name="description" content="Local AI vs Cloud AI — compare costs, privacy, capabilities. Get a personalized recommendation based on your needs, budget, and privacy preferences.">
+  <meta property="og:title" content="Local AI vs Cloud AI — Which Should You Use?">
+  <meta property="og:description" content="Compare local AI tools vs ChatGPT, Claude, and Gemini. Get a personalized recommendation based on your needs, budget, and privacy preferences.">
   <meta property="og:image" content="https://build-your-own-chatgpt.vercel.app/og-image.jpg">
   <meta name="twitter:card" content="summary_large_image">
-  <title>Which Local AI Tool Should I Use? Ollama vs LM Studio vs Jan</title>
+  <title>Local AI vs Cloud AI — Which Should You Use?</title>
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,47 +19,35 @@
   <script async src="https://plausible.io/js/pa-DBTdINzLX2L2B_fXJF0u1.js"></script>
   <script>window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()</script>
   <style>
-    .which-page{max-width:960px;margin:0 auto;padding:0 1.5rem 3rem}
+    .which-page{max-width:800px;margin:0 auto;padding:0 1.5rem 3rem}
     .which-page h1{font-family:'Outfit',sans-serif;font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;letter-spacing:-0.02em;margin:2rem 0 .5rem}
     .which-page .subtitle{color:var(--text-secondary);font-size:1rem;margin-bottom:2rem}
-    .tool-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:2rem}
-    @media(max-width:700px){.tool-cards{grid-template-columns:1fr}}
-    .tool-card{background:var(--bg-card);border:1.5px solid var(--border);border-radius:var(--radius);padding:1.25rem;transition:all var(--transition)}
-    .tool-card:hover{border-color:var(--accent);box-shadow:var(--shadow-glow);transform:translateY(-2px)}
-    .tool-card .icon{font-size:2rem;margin-bottom:.5rem}
-    .tool-card h2{font-family:'Outfit',sans-serif;font-size:1.1rem;font-weight:700;margin-bottom:.2rem}
-    .tool-card .tag{display:inline-block;font-size:.72rem;font-weight:600;padding:.2rem .5rem;border-radius:20px;margin-bottom:.6rem}
-    .tool-card .tag.ollama{background:var(--accent-light);color:var(--accent)}
-    .tool-card .tag.lmstudio{background:#e6f0ff;color:#2266cc}
-    .tool-card .tag.jan{background:#f0e6ff;color:#8844cc}
-    .tool-card .desc{font-size:.85rem;color:var(--text-secondary);line-height:1.55;margin-bottom:.6rem}
-    .tool-card .pros-cons{font-size:.82rem}
-    .tool-card .pros-cons strong{display:block;margin-top:.4rem;font-size:.78rem;text-transform:uppercase;letter-spacing:.05em;color:var(--text-tertiary)}
-    .tool-card .pros-cons ul{margin:.2rem 0 0 1rem;color:var(--text-secondary);line-height:1.5}
-    .tool-card .dl-link{display:inline-block;margin-top:.6rem;padding:.4rem .8rem;border-radius:var(--radius-sm);font-size:.82rem;font-weight:600;text-decoration:none;transition:all var(--transition)}
-    .tool-card .dl-link.ollama{background:var(--accent);color:#fff}
-    .tool-card .dl-link.lmstudio{background:#2266cc;color:#fff}
-    .tool-card .dl-link.jan{background:#8844cc;color:#fff}
-    .tool-card .dl-link:hover{opacity:.85;transform:scale(1.03)}    .rec-selector{background:var(--bg-card);border:1.5px solid var(--border);border-radius:var(--radius);padding:1.5rem;margin-bottom:2rem}
-    .rec-selector h2{font-family:'Outfit',sans-serif;font-size:1.2rem;font-weight:700;margin-bottom:.5rem}
-    .rec-selector select{width:100%;max-width:400px;padding:.7rem .9rem;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-size:.95rem;background:var(--surface);color:var(--text);cursor:pointer;margin:1rem 0;transition:border-color var(--transition)}
-    .rec-selector select:focus{outline:none;border-color:var(--accent)}
-    .rec-result{padding:1rem;border-radius:var(--radius-sm);font-size:.95rem;line-height:1.5;display:none}
-    .rec-result.show{display:block}
-    .rec-result.r-ollama{background:var(--accent-light);border-left:4px solid var(--accent);color:var(--text)}
-    .rec-result.r-lmstudio{background:#e6f0ff;border-left:4px solid #2266cc;color:var(--text)}
-    .rec-result.r-jan{background:#f0e6ff;border-left:4px solid #8844cc;color:var(--text)}
-    .rec-result .rec-tool{font-weight:700;font-size:1.05rem}
-    .rec-result .rec-reason{margin-top:.3rem;font-size:.85rem;color:var(--text-secondary)}
-    .comp-table-wrap{overflow-x:auto;margin-bottom:2rem}
-    .comp-table{width:100%;border-collapse:collapse;font-size:.85rem;border-radius:var(--radius-sm);overflow:hidden;border:1px solid var(--border)}
-    .comp-table th,.comp-table td{padding:.65rem .75rem;text-align:left;border-bottom:1px solid var(--border)}
-    .comp-table th{background:var(--surface);font-weight:700;font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--text-secondary)}
-    .comp-table td:first-child{font-weight:600;color:var(--text);white-space:nowrap}
-    .comp-table tr:last-child td{border-bottom:none}
-    .comp-table .check{color:var(--green);font-weight:700}
-    .comp-table .cross{color:var(--red)}
-    .comp-table .partial{color:var(--amber)}
+    .step{margin-bottom:2rem;padding:1.5rem;background:var(--bg-card);border:1.5px solid var(--border);border-radius:var(--radius)}
+    .step h2{font-family:'Outfit',sans-serif;font-size:1.2rem;font-weight:700;margin-bottom:.3rem}
+    .step p{color:var(--text-secondary);font-size:.9rem;margin-bottom:1rem}
+    .option-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;margin-top:1rem}
+    @media(max-width:600px){.option-grid{grid-template-columns:repeat(2,1fr)}}
+    .option-card{background:var(--surface);border:2px solid var(--border);border-radius:var(--radius);padding:1rem;cursor:pointer;transition:all var(--transition);text-align:center}
+    .option-card:hover{border-color:var(--accent);transform:translateY(-2px)}
+    .option-card.selected{border-color:var(--accent);background:var(--accent-light)}
+    .option-card .icon{font-size:1.8rem;margin-bottom:.3rem}
+    .option-card h3{font-size:.9rem;font-weight:600}
+    .option-card p{font-size:.75rem;color:var(--text-secondary);margin-top:.2rem}
+    .result-section{display:none;margin-top:2rem}
+    .result-section.show{display:block}
+    .option-list{margin-top:1rem}
+    .option-item{display:flex;align-items:center;gap:1rem;padding:1rem;background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);margin-bottom:.75rem;cursor:pointer;transition:all var(--transition)}
+    .option-item:hover{border-color:var(--accent);transform:translateX(4px)}
+    .option-item .option-icon{font-size:1.5rem}
+    .option-item .option-info{flex:1}
+    .option-item h4{font-size:1rem;font-weight:600;margin-bottom:.2rem}
+    .option-item p{font-size:.8rem;color:var(--text-secondary)}
+    .option-item .option-badge{display:inline-block;font-size:.7rem;font-weight:600;padding:.2rem .5rem;border-radius:20px;margin-top:.3rem}
+    .option-item .badge-local{background:var(--accent-light);color:var(--accent)}
+    .option-item .badge-cloud{background:#e6f0ff;color:#2266cc}
+    .option-item .badge-free{background:#e6ffe6;color:#1D9E75}
+    .option-item .badge-paid{background:#fff0e6;color:#cc6600}
+    .hidden{display:none}
   </style>
 </head>
 <body>
@@ -76,90 +64,99 @@
   </nav>
 
   <main class="which-page">
-    <h1>Which Local AI Tool Should I Use?</h1>
-    <p class="subtitle">All three are free and run entirely on your machine. Pick based on how you like to work.</p>
+    <h1>Local AI vs Cloud AI</h1>
+    <p class="subtitle">Compare costs, privacy, and capabilities. Get a personalized recommendation for your needs.</p>
 
-    <div class="tool-cards">
-      <div class="tool-card">
-        <div class="icon">🐳</div>
-        <h2>Ollama</h2>
-        <span class="tag ollama">Best for beginners</span>
-        <div class="desc">One command install. Minimal, terminal-based, but surprisingly simple. The largest model library and community.</div>
-        <div class="pros-cons"><strong>Pros</strong><ul><li>Simplest setup (one command)</li><li>Largest model selection</li><li>Runs on everything</li><li>Great documentation</li></ul><strong>Cons</strong><ul><li>Terminal only (no GUI)</li><li>Manual model management</li></ul></div>
-        <a class="dl-link ollama" href="https://ollama.com/download" target="_blank" rel="noopener">Download Ollama →</a>
-      </div>
-      <div class="tool-card">
-        <div class="icon">🖥️</div>
-        <h2>LM Studio</h2>
-        <span class="tag lmstudio">Best for GUI lovers</span>
-        <div class="desc">Polished desktop app. Browse, download, and chat with models in a beautiful interface. No terminal needed.</div>
-        <div class="pros-cons"><strong>Pros</strong><ul><li>Beautiful GUI</li><li>Built-in model browser</li><li>Click to install & run</li><li>Local HTTP server</li></ul><strong>Cons</strong><ul><li>Heavier install</li><li>Slightly fewer models</li></ul></div>
-        <a class="dl-link lmstudio" href="https://lmstudio.ai" target="_blank" rel="noopener">Download LM Studio →</a>
-      </div>
-      <div class="tool-card">
-        <div class="icon">🔒</div>
-        <h2>Jan</h2>
-        <span class="tag jan">Best for privacy nerds</span>
-        <div class="desc">100% open source. No telemetry, no analytics, fully offline. Built for maximum privacy and transparency.</div>
-        <div class="pros-cons"><strong>Pros</strong><ul><li>Fully open source</li><li>Zero telemetry</li><li>Works fully offline</li><li>Extensible via plugins</li></ul><strong>Cons</strong><ul><li>Smaller community</li><li>Fewer models out of box</li></ul></div>
-        <a class="dl-link jan" href="https://jan.ai" target="_blank" rel="noopener">Download Jan →</a>
-      </div>
-    </div>    <div class="comp-table-wrap">
-      <table class="comp-table">
-        <thead><tr><th>Feature</th><th>Ollama</th><th>LM Studio</th><th>Jan</th></tr></thead>
-        <tbody>
-          <tr><td>Install</td><td class="check">One command</td><td class="check">Download & open</td><td class="check">Download & open</td></tr>
-          <tr><td>Interface</td><td>Terminal (CLI)</td><td class="check">Desktop GUI</td><td class="check">Desktop GUI</td></tr>
-          <tr><td>Model Browser</td><td class="partial">Manual (ollama pull)</td><td class="check">Built-in</td><td class="partial">Built-in (limited)</td></tr>
-          <tr><td>Open Source</td><td class="check">Yes</td><td class="partial">Partially</td><td class="check">Fully</td></tr>
-          <tr><td>Privacy</td><td class="check">100% local</td><td class="check">100% local</td><td class="check">100% local, no telemetry</td></tr>
-          <tr><td>Ease of Use</td><td class="check">⭐⭐⭐</td><td class="check">⭐⭐⭐⭐⭐</td><td class="check">⭐⭐⭐⭐</td></tr>
-          <tr><td>Platform</td><td>Mac, Windows, Linux</td><td>Mac, Windows, Linux</td><td>Mac, Windows, Linux</td></tr>
-          <tr><td>Updates</td><td class="check">Very frequent</td><td class="check">Frequent</td><td class="partial">Regular</td></tr>
-          <tr><td>API / Server</td><td class="check">Built-in REST API</td><td class="check">Local HTTP server</td><td class="partial">Via extensions</td></tr>
-          <tr><td>Community</td><td class="check">Largest (100k+ GitHub)</td><td class="check">Large</td><td class="partial">Growing</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="rec-selector">
-      <h2>Get a Personalized Recommendation</h2>
-      <p class="section-desc" style="font-size:.9rem">Tell us what matters most to you and we'll pick the right tool.</p>
-      <select id="user-type">
-        <option value="">— What describes you best? —</option>
-        <option value="beginner">I want the simplest option. One command, done.</option>
-        <option value="gui">I prefer beautiful apps with a graphical interface.</option>
-        <option value="privacy">I want maximum privacy. Fully open source, no telemetry.</option>
-        <option value="developer">I need an API/server for my own projects.</option>
-      </select>
-      <div id="rec-ollama" class="rec-result r-ollama">
-        <div class="rec-tool">🐳 Use Ollama</div>
-        <div class="rec-reason">You value simplicity. Ollama installs with one command and has the largest model library. It's the fastest path to running local AI.</div>
-      </div>
-      <div id="rec-lmstudio" class="rec-result r-lmstudio">
-        <div class="rec-tool">🖥️ Use LM Studio</div>
-        <div class="rec-reason">You prefer a polished visual experience. LM Studio's GUI lets you browse, download, and chat with models without ever opening a terminal.</div>
-      </div>
-      <div id="rec-jan" class="rec-result r-jan">
-        <div class="rec-tool">🔒 Use Jan</div>
-        <div class="rec-reason">You care about maximum privacy. Jan is 100% open source with zero telemetry and works fully offline out of the box.</div>
-      </div>
-      <div id="rec-ollama-api" class="rec-result r-ollama">
-        <div class="rec-tool">🐳 Use Ollama</div>
-        <div class="rec-reason">You need an API. Ollama has a built-in REST API that's easy to integrate with your own tools and projects.</div>
+    <div class="step" id="step1">
+      <h2>What do you want to use AI for?</h2>
+      <p>Select your primary use case</p>
+      <div class="option-grid" id="useCaseOptions">
+        <div class="option-card" data-use-case="coding">
+          <div class="icon">💻</div>
+          <h3>Coding</h3>
+          <p>Code generation, review, debugging</p>
+        </div>
+        <div class="option-card" data-use-case="writing">
+          <div class="icon">✍️</div>
+          <h3>Writing</h3>
+          <p>Articles, emails, editing</p>
+        </div>
+        <div class="option-card" data-use-case="general">
+          <div class="icon">💬</div>
+          <h3>General Chat</h3>
+          <p>Questions, brainstorming</p>
+        </div>
+        <div class="option-card" data-use-case="documents">
+          <div class="icon">📄</div>
+          <h3>Documents</h3>
+          <p>Summarization, analysis</p>
+        </div>
+        <div class="option-card" data-use-case="research">
+          <div class="icon">🔬</div>
+          <h3>Research</h3>
+          <p>Analysis, reasoning</p>
+        </div>
+        <div class="option-card" data-use-case="agents">
+          <div class="icon">🤖</div>
+          <h3>AI Agents</h3>
+          <p>Automation, tasks</p>
+        </div>
       </div>
     </div>
 
-    <p class="tool-note" style="margin-top:1.5rem">💡 Our main site recommendations use Ollama — it has the simplest install and biggest community. But all three tools are excellent.</p>
+    <div class="step hidden" id="step2">
+      <h2>What's your budget?</h2>
+      <p>How much are you willing to pay monthly for AI?</p>
+      <div class="option-grid" id="budgetOptions">
+        <div class="option-card" data-budget="free">
+          <div class="icon">🆓</div>
+          <h3>Free only</h3>
+          <p>No subscription costs</p>
+        </div>
+        <div class="option-card" data-budget="under25">
+          <div class="icon">💵</div>
+          <h3>Under $25/mo</h3>
+          <p>Standard subscriptions</p>
+        </div>
+        <div class="option-card" data-budget="nolimit">
+          <div class="icon">💎</div>
+          <h3>No limit</h3>
+          <p>Best quality regardless</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="step hidden" id="step3">
+      <h2>How important is privacy?</h2>
+      <p>Do you need your data to stay on your machine?</p>
+      <div class="option-grid" id="privacyOptions">
+        <div class="option-card" data-privacy="private">
+          <div class="icon">🔒</div>
+          <h3>Keep it private</h3>
+          <p>100% local, no data leaves device</p>
+        </div>
+        <div class="option-card" data-privacy="cloudok">
+          <div class="icon">☁️</div>
+          <h3>Cloud is fine</h3>
+          <p>Don't mind cloud processing</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="result-section" id="results">
+      <h2>Your AI Options</h2>
+      <p>Ranked recommendations based on your preferences</p>
+      <div class="option-list" id="optionsList"></div>
+    </div>
   </main>
 
   <footer class="footer">
     <div class="container">
       <div class="footer-links">
         <a href="https://github.com/ebubeco/build-your-own-chatgpt" target="_blank" rel="noopener noreferrer">GitHub</a>
-        <a href="/models">Leaderboard</a>
-        <a href="/insights">Insights</a>
-        <a href="/compendium">Compendium</a>
+        <a href="/compendium.html">All Models</a>
+        <a href="/compare.html">Compare</a>
+        <a href="/cost.html">Cost</a>
         <a href="/">Wizard</a>
       </div>
       <p class="footer-tagline">Built for beginners. Your data never leaves your machine.</p>
@@ -167,18 +164,163 @@
   </footer>
 
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const sel = document.getElementById('user-type');
-      const results = {
-        'beginner': 'rec-ollama',
-        'gui': 'rec-lmstudio',
-        'privacy': 'rec-jan',
-        'developer': 'rec-ollama-api'
+    var selectedUseCase = null;
+    var selectedBudget = null;
+    var selectedPrivacy = null;
+    var costsData = null;
+
+    async function loadData() {
+      try {
+        const res = await fetch('data/costs.json');
+        costsData = await res.json();
+      } catch(e) {
+        console.error('Failed to load data:', e);
+      }
+    }
+
+    function selectUseCase(el) {
+      document.querySelectorAll('#useCaseOptions .option-card').forEach(c => c.classList.remove('selected'));
+      el.classList.add('selected');
+      selectedUseCase = el.dataset.useCase;
+      document.getElementById('step2').classList.remove('hidden');
+      document.getElementById('step2').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function selectBudget(el) {
+      document.querySelectorAll('#budgetOptions .option-card').forEach(c => c.classList.remove('selected'));
+      el.classList.add('selected');
+      selectedBudget = el.dataset.budget;
+      document.getElementById('step3').classList.remove('hidden');
+      document.getElementById('step3').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function selectPrivacy(el) {
+      document.querySelectorAll('#privacyOptions .option-card').forEach(c => c.classList.remove('selected'));
+      el.classList.add('selected');
+      selectedPrivacy = el.dataset.privacy;
+      showResults();
+    }
+
+    function getCloudServices() {
+      return costsData && costsData.cloudSubscriptions ? costsData.cloudSubscriptions : [];
+    }
+
+    function filterCloudServices() {
+      var services = getCloudServices();
+      if (selectedBudget === 'free') {
+        return services.filter(function(s) { return s.monthlyUSD === 0; });
+      } else if (selectedBudget === 'under25') {
+        return services.filter(function(s) { return s.monthlyUSD <= 25; });
+      }
+      return services;
+    }
+
+    function getCapabilityScore(service, useCase) {
+      var caps = service.capabilities || {};
+      var scoreMap = {
+        coding: 'coding',
+        writing: 'writing', 
+        general: 'chat',
+        documents: 'analysis',
+        research: 'analysis',
+        agents: 'agents'
       };
-      sel.addEventListener('change', function() {
-        document.querySelectorAll('.rec-result').forEach(r => r.classList.remove('show'));
-        const id = results[this.value];
-        if (id) document.getElementById(id).classList.add('show');
+      var key = scoreMap[useCase] || 'chat';
+      return caps[key] || 5;
+    }
+
+    function showResults() {
+      if (!selectedUseCase || !selectedBudget || !selectedPrivacy) return;
+
+      var results = [];
+      var useCase = selectedUseCase;
+
+      // Local AI options (always available if privacy preference allows)
+      if (selectedPrivacy === 'private' || selectedPrivacy === 'cloudok') {
+        var localItems = [
+          { id: 'local-free', type: 'local', badge: 'Local', badgeClass: 'badge-local',
+            name: 'Local AI (Free)',
+            desc: 'Run models on your own hardware. 100% private, no subscription.',
+            url: '/',
+            score: 8 },
+          { id: 'local-setup', type: 'local', badge: 'Local', badgeClass: 'badge-local',
+            name: 'Get Local Setup Guide',
+            desc: 'Answer a few questions to get your personalized local AI recommendation.',
+            url: '/',
+            score: 7 }
+        ];
+        results = results.concat(localItems);
+      }
+
+      // Cloud options (if budget allows)
+      if (selectedBudget !== 'free' || selectedPrivacy === 'cloudok') {
+        var cloudSvcs = filterCloudServices();
+        cloudSvcs.forEach(function(svc) {
+          results.push({
+            id: svc.name.toLowerCase().replace(/\s+/g, '-'),
+            type: 'cloud',
+            badge: svc.name,
+            badgeClass: svc.monthlyUSD === 0 ? 'badge-free' : 'badge-paid',
+            name: svc.name + ' — $' + svc.monthlyUSD + '/mo',
+            desc: svc.features ? svc.features.join(', ') : 'AI assistant',
+            url: svc.url || '#',
+            score: getCapabilityScore(svc, useCase) + (svc.monthlyUSD <= 20 ? 0 : -1)
+          });
+        });
+      }
+
+      // If privacy is private and budget allows cloud-free
+      if (selectedPrivacy === 'private' && selectedBudget === 'free') {
+        // Add free cloud options that prioritize privacy
+        var freeCloud = getCloudServices().filter(function(s) { return s.monthlyUSD === 0; });
+        freeCloud.forEach(function(svc) {
+          results.push({
+            id: svc.name.toLowerCase().replace(/\s+/g, '-') + '-free',
+            type: 'cloud-free',
+            badge: svc.name + ' (Free)',
+            badgeClass: 'badge-free',
+            name: svc.name + ' (Free tier)',
+            desc: 'Free cloud access with some limitations',
+            url: svc.url || '#',
+            score: getCapabilityScore(svc, useCase) - 1
+          });
+        });
+      }
+
+      // Sort by score
+      results.sort(function(a, b) { return b.score - a.score; });
+
+      // Render
+      var list = document.getElementById('optionsList');
+      list.innerHTML = results.map(function(r) {
+        return '<div class="option-item" onclick="window.location.href=\'' + r.url + '\'">' +
+          '<div class="option-icon">' + (r.type === 'local' ? '💻' : '☁️') + '</div>' +
+          '<div class="option-info">' +
+            '<h4>' + r.name + '</h4>' +
+            '<p>' + r.desc + '</p>' +
+            '<span class="option-badge ' + r.badgeClass + '">' + r.badge + '</span>' +
+          '</div>' +
+          '<div>' + (r.type === 'local' ? '<a href="/">Setup →</a>' : '<a href="' + r.url + '" target="_blank">Try →</a>') + '</div>' +
+        '</div>';
+      }).join('');
+
+      document.getElementById('results').classList.add('show');
+      document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      loadData();
+
+      document.querySelectorAll('#useCaseOptions .option-card').forEach(function(card) {
+        card.addEventListener('click', function() { selectUseCase(this); });
+      });
+
+      document.querySelectorAll('#budgetOptions .option-card').forEach(function(card) {
+        card.addEventListener('click', function() { selectBudget(this); });
+      });
+
+      document.querySelectorAll('#privacyOptions .option-card').forEach(function(card) {
+        card.addEventListener('click', function() { selectPrivacy(this); });
       });
     });
   </script>

@@ -104,12 +104,12 @@
   <script>
     const HW_TIERS = [
       {id:'no-gpu',icon:'🖥️',name:'No GPU / Old Hardware',desc:'Laptops from 2015 or earlier. CPU-only inference.',vram:'<1GB VRAM',maxVram:1,color:'#E24B4A'},
-      {id:'cpu-only',icon:'💻',name:'CPU-Only (16-32GB RAM)',desc:'Modern laptop or desktop with no dedicated GPU.',vram:'0-4GB VRAM',maxVram:4,color:'#BA7517'},
+      {id:'no-gpu',icon:'💻',name:'CPU-Only (16-32GB RAM)',desc:'Modern laptop or desktop with no dedicated GPU.',vram:'0-4GB VRAM',maxVram:4,color:'#BA7517'},
       {id:'budget-gpu',icon:'🎮',name:'Budget GPU (8-12GB VRAM)',desc:'RTX 3060, 4060, 3070 or similar mid-range card.',vram:'4-12GB VRAM',maxVram:12,color:'#1D9E75'},
-      {id:'power-gpu',icon:'🚀',name:'Power GPU (16GB+ VRAM)',desc:'RTX 4080, 4090, or workstation GPUs.',vram:'12-100GB VRAM',maxVram:100,color:'#534AB7'},
-      {id:'silicon-8-16gb',icon:'🍎',name:'Apple Silicon (8-16GB)',desc:'MacBook Air/Pro M1/M2/M3 with 8-16GB unified.',vram:'8-16GB unified',maxVram:16,color:'#6B5CF5'},
-      {id:'silicon-24-48gb',icon:'🍎',name:'Apple Silicon (24-48GB)',desc:'MacBook Pro M3 Pro/Max, Mac Studio M2 Ultra.',vram:'24-48GB unified',maxVram:48,color:'#3D2FB8'},
-      {id:'silicon-64-plus',icon:'🍎',name:'Apple Silicon (64GB+)',desc:'Mac Studio M2 Ultra 128GB, Mac Pro.',vram:'64GB+ unified',maxVram:192,color:'#1D0FB8'}
+      {id:'high-end-gpu',icon:'🚀',name:'Power GPU (16GB+ VRAM)',desc:'RTX 4080, 4090, or workstation GPUs.',vram:'12-100GB VRAM',maxVram:100,color:'#534AB7'},
+      {id:'apple',icon:'🍎',name:'Apple Silicon (8-16GB)',desc:'MacBook Air/Pro M1/M2/M3 with 8-16GB unified.',vram:'8-16GB unified',maxVram:16,color:'#6B5CF5'},
+      {id:'apple',icon:'🍎',name:'Apple Silicon (24-48GB)',desc:'MacBook Pro M3 Pro/Max, Mac Studio M2 Ultra.',vram:'24-48GB unified',maxVram:48,color:'#3D2FB8'},
+      {id:'apple',icon:'🍎',name:'Apple Silicon (64GB+)',desc:'Mac Studio M2 Ultra 128GB, Mac Pro.',vram:'64GB+ unified',maxVram:192,color:'#1D0FB8'}
     ];
     let allModels = [];
     let selectedTier = null;
@@ -176,9 +176,9 @@
       if(!tier) return;
       const compatible = allModels.filter(m => {
         if(m.tier === selectedTier) return true;
-        if(m.tier === 'no-gpu' && ['cpu-only','budget-gpu','power-gpu','silicon-8-16gb','silicon-24-48gb','silicon-64-plus'].includes(selectedTier)) return true;
-        if(m.tier === 'cpu-only' && ['budget-gpu','power-gpu','silicon-8-16gb','silicon-24-48gb','silicon-64-plus'].includes(selectedTier)) return true;
-        if(m.tier === 'budget-gpu' && ['power-gpu'].includes(selectedTier)) return true;
+        if(m.tier === 'no-gpu' && ['no-gpu','budget-gpu','high-end-gpu','apple','apple','apple'].includes(selectedTier)) return true;
+        if(m.tier === 'no-gpu' && ['budget-gpu','high-end-gpu','apple','apple','apple'].includes(selectedTier)) return true;
+        if(m.tier === 'budget-gpu' && ['high-end-gpu'].includes(selectedTier)) return true;
         if(m.tier.startsWith('silicon') && selectedTier.startsWith('silicon')) {
           const tierMax = HW_TIERS.find(t=>t.id===selectedTier)?.maxVram||0;
           if((m.vramGB||0) <= tierMax) return true;
@@ -218,15 +218,16 @@
     }
     init();
   </script>
-  <script src="analytics.js"></script>
   <script src="shared.js"></script>
+  <script src="app.js"></script>
+  <script src="analytics.js"></script>
   <footer class="footer">
     <div class="container">
       <div class="footer-links">
         <a href="https://github.com/ebubeco/build-your-own-chatgpt" target="_blank" rel="noopener noreferrer">GitHub</a>
-        <a href="/models">Leaderboard</a>
-        <a href="/insights">Insights</a>
-        <a href="/compendium">Compendium</a>
+        <a href="/compendium.html">All Models</a>
+        <a href="/compare.html">Compare</a>
+        <a href="/cost.html">Cost</a>
         <a href="/">Wizard</a>
       </div>
       <p class="footer-tagline">Built for beginners. Your data never leaves your machine.</p>

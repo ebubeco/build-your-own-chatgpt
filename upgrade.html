@@ -4,12 +4,12 @@
   <meta name="google-site-verification" content="5YRiOefTK9mTwEJEnLIH6BQ5xmP0NkwyfiaBWZJbdCg">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="AI hardware upgrade guide. See what to upgrade next for better local AI performance. Compare GPU tiers and Apple Silicon options.">
-  <meta property="og:title" content="AI Hardware Upgrade Guide — What to Upgrade for Better Local AI">
-  <meta property="og:description" content="Find the best upgrade path for your local AI setup. Compare GPUs, RAM, and Apple Silicon options.">
+  <meta name="description" content="Find the cheapest hardware upgrade to run better local AI models. GPU, RAM, and storage recommendations.">
+  <meta property="og:title" content="Local AI Upgrade Advisor — What Should I Upgrade?">
+  <meta property="og:description" content="Tell us what you have. We'll tell you the cheapest upgrade to unlock better AI.">
   <meta property="og:image" content="https://build-your-own-chatgpt.vercel.app/og-image.jpg">
   <meta name="twitter:card" content="summary_large_image">
-  <title>AI Hardware Upgrade Guide — What to Upgrade for Better Local AI</title>
+  <title>Local AI Upgrade Advisor — What Should I Upgrade?</title>
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,36 +19,32 @@
   <script async src="https://plausible.io/js/pa-DBTdINzLX2L2B_fXJF0u1.js"></script>
   <script>window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()</script>
   <style>
-    :root{--arrow-color:var(--border)}
-    .upg-page{max-width:960px;margin:0 auto;padding:0 1.5rem 3rem}
-    .upg-page h1{font-family:'Outfit',sans-serif;font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;letter-spacing:-0.02em;margin:2rem 0 .5rem}
-    .upg-page .subtitle{color:var(--text-secondary);font-size:1rem;margin-bottom:2rem}
-    .upg-selector{margin-bottom:2rem}
-    .upg-selector label{font-size:.78rem;font-weight:600;color:var(--text-secondary);display:block;margin-bottom:.4rem}
-    .upg-selector select{width:100%;max-width:400px;padding:.7rem .9rem;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-size:.95rem;background:var(--surface);color:var(--text);cursor:pointer;transition:border-color var(--transition)}
-    .upg-selector select:focus{outline:none;border-color:var(--accent)}
-    .upg-card{background:var(--bg-card);border:1.5px solid var(--border);border-radius:var(--radius);padding:1.25rem;margin-bottom:1rem;transition:all var(--transition);display:none}
-    .upg-card.show{display:block}
-    .upg-card:hover{border-color:var(--accent);box-shadow:var(--shadow-glow)}
-    .upg-card .upg-label{font-family:'Outfit',sans-serif;font-size:1.05rem;font-weight:700;margin-bottom:.3rem}
-    .upg-card .upg-cost{display:inline-block;background:var(--accent-light);color:var(--accent);font-size:.82rem;font-weight:700;padding:.2rem .6rem;border-radius:20px;margin-bottom:.6rem}
-    .upg-card .upg-desc{font-size:.9rem;color:var(--text);line-height:1.55;margin-bottom:.6rem}
-    .upg-card .upg-impact{font-size:.82rem;color:var(--text-secondary);line-height:1.5;padding:.75rem;background:var(--surface);border-radius:var(--radius-sm);border-left:3px solid var(--green);margin-bottom:.6rem}
-    .upg-card .upg-impact strong{color:var(--green)}
-    .upg-gpus{display:flex;flex-wrap:wrap;gap:.4rem}
-    .upg-gpus span{padding:.25rem .55rem;background:var(--accent-light);border-radius:20px;font-size:.75rem;font-weight:600;color:var(--accent);border:1px solid rgba(232,93,4,.15)}    .upg-arrow{text-align:center;padding:.5rem 0;color:var(--text-tertiary);font-size:1.5rem}
-    .upg-arrow svg{width:28px;height:28px;stroke:var(--accent);fill:none;stroke-width:2}
-    .tier-badge{display:inline-block;padding:.2rem .55rem;border-radius:20px;font-size:.72rem;font-weight:600}
-    .tier-no-gpu{background:#f0f0ff;color:#5555cc}
-    .tier-cpu-only{background:#fff3e6;color:#b36b00}
-    .tier-budget-gpu{background:#e6f7e6;color:#1a8a45}
-    .tier-power-gpu{background:#f0e6ff;color:#8844cc}
-    .tier-silicon-8-16gb{background:#e6f0ff;color:#2266cc}
-    .tier-silicon-24-48gb{background:#ffe6f0;color:#cc2266}
-    .tier-silicon-64-plus{background:#f0ffe6;color:#228844}
-    .upg-path{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;margin-bottom:.5rem}
-    .upg-path .from,.upg-path .to{font-weight:600;font-size:.85rem}
-    .upg-path .arrow{color:var(--accent);font-size:1.2rem}
+    .upgrade-page{max-width:960px;margin:0 auto;padding:0 1.5rem 3rem}
+    .upgrade-page h1{font-family:'Outfit',sans-serif;font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;letter-spacing:-0.02em;margin:2rem 0 .5rem}
+    .upgrade-page .subtitle{color:var(--text-secondary);font-size:1rem;margin-bottom:2rem}
+    .upgrade-form{background:var(--bg-card);border:1.5px solid var(--border);border-radius:var(--radius);padding:1.5rem;margin-bottom:2rem}
+    .form-group{margin-bottom:1.25rem}
+    .form-group label{display:block;font-size:.82rem;font-weight:700;color:var(--text-secondary);margin-bottom:.4rem;text-transform:uppercase;letter-spacing:.05em}
+    .form-group select{width:100%;padding:.65rem .75rem;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-size:.95rem;background:var(--surface);color:var(--text);transition:border-color var(--transition);font-family:inherit;box-sizing:border-box;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right .75rem center;padding-right:2.5rem}
+    .form-group select:focus{outline:none;border-color:var(--accent)}
+    .upgrade-btn{display:block;width:100%;padding:.75rem;background:var(--accent);color:#fff;border:none;border-radius:var(--radius-sm);font-size:1rem;font-weight:700;cursor:pointer;font-family:inherit;transition:opacity var(--transition)}
+    .upgrade-btn:hover{opacity:.9}
+    .upgrade-result{display:none;margin-top:2rem}
+    .upgrade-result h2{font-family:'Outfit',sans-serif;font-size:1.3rem;font-weight:700;margin-bottom:1rem}
+    .upgrade-card{background:var(--bg-card);border:1.5px solid var(--border);border-radius:var(--radius);padding:1.25rem;margin-bottom:1.25rem;position:relative;overflow:hidden}
+    .upgrade-card::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:var(--accent)}
+    .upgrade-badge{display:inline-block;padding:.2rem .65rem;border-radius:100px;font-size:.7rem;font-weight:700;margin-bottom:.5rem;background:var(--accent-light);color:var(--accent)}
+    .upgrade-card h3{font-family:'Outfit',sans-serif;font-size:1.05rem;font-weight:700;margin-bottom:.4rem}
+    .upgrade-price{font-size:1.5rem;font-weight:800;color:var(--accent);margin:.5rem 0}
+    .upgrade-card p{font-size:.88rem;color:var(--text-secondary);line-height:1.5}
+    .upgrade-card h4{font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--text-secondary);margin:.75rem 0 .35rem}
+    .upgrade-card ul{margin:0;padding-left:1.25rem;font-size:.85rem;color:var(--text-secondary);line-height:1.7}
+    .gpu-option{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:.9rem;margin-bottom:.75rem}
+    .gpu-option strong{font-size:.95rem;color:var(--text)}
+    .gpu-option .price{float:right;font-weight:700;color:var(--accent);font-size:.9rem}
+    .gpu-option .used-tag{font-size:.72rem;background:var(--bg-warm);padding:.1rem .4rem;border-radius:4px;margin-left:.3rem;color:var(--text-secondary)}
+    .gpu-option p{font-size:.82rem;color:var(--text-secondary);margin:.3rem 0 0}
+    .no-upgrade{background:var(--bg-card);border:1.5px solid var(--green);border-radius:var(--radius);padding:1.25rem;color:var(--green);font-weight:600;text-align:center}
   </style>
 </head>
 <body>
@@ -64,90 +60,144 @@
     </div>
   </nav>
 
-  <main class="upg-page">
-    <h1>AI Hardware Upgrade Guide</h1>
-    <p class="subtitle">Select your current setup to see the best upgrade paths for better local AI performance.</p>
+  <main class="upgrade-page">
+    <h1>Local AI Upgrade Advisor</h1>
+    <p class="subtitle">Tell us what you have. We'll tell you the cheapest upgrade to unlock better AI.</p>
 
-    <div class="upg-selector">
-      <label for="tier-select">Your current hardware tier</label>
-      <select id="tier-select">
-        <option value="">— Select your tier —</option>
-        <option value="no-gpu">No GPU / Integrated graphics</option>
-        <option value="cpu-only">CPU-only (running models on CPU)</option>
-        <option value="budget-gpu">Budget GPU (RTX 3060 / 4060 class)</option>
-        <option value="silicon-8-16gb">Apple Silicon 8-16GB unified memory</option>
-        <option value="silicon-24-48gb">Apple Silicon 24-48GB unified memory</option>
-        <option value="silicon-64-plus">Apple Silicon 64GB+ unified memory</option>
-        <option value="power-gpu">High-end GPU (RTX 4090 / 5090 class)</option>
-      </select>
+    <div class="upgrade-form">
+      <div class="form-group">
+        <label>Current hardware</label>
+        <select id="current-tier">
+          <option value="">Select your hardware...</option>
+          <option value="no-gpu">No GPU / Integrated Graphics</option>
+          <option value="budget-gpu">Budget GPU (4-8GB VRAM)</option>
+          <option value="mid-gpu">Mid-Range GPU (8-16GB VRAM)</option>
+          <option value="high-end-gpu">High-End GPU (16GB+ VRAM)</option>
+          <option value="apple">Apple Silicon (M1/M2/M3/M4)</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Current RAM</label>
+        <select id="current-ram">
+          <option value="">Select your RAM...</option>
+          <option value="8">8GB</option>
+          <option value="16">16GB</option>
+          <option value="32">32GB</option>
+          <option value="64">64GB+</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>What's your budget for an upgrade?</label>
+        <select id="budget">
+          <option value="">Select budget...</option>
+          <option value="50">Under $50</option>
+          <option value="150">Under $150</option>
+          <option value="300">Under $300</option>
+          <option value="700">Under $700</option>
+          <option value="9999">No limit</option>
+        </select>
+      </div>
+      <button class="upgrade-btn" onclick="getUpgradeAdvice()">Show Upgrade Options</button>
     </div>
 
-    <div id="upgrade-results"></div>
+    <div id="upgrade-result" class="upgrade-result"></div>
   </main>
 
   <footer class="footer">
     <div class="container">
       <div class="footer-links">
         <a href="https://github.com/ebubeco/build-your-own-chatgpt" target="_blank" rel="noopener noreferrer">GitHub</a>
-        <a href="/models">Leaderboard</a>
-        <a href="/insights">Insights</a>
-        <a href="/compendium">Compendium</a>
-        <a href="/">Wizard</a>
+        <a href="index.html">Wizard</a>
+        <a href="compendium.html">Model Compendium</a>
+        <a href="use-cases.html">Use Cases</a>
+        <a href="starter-pack.html">Starter Pack</a>
+        <a href="career.html">Careers</a>
       </div>
       <p class="footer-tagline">Built for beginners. Your data never leaves your machine.</p>
     </div>
   </footer>
 
   <script>
-    const TIER_LABELS = {
-      'no-gpu':'No GPU','cpu-only':'CPU-Only','budget-gpu':'Budget GPU',
-      'silicon-8-16gb':'Apple Silicon 8-16GB','silicon-24-48gb':'Apple Silicon 24-48GB',
-      'silicon-64-plus':'Apple Silicon 64GB+','power-gpu':'Power GPU'
-    };
-    const TIER_COLORS = {
-      'no-gpu':'tier-no-gpu','cpu-only':'tier-cpu-only','budget-gpu':'tier-budget-gpu',
-      'silicon-8-16gb':'tier-silicon-8-16gb','silicon-24-48gb':'tier-silicon-24-48gb',
-      'silicon-64-plus':'tier-silicon-64-plus','power-gpu':'tier-power-gpu'
-    };
-
-    function renderUpgrade(u) {
-      const fromLabel = TIER_LABELS[u.from] || u.from;
-      const toLabel = TIER_LABELS[u.to] || u.to;
-      const fromCls = TIER_COLORS[u.from] || '';
-      const toCls = TIER_COLORS[u.to] || '';
-      return `<div class="upg-card show">
-        <div class="upg-path"><span class="tier-badge ${fromCls}">${fromLabel}</span><span class="arrow">→</span><span class="tier-badge ${toCls}">${toLabel}</span></div>
-        <div class="upg-label">${u.label}</div>
-        <div class="upg-cost">${u.cost}</div>
-        <div class="upg-desc">${u.description}</div>
-        <div class="upg-impact"><strong>Impact:</strong> ${u.impact}</div>
-        ${u.gpuOptions && u.gpuOptions.length ? '<div class="upg-gpus">'+u.gpuOptions.map(g=>'<span>'+g+'</span>').join('')+'</div>' : ''}
-      </div>`;
+    document.getElementById('theme-toggle').addEventListener('click', function() {
+      var t = document.documentElement.getAttribute('data-theme');
+      var n = t === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', n);
+      localStorage.setItem('theme', n);
+      document.querySelector('.toggle-icon').textContent = n === 'dark' ? '☀️' : '🌙';
+      document.querySelector('.toggle-label').textContent = n === 'dark' ? 'Light mode' : 'Dark mode';
+    });
+    if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme:dark)').matches)) {
+      document.querySelector('.toggle-icon').textContent = '☀️';
+      document.querySelector('.toggle-label').textContent = 'Light mode';
     }
 
-    async function init() {
-      let data;
-      try {
-        const res = await fetch('data/upgrades.json');
-        data = await res.json();
-      } catch(e) {
-        document.getElementById('upgrade-results').innerHTML='<p style="color:var(--red)">Failed to load upgrade data.</p>';
+    var upgradesData = null;
+
+    function getUpgradeAdvice() {
+      var tier = document.getElementById('current-tier').value;
+      var ram = parseInt(document.getElementById('current-ram').value) || 0;
+      var budget = parseInt(document.getElementById('budget').value) || 9999;
+
+      if (!tier || !ram) {
+        alert('Please select your hardware tier and RAM.');
         return;
       }
-      const sel = document.getElementById('tier-select');
-      function update() {
-        const val = sel.value;
-        const container = document.getElementById('upgrade-results');
-        if (!val) { container.innerHTML='<p class="tool-note">Select a tier above to see upgrade options.</p>'; return; }
-        const matches = data.upgrades.filter(u => u.from === val);
-        if (!matches.length) { container.innerHTML='<p class="tool-note">No upgrades found for this tier. You may already be at the top!</p>'; return; }
-        container.innerHTML = '<p class="section-desc" style="margin-bottom:1rem;font-size:.9rem">Recommended upgrades from <strong>'+TIER_LABELS[val]+'</strong></p>' + matches.map(renderUpgrade).join('');
+
+      var result = document.getElementById('upgrade-result');
+      result.style.display = 'block';
+      var html = '<h2>Upgrade Options for Your Setup</h2>';
+
+      var gpuUpgrade = null;
+      var ramUpgrade = null;
+
+      if (upgradesData) {
+        gpuUpgrade = upgradesData.gpuUpgrades.find(function(u) { return u.fromTier === tier; });
+        ramUpgrade = upgradesData.ramUpgrades.find(function(u) { return u.fromGb === ram; });
       }
-      sel.addEventListener('change', update);
+
+      if (!gpuUpgrade && !ramUpgrade) {
+        html += '<div class="no-upgrade">Your hardware is already well-equipped! Consider a Mac with Apple Silicon for efficiency, or browse our <a href="compendium.html" style="color:var(--accent)">model compendium</a> for software-only improvements.</div>';
+        result.innerHTML = html;
+        result.scrollIntoView({ behavior: 'smooth' });
+        return;
+      }
+
+      if (ramUpgrade && ramUpgrade.approxPriceUSD <= budget) {
+        html += '<div class="upgrade-card"><div class="upgrade-badge">Best value upgrade</div><h3>Add more RAM: ' + ram + 'GB → ' + ramUpgrade.toGb + 'GB</h3><div class="upgrade-price">~$' + ramUpgrade.approxPriceUSD + '</div><p>' + ramUpgrade.notes + '</p><h4>This unlocks:</h4><ul>' + ramUpgrade.unlocks.map(function(u) { return '<li>' + u + '</li>'; }).join('') + '</ul></div>';
+      }
+
+      if (gpuUpgrade) {
+        var affordableGPUs = gpuUpgrade.recommendedGPUs.filter(function(g) { return g.approxPriceUSD <= budget; });
+        if (affordableGPUs.length > 0) {
+          html += '<div class="upgrade-card"><h3>Upgrade GPU: ' + tierName(gpuUpgrade.fromTier) + ' → ' + tierName(gpuUpgrade.toTier) + '</h3>';
+          if (gpuUpgrade.estimatedSpeedup) {
+            html += '<p><strong>Speed improvement:</strong> ' + gpuUpgrade.estimatedSpeedup + '</p>';
+          }
+          html += '<h4>GPU options within your $' + budget + ' budget:</h4>';
+          affordableGPUs.forEach(function(g) {
+            html += '<div class="gpu-option"><strong>' + g.name + '</strong> <span class="price">~$' + g.approxPriceUSD + (g.used ? '<span class="used-tag">used</span>' : '') + '</span><p>' + g.notes + '</p></div>';
+          });
+          html += '<h4>This unlocks:</h4><ul>' + gpuUpgrade.unlocks.map(function(u) { return '<li>' + u + '</li>'; }).join('') + '</ul></div>';
+        }
+      }
+
+      result.innerHTML = html;
+      result.scrollIntoView({ behavior: 'smooth' });
+      plausible('upgrade_advice', { props: { tier: tier, ram: ram, budget: budget } });
     }
-    document.addEventListener('DOMContentLoaded', init);
+
+    function tierName(id) {
+      var names = { 'no-gpu': 'No GPU', 'budget-gpu': 'Budget GPU', 'mid-gpu': 'Mid-Range GPU', 'high-end-gpu': 'High-End GPU', 'apple': 'Apple Silicon' };
+      return names[id] || id;
+    }
+
+    fetch('data/upgrades.json').then(function(r) { return r.json(); }).then(function(data) {
+      upgradesData = data;
+    }).catch(function() {
+      upgradesData = null;
+    });
   </script>
-  <script src="analytics.js"></script>
   <script src="shared.js"></script>
+  <script src="analytics.js"></script>
 </body>
 </html>
