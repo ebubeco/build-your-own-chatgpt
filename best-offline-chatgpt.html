@@ -30,6 +30,22 @@
   </script>
 </head>
 <body class="seo-page">
+  <nav class="site-topbar" role="navigation" aria-label="Site navigation">
+    <div class="container">
+      <div class="topbar-inner">
+        <a href="index.html" style="text-decoration:none">
+          <span class="site-brand">🤖 Build Your Own ChatGPT</span>
+        </a>
+        <div style="display:flex;gap:0.75rem;align-items:center">
+          <a href="compare.html" style="font-size:0.82rem;color:var(--text-secondary);text-decoration:none;font-weight:500">Compare</a>
+          <a href="which-ai.html" style="font-size:0.82rem;color:var(--text-secondary);text-decoration:none;font-weight:500">Which AI</a>
+          <a href="career.html" style="font-size:0.82rem;color:var(--text-secondary);text-decoration:none;font-weight:500">Careers</a>
+          <a href="compendium.html" style="font-size:0.82rem;color:var(--text-secondary);text-decoration:none;font-weight:500">Models</a>
+          <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle theme"><span class="toggle-icon">🌙</span></button>
+        </div>
+      </div>
+    </div>
+  </nav>
   <main class="seo-content">
     <a href="/" class="seo-back">&larr; Use the wizard</a>
     <h1>Best Offline ChatGPT Alternative (2026)</h1>
@@ -158,6 +174,7 @@
       <ul class="seo-alt-list">
         <li><a href="/run-ai-without-gpu.html"><strong>Run Local AI Without a GPU</strong></a> — Complete guide to CPU-only inference on any laptop.</li>
         <li><a href="/can-my-laptop-run-ai.html"><strong>Can My Laptop Run Local AI?</strong></a> — Check your hardware and find the right model.</li>
+        <li><a href="/compare.html"><strong>Compare AI Models</strong></a> — Side-by-side comparison of any 3 models.</li>
       </ul>
     </section>
 
@@ -165,9 +182,31 @@
       <h2>Get Your Offline AI Setup</h2>
       <p>Tell us about your hardware and get the exact model and command for your machine.</p>
       <a href="/" class="btn-primary" style="display:inline-block;margin-top:1rem">Start the Wizard</a>
+      <a href="which-ai.html" class="btn-secondary" style="display:inline-block;margin-top:1rem;margin-left:0.5rem">Which AI for me?</a>
     </section>
   </main>
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-links">
+        <a href="https://github.com/ebubeco/build-your-own-chatgpt" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="index.html">Wizard</a>
+        <a href="compare.html">Compare</a>
+        <a href="which-ai.html">Which AI</a>
+        <a href="career.html">Careers</a>
+        <a href="compendium.html">Models</a>
+      </div>
+      <p class="footer-tagline">Built for beginners. Your data never leaves your machine.</p>
+    </div>
+  </footer>
   <script src="analytics.js"></script>
   <script src="shared.js"></script>
+  <script>
+    document.getElementById('theme-toggle').addEventListener('click', function() {
+      var t = document.documentElement.getAttribute('data-theme');
+      var n = t === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', n);
+      localStorage.setItem('theme', n);
+    });
+  </script>
 </body>
 </html>

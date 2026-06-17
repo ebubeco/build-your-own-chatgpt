@@ -49,12 +49,15 @@
   </style>
 </head>
 <body>
-  <nav class="site-topbar" role="navigation" aria-label="Site navigation">
+<nav class="site-topbar" role="navigation" aria-label="Site navigation">
     <div class="container">
       <div class="topbar-inner">
-        <span class="site-brand">🤖 Build Your Own ChatGPT</span>
+        <a href="index.html" style="text-decoration:none">
+          <span class="site-brand">🤖 Build Your Own ChatGPT</span>
+        </a>
         <div style="display:flex;gap:0.75rem;align-items:center">
-          <a href="index.html" style="font-size:0.82rem;color:var(--text-secondary);text-decoration:none;font-weight:500">Home</a>
+          <a href="compare.html" style="font-size:0.82rem;color:var(--text-secondary);text-decoration:none;font-weight:500">Compare</a>
+          <a href="which-ai.html" style="font-size:0.82rem;color:var(--text-secondary);text-decoration:none;font-weight:500">Which AI</a>
           <a href="compendium.html" style="font-size:0.82rem;color:var(--text-secondary);text-decoration:none;font-weight:500">Models</a>
           <a href="use-cases.html" style="font-size:0.82rem;color:var(--text-secondary);text-decoration:none;font-weight:500">Use Cases</a>
           <a href="starter-pack.html" style="font-size:0.82rem;color:var(--text-secondary);text-decoration:none;font-weight:500">Starter Pack</a>
@@ -74,6 +77,11 @@
     <div id="cr-loading" class="cr-not-found">Loading career recommendations...</div>
     <div id="cr-grid" class="cr-grid" style="display:none"></div>
     <div id="cr-detail" class="cr-detail"></div>
+
+    <div style="margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--border);font-size:0.88rem;color:var(--text-secondary)">
+      <p>Want to compare specific models? <a href="compare.html" style="color:var(--accent)">Use the comparison tool →</a></p>
+      <p style="margin-top:0.5rem">Not sure which AI type suits you? <a href="which-ai.html" style="color:var(--accent)">Answer 3 questions →</a></p>
+    </div>
   </main>
 
   <footer class="footer">
@@ -81,6 +89,9 @@
       <div class="footer-links">
         <a href="https://github.com/ebubeco/build-your-own-chatgpt" target="_blank" rel="noopener noreferrer">GitHub</a>
         <a href="index.html">Wizard</a>
+        <a href="compare.html">Compare</a>
+        <a href="which-ai.html">Which AI</a>
+        <a href="best-offline-chatgpt.html">Offline Guide</a>
         <a href="compendium.html">Model Compendium</a>
         <a href="use-cases.html">Use Cases</a>
         <a href="starter-pack.html">Starter Pack</a>

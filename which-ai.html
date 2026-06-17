@@ -54,11 +54,19 @@
   <nav class="site-topbar" role="navigation" aria-label="Site navigation">
     <div class="container">
       <div class="topbar-inner">
-        <span class="site-brand">🤖 Build Your Own ChatGPT</span>
-        <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle light/dark mode">
-          <span class="toggle-icon">🌙</span>
-          <span class="toggle-label">Dark mode</span>
-        </button>
+        <a href="index.html" style="text-decoration:none">
+          <span class="site-brand">🤖 Build Your Own ChatGPT</span>
+        </a>
+        <div style="display:flex;gap:0.75rem;align-items:center">
+          <a href="compare.html" style="font-size:0.82rem;color:var(--text-secondary);text-decoration:none;font-weight:500">Compare</a>
+          <a href="which-ai.html" style="font-size:0.82rem;color:var(--accent);text-decoration:none;font-weight:600">Which AI</a>
+          <a href="career.html" style="font-size:0.82rem;color:var(--text-secondary);text-decoration:none;font-weight:500">Careers</a>
+          <a href="compendium.html" style="font-size:0.82rem;color:var(--text-secondary);text-decoration:none;font-weight:500">Models</a>
+          <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle light/dark mode">
+            <span class="toggle-icon">🌙</span>
+            <span class="toggle-label">Dark mode</span>
+          </button>
+        </div>
       </div>
     </div>
   </nav>
@@ -148,16 +156,24 @@
       <p>Ranked recommendations based on your preferences</p>
       <div class="option-list" id="optionsList"></div>
     </div>
+
+    <div style="margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--border);font-size:0.88rem;color:var(--text-secondary)">
+      <p>Want to compare specific models side-by-side? <a href="compare.html" style="color:var(--accent)">Use the comparison tool →</a></p>
+      <p style="margin-top:0.5rem">Prefer to answer a few questions about your hardware? <a href="index.html" style="color:var(--accent)">Try the personalized wizard →</a></p>
+    </div>
   </main>
 
   <footer class="footer">
     <div class="container">
       <div class="footer-links">
         <a href="https://github.com/ebubeco/build-your-own-chatgpt" target="_blank" rel="noopener noreferrer">GitHub</a>
-        <a href="/compendium.html">All Models</a>
-        <a href="/compare.html">Compare</a>
-        <a href="/cost.html">Cost</a>
-        <a href="/">Wizard</a>
+        <a href="index.html">Wizard</a>
+        <a href="compare.html">Compare</a>
+        <a href="best-offline-chatgpt.html">Offline Guide</a>
+        <a href="career.html">Careers</a>
+        <a href="compendium.html">All Models</a>
+        <a href="use-cases.html">Use Cases</a>
+        <a href="starter-pack.html">Starter Pack</a>
       </div>
       <p class="footer-tagline">Built for beginners. Your data never leaves your machine.</p>
     </div>
