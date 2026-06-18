@@ -8,3 +8,4 @@ AGENTS.md
 .gitignore
 prompt-failure-library
 *.log
+check-tools.js
