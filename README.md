@@ -59,8 +59,7 @@ That's it. Private ChatGPT running on your machine.
 ### Coding
 | Tier | Recommended | Alternative |
 |------|-------------|-------------|
-| No GPU / Old Hardware | Phi-4 Mini 3.8B | Qwen 1.5B |
-| CPU-Only | Llama 3.2 3B | Phi-4 Mini 3.8B |
+| No GPU / Integrated | Phi-4 Mini 3.8B | Qwen 1.5B |
 | Budget GPU | Qwen 2.5 7B | Gemma 4 12B |
 | Power GPU | Qwen 3.5 27B | DeepSeek R1 8B |
 | Apple Silicon 8-16GB | Qwen 2.5 7B | Llama 3.1 8B |
@@ -70,8 +69,7 @@ That's it. Private ChatGPT running on your machine.
 ### Writing
 | Tier | Recommended | Alternative |
 |------|-------------|-------------|
-| No GPU / Old Hardware | SmolLM2 1.7B | Llama 3.2 1B |
-| CPU-Only | Llama 3.2 3B | Phi-4 Mini 3.8B |
+| No GPU / Integrated | SmolLM2 1.7B | Llama 3.2 1B |
 | Budget GPU | Qwen 2.5 7B | Qwen 3 14B |
 | Power GPU | Qwen 3.5 27B | DeepSeek R1 8B |
 | Apple Silicon 8-16GB | Qwen 2.5 7B | Llama 3.1 8B |
@@ -87,18 +85,23 @@ That's it. Private ChatGPT running on your machine.
 
 ## Features
 
-- **Goal + career flow** — pick what you want to do and your role (developer, researcher, writer, etc.) for smarter recommendations
-- **Confidence indicator** — High / Medium-High / Medium / Low shows how well a model fits
+- **Goal-first flow** — pick what you want to do first, then hardware match
+- **Confidence indicator** — High / Medium-High / Medium / Low match score
+- **Confidence Score (numeric)** — percentage match shown on result card
 - **"Why this?" points** — 4–7 clear reasons for each recommendation
-- **Capability preview** — task-based ratings ("Private ChatGPT: Excellent", "Coding Assistant: Good")
-- **"What to Expect"** — shows what each model can and can't handle well
-- **Cloud fallback** — when local AI is too slow, free alternatives are shown (Gemini, Groq, OpenRouter)
-- **Shareable results** — share text or copy a result link for your setup
-- **Feedback buttons** — 👍 Yes / 👎 No with tag-based details (Wrong Rec, Too Technical, etc.) stored to Supabase + localStorage
-- **Apple Silicon support** — 3 unified memory tiers with Metal GPU acceleration
-- **Quantization tooltips** — hover to see what Q2_K through F16 mean for quality and size
-- **Hardware auto-detect** — suggests your tier based on GPU detection
-- **Analytics** — Umami + Plausible for privacy-friendly usage tracking
+- **Capability Cards** — visual breakdown of what each model can do
+- **Readiness Scores** — shows how well hardware fits each use case
+- **"What to Expect"** — startup time, storage, setup time, difficulty, privacy
+- **"Best For" section** — job-oriented outcomes, not technical specs
+- **Cloud fallback** — when local AI is too slow, free cloud alternatives shown
+- **Shareable URLs** — `?goal=coding&tier=power-gpu` encodes your picks
+- **Apple Silicon support** — unified memory tiers with Metal GPU acceleration
+- **Quantization tooltips** — hover to see what Q2_K through F16 mean
+- **Hardware auto-detect** — suggests GPU tier where possible
+- **Feedback Storage** — Supabase collects success data to improve recommendations
+- **Result Persistence** — URL params restore result without re-running wizard
+- **Copy Setup button** — one-click copy of the complete install command
+- **Dark mode** — toggle in the nav bar
 
 ---
 
@@ -135,13 +138,15 @@ build-your-own-chatgpt/
 The recommendation engine scores each model across your hardware tier and career:
 
 ```
-Score = bestFor match (+40)
-      + goal rating (1–10 × 5pts)
-      + career affinity bonus (+15)
+Score = bestFor match (+30)
+      + goal rating (1–10 × 4pts)
+      + career model match (+25)
+      + career priorities overlap (+5 per match)
       + beginnerFriendly bonus (+10)
       + fast capability bonus (+20)
-      + slow capability penalty (−5)
-      + wrong tier penalty (−50)
+      + slow capability bonus (+5)
+      + not-recommended capability penalty (−50)
+      + historical success rate (≤ +9, requires ≥3 prior runs)
 ```
 
 The highest-scoring model becomes the primary recommendation. The next two highest-scoring models (with different `bestFor` tags) become alternatives.

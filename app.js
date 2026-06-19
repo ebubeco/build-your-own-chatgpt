@@ -450,15 +450,7 @@
       return;
     }
 
-    if (goal === 'all') {
-      const showAllRow = document.getElementById('show-all-row');
-      if (showAllRow) showAllRow.style.display = 'block';
-      if (hwSection) {
-        hwSection.classList.remove('hidden');
-        hwSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-      return;
-    }
+    if (hwSection) hwSection.classList.remove('hidden');
   }
 
   function showAllModelsDirect() {
@@ -472,7 +464,7 @@
     selectTierAll();
   }
 
-  function generateSetupText(primary, alternatives, tier, goal) {
+  function generateSetupText(modelName, alternativeNames, tier, goal) {
     var goalLabel = goal ? goal.charAt(0).toUpperCase() + goal.slice(1) : 'General';
     var tierLabel = tier || 'Unknown';
     var lines = [
@@ -485,12 +477,12 @@
       tierLabel,
       '',
       'Recommended:',
-      primary ? primary.name : 'Unknown',
+      modelName || 'Unknown',
       '',
     ];
-    if (alternatives && alternatives.length > 0) {
+    if (alternativeNames && alternativeNames.length > 0) {
       lines.push('Alternatives:');
-      alternatives.forEach(function(m) { lines.push(m.name); });
+      alternativeNames.forEach(function(name) { lines.push(name); });
       lines.push('');
     }
     lines.push('Generated with Build Your Own ChatGPT');
@@ -1109,12 +1101,14 @@
     const modelName = primary ? primary.name.replace(/\s*\d+(\.\d+)?B\s*$/i, '').trim() : 'N/A';
     const tool = primary ? (primary.toolRecommendation || 'Ollama') : 'Ollama';
     const command = primary ? (primary.installCommand || 'ollama pull <model>') : 'ollama pull <model>';
+    const alternativeNames = alternatives.map(m => m.name);
     currentResult = {
       score,
       canRun: [...capItems.can, ...capItems.slow].map(i => i.label),
       modelName,
       tool,
-      command
+      command,
+      alternativeNames
     };
 
     try {
@@ -1185,6 +1179,48 @@
         selectedCareer || null
       );
     }
+    renderStarterPack(primary, selectedGoal);
+  }
+
+  function renderStarterPack(model, goal) {
+    var sp = document.getElementById('starter-pack');
+    if (!sp) return;
+    fetch('data/prompts.json').then(function(r) { return r.json(); }).then(function(prompts) {
+      var goalPrompts = prompts.byGoal && (prompts.byGoal[goal] || prompts.byGoal['general']);
+      if (!goalPrompts || !goalPrompts.length) { sp.style.display = 'none'; return; }
+
+      var isLowEnd = !model.tier || (Array.isArray(model.tier) && model.tier === 'no-gpu');
+      var ui = isLowEnd ? 'LM Studio' : 'OpenWebUI';
+
+      document.getElementById('sp-ui').innerHTML =
+        '<div style="margin-bottom:1.25rem"><h4>Recommended UI: ' + ui + '</h4>' +
+        '<p style="font-size:13px">' + (ui === 'LM Studio'
+          ? 'No terminal needed. Free from <a href="https://lmstudio.ai">lmstudio.ai</a>'
+          : 'Full chat interface: <code>docker run -d -p 3000:8080 ghcr.io/open-webui/open-webui:main</code>'
+        ) + '</p></div>';
+
+      document.getElementById('sp-prompts').innerHTML =
+        '<div style="margin-bottom:1.25rem"><h4>Starter Prompts</h4><ul>' +
+        goalPrompts.slice(0, 5).map(function(p) {
+          var text = p.prompt || p;
+          return '<li style="margin-bottom:8px"><code style="font-size:12px;background:var(--surface-secondary,#f3f4f6);padding:4px 8px;border-radius:4px">' +
+            text.replace(/</g,'&lt;').replace(/>/g,'&gt;') + '</code></li>';
+        }).join('') + '</ul></div>';
+
+      document.getElementById('sp-checklist').innerHTML =
+        '<div><h4>First Week Checklist</h4><ul style="list-style:none;padding:0">' +
+        [
+          'Install Ollama from ollama.com',
+          'Run: ollama pull ' + model.ollamaTag,
+          'Test: ollama run ' + model.ollamaTag + ' "Hello"',
+          'Install ' + ui,
+          'Try all starter prompts above'
+        ].map(function(item) {
+          return '<li style="margin-bottom:8px"><input type="checkbox" style="margin-right:8px"> ' + item + '</li>';
+        }).join('') + '</ul></div>';
+
+      sp.style.display = 'block';
+    })['catch'](function() { sp.style.display = 'none'; });
   }
 
   function renderInstallBox(model) {
@@ -1575,12 +1611,6 @@
       });
     });
 
-    const btnShowAll = document.getElementById('btn-show-all');
-    if (btnShowAll) btnShowAll.addEventListener('click', selectTierAll);
-
-    const btnShowAllHw = document.getElementById('btn-show-all-hw');
-    if (btnShowAllHw) btnShowAllHw.addEventListener('click', selectTierAll);
-
     const toggleInput = document.getElementById('beginner-toggle-input');
     if (toggleInput) toggleInput.addEventListener('change', (e) => toggleBeginnerMode(e.target.checked));
 
@@ -1599,7 +1629,8 @@
         shareResult(e.target.closest('#share-link-btn'), 'link');
       } else if (e.target.closest('#copy-setup-btn')) {
         var btn = e.target.closest('#copy-setup-btn');
-        var text = generateSetupText(primary, alternatives, selectedTier, selectedGoal);
+        var cr = currentResult || {};
+        var text = generateSetupText(cr.modelName, cr.alternativeNames || [], selectedTier, selectedGoal);
         if (navigator.clipboard && navigator.clipboard.writeText) {
           navigator.clipboard.writeText(text).then(function() {
             btn.textContent = 'Copied!';
@@ -1651,7 +1682,6 @@
         section.querySelector('.feedback-textarea').classList.add('hidden');
         section.querySelector('.feedback-submit-btn').classList.add('hidden');
         section.querySelector('.feedback-thanks').classList.remove('hidden');
-      } else if (e.target.closest('#dev-toggle-btn')) {
       } else if (e.target.closest('#dev-toggle-btn')) {
         toggleDevCode();
       } else if (e.target.closest('.copy-btn')) {

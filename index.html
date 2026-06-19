@@ -157,18 +157,7 @@
             <span class="goal-title">I Don't Know</span>
             <span class="goal-desc">Not sure what's possible? Let's find the best fit together.</span>
           </button>
-          <button class="goal-card" data-goal="all" aria-pressed="false">
-            <span class="goal-icon">🔍</span>
-            <span class="goal-title">Show all models</span>
-            <span class="goal-desc">Browse everything. Pick your hardware below for personalized picks.</span>
-          </button>
         </div>
-
-        <div id="show-all-row" style="text-align:center;margin-top:0.75rem;display:none">
-          <button class="show-all-btn" id="btn-show-all">Show all models (browse everything)</button>
-        </div>
-
-        
       </section>
 
       <section id="hw-section" class="section hidden">
@@ -189,13 +178,17 @@
           </div>
           <div id="hw-sub-followup" class="sub-questions hidden" style="margin-top:1rem"></div>
         </div>
-
-        <div style="text-align:center;margin-top:1rem">
-          <button class="show-all-btn" id="btn-show-all-hw">Show all models →</button>
-        </div>
       </section>
 
       <section id="results-section" class="results-section hidden"></section>
+
+      <div id="starter-pack" style="display:none;margin-top:2rem;padding-top:2rem;border-top:1px solid var(--border)">
+        <h3>Your AI Starter Pack</h3>
+        <div id="sp-ui"></div>
+        <div id="sp-modelfile"></div>
+        <div id="sp-prompts"></div>
+        <div id="sp-checklist"></div>
+      </div>
 
       <div id="career-area" class="hidden" style="margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--border)">
         <h2>What best describes you?</h2>
@@ -509,7 +502,7 @@ print(response.text)</div>
         <li>✓ Cloud Fallback</li>
         <li>✓ Readiness Scores</li>
         <li>✓ Hardware Detection</li>
-        <li>✓ SEO Landing Pages</li>
+        <li>⏳ SEO Landing Pages (coming soon)</li>
         <li>✓ Feedback Storage (Supabase)</li>
         <li>✓ Detailed Feedback Tags</li>
         <li>✓ Privacy in Expectations</li>
