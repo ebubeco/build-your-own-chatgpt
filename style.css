@@ -1348,6 +1348,18 @@ body {
   white-space: nowrap;
 }
 
+.rec-success-story {
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  font-style: italic;
+  padding: 0.6rem 0.75rem;
+  background: var(--bg-warm);
+  border-radius: var(--radius-sm);
+  border-left: 2px solid var(--accent);
+  margin-top: 0.25rem;
+}
+
 .rec-expectations {
   display: grid;
   gap: 0.3rem;

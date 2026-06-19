@@ -749,6 +749,104 @@
       "upgradeTo": "qwen-2-5-7b"
     },
     {
+      "id": "mixtral-8x7b",
+      "name": "Mixtral 8x7B",
+      "fullName": "mixtral:8x7b",
+      "size": "47B (MoE)",
+      "tier": "budget-gpu",
+      "vramGB": 8,
+      "recommendedQuant": "Q4_K_M",
+      "contextLength": 32768,
+      "practicalRating": {
+        "chat": 9,
+        "writing": 8,
+        "coding": 8,
+        "reasoning": 9,
+        "agents": 8
+      },
+      "bestFor": [
+        "chat",
+        "reasoning",
+        "coding",
+        "agents"
+      ],
+      "ollamaTag": "mixtral:8x7b",
+      "installCommand": "ollama pull mixtral:8x7b",
+      "modelSizeGB": 8.5,
+      "setupComplexity": "easy",
+      "beginnerFriendly": true,
+      "description": "Mistral AI's mixture of experts model. 47B total parameters but only 12B active per token — fast and efficient. Strong reasoning and chat, comparable to much larger models. A great alternative if you want something different from Qwen.",
+      "toolRecommendation": "Ollama",
+      "toolRecommendationReason": "One-command install, excellent community support, runs well on 8GB+ VRAM.",
+      "successStory": "A developer runs Mixtral on an RTX 3070 for day-to-day coding tasks and research. Says it 'combines the speed of a small model with the smarts of a big one'.",
+      "quantVariants": [
+        {
+          "tag": "mixtral:8x7b",
+          "label": "Q4_K_M (recommended)",
+          "storage": "~8.5GB",
+          "quality": "Good",
+          "speed": "Fast"
+        },
+        {
+          "tag": "mixtral:8x7b:q2_k",
+          "label": "Q2_K (smallest)",
+          "storage": "~5GB",
+          "quality": "Reduced",
+          "speed": "Fast"
+        }
+      ],
+      "expectations": {
+        "startupTime": "20-30 seconds",
+        "storage": "~9GB",
+        "setupTime": "~10 minutes",
+        "difficulty": "Easy",
+        "internetRequired": "No",
+        "privacy": "Fully local"
+      },
+      "modelfileTemplate": "FROM mixtral:8x7b\nSYSTEM \"You are a helpful assistant.\"\nPARAMETER temperature 0.7\nPARAMETER num_ctx 16384",
+      "bestForDisplay": [
+        "Complex reasoning",
+        "Personal ChatGPT replacement",
+        "Coding help and review",
+        "AI agent workflows"
+      ],
+      "why": [
+        "Mistral AI's mixture of experts model. Fast and efficient — only 12B active param...",
+        "One-command install, excellent community support, runs well on 8GB+ VRAM.",
+        "Free forever — no subscription needed",
+        "Fully private — your data stays local"
+      ],
+      "whyNot": {
+        "high-end-gpu": "Consider a larger model if you have VRAM to spare"
+      },
+      "starterPrompts": {
+        "general": [
+          "Explain [topic] in simple terms",
+          "Help me write a professional email about [subject]",
+          "Summarize this text: [paste text]"
+        ],
+        "coding": [
+          "Review this code and suggest improvements: [paste code]",
+          "Write a Python function that [describe task]",
+          "Explain what this error means: [paste error]"
+        ],
+        "writing": [
+          "Improve the tone of this paragraph: [paste text]",
+          "Write an introduction for an article about [topic]",
+          "Make this more concise: [paste text]"
+        ]
+      },
+      "careerFit": [
+        "software-developer",
+        "student",
+        "content-creator",
+        "researcher"
+      ],
+      "platformType": "local",
+      "upgradeFrom": null,
+      "upgradeTo": null
+    },
+    {
       "id": "gemma-4-12b",
       "name": "Gemma 4 12B",
       "fullName": "gemma3:12b",

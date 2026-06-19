@@ -871,6 +871,11 @@
             ${primary.bestFor.map(t => `<span class="rec-bestfor-tag">${BEST_FOR_LABELS[t] || t}</span>`).join('')}
           </div>
         </div>` : ''}
+        ${primary.successStory ? `
+        <div class="rec-section" style="margin-top:0.75rem">
+          <div class="rec-section-title">Success Story</div>
+          <div class="rec-success-story">${primary.successStory}</div>
+        </div>` : ''}
         ${(() => { const e = getExpectations(primary); return `
         <div class="rec-section" style="margin-top:0.75rem">
           <div class="rec-section-title">What to Expect</div>

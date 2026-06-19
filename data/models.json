@@ -675,6 +675,98 @@
       ]
     },
     {
+      "id": "mixtral-8x7b",
+      "name": "Mixtral 8x7B",
+      "fullName": "mixtral:8x7b",
+      "size": "47B (MoE)",
+      "tier": [
+        "budget-gpu",
+        "mid-gpu"
+      ],
+      "vramGB": 8,
+      "recommendedQuant": "Q4_K_M",
+      "contextLength": 32768,
+      "practicalRating": {
+        "chat": 9,
+        "writing": 8,
+        "coding": 8,
+        "reasoning": 9,
+        "agents": 8
+      },
+      "bestFor": [
+        "chat",
+        "reasoning",
+        "coding",
+        "agents"
+      ],
+      "ollamaTag": "mixtral:8x7b",
+      "installCommand": "ollama pull mixtral:8x7b",
+      "modelSizeGB": 8.5,
+      "setupComplexity": "easy",
+      "beginnerFriendly": true,
+      "description": "Mistral AI's mixture of experts model. 47B total parameters but only 12B active per token — fast and efficient. Strong reasoning and chat, comparable to much larger models.",
+      "toolRecommendation": "Ollama",
+      "toolRecommendationReason": "One-command install, excellent community support, runs well on 8GB+ VRAM.",
+      "successStory": "A developer runs Mixtral on an RTX 3070 for day-to-day coding tasks and research. Says it 'combines the speed of a small model with the smarts of a big one'.",
+      "quantVariants": [
+        {
+          "tag": "mixtral:8x7b",
+          "label": "Q4_K_M (recommended)",
+          "storage": "~8.5GB",
+          "quality": "Good",
+          "speed": "Fast"
+        },
+        {
+          "tag": "mixtral:8x7b:q2_k",
+          "label": "Q2_K (smallest)",
+          "storage": "~5GB",
+          "quality": "Reduced",
+          "speed": "Fast"
+        }
+      ],
+      "minVram": 8,
+      "minRam": 16,
+      "expectations": {
+        "startupTime": "20-30 seconds",
+        "storage": "~9GB",
+        "setupTime": "~10 minutes",
+        "difficulty": "Easy",
+        "internetRequired": "No",
+        "privacy": "Fully local"
+      },
+      "bestForDisplay": "Complex reasoning, chat, coding, and agent workflows",
+      "why": "Efficient MoE architecture. Only 12B active params for 47B model quality.",
+      "whyNot": "Needs 8GB+ VRAM. Alternative quantizations can reduce quality significantly.",
+      "starterPrompts": [
+        "Solve this complex problem step by step: [problem]",
+        "Design an agent workflow for [task]",
+        "Review this code architecture: [paste code]",
+        "Explain [concept] with real-world analogies"
+      ],
+      "careerFit": [
+        "software-developer",
+        "student",
+        "data-scientist",
+        "researcher"
+      ],
+      "platformType": "local",
+      "modelfileTemplate": "FROM mixtral:8x7b\nSYSTEM \"You are a helpful assistant.\"\nPARAMETER temperature 0.7\nPARAMETER num_ctx 16384",
+      "upgradeFrom": null,
+      "upgradeTo": "gemma-4-12b",
+      "benchmarks": {
+        "mmlu": null,
+        "humaneval": null,
+        "note": "See Mistral AI model card for latest benchmarks"
+      },
+      "provider": "Mistral AI",
+      "parameterSize": "47B (MoE)",
+      "notGoodFor": [
+        "vision",
+        "audio",
+        "agents"
+      ]
+    },
+    {
       "id": "deepseek-r1-8b",
       "name": "DeepSeek R1 8B",
       "fullName": "DeepSeek-R1-Distill-Qwen-7B",
