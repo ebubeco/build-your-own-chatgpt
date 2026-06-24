@@ -2927,3 +2927,44 @@ button:focus-visible, a:focus-visible, input:focus-visible {
     --text-tertiary: #6a6a7a;
   }
 }
+
+.copy-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-size: 11px;
+  padding: 3px 10px;
+  border-radius: 5px;
+  border: 1px solid var(--border, #444);
+  background: var(--bg-secondary, #1a1a2e);
+  color: var(--text-secondary, #aaa);
+  cursor: pointer;
+  transition: opacity 0.15s;
+  z-index: 10;
+}
+.copy-btn:hover { opacity: 0.75; }
+
+.tooltip-trigger {
+  cursor: help;
+  border-bottom: 1px dotted var(--text-secondary, #888);
+  position: relative;
+}
+.tooltip-trigger::after {
+  content: attr(data-tip);
+  display: none;
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 0;
+  background: var(--bg-primary, #0d1117);
+  border: 1px solid var(--border, #30363d);
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 11px;
+  line-height: 1.5;
+  max-width: 240px;
+  white-space: normal;
+  z-index: 999;
+  color: var(--text-primary, #e6edf3);
+  pointer-events: none;
+}
+.tooltip-trigger:hover::after { display: block; }

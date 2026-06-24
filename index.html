@@ -103,6 +103,8 @@
         <div style="display:flex;gap:0.75rem;align-items:center">
           <a href="compare.html" style="font-size:0.82rem;color:var(--text-secondary);text-decoration:none;font-weight:500">Compare Models</a>
           <a href="which-ai.html" style="font-size:0.82rem;color:var(--text-secondary);text-decoration:none;font-weight:500">Which AI</a>
+          <a href="use-cases.html" style="font-size:0.82rem;color:var(--text-secondary);text-decoration:none;font-weight:500">Use Cases</a>
+          <a href="starter-pack.html" style="font-size:0.82rem;color:var(--text-secondary);text-decoration:none;font-weight:500">Starter Pack</a>
           <a href="career.html" style="font-size:0.82rem;color:var(--text-secondary);text-decoration:none;font-weight:500">Careers</a>
           <a href="evaluators.html" style="font-size:0.82rem;color:var(--text-secondary);text-decoration:none;font-weight:500">Evaluators</a>
           <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle light/dark mode">
@@ -601,7 +603,7 @@ print(response.choices[0].message.content)</div>
 import google.generativeai as genai
 genai.configure(api_key="your_google_key_here")
 
-model = genai.GenerativeModel("gemini-1.5-flash")
+model = genai.GenerativeModel("gemini-2.0-flash")
 response = model.generate_content("Hello!")
 print(response.text)</div>
               </div>

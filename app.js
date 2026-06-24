@@ -1879,9 +1879,73 @@
     });
   }
 
+  function initCopyButtons() {
+    document.querySelectorAll('pre code').forEach(block => {
+      if (block.parentNode.querySelector('.copy-btn')) return;
+      const btn = document.createElement('button');
+      btn.className = 'copy-btn';
+      btn.textContent = 'Copy';
+      btn.addEventListener('click', e => {
+        e.stopPropagation();
+        navigator.clipboard.writeText(block.textContent.trim()).then(() => {
+          btn.textContent = 'Copied ✓';
+          setTimeout(() => { btn.textContent = 'Copy'; }, 2000);
+        });
+      });
+      block.parentNode.style.position = 'relative';
+      block.parentNode.appendChild(btn);
+    });
+  }
+
+  const TOOLTIPS = {
+    'VRAM':           'Video RAM — memory on your graphics card. More VRAM = larger AI models you can run.',
+    'Quantization':   'Compression that makes models smaller. Q4 = small + fast. Q8 = larger + more accurate.',
+    'Parameters':     "Model size. 7B = 7 billion parameters. Bigger = usually smarter but needs more RAM.",
+    'Ollama':         'Free software that runs AI models on your computer. Like a media player, but for AI.',
+    'LM Studio':      'Desktop app for running local AI models. Visual interface — no terminal needed.',
+    'OpenWebUI':      'Chat interface that connects to Ollama. Looks like ChatGPT but runs on your machine.',
+    'TPS':            'Tokens per second — how fast the AI writes. 100+ TPS feels instant.',
+    'RPD':            'Requests per day — how many times you can call a free API before the daily limit resets.',
+    'RPM':            'Requests per minute — calls per minute before hitting a rate limit.',
+    'Modelfile':      'Config file that tells Ollama how to connect to a cloud API instead of running locally.',
+    'STT':            'Speech to text — converts spoken audio into written text.',
+    'TTS':            'Text to speech — converts written text into spoken audio.',
+    'TPM':            'Tokens per minute — total text volume you can process per minute.',
+    'Context window': 'How much text the AI can read at once. 1M context ≈ 750,000 words.'
+  };
+
+  function applyTooltips() {
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    const nodes = [];
+    while (walker.nextNode()) nodes.push(walker.currentNode);
+    nodes.forEach(node => {
+      if (!node.textContent.trim()) return;
+      if (node.parentElement.closest('script,style,pre,code,.tooltip-trigger,.copy-btn')) return;
+      let html = node.textContent;
+      let changed = false;
+      Object.entries(TOOLTIPS).forEach(([term, tip]) => {
+        const re = new RegExp(`\\b${term}\\b`, 'g');
+        if (re.test(html)) {
+          html = html.replace(re,
+            `<span class="tooltip-trigger" data-tip="${tip}">${term}</span>`);
+          changed = true;
+        }
+      });
+      if (changed) {
+        const span = document.createElement('span');
+        span.innerHTML = html;
+        node.parentNode.replaceChild(span, node);
+      }
+    });
+  }
+
   function trackResultShown(modelId, goal, tier) {
     track('Result Shown', { model: modelId, goal: goal, tier: tier });
   }
 
-  document.addEventListener('DOMContentLoaded', init);
+  document.addEventListener('DOMContentLoaded', function() {
+    init();
+    initCopyButtons();
+    applyTooltips();
+  });
 })();
