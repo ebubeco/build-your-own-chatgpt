@@ -137,8 +137,8 @@
       "why": [
         "The smallest model we recommend. It runs on any computer, even a 10-year-old lap...",
         "Simplest install - one command, works on any hardware.",
-        "Free forever — no subscription needed",
-        "Fully private — your data stays local"
+        "Free forever \u2014 no subscription needed",
+        "Fully private \u2014 your data stays local"
       ],
       "whyNot": {
         "high-end-gpu": "Consider a larger model if you have VRAM to spare"
@@ -227,8 +227,8 @@
       "why": [
         "Made by HuggingFace specifically for consumer hardware. Better than its size sug...",
         "One-command install, optimized for low-end hardware.",
-        "Free forever — no subscription needed",
-        "Fully private — your data stays local"
+        "Free forever \u2014 no subscription needed",
+        "Fully private \u2014 your data stays local"
       ],
       "whyNot": {
         "high-end-gpu": "Consider a larger model if you have VRAM to spare"
@@ -316,8 +316,8 @@
       "why": [
         "Meta's smallest Llama model. Surprisingly capable for its size - better reasonin...",
         "Meta's official Ollama release - well-supported, frequent updates.",
-        "Free forever — no subscription needed",
-        "Fully private — your data stays local"
+        "Free forever \u2014 no subscription needed",
+        "Fully private \u2014 your data stays local"
       ],
       "whyNot": {
         "high-end-gpu": "Consider a larger model if you have VRAM to spare"
@@ -413,8 +413,8 @@
       "why": [
         "Alibaba's compact model with strong multilingual support - writes well in Englis...",
         "One command to install, works on 16GB RAM without GPU.",
-        "Free forever — no subscription needed",
-        "Fully private — your data stays local"
+        "Free forever \u2014 no subscription needed",
+        "Fully private \u2014 your data stays local"
       ],
       "whyNot": {
         "high-end-gpu": "Consider a larger model if you have VRAM to spare"
@@ -511,8 +511,8 @@
       "why": [
         "Microsoft's best small model. Remarkably good at coding and following instructio...",
         "Fast CPU inference, great coding performance, one install command.",
-        "Free forever — no subscription needed",
-        "Fully private — your data stays local"
+        "Free forever \u2014 no subscription needed",
+        "Fully private \u2014 your data stays local"
       ],
       "whyNot": {
         "high-end-gpu": "Consider a larger model if you have VRAM to spare"
@@ -609,8 +609,8 @@
       "why": [
         "The best all-around model for CPU-only setups. Great chat, solid writing, decent...",
         "Meta's official release, massive community, one install command.",
-        "Free forever — no subscription needed",
-        "Fully private — your data stays local"
+        "Free forever \u2014 no subscription needed",
+        "Fully private \u2014 your data stays local"
       ],
       "whyNot": {
         "high-end-gpu": "Consider a larger model if you have VRAM to spare"
@@ -715,8 +715,8 @@
       "why": [
         "The best all-around model for most people. Excels at coding, writes beautifully,...",
         "Fast inference on 8GB VRAM, great community support, one install command.",
-        "Free forever — no subscription needed",
-        "Fully private — your data stays local"
+        "Free forever \u2014 no subscription needed",
+        "Fully private \u2014 your data stays local"
       ],
       "whyNot": {
         "high-end-gpu": "Consider a larger model if you have VRAM to spare"
@@ -747,104 +747,6 @@
       "platformType": "local",
       "upgradeFrom": null,
       "upgradeTo": "qwen-2-5-7b"
-    },
-    {
-      "id": "mixtral-8x7b",
-      "name": "Mixtral 8x7B",
-      "fullName": "mixtral:8x7b",
-      "size": "47B (MoE)",
-      "tier": "budget-gpu",
-      "vramGB": 8,
-      "recommendedQuant": "Q4_K_M",
-      "contextLength": 32768,
-      "practicalRating": {
-        "chat": 9,
-        "writing": 8,
-        "coding": 8,
-        "reasoning": 9,
-        "agents": 8
-      },
-      "bestFor": [
-        "chat",
-        "reasoning",
-        "coding",
-        "agents"
-      ],
-      "ollamaTag": "mixtral:8x7b",
-      "installCommand": "ollama pull mixtral:8x7b",
-      "modelSizeGB": 8.5,
-      "setupComplexity": "easy",
-      "beginnerFriendly": true,
-      "description": "Mistral AI's mixture of experts model. 47B total parameters but only 12B active per token — fast and efficient. Strong reasoning and chat, comparable to much larger models. A great alternative if you want something different from Qwen.",
-      "toolRecommendation": "Ollama",
-      "toolRecommendationReason": "One-command install, excellent community support, runs well on 8GB+ VRAM.",
-      "successStory": "A developer runs Mixtral on an RTX 3070 for day-to-day coding tasks and research. Says it 'combines the speed of a small model with the smarts of a big one'.",
-      "quantVariants": [
-        {
-          "tag": "mixtral:8x7b",
-          "label": "Q4_K_M (recommended)",
-          "storage": "~8.5GB",
-          "quality": "Good",
-          "speed": "Fast"
-        },
-        {
-          "tag": "mixtral:8x7b:q2_k",
-          "label": "Q2_K (smallest)",
-          "storage": "~5GB",
-          "quality": "Reduced",
-          "speed": "Fast"
-        }
-      ],
-      "expectations": {
-        "startupTime": "20-30 seconds",
-        "storage": "~9GB",
-        "setupTime": "~10 minutes",
-        "difficulty": "Easy",
-        "internetRequired": "No",
-        "privacy": "Fully local"
-      },
-      "modelfileTemplate": "FROM mixtral:8x7b\nSYSTEM \"You are a helpful assistant.\"\nPARAMETER temperature 0.7\nPARAMETER num_ctx 16384",
-      "bestForDisplay": [
-        "Complex reasoning",
-        "Personal ChatGPT replacement",
-        "Coding help and review",
-        "AI agent workflows"
-      ],
-      "why": [
-        "Mistral AI's mixture of experts model. Fast and efficient — only 12B active param...",
-        "One-command install, excellent community support, runs well on 8GB+ VRAM.",
-        "Free forever — no subscription needed",
-        "Fully private — your data stays local"
-      ],
-      "whyNot": {
-        "high-end-gpu": "Consider a larger model if you have VRAM to spare"
-      },
-      "starterPrompts": {
-        "general": [
-          "Explain [topic] in simple terms",
-          "Help me write a professional email about [subject]",
-          "Summarize this text: [paste text]"
-        ],
-        "coding": [
-          "Review this code and suggest improvements: [paste code]",
-          "Write a Python function that [describe task]",
-          "Explain what this error means: [paste error]"
-        ],
-        "writing": [
-          "Improve the tone of this paragraph: [paste text]",
-          "Write an introduction for an article about [topic]",
-          "Make this more concise: [paste text]"
-        ]
-      },
-      "careerFit": [
-        "software-developer",
-        "student",
-        "content-creator",
-        "researcher"
-      ],
-      "platformType": "local",
-      "upgradeFrom": null,
-      "upgradeTo": null
     },
     {
       "id": "gemma-4-12b",
@@ -911,8 +813,8 @@
       "why": [
         "Google's best open model in this size range. Exceptional at following complex in...",
         "Google's official Ollama support, runs well on 10GB+ VRAM.",
-        "Free forever — no subscription needed",
-        "Fully private — your data stays local"
+        "Free forever \u2014 no subscription needed",
+        "Fully private \u2014 your data stays local"
       ],
       "whyNot": {
         "high-end-gpu": "Consider a larger model if you have VRAM to spare"
@@ -945,12 +847,12 @@
       "upgradeTo": null
     },
     {
-      "id": "qwen-3-14b",
-      "name": "Qwen 3 14B",
-      "fullName": "qwen3:14b",
+      "id": "qwen-2-5-14b",
+      "name": "Qwen 2.5 14B",
+      "fullName": "qwen2.5:14b",
       "size": "14B",
       "tier": "budget-gpu",
-      "vramGB": 10.5,
+      "vramGB": 10.0,
       "recommendedQuant": "Q4_K_M",
       "contextLength": 32768,
       "practicalRating": {
@@ -966,9 +868,9 @@
         "research",
         "writing"
       ],
-      "ollamaTag": "qwen3:14b",
-      "installCommand": "ollama pull qwen3:14b",
-      "modelSizeGB": 9,
+      "ollamaTag": "qwen2.5:14b",
+      "installCommand": "ollama pull qwen2.5:14b",
+      "modelSizeGB": 9.0,
       "setupComplexity": "medium",
       "beginnerFriendly": true,
       "description": "The step up from 7B. Better reasoning, better coding, better at complex tasks. Requires careful setup on 8GB VRAM (use Q4_K_M quantization), but runs smoothly on 12GB+. If you want one model that does everything well.",
@@ -977,18 +879,11 @@
       "successStory": "A programmer uses this for full-stack development on an RTX 4070. Says it 'catches bugs I miss and suggests architectural improvements'.",
       "quantVariants": [
         {
-          "tag": "qwen3:14b",
+          "tag": "qwen2.5:14b",
           "label": "Q4_K_M (recommended)",
           "storage": "~9GB",
           "quality": "Good",
           "speed": "Fast"
-        },
-        {
-          "tag": "qwen3:14b-q8_0",
-          "label": "Q8 (high quality)",
-          "storage": "~15GB",
-          "quality": "Excellent",
-          "speed": "Moderate"
         }
       ],
       "expectations": {
@@ -999,7 +894,7 @@
         "internetRequired": "No",
         "privacy": "Fully local"
       },
-      "modelfileTemplate": "FROM qwen3:14b\nSYSTEM \"You are a helpful assistant.\"\nPARAMETER temperature 0.7\nPARAMETER num_ctx 4096",
+      "modelfileTemplate": "FROM qwen2.5:14b\nSYSTEM \"You are a helpful assistant.\"\nPARAMETER temperature 0.7\nPARAMETER num_ctx 4096",
       "bestForDisplay": [
         "Coding help and review",
         "AI agent workflows",
@@ -1009,8 +904,8 @@
       "why": [
         "The step up from 7B. Better reasoning, better coding, better at complex tasks. R...",
         "Best quality-to-VRAM ratio, runs on RTX 3060 with careful setup.",
-        "Free forever — no subscription needed",
-        "Fully private — your data stays local"
+        "Free forever \u2014 no subscription needed",
+        "Fully private \u2014 your data stays local"
       ],
       "whyNot": {
         "high-end-gpu": "Consider a larger model if you have VRAM to spare"
@@ -1043,12 +938,12 @@
       "upgradeTo": null
     },
     {
-      "id": "qwen-3-5-27b",
-      "name": "Qwen 3.5 27B",
-      "fullName": "qwen3.5:27b",
-      "size": "27B",
+      "id": "qwen-2-5-32b",
+      "name": "Qwen 2.5 32B",
+      "fullName": "qwen2.5:32b",
+      "size": "32B",
       "tier": "power-gpu",
-      "vramGB": 18,
+      "vramGB": 20.0,
       "recommendedQuant": "Q4_K_M",
       "contextLength": 32768,
       "practicalRating": {
@@ -1065,9 +960,9 @@
         "writing",
         "reasoning"
       ],
-      "ollamaTag": "qwen3.5:27b",
-      "installCommand": "ollama pull qwen3.5:27b",
-      "modelSizeGB": 16.5,
+      "ollamaTag": "qwen2.5:32b",
+      "installCommand": "ollama pull qwen2.5:32b",
+      "modelSizeGB": 19.0,
       "setupComplexity": "medium",
       "beginnerFriendly": true,
       "description": "One of the best open models in the world right now. Matches Claude 3.5 Sonnet on many benchmarks. Requires 20GB+ VRAM to run properly. If you have a 4090 or Mac M3 Pro+, this is your model.",
@@ -1076,29 +971,22 @@
       "successStory": "A solo founder runs a full AI startup assistant - coding, research, writing, customer support - on a single RTX 4090. Says it's 'essentially a senior developer on call 24/7'.",
       "quantVariants": [
         {
-          "tag": "qwen3.5:27b",
+          "tag": "qwen2.5:32b",
           "label": "Q4_K_M (recommended)",
-          "storage": "~16.5GB",
+          "storage": "~19GB",
           "quality": "Good",
           "speed": "Fast"
-        },
-        {
-          "tag": "qwen3.5:27b-q8_0",
-          "label": "Q8 (high quality)",
-          "storage": "~28GB",
-          "quality": "Excellent",
-          "speed": "Slow"
         }
       ],
       "expectations": {
         "startupTime": "20-30 seconds",
-        "storage": "~17GB",
+        "storage": "~19-20GB",
         "setupTime": "~5 minutes",
         "difficulty": "Medium",
         "internetRequired": "No",
         "privacy": "Fully local"
       },
-      "modelfileTemplate": "FROM qwen3.5:27b\nSYSTEM \"You are a helpful assistant.\"\nPARAMETER temperature 0.7\nPARAMETER num_ctx 4096",
+      "modelfileTemplate": "FROM qwen2.5:32b\nSYSTEM \"You are a helpful assistant.\"\nPARAMETER temperature 0.7\nPARAMETER num_ctx 4096",
       "bestForDisplay": [
         "Coding help and review",
         "AI agent workflows",
@@ -1109,8 +997,8 @@
       "why": [
         "One of the best open models in the world right now. Matches Claude 3.5 Sonnet on...",
         "Fast inference on 24GB VRAM, one install command.",
-        "Free forever — no subscription needed",
-        "Fully private — your data stays local"
+        "Free forever \u2014 no subscription needed",
+        "Fully private \u2014 your data stays local"
       ],
       "whyNot": {
         "high-end-gpu": "Consider a larger model if you have VRAM to spare"
@@ -1207,8 +1095,8 @@
       "why": [
         "DeepSeek's reasoning model - think step by step before answering. Excellent for ...",
         "One command install, best reasoning model in its size class.",
-        "Free forever — no subscription needed",
-        "Fully private — your data stays local"
+        "Free forever \u2014 no subscription needed",
+        "Fully private \u2014 your data stays local"
       ],
       "whyNot": {
         "high-end-gpu": "Consider a larger model if you have VRAM to spare"
@@ -1312,8 +1200,8 @@
       "why": [
         "Fast on Apple Silicon with Metal. Great all-rounder for M1/M2/M3 Macs with 16GB....",
         "Metal GPU acceleration works out of the box on Mac. No extra setup needed.",
-        "Free forever — no subscription needed",
-        "Fully private — your data stays local"
+        "Free forever \u2014 no subscription needed",
+        "Fully private \u2014 your data stays local"
       ],
       "whyNot": {
         "high-end-gpu": "Consider a larger model if you have VRAM to spare"
@@ -1408,8 +1296,8 @@
       "why": [
         "Meta's flagship 8B model. Excellent chat quality and well-aligned responses. Met...",
         "Native Mac support, Metal GPU acceleration, one command install.",
-        "Free forever — no subscription needed",
-        "Fully private — your data stays local"
+        "Free forever \u2014 no subscription needed",
+        "Fully private \u2014 your data stays local"
       ],
       "whyNot": {
         "high-end-gpu": "Consider a larger model if you have VRAM to spare"
@@ -1441,12 +1329,12 @@
       "upgradeTo": null
     },
     {
-      "id": "qwen-3-14b-silicon",
-      "name": "Qwen 3 14B (Apple Silicon)",
-      "fullName": "qwen3:14b",
+      "id": "qwen-2-5-14b-silicon",
+      "name": "Qwen 2.5 14B (Apple Silicon)",
+      "fullName": "qwen2.5:14b",
       "size": "14B",
       "tier": "silicon-24-48gb",
-      "vramGB": 14,
+      "vramGB": 10.0,
       "recommendedQuant": "Q4_K_M",
       "contextLength": 32768,
       "practicalRating": {
@@ -1462,9 +1350,9 @@
         "research",
         "writing"
       ],
-      "ollamaTag": "qwen3:14b",
-      "installCommand": "ollama pull qwen3:14b",
-      "modelSizeGB": 9,
+      "ollamaTag": "qwen2.5:14b",
+      "installCommand": "ollama pull qwen2.5:14b",
+      "modelSizeGB": 9.0,
       "setupComplexity": "easy",
       "beginnerFriendly": true,
       "description": "The sweet spot for MacBook Pro M3 Pro or Mac Studio M2 Ultra. Significantly better than 7B models. Runs at good speeds with Metal on 24GB+ unified memory.",
@@ -1473,18 +1361,11 @@
       "successStory": "A developer runs this on a Mac Studio M2 Ultra 64GB. Says it 'replaces Copilot for most tasks and my laptop stays cool'.",
       "quantVariants": [
         {
-          "tag": "qwen3:14b",
+          "tag": "qwen2.5:14b",
           "label": "Q4_K_M (recommended)",
           "storage": "~9GB",
           "quality": "Good",
           "speed": "Fast"
-        },
-        {
-          "tag": "qwen3:14b-q8_0",
-          "label": "Q8 (high quality)",
-          "storage": "~15GB",
-          "quality": "Excellent",
-          "speed": "Moderate"
         }
       ],
       "expectations": {
@@ -1495,7 +1376,7 @@
         "internetRequired": "No",
         "privacy": "Fully local"
       },
-      "modelfileTemplate": "FROM qwen3:14b\nSYSTEM \"You are a helpful assistant.\"\nPARAMETER temperature 0.7\nPARAMETER num_ctx 4096",
+      "modelfileTemplate": "FROM qwen2.5:14b\nSYSTEM \"You are a helpful assistant.\"\nPARAMETER temperature 0.7\nPARAMETER num_ctx 4096",
       "bestForDisplay": [
         "Coding help and review",
         "AI agent workflows",
@@ -1505,8 +1386,8 @@
       "why": [
         "The sweet spot for MacBook Pro M3 Pro or Mac Studio M2 Ultra. Significantly bett...",
         "Metal backend on Mac handles 14B well with unified memory architecture.",
-        "Free forever — no subscription needed",
-        "Fully private — your data stays local"
+        "Free forever \u2014 no subscription needed",
+        "Fully private \u2014 your data stays local"
       ],
       "whyNot": {
         "high-end-gpu": "Consider a larger model if you have VRAM to spare"
@@ -1539,12 +1420,12 @@
       "upgradeTo": null
     },
     {
-      "id": "qwen-3-5-27b-silicon",
-      "name": "Qwen 3.5 27B (Apple Silicon)",
-      "fullName": "qwen3.5:27b",
-      "size": "27B",
+      "id": "qwen-2-5-32b-silicon",
+      "name": "Qwen 2.5 32B (Apple Silicon)",
+      "fullName": "qwen2.5:32b",
+      "size": "32B",
       "tier": "silicon-64-plus",
-      "vramGB": 27,
+      "vramGB": 20.0,
       "recommendedQuant": "Q4_K_M",
       "contextLength": 32768,
       "practicalRating": {
@@ -1560,9 +1441,9 @@
         "research",
         "writing"
       ],
-      "ollamaTag": "qwen3.5:27b",
-      "installCommand": "ollama pull qwen3.5:27b",
-      "modelSizeGB": 16.5,
+      "ollamaTag": "qwen2.5:32b",
+      "installCommand": "ollama pull qwen2.5:32b",
+      "modelSizeGB": 19.0,
       "setupComplexity": "medium",
       "beginnerFriendly": true,
       "description": "Top-tier model on Mac Studio M2 Ultra 128GB or MacBook Pro M3 Max 64GB+. Matches or beats Claude 3.5 Sonnet on many tasks. Metal makes this surprisingly practical on Apple hardware.",
@@ -1571,29 +1452,22 @@
       "successStory": "A founder runs their entire startup's AI stack on a Mac Studio M2 Ultra 128GB - coding, research, writing, and customer support. Says it's 'essentially a senior developer on call 24/7'.",
       "quantVariants": [
         {
-          "tag": "qwen3.5:27b",
+          "tag": "qwen2.5:32b",
           "label": "Q4_K_M (recommended)",
-          "storage": "~16.5GB",
+          "storage": "~19GB",
           "quality": "Good",
           "speed": "Fast"
-        },
-        {
-          "tag": "qwen3.5:27b-q8_0",
-          "label": "Q8 (high quality)",
-          "storage": "~28GB",
-          "quality": "Excellent",
-          "speed": "Slow"
         }
       ],
       "expectations": {
         "startupTime": "20-30 seconds",
-        "storage": "~17GB",
+        "storage": "~19-20GB",
         "setupTime": "~5 minutes",
         "difficulty": "Medium",
         "internetRequired": "No",
         "privacy": "Fully local"
       },
-      "modelfileTemplate": "FROM qwen3.5:27b\nSYSTEM \"You are a helpful assistant.\"\nPARAMETER temperature 0.7\nPARAMETER num_ctx 4096",
+      "modelfileTemplate": "FROM qwen2.5:32b\nSYSTEM \"You are a helpful assistant.\"\nPARAMETER temperature 0.7\nPARAMETER num_ctx 4096",
       "bestForDisplay": [
         "Coding help and review",
         "AI agent workflows",
@@ -1603,8 +1477,8 @@
       "why": [
         "Top-tier model on Mac Studio M2 Ultra 128GB or MacBook Pro M3 Max 64GB+. Matches...",
         "Unified memory on Mac means no VRAM bottleneck. 128GB Mac Studio can run this at full speed.",
-        "Free forever — no subscription needed",
-        "Fully private — your data stays local"
+        "Free forever \u2014 no subscription needed",
+        "Fully private \u2014 your data stays local"
       ],
       "whyNot": {
         "high-end-gpu": "Consider a larger model if you have VRAM to spare"
@@ -1697,8 +1571,8 @@
       "why": [
         "Ultra-fast inference (1000 TPS) via Groq's LPU hardware. Great for batch process...",
         "14,400 RPD free tier",
-        "Free forever — no subscription needed",
-        "Fully private — your data stays local"
+        "Free forever \u2014 no subscription needed",
+        "Fully private \u2014 your data stays local"
       ],
       "whyNot": {
         "high-end-gpu": "Consider a larger model if you have VRAM to spare"
@@ -1783,8 +1657,8 @@
       "why": [
         "Fast inference with Llama 4 Scout. Good for fast overrides and chat....",
         "30K TPM free tier",
-        "Free forever — no subscription needed",
-        "Fully private — your data stays local"
+        "Free forever \u2014 no subscription needed",
+        "Fully private \u2014 your data stays local"
       ],
       "whyNot": {
         "high-end-gpu": "Consider a larger model if you have VRAM to spare"
@@ -1816,8 +1690,8 @@
       "upgradeTo": null
     },
     {
-      "id": "qwen3-32b-groq",
-      "name": "Qwen3 32B (Groq)",
+      "id": "qwen2.5-32b-groq",
+      "name": "Qwen 2.5 32B (Groq)",
       "fullName": "qwen3-32b",
       "size": "32B",
       "tier": "no-gpu",
@@ -1836,7 +1710,7 @@
         "chat",
         "research"
       ],
-      "ollamaTag": "groq/qwen3-32b",
+      "ollamaTag": "groq/qwen2.5-32b",
       "installCommand": "ollama run groq-qwen3-32b",
       "modelSizeGB": 0,
       "setupComplexity": "easy",
@@ -1871,8 +1745,8 @@
       "why": [
         "Top-tier coding and bilingual model running at 600 TPS on Groq....",
         "60 RPM free tier",
-        "Free forever — no subscription needed",
-        "Fully private — your data stays local"
+        "Free forever \u2014 no subscription needed",
+        "Fully private \u2014 your data stays local"
       ],
       "whyNot": {
         "high-end-gpu": "Consider a larger model if you have VRAM to spare"
@@ -1960,8 +1834,8 @@
       "why": [
         "General-purpose heavyweight model with fast batch ranking. 400 TPS....",
         "12K TPM free tier",
-        "Free forever — no subscription needed",
-        "Fully private — your data stays local"
+        "Free forever \u2014 no subscription needed",
+        "Fully private \u2014 your data stays local"
       ],
       "whyNot": {
         "high-end-gpu": "Consider a larger model if you have VRAM to spare"
@@ -2048,8 +1922,8 @@
       "why": [
         "Maximum speed for a large model. ~3,000 TPS on Cerebras Wafer-Scale hardware....",
         "1M tokens/day",
-        "Free forever — no subscription needed",
-        "Fully private — your data stays local"
+        "Free forever \u2014 no subscription needed",
+        "Fully private \u2014 your data stays local"
       ],
       "whyNot": {
         "high-end-gpu": "Consider a larger model if you have VRAM to spare"
@@ -2142,8 +2016,8 @@
       "why": [
         "2,600+ TPS on Cerebras. Incredible for batch processing....",
         "Wafer-scale speed",
-        "Free forever — no subscription needed",
-        "Fully private — your data stays local"
+        "Free forever \u2014 no subscription needed",
+        "Fully private \u2014 your data stays local"
       ],
       "whyNot": {
         "high-end-gpu": "Consider a larger model if you have VRAM to spare"
@@ -2230,8 +2104,8 @@
       "why": [
         "Top-tier reasoning model with visible Chain of Thought. Excellent for RLHF ranki...",
         "Standardized API with failover",
-        "Free forever — no subscription needed",
-        "Fully private — your data stays local"
+        "Free forever \u2014 no subscription needed",
+        "Fully private \u2014 your data stays local"
       ],
       "whyNot": {
         "high-end-gpu": "Consider a larger model if you have VRAM to spare"
@@ -2319,8 +2193,8 @@
       "why": [
         "Native search grounding, 1M context, and excellent multimodal capabilities....",
         "1,500 req/day",
-        "Free forever — no subscription needed",
-        "Fully private — your data stays local"
+        "Free forever \u2014 no subscription needed",
+        "Fully private \u2014 your data stays local"
       ],
       "whyNot": {
         "high-end-gpu": "Consider a larger model if you have VRAM to spare"
@@ -2403,8 +2277,8 @@
       "why": [
         "Effectively $0/M tokens on SiliconFlow. Good for basic screening and chat....",
         "Free screening",
-        "Free forever — no subscription needed",
-        "Fully private — your data stays local"
+        "Free forever \u2014 no subscription needed",
+        "Fully private \u2014 your data stays local"
       ],
       "whyNot": {
         "high-end-gpu": "Consider a larger model if you have VRAM to spare"
@@ -2489,8 +2363,8 @@
       "why": [
         "1M context window, high-quality reasoning, especially strong in cybersecurity ev...",
         "1M context",
-        "Free forever — no subscription needed",
-        "Fully private — your data stays local"
+        "Free forever \u2014 no subscription needed",
+        "Fully private \u2014 your data stays local"
       ],
       "whyNot": {
         "high-end-gpu": "Consider a larger model if you have VRAM to spare"
@@ -2521,6 +2395,83 @@
       "platformType": "local",
       "upgradeFrom": null,
       "upgradeTo": null
+    },
+    {
+      "id": "phi-4-14b",
+      "name": "Phi-4 14B",
+      "fullName": "phi4:14b",
+      "size": "14B",
+      "tier": "mid-gpu",
+      "vramGB": 10.0,
+      "recommendedQuant": "Q4_K_M",
+      "contextLength": 16384,
+      "practicalRating": {
+        "chat": 8,
+        "writing": 8,
+        "coding": 9,
+        "reasoning": 9,
+        "agents": 8
+      },
+      "bestFor": [
+        "coding",
+        "reasoning",
+        "chat"
+      ],
+      "ollamaTag": "phi4:14b",
+      "installCommand": "ollama pull phi4:14b",
+      "modelSizeGB": 9.1,
+      "setupComplexity": "easy",
+      "beginnerFriendly": true,
+      "description": "Microsoft's Phi-4 14B model. Extremely strong reasoning and coding capabilities, trained on high-quality synthetic data and filtered web text.",
+      "toolRecommendation": "Ollama",
+      "toolRecommendationReason": "Excellent speed on 12GB+ VRAM graphics cards.",
+      "successStory": "A developer uses Phi-4 14B to generate test suites and explain legacy codebases locally with zero latency.",
+      "quantVariants": [
+        {
+          "tag": "phi4:14b",
+          "label": "Q4_K_M (recommended)",
+          "storage": "~9.1GB",
+          "quality": "Good",
+          "speed": "Fast"
+        }
+      ],
+      "expectations": {
+        "startupTime": "15-25 seconds",
+        "storage": "~10GB",
+        "setupTime": "~8 minutes",
+        "difficulty": "Easy",
+        "internetRequired": "No",
+        "privacy": "Fully local"
+      },
+      "modelfileTemplate": "FROM phi4:14b\nSYSTEM \"You are a helpful assistant.\"\nPARAMETER temperature 0.2\nPARAMETER num_ctx 16384",
+      "bestForDisplay": [
+        "Coding and code completion",
+        "Complex logical reasoning",
+        "Accurate multi-turn chat"
+      ],
+      "why": [
+        "Microsoft's Phi-4 14B model. Built for high-quality instruction following.",
+        "Very fast generation speed on mid-range GPUs.",
+        "Fully private and runs completely offline."
+      ],
+      "whyNot": {
+        "no-gpu": "Will run slowly on CPU-only machines"
+      },
+      "starterPrompts": {
+        "general": [
+          "Solve this logic puzzle: [puzzle]",
+          "Write an overview of quantum computing"
+        ],
+        "coding": [
+          "Write a Python script to parse a JSON log file",
+          "Implement a binary search algorithm in Rust"
+        ]
+      },
+      "careerFit": [
+        "software-developer",
+        "researcher"
+      ],
+      "platformType": "local"
     }
   ]
 }

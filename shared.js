@@ -1,104 +1,85 @@
 (function() {
   'use strict';
 
-  var pageName = document.querySelector('meta[name="page-name"]');
-  if (pageName) pageName = pageName.getAttribute('content');
+  var NAV_ITEMS = [
+    { href: '/compare.html',       label: 'Compare' },
+    { href: '/which-ai.html',      label: 'Which AI?' },
+    { href: '/compatibility.html', label: 'Compatibility' },
+    { href: '/commands.html',      label: 'Commands' },
+    { href: '/cost.html',          label: 'Cost' },
+    { href: '/upgrade.html',       label: 'Upgrade' },
+    { href: '/career.html',        label: 'Career' },
+    { href: '/use-cases.html',     label: 'Use Cases' },
+    { href: '/evaluators.html',    label: 'Evaluators' },
+    { href: '/compendium.html',    label: 'All Models' }
+  ];
 
-  var active = document.querySelector('.nav-link[href="' + location.pathname.split('/').pop() + '"]');
-  if (active) active.classList.add('nav-active');
+  function getParam(key) { return new URLSearchParams(location.search).get(key); }
 
-  var tb = document.getElementById('theme-toggle');
-  if (tb) {
-    var setThemeIcon = function() {
-      var dark = document.documentElement.getAttribute('data-theme') === 'dark';
-      var icon = tb.querySelector('.toggle-icon');
-      var label = tb.querySelector('.toggle-label');
-      if (icon) icon.textContent = dark ? '☀️' : '🌙';
-      if (label) label.textContent = dark ? 'Light mode' : 'Dark mode';
-    };
-    setThemeIcon();
-    tb.addEventListener('click', function() {
-      var d = document.documentElement;
-      var isDark = d.getAttribute('data-theme') === 'dark';
-      d.setAttribute('data-theme', isDark ? 'light' : 'dark');
-      localStorage.setItem('theme', isDark ? 'light' : 'dark');
-      setThemeIcon();
+  var _cache = {};
+  async function loadData(file) {
+    if (_cache[file]) return _cache[file];
+    _cache[file] = await fetch('data/' + file).then(function(r) { return r.json(); });
+    return _cache[file];
+  }
+
+  function track(event, props) {
+    if (window.plausible) window.plausible(event, { props: props || {} });
+  }
+
+  function copyText(text, btn) {
+    navigator.clipboard.writeText(text).then(function() {
+      if (btn) {
+        var orig = btn.textContent;
+        btn.textContent = 'Copied!';
+        setTimeout(function() { btn.textContent = orig; }, 2000);
+      }
     });
   }
 
-  window.shared = {
-    formatBytes: function(b) {
-      if (!b) return '0 GB';
-      return (b / 1024).toFixed(1) + ' GB';
-    },
-    formatTokens: function(n) {
-      if (n >= 1024) return (n / 1024).toFixed(0) + 'K';
-      return n.toString();
-    },
-    getTierColor: function(tier) {
-      var colors = {
-        'no-gpu': '#E24B4A',
-        'budget-gpu': '#1D9E75',
-        'mid-gpu': '#0EA5E9',
-        'high-end-gpu': '#534AB7',
-        'apple': '#6B5CF5'
-      };
-      return colors[tier] || '#666';
-    },
-    getTierName: function(tier) {
-      var names = {
-        'no-gpu': 'No GPU',
-        'budget-gpu': 'Budget GPU',
-        'mid-gpu': 'Mid-Range GPU',
-        'high-end-gpu': 'High-End GPU',
-        'apple': 'Apple Silicon'
-      };
-      return names[tier] || tier;
-    },
-    wrapInGlossary: function(text) {
-      return text;
-    },
-    track: function(name, props) {
-      if (window.__analytics) window.__analytics.trackEvent(name, props);
-    }
+  var TOOLTIP_KEYS = {
+    'vram': 'Video RAM — memory on your GPU. 8GB+ VRAM runs 7B models; 12GB+ runs 14B models.',
+    'quantization': 'Compresses the model to use less memory. Q4_K_M is recommended (best quality/size trade-off).',
+    'context': 'How many tokens the model remembers at once. 8K = ~6,000 words; 32K = ~24,000 words.',
+    'token': 'A piece of text the model reads/writes. 1 token ≈ 0.75 words in English.',
+    'tps': 'Tokens Per Second — how fast the model generates text. 30+ TPS feels instant.',
+    'ollama': 'Free, open-source tool to run AI models locally. Works on Mac, Windows, Linux.',
+    'openwebui': 'ChatGPT-like interface for local models. Runs in your browser via Docker.',
+    'modelfile': 'A configuration file for Ollama that sets parameters, system prompts, and model settings.',
+    'rag': 'Retrieval-Augmented Generation — lets the model search your documents before answering.',
+    'gguf': 'The file format for quantized models. GGUF files contain the compressed model weights.',
+    'lmstudio': 'A desktop app for running AI models locally with a graphical interface. Great for beginners.',
+    'parameters': 'The model\'s "size" — 7B means 7 billion parameters. Bigger = smarter but slower.',
+    'rpd': 'Requests Per Day — how many times you can use a free API in 24 hours before hitting limits.',
+    'stt': 'Speech to Text — converts audio or video speech into written text. Used for transcription.',
+    'tts': 'Text to Speech — converts written text into spoken audio. Used for voiceovers and accessibility.'
   };
 
-  var dataCache = {};
-
-  window.copyText = function(text, btnEl) {
-    navigator.clipboard.writeText(text).then(function() {
-      if (btnEl) {
-        var orig = btnEl.textContent;
-        btnEl.textContent = '\u2713 Copied';
-        setTimeout(function() { btnEl.textContent = orig; }, 2000);
-      }
+  function initTooltips() {
+    document.querySelectorAll('[data-tooltip-key]').forEach(function(el) {
+      var key = el.getAttribute('data-tooltip-key');
+      if (TOOLTIP_KEYS[key]) el.setAttribute('data-tooltip', TOOLTIP_KEYS[key]);
     });
-  };
+  }
 
-  window.getParam = function(key) {
-    return new URLSearchParams(location.search).get(key);
-  };
+  function initDevMode() {
+    if (getParam('dev') === 'true') {
+      document.querySelectorAll('[data-dev-only]')
+        .forEach(function(el) { el.style.display = ''; });
+    }
+  }
 
-  window.setParam = function(key, value) {
-    var params = new URLSearchParams(location.search);
-    params.set(key, value);
-    history.replaceState(null, '', '?' + params.toString());
-  };
+  document.addEventListener('DOMContentLoaded', function() {
+    initTooltips();
+    initDevMode();
+  });
 
-  window.loadData = function(filename) {
-    var cb = function(resolve, reject) {
-      if (dataCache[filename]) {
-        resolve(dataCache[filename]);
-        return;
-      }
-      fetch('data/' + filename)
-        .then(function(r) { return r.json(); })
-        .then(function(data) {
-          dataCache[filename] = data;
-          resolve(data);
-        })
-        .catch(reject);
-    };
-    return new Promise(cb);
+  window.shared = {
+    getParam: getParam,
+    loadData: loadData,
+    track: track,
+    copyText: copyText,
+    TOOLTIP_KEYS: TOOLTIP_KEYS,
+    initTooltips: initTooltips
   };
 })();

@@ -57,13 +57,52 @@
         <li><strong>Hobbyists:</strong> Experiment with different models, quantization levels, and configurations.</li>
       </ul>
     </section>
+    <section class="seo-section">
+      <h2>How Local AI Works</h2>
+      <ol class="seo-alt-list">
+        <li><strong>Download a model:</strong> Model weights (2-40GB) are downloaded from a registry like <a href="https://ollama.com" target="_blank">Ollama.com</a>. These are the trained neural network parameters.</li>
+        <li><strong>Load into memory:</strong> The model is loaded into RAM or VRAM. A 7B parameter model needs ~4-6GB of memory at Q4_K_M quantization.</li>
+        <li><strong>Run inference:</strong> When you type a prompt, the model generates a response token by token using your computer's CPU, GPU, or both.</li>
+      </ol>
+    </section>
+
+    <section class="seo-section">
+      <h2>Frequently Asked Questions</h2>
+      <div itemscope itemtype="https://schema.org/FAQPage">
+        <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="faq-item">
+          <h3 itemprop="name">Is local AI really free?</h3>
+          <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">Yes. Ollama and all open-source models are completely free. You pay zero for software, models, or usage. The only cost is your existing computer hardware — no subscription, no API fees, no hidden charges.</p>
+          </div>
+        </div>
+        <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="faq-item">
+          <h3 itemprop="name">Does local AI need internet?</h3>
+          <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">Only for the initial model download. After pulling a model with Ollama, everything runs offline. No internet connection is needed for inference — your data never leaves your machine.</p>
+          </div>
+        </div>
+        <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="faq-item">
+          <h3 itemprop="name">Can local AI replace ChatGPT?</h3>
+          <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">For most daily tasks — writing, coding, research, chat — yes. Modern open models like Qwen 2.5 7B match ChatGPT's quality. Local AI lacks multimodal features and the absolute breadth of GPT-4, but it's private, free, and works offline.</p>
+          </div>
+        </div>
+        <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="faq-item">
+          <h3 itemprop="name">What hardware do I need?</h3>
+          <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">At minimum: 8GB RAM and a 64-bit processor. For a good experience: 16GB RAM. For best performance: any NVIDIA GPU with 8GB+ VRAM or Apple Silicon Mac with 16GB+ unified memory. No special hardware required to start.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="seo-section seo-cta">
       <h2>Can Your Computer Run Local AI?</h2>
       <p>Answer a few quick questions and get your personalized local AI setup.</p>
       <a href="/" class="btn-primary" style="display:inline-block;margin-top:1rem">Check Compatibility</a>
     </section>
   </main>
-  <script src="analytics.js"></script>
   <script src="shared.js"></script>
+  <script src="analytics.js"></script>
 </body>
 </html>

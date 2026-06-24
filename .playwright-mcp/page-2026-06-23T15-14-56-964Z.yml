@@ -1,0 +1,42 @@
+- main [ref=e2]:
+  - link "← Use the wizard" [ref=e3] [cursor=pointer]:
+    - /url: ../
+  - heading "Best Local AI Models for Researchers" [level=1] [ref=e4]
+  - paragraph [ref=e6]:
+    - strong [ref=e7]: Researchers need AI that handles long context and complex reasoning.
+    - text: Local models give you privacy for sensitive research, no pay-per-query costs, and the ability to work offline.
+  - generic [ref=e8]:
+    - heading "Top Picks for Researchers" [level=2] [ref=e9]
+    - list [ref=e10]:
+      - listitem [ref=e11]:
+        - strong [ref=e12]: "DeepSeek R1 8B:"
+        - text: Excellent reasoning with Chain of Thought. Best for data analysis and methodology design.
+      - listitem [ref=e13]:
+        - strong [ref=e14]: "Qwen 2.5 7B:"
+        - text: Strong all-rounder for literature review, writing, and analysis. Runs on 16GB RAM.
+      - listitem [ref=e15]:
+        - strong [ref=e16]: "Gemma 3 12B:"
+        - text: Great for long-form research writing and citation management.
+      - listitem [ref=e17]:
+        - strong [ref=e18]: "Qwen 2.5 14B:"
+        - text: Handles longer context windows. Requires 32GB RAM or 12GB+ VRAM.
+  - generic [ref=e19]:
+    - heading "Key Features for Research" [level=2] [ref=e20]
+    - list [ref=e21]:
+      - listitem [ref=e22]:
+        - strong [ref=e23]: "Long context:"
+        - text: Analyze full papers and book chapters in one pass.
+      - listitem [ref=e24]:
+        - strong [ref=e25]: "Citation support:"
+        - text: Generate properly formatted citations and bibliographies.
+      - listitem [ref=e26]:
+        - strong [ref=e27]: "Data analysis:"
+        - text: Interpret statistical outputs and suggest methodology improvements.
+      - listitem [ref=e28]:
+        - strong [ref=e29]: "Privacy:"
+        - text: Keep sensitive research data on your machine — never uploaded to the cloud.
+  - generic [ref=e30]:
+    - heading "Get Your Research Setup" [level=2] [ref=e31]
+    - paragraph [ref=e32]: Tell us about your hardware and get the best model for your research workflow.
+    - link "Find My Research AI" [ref=e33] [cursor=pointer]:
+      - /url: ../

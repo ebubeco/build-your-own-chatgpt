@@ -1,0 +1,75 @@
+- main [ref=e2]:
+  - link "← Use the wizard" [ref=e3] [cursor=pointer]:
+    - /url: /
+  - heading "Local AI for Students — Free, No Subscription Needed" [level=1] [ref=e4]
+  - paragraph [ref=e6]:
+    - strong [ref=e7]: Local AI is the best free AI option for students.
+    - text: No subscription, no credit card, no usage limits. Download once, run forever on your laptop. Perfect for study help, writing assistance, and coding practice.
+  - generic [ref=e8]:
+    - heading "Best Setup for Student Laptops" [level=2] [ref=e9]
+    - generic [ref=e10]:
+      - generic [ref=e11]:
+        - generic [ref=e12]: ✓ 8GB RAM Laptop (No GPU)
+        - paragraph [ref=e13]: Run Phi-4-mini (3.8B) for writing, research, and basic coding help.
+        - generic [ref=e14]: ollama pull phi4-mini:3.8b
+      - generic [ref=e15]:
+        - generic [ref=e16]: ✓ 16GB RAM Laptop (No GPU)
+        - paragraph [ref=e17]: Run Qwen 2.5 7B for essays, research, code, and study help.
+        - generic [ref=e18]: ollama pull qwen2.5:7b
+      - generic [ref=e19]:
+        - generic [ref=e20]: ✓ MacBook (Apple Silicon)
+        - paragraph [ref=e21]: Excellent performance with Metal GPU acceleration. Run 7B models smoothly.
+        - generic [ref=e22]: ollama pull qwen2.5:7b
+  - generic [ref=e23]:
+    - heading "Student Use Cases" [level=2] [ref=e24]
+    - list [ref=e25]:
+      - listitem [ref=e26]:
+        - strong [ref=e27]: "Essay writing:"
+        - text: Brainstorming, outlining, editing, and proofreading.
+      - listitem [ref=e28]:
+        - strong [ref=e29]: "Research:"
+        - text: Summarize papers, explain concepts, generate study notes.
+      - listitem [ref=e30]:
+        - strong [ref=e31]: "Coding:"
+        - text: Debug code, explain programming concepts, generate practice exercises.
+      - listitem [ref=e32]:
+        - strong [ref=e33]: "Flashcards:"
+        - text: Generate study aids from your notes and textbooks.
+      - listitem [ref=e34]:
+        - strong [ref=e35]: "Language learning:"
+        - text: Practice conversations, get grammar help, translate text.
+  - generic [ref=e36]:
+    - heading "How to Get Started" [level=2] [ref=e37]
+    - list [ref=e38]:
+      - listitem [ref=e39]:
+        - text: Download Ollama from
+        - link "ollama.com/download" [ref=e40] [cursor=pointer]:
+          - /url: https://ollama.com/download
+      - listitem [ref=e41]:
+        - text: Run
+        - code [ref=e42]: ollama pull qwen2.5:7b
+        - text: in terminal
+      - listitem [ref=e43]:
+        - text: Run
+        - code [ref=e44]: ollama run qwen2.5:7b
+        - text: to start chatting
+  - generic [ref=e45]:
+    - heading "Frequently Asked Questions" [level=2] [ref=e46]
+    - generic [ref=e47]:
+      - generic [ref=e48]:
+        - heading "Is there free AI for students?" [level=3] [ref=e49]
+        - paragraph [ref=e51]: Yes, Ollama is completely free for students. You download models once and they run forever on your laptop with no subscription, no credit card, and no usage limits.
+      - generic [ref=e52]:
+        - heading "Can my student laptop run local AI?" [level=3] [ref=e53]
+        - paragraph [ref=e55]: Most student laptops can run local AI. Even an 8GB RAM laptop without a GPU can run smaller models like Phi-4-mini. A 16GB laptop can run 7B models.
+      - generic [ref=e56]:
+        - heading "What is the best local AI for students?" [level=3] [ref=e57]
+        - paragraph [ref=e59]: Qwen 2.5 7B is the best all-round model for students with 16GB+ RAM. For weaker laptops, Phi-4-mini (3.8B) runs on 8GB RAM and handles writing, research, and basic coding help.
+      - generic [ref=e60]:
+        - heading "Can I use local AI for studying?" [level=3] [ref=e61]
+        - paragraph [ref=e63]: Yes. Local AI helps with research summarization, essay writing, code debugging, flashcards, explaining concepts, and more. All free and private.
+  - generic [ref=e64]:
+    - heading "Get Your Free Student AI Setup" [level=2] [ref=e65]
+    - paragraph [ref=e66]: Tell us about your laptop and get the perfect free AI setup for your studies.
+    - link "Get Free Student AI" [ref=e67] [cursor=pointer]:
+      - /url: /

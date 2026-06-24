@@ -1,95 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta name="google-site-verification" content="5YRiOefTK9mTwEJEnLIH6BQ5xmP0NkwyfiaBWZJbdCg">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Find the cheapest hardware upgrade to run better local AI models. GPU, RAM, and storage recommendations.">
-  <meta property="og:title" content="Local AI Upgrade Advisor — What Should I Upgrade?">
-  <meta property="og:description" content="Tell us what you have. We'll tell you the cheapest upgrade to unlock better AI.">
+  <title>Local AI Upgrade Advisor — Build Your Own ChatGPT</title>
+  <meta name="description" content="Find the cheapest hardware upgrade to run better local AI models. RAM and GPU recommendations within your budget.">
   <meta property="og:image" content="https://build-your-own-chatgpt.vercel.app/og-image.jpg">
-  <meta name="twitter:card" content="summary_large_image">
-  <title>Local AI Upgrade Advisor — What Should I Upgrade?</title>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <script>!function(){var t=localStorage.getItem('theme');if(t==='dark'||(t===null&&window.matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark')}();</script>
-  <script async src="https://plausible.io/js/pa-DBTdINzLX2L2B_fXJF0u1.js"></script>
-  <script>window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()</script>
   <style>
-    .upgrade-page{max-width:960px;margin:0 auto;padding:0 1.5rem 3rem}
-    .upgrade-page h1{font-family:'Outfit',sans-serif;font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;letter-spacing:-0.02em;margin:2rem 0 .5rem}
-    .upgrade-page .subtitle{color:var(--text-secondary);font-size:1rem;margin-bottom:2rem}
-    .upgrade-form{background:var(--bg-card);border:1.5px solid var(--border);border-radius:var(--radius);padding:1.5rem;margin-bottom:2rem}
-    .form-group{margin-bottom:1.25rem}
-    .form-group label{display:block;font-size:.82rem;font-weight:700;color:var(--text-secondary);margin-bottom:.4rem;text-transform:uppercase;letter-spacing:.05em}
-    .form-group select{width:100%;padding:.65rem .75rem;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-size:.95rem;background:var(--surface);color:var(--text);transition:border-color var(--transition);font-family:inherit;box-sizing:border-box;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right .75rem center;padding-right:2.5rem}
-    .form-group select:focus{outline:none;border-color:var(--accent)}
-    .upgrade-btn{display:block;width:100%;padding:.75rem;background:var(--accent);color:#fff;border:none;border-radius:var(--radius-sm);font-size:1rem;font-weight:700;cursor:pointer;font-family:inherit;transition:opacity var(--transition)}
-    .upgrade-btn:hover{opacity:.9}
-    .upgrade-result{display:none;margin-top:2rem}
-    .upgrade-result h2{font-family:'Outfit',sans-serif;font-size:1.3rem;font-weight:700;margin-bottom:1rem}
-    .upgrade-card{background:var(--bg-card);border:1.5px solid var(--border);border-radius:var(--radius);padding:1.25rem;margin-bottom:1.25rem;position:relative;overflow:hidden}
-    .upgrade-card::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:var(--accent)}
-    .upgrade-badge{display:inline-block;padding:.2rem .65rem;border-radius:100px;font-size:.7rem;font-weight:700;margin-bottom:.5rem;background:var(--accent-light);color:var(--accent)}
-    .upgrade-card h3{font-family:'Outfit',sans-serif;font-size:1.05rem;font-weight:700;margin-bottom:.4rem}
-    .upgrade-price{font-size:1.5rem;font-weight:800;color:var(--accent);margin:.5rem 0}
-    .upgrade-card p{font-size:.88rem;color:var(--text-secondary);line-height:1.5}
-    .upgrade-card h4{font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--text-secondary);margin:.75rem 0 .35rem}
-    .upgrade-card ul{margin:0;padding-left:1.25rem;font-size:.85rem;color:var(--text-secondary);line-height:1.7}
-    .gpu-option{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:.9rem;margin-bottom:.75rem}
-    .gpu-option strong{font-size:.95rem;color:var(--text)}
-    .gpu-option .price{float:right;font-weight:700;color:var(--accent);font-size:.9rem}
-    .gpu-option .used-tag{font-size:.72rem;background:var(--bg-warm);padding:.1rem .4rem;border-radius:4px;margin-left:.3rem;color:var(--text-secondary)}
-    .gpu-option p{font-size:.82rem;color:var(--text-secondary);margin:.3rem 0 0}
-    .no-upgrade{background:var(--bg-card);border:1.5px solid var(--green);border-radius:var(--radius);padding:1.25rem;color:var(--green);font-weight:600;text-align:center}
+    .up-page{max-width:960px;margin:0 auto;padding:2rem 1rem}
+    .up-page h1{font-family:'Outfit',sans-serif;font-size:clamp(1.6rem,4vw,2.4rem);font-weight:800;margin:0 0 .3rem}
+    .up-page .sub{color:var(--text-secondary);font-size:.95rem;margin-bottom:1.5rem}
+    .up-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.75rem;margin-bottom:1rem}
+    @media(max-width:600px){.up-grid{grid-template-columns:1fr}}
+    .up-field label{display:block;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--text-secondary);margin-bottom:.3rem}
+    .up-field select{width:100%;padding:.6rem .75rem;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-size:.9rem;background:var(--surface);color:var(--text);font-family:inherit;box-sizing:border-box}
+    .up-field select:focus{outline:none;border-color:var(--accent)}
+    .up-btn{width:100%;padding:.7rem;background:var(--accent);color:#fff;border:none;border-radius:var(--radius-sm);font-size:1rem;font-weight:700;cursor:pointer;font-family:inherit;transition:opacity .15s}
+    .up-btn:hover{opacity:.9}
+    .up-result{display:none;margin-top:1.5rem}
+    .up-card{background:var(--bg-card);border:1.5px solid var(--border);border-radius:var(--radius);padding:1.25rem;margin-bottom:1rem;position:relative;overflow:hidden}
+    .up-card::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:var(--accent)}
+    .up-badge{display:inline-block;padding:.2rem .6rem;border-radius:100px;font-size:.7rem;font-weight:700;background:var(--accent-light);color:var(--accent);margin-bottom:.4rem}
+    .up-card h3{font-family:'Outfit',sans-serif;font-size:1.05rem;font-weight:700;margin-bottom:.3rem}
+    .up-price{font-size:1.4rem;font-weight:800;color:var(--accent);margin:.4rem 0}
+    .up-card p{font-size:.85rem;color:var(--text-secondary);line-height:1.5}
+    .up-card h4{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--text-secondary);margin:.6rem 0 .3rem}
+    .up-card ul{margin:0;padding-left:1.2rem;font-size:.82rem;color:var(--text-secondary);line-height:1.6}
+    .no-up{background:var(--bg-card);border:1.5px solid var(--green);border-radius:var(--radius);padding:1.25rem;color:var(--green);font-weight:600;text-align:center;font-size:.9rem}
   </style>
 </head>
 <body>
   <nav class="site-topbar" role="navigation" aria-label="Site navigation">
     <div class="container">
       <div class="topbar-inner">
-        <span class="site-brand">🤖 Build Your Own ChatGPT</span>
-        <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle light/dark mode">
-          <span class="toggle-icon">🌙</span>
-          <span class="toggle-label">Dark mode</span>
-        </button>
+        <a href="index.html" style="text-decoration:none"><span class="site-brand">🤖 Build Your Own ChatGPT</span></a>
+        <div style="display:flex;gap:0.75rem;align-items:center">
+          <a href="compare.html" style="font-size:0.82rem;color:var(--text-secondary);text-decoration:none;font-weight:500">Compare</a>
+          <a href="which-ai.html" style="font-size:0.82rem;color:var(--text-secondary);text-decoration:none;font-weight:500">Which AI</a>
+          <a href="upgrade.html" style="font-size:0.82rem;color:var(--accent);text-decoration:none;font-weight:600">Upgrade</a>
+          <a href="cost.html" style="font-size:0.82rem;color:var(--text-secondary);text-decoration:none;font-weight:500">Cost</a>
+          <a href="compendium.html" style="font-size:0.82rem;color:var(--text-secondary);text-decoration:none;font-weight:500">Models</a>
+          <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle light/dark mode">
+            <span class="toggle-icon">🌙</span>
+            <span class="toggle-label">Dark mode</span>
+          </button>
+        </div>
       </div>
     </div>
   </nav>
+  <main class="up-page">
+    <h1>Upgrade Advisor</h1>
+    <p class="sub">Tell us what you have and your budget. We'll find the cheapest upgrade to unlock better AI.</p>
 
-  <main class="upgrade-page">
-    <h1>Local AI Upgrade Advisor</h1>
-    <p class="subtitle">Tell us what you have. We'll tell you the cheapest upgrade to unlock better AI.</p>
-
-    <div class="upgrade-form">
-      <div class="form-group">
-        <label>Current hardware</label>
-        <select id="current-tier">
-          <option value="">Select your hardware...</option>
-          <option value="no-gpu">No GPU / Integrated Graphics</option>
+    <div class="up-grid">
+      <div class="up-field">
+        <label>Current Hardware</label>
+        <select id="curr-hw">
+          <option value="">Select...</option>
+          <option value="no-gpu">No GPU / Integrated</option>
           <option value="budget-gpu">Budget GPU (4-8GB VRAM)</option>
-          <option value="mid-gpu">Mid-Range GPU (8-16GB VRAM)</option>
-          <option value="high-end-gpu">High-End GPU (16GB+ VRAM)</option>
-          <option value="apple">Apple Silicon (M1/M2/M3/M4)</option>
+          <option value="mid-gpu">Mid GPU (8-16GB VRAM)</option>
+          <option value="high-gpu">High GPU (16GB+)</option>
+          <option value="apple">Apple Silicon</option>
         </select>
       </div>
-      <div class="form-group">
+      <div class="up-field">
         <label>Current RAM</label>
-        <select id="current-ram">
-          <option value="">Select your RAM...</option>
+        <select id="curr-ram">
+          <option value="">Select...</option>
           <option value="8">8GB</option>
           <option value="16">16GB</option>
           <option value="32">32GB</option>
           <option value="64">64GB+</option>
         </select>
       </div>
-      <div class="form-group">
-        <label>What's your budget for an upgrade?</label>
+      <div class="up-field">
+        <label>Budget</label>
         <select id="budget">
-          <option value="">Select budget...</option>
+          <option value="">Select...</option>
           <option value="50">Under $50</option>
           <option value="150">Under $150</option>
           <option value="300">Under $300</option>
@@ -97,105 +88,85 @@
           <option value="9999">No limit</option>
         </select>
       </div>
-      <button class="upgrade-btn" onclick="getUpgradeAdvice()">Show Upgrade Options</button>
     </div>
-
-    <div id="upgrade-result" class="upgrade-result"></div>
+    <button class="up-btn" onclick="getAdvice()">Show Upgrade Options</button>
+    <div id="result" class="up-result"></div>
   </main>
-
   <footer class="footer">
     <div class="container">
       <div class="footer-links">
-        <a href="https://github.com/ebubeco/build-your-own-chatgpt" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://github.com/ebubeco/build-your-own-chatgpt">GitHub</a>
         <a href="index.html">Wizard</a>
-        <a href="compendium.html">Model Compendium</a>
-        <a href="use-cases.html">Use Cases</a>
-        <a href="starter-pack.html">Starter Pack</a>
-        <a href="career.html">Careers</a>
+        <a href="compare.html">Compare</a>
+        <a href="compendium.html">All Models</a>
+        <a href="cost.html">Cost</a>
       </div>
       <p class="footer-tagline">Built for beginners. Your data never leaves your machine.</p>
     </div>
   </footer>
-
   <script>
-    document.getElementById('theme-toggle').addEventListener('click', function() {
-      var t = document.documentElement.getAttribute('data-theme');
-      var n = t === 'dark' ? 'light' : 'dark';
-      document.documentElement.setAttribute('data-theme', n);
-      localStorage.setItem('theme', n);
-      document.querySelector('.toggle-icon').textContent = n === 'dark' ? '☀️' : '🌙';
-      document.querySelector('.toggle-label').textContent = n === 'dark' ? 'Light mode' : 'Dark mode';
-    });
-    if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme:dark)').matches)) {
-      document.querySelector('.toggle-icon').textContent = '☀️';
-      document.querySelector('.toggle-label').textContent = 'Light mode';
+    document.getElementById('theme-toggle').addEventListener('click',function(){var e=document.documentElement;var t=e.getAttribute('data-theme');var n=t==='dark'?'light':'dark';e.setAttribute('data-theme',n);localStorage.setItem('theme',n);document.querySelector('.toggle-icon').textContent=n==='dark'?'☀️':'🌙';document.querySelector('.toggle-label').textContent=n==='dark'?'Light mode':'Dark mode';});
+    if(localStorage.getItem('theme')==='dark'||(!localStorage.getItem('theme')&&window.matchMedia('(prefers-color-scheme:dark)').matches)){document.querySelector('.toggle-icon').textContent='☀️';document.querySelector('.toggle-label').textContent='Light mode';}
+
+    const RAM_UPGRADES=[
+      {from:8,to:16,price:35,unlocks:['Qwen 2.5 7B with decent context','Llama 3.2 3B with long context','Run multiple small models simultaneously']},
+      {from:8,to:32,price:65,unlocks:['Qwen 2.5 14B at full speed','70B models with Q2 quantization','Multiple concurrent models']},
+      {from:16,to:32,price:45,unlocks:['Qwen 2.5 14B at full speed','DeepSeek R1 8B with long context','70B models with Q3 quantization']},
+      {from:16,to:64,price:95,unlocks:['Qwen 2.5 32B','70B models with Q4 quantization','Large agent workflows']},
+      {from:32,to:64,price:55,unlocks:['Qwen 2.5 32B with long context','70B models at high quality','Multiple 7B models simultaneously']}
+    ];
+
+    const GPU_UPGRADES=[
+      {from:'no-gpu',to:'budget-gpu',gpus:[{name:'GTX 1660 Super 6GB',price:80,note:'Solid entry-level. Runs 7B models at Q4.'},{name:'RTX 3050 8GB',price:120,note:'Better VRAM. Runs 7B models comfortably.'},{name:'RTX 3060 12GB',price:180,note:'Best value. Runs 13B models at Q4.'}],unlocks:['Qwen 2.5 7B at full speed','Qwen 2.5 14B (with 12GB variant)','DeepSeek R1 8B']},
+      {from:'budget-gpu',to:'mid-gpu',gpus:[{name:'RTX 4060 Ti 16GB',price:350,note:'Great for 14B models at Q4.'},{name:'RTX 3080 10GB',price:280,note:'Used option, fast for 7B models.'},{name:'Arc A770 16GB',price:250,note:'A lot of VRAM for the price.'}],unlocks:['Qwen 2.5 14B at Q8','DeepSeek R1 8B at full speed','Gemma 4 12B']},
+      {from:'mid-gpu',to:'high-gpu',gpus:[{name:'RTX 4070 Ti Super 16GB',price:600,note:'Great for 14B models at Q8.'},{name:'RTX 4080 Super 16GB',price:850,note:'Fastest consumer option.'},{name:'Used RTX 3090 24GB',price:700,note:'24GB VRAM — runs 32B models.'}],unlocks:['Qwen 2.5 32B','Llama 3.3 70B at Q3','DeepSeek R1 70B']}
+    ];
+
+    function tName(id){
+      const n={'no-gpu':'No GPU','budget-gpu':'Budget GPU','mid-gpu':'Mid GPU','high-gpu':'High GPU','apple':'Apple Silicon'};
+      return n[id]||id;
     }
 
-    var upgradesData = null;
+    function getAdvice(){
+      const hw=document.getElementById('curr-hw').value;
+      const ram=parseInt(document.getElementById('curr-ram').value)||0;
+      const budget=parseInt(document.getElementById('budget').value)||0;
+      if(!hw||!ram||!budget){alert('Please select hardware, RAM, and budget.');return;}
+      const out=document.getElementById('result');
+      out.style.display='block';
+      let html='<h2 style="font-family:Outfit,sans-serif;font-size:1.2rem;font-weight:700;margin-bottom:1rem">Upgrade Options</h2>';
 
-    function getUpgradeAdvice() {
-      var tier = document.getElementById('current-tier').value;
-      var ram = parseInt(document.getElementById('current-ram').value) || 0;
-      var budget = parseInt(document.getElementById('budget').value) || 9999;
-
-      if (!tier || !ram) {
-        alert('Please select your hardware tier and RAM.');
-        return;
+      const ramUp=RAM_UPGRADES.find(function(u){return u.from===ram;});
+      if(ramUp&&ramUp.price<=budget){
+        html+='<div class="up-card"><div class="up-badge">Best Value</div><h3>RAM: '+ramUp.from+'GB → '+ramUp.to+'GB</h3><div class="up-price">~$'+ramUp.price+'</div><p>Adding RAM is the cheapest way to run larger models and longer contexts.</p><h4>This unlocks:</h4><ul>'+ramUp.unlocks.map(function(u){return '<li>'+u+'</li>';}).join('')+'</ul></div>';
       }
 
-      var result = document.getElementById('upgrade-result');
-      result.style.display = 'block';
-      var html = '<h2>Upgrade Options for Your Setup</h2>';
-
-      var gpuUpgrade = null;
-      var ramUpgrade = null;
-
-      if (upgradesData) {
-        gpuUpgrade = upgradesData.gpuUpgrades.find(function(u) { return u.fromTier === tier; });
-        ramUpgrade = upgradesData.ramUpgrades.find(function(u) { return u.fromGb === ram; });
-      }
-
-      if (!gpuUpgrade && !ramUpgrade) {
-        html += '<div class="no-upgrade">Your hardware is already well-equipped! Consider a Mac with Apple Silicon for efficiency, or browse our <a href="compendium.html" style="color:var(--accent)">model compendium</a> for software-only improvements.</div>';
-        result.innerHTML = html;
-        result.scrollIntoView({ behavior: 'smooth' });
-        return;
-      }
-
-      if (ramUpgrade && ramUpgrade.approxPriceUSD <= budget) {
-        html += '<div class="upgrade-card"><div class="upgrade-badge">Best value upgrade</div><h3>Add more RAM: ' + ram + 'GB → ' + ramUpgrade.toGb + 'GB</h3><div class="upgrade-price">~$' + ramUpgrade.approxPriceUSD + '</div><p>' + ramUpgrade.notes + '</p><h4>This unlocks:</h4><ul>' + ramUpgrade.unlocks.map(function(u) { return '<li>' + u + '</li>'; }).join('') + '</ul></div>';
-      }
-
-      if (gpuUpgrade) {
-        var affordableGPUs = gpuUpgrade.recommendedGPUs.filter(function(g) { return g.approxPriceUSD <= budget; });
-        if (affordableGPUs.length > 0) {
-          html += '<div class="upgrade-card"><h3>Upgrade GPU: ' + tierName(gpuUpgrade.fromTier) + ' → ' + tierName(gpuUpgrade.toTier) + '</h3>';
-          if (gpuUpgrade.estimatedSpeedup) {
-            html += '<p><strong>Speed improvement:</strong> ' + gpuUpgrade.estimatedSpeedup + '</p>';
-          }
-          html += '<h4>GPU options within your $' + budget + ' budget:</h4>';
-          affordableGPUs.forEach(function(g) {
-            html += '<div class="gpu-option"><strong>' + g.name + '</strong> <span class="price">~$' + g.approxPriceUSD + (g.used ? '<span class="used-tag">used</span>' : '') + '</span><p>' + g.notes + '</p></div>';
+      const gpuUp=GPU_UPGRADES.find(function(u){return u.from===hw;});
+      if(gpuUp){
+        const aff=gpuUp.gpus.filter(function(g){return g.price<=budget;});
+        if(aff.length>0){
+          html+='<div class="up-card"><h3>GPU: '+tName(gpuUp.from)+' → '+tName(gpuUp.to)+'</h3><p>Options within your $'+budget+' budget:</p>';
+          aff.forEach(function(g){
+            html+='<div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:.75rem;margin-bottom:.5rem"><strong style="font-size:.9rem">'+g.name+'</strong> <span style="float:right;font-weight:700;color:var(--accent)">~$'+g.price+'</span><p style="font-size:.8rem;margin:.2rem 0 0;color:var(--text-secondary)">'+g.note+'</p></div>';
           });
-          html += '<h4>This unlocks:</h4><ul>' + gpuUpgrade.unlocks.map(function(u) { return '<li>' + u + '</li>'; }).join('') + '</ul></div>';
+          html+='<h4>This unlocks:</h4><ul>'+gpuUp.unlocks.map(function(u){return '<li>'+u+'</li>';}).join('')+'</ul></div>';
         }
       }
 
-      result.innerHTML = html;
-      result.scrollIntoView({ behavior: 'smooth' });
-      plausible('upgrade_advice', { props: { tier: tier, ram: ram, budget: budget } });
-    }
+      if(!ramUp||ramUp.price>budget){
+        if(!gpuUp||!gpuUp.gpus.some(function(g){return g.price<=budget;})){
+          html+='<div class="no-up">No upgrade options within your $'+budget+' budget. Consider saving up or <a href="index.html" style="color:var(--accent)">trying cloud AI</a>.</div>';
+        }
+      }
 
-    function tierName(id) {
-      var names = { 'no-gpu': 'No GPU', 'budget-gpu': 'Budget GPU', 'mid-gpu': 'Mid-Range GPU', 'high-end-gpu': 'High-End GPU', 'apple': 'Apple Silicon' };
-      return names[id] || id;
-    }
+      if(!html.includes('up-card')&&!html.includes('no-up')){
+        if(ramUp&&ramUp.price<=budget||gpuUp&&gpuUp.gpus.some(function(g){return g.price<=budget;})){}
+        else{html+='<div class="no-up">Your hardware is already well-equipped! Browse the <a href="compendium.html" style="color:var(--accent)">model compendium</a> for new models.</div>';}
+      }
 
-    fetch('data/upgrades.json').then(function(r) { return r.json(); }).then(function(data) {
-      upgradesData = data;
-    }).catch(function() {
-      upgradesData = null;
-    });
+      out.innerHTML=html;
+      out.scrollIntoView({behavior:'smooth'});
+    }
   </script>
   <script src="shared.js"></script>
   <script src="analytics.js"></script>

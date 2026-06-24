@@ -1,0 +1,3 @@
+[     346ms] [LOG] [Analytics] wizard_started  @ http://localhost:8082/analytics.js:39
+[     888ms] [WARNING] Ignoring Event: localhost @ https://plausible.io/js/pa-DBTdINzLX2L2B_fXJF0u1.js:0
+[     888ms] [WARNING] Ignoring Event: localhost @ https://plausible.io/js/pa-DBTdINzLX2L2B_fXJF0u1.js:0

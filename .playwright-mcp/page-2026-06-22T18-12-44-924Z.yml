@@ -1,0 +1,161 @@
+- generic [active] [ref=e1]:
+  - navigation "Site navigation" [ref=e2]:
+    - generic [ref=e4]:
+      - link "🤖 Build Your Own ChatGPT" [ref=e5] [cursor=pointer]:
+        - /url: index.html
+        - generic [ref=e6]: 🤖 Build Your Own ChatGPT
+      - generic [ref=e7]:
+        - link "Compare" [ref=e8] [cursor=pointer]:
+          - /url: compare.html
+        - link "Which AI" [ref=e9] [cursor=pointer]:
+          - /url: which-ai.html
+        - link "Models" [ref=e10] [cursor=pointer]:
+          - /url: compendium.html
+        - link "Use Cases" [ref=e11] [cursor=pointer]:
+          - /url: use-cases.html
+        - link "Starter Pack" [ref=e12] [cursor=pointer]:
+          - /url: starter-pack.html
+        - link "Careers" [ref=e13] [cursor=pointer]:
+          - /url: career.html
+        - button "Toggle theme" [ref=e14] [cursor=pointer]:
+          - generic [ref=e15]: 🌙
+  - main [ref=e16]:
+    - generic [ref=e17]:
+      - heading "Local AI Starter Pack" [level=1] [ref=e18]
+      - paragraph [ref=e19]: A complete beginner's guide to running private AI on your computer. No experience needed. Works on most computers from the last 5 years.
+    - generic [ref=e20]:
+      - heading "📋 What You Need" [level=2] [ref=e21]
+      - paragraph [ref=e22]: "Local AI is surprisingly accessible. Here's what you need to get started:"
+      - generic [ref=e23]:
+        - generic [ref=e24]:
+          - generic [ref=e25]: 💻
+          - text: Any ComputerWindows, Mac, or Linux
+        - generic [ref=e26]:
+          - generic [ref=e27]: 🧠
+          - text: 8GB+ RAM16GB recommended for best results
+        - generic [ref=e28]:
+          - generic [ref=e29]: 💾
+          - text: 5GB+ Free SpaceModels are 2-8GB each
+        - generic [ref=e30]:
+          - generic [ref=e31]: 🌐
+          - text: Internet (once)Only to download the model
+    - generic [ref=e32]:
+      - heading "1 Download Ollama" [level=2] [ref=e33]:
+        - generic [ref=e34]: "1"
+        - text: Download Ollama
+      - paragraph [ref=e35]: Ollama is the easiest way to run local AI. It handles all the complex setup automatically.
+      - generic [ref=e36]:
+        - link "⬇ Download Ollama (Free)" [ref=e37] [cursor=pointer]:
+          - /url: https://ollama.com/download
+        - paragraph [ref=e38]: Works on Windows, macOS, and Linux
+      - generic [ref=e39]:
+        - strong [ref=e40]: 💡 What is Ollama?
+        - text: It's a free, open-source tool that downloads, manages, and runs AI models. One command in your terminal and you're chatting with AI. No accounts, no subscriptions, no data leaving your computer.
+    - generic [ref=e41]:
+      - heading "2 Pick Your Model" [level=2] [ref=e42]:
+        - generic [ref=e43]: "2"
+        - text: Pick Your Model
+      - paragraph [ref=e44]: Click what kind of hardware you have. We'll recommend the best model for you.
+      - generic [ref=e45]:
+        - button "🖥️ Old Laptop / No GPU2015 or older, no graphics card" [ref=e46] [cursor=pointer]:
+          - generic [ref=e47]: 🖥️
+          - text: Old Laptop / No GPU2015 or older, no graphics card
+        - button "💻 Modern Laptop / No GPU16-32GB RAM, integrated graphics" [ref=e48] [cursor=pointer]:
+          - generic [ref=e49]: 💻
+          - text: Modern Laptop / No GPU16-32GB RAM, integrated graphics
+        - button "🎮 Budget GPU (8-12GB)RTX 3060, 4060, 3070, etc." [ref=e50] [cursor=pointer]:
+          - generic [ref=e51]: 🎮
+          - text: Budget GPU (8-12GB)RTX 3060, 4060, 3070, etc.
+        - button "🚀 Power GPU (16GB+)RTX 4080, 4090, workstation" [ref=e52] [cursor=pointer]:
+          - generic [ref=e53]: 🚀
+          - text: Power GPU (16GB+)RTX 4080, 4090, workstation
+        - button "🍎 Apple Silicon (M1/M2/M3)MacBook Air/Pro, Mac Mini, Studio" [ref=e54] [cursor=pointer]:
+          - generic [ref=e55]: 🍎
+          - text: Apple Silicon (M1/M2/M3)MacBook Air/Pro, Mac Mini, Studio
+    - generic [ref=e56]:
+      - heading "3 Install and Run" [level=2] [ref=e57]:
+        - generic [ref=e58]: "3"
+        - text: Install and Run
+      - paragraph [ref=e59]: "Open your terminal (Command Prompt on Windows, Terminal on Mac) and run these commands:"
+      - generic [ref=e60]:
+        - generic [ref=e61]: "Step 1: Download your model"
+        - generic [ref=e62]: ollama pull phi-4-mini
+        - generic [ref=e63]: "Step 2: Start chatting"
+        - generic [ref=e64]: ollama run phi-4-mini
+        - paragraph [ref=e65]: That's it! Type your questions and the AI responds right in your terminal.
+    - generic [ref=e66]:
+      - heading "🎯 What to Try First" [level=2] [ref=e67]
+      - paragraph [ref=e68]: "Sample prompts to try after your model is running:"
+      - list [ref=e69]:
+        - listitem [ref=e70]: → Explain quantum computing in simple terms
+        - listitem [ref=e71]: → Write a short story about a robot
+        - listitem [ref=e72]: → Give me 5 ideas for a blog post
+        - listitem [ref=e73]: → What are the best practices for password security?
+      - generic [ref=e74]:
+        - strong [ref=e75]: "💡 Pro tip:"
+        - text: Type
+        - code [ref=e76]: /help
+        - text: in the chat to see available commands. Type
+        - code [ref=e77]: /exit
+        - text: to quit.
+    - generic [ref=e78]:
+      - heading "🔧 Troubleshooting" [level=2] [ref=e79]
+      - list [ref=e80]:
+        - listitem [ref=e81]:
+          - strong [ref=e82]: "\"Ollama is not recognized\""
+          - text: — Close and reopen your terminal after installing. On Windows, search for "Command Prompt" and try again.
+        - listitem [ref=e83]:
+          - strong [ref=e84]: "\"Not enough space\""
+          - text: — Models are 2-8GB. Check your free disk space. Try a smaller model like
+          - code [ref=e85]: ollama pull phi-4-mini
+          - text: (2.5GB).
+        - listitem [ref=e86]:
+          - strong [ref=e87]: "\"Out of memory\""
+          - text: — Your model is too large for your RAM/VRAM. Close other applications and try a smaller model, or use a quantized version.
+        - listitem [ref=e88]:
+          - strong [ref=e89]: Model is very slow
+          - text: — CPU-only inference is slower than GPU. This is normal. Use a smaller model for faster responses.
+        - listitem [ref=e90]:
+          - strong [ref=e91]: "\"Connection error\""
+          - text: — Check your internet connection. You only need internet to download the model. After that, it works fully offline.
+        - listitem [ref=e92]:
+          - strong [ref=e93]: How do I use a different model?
+          - text: — Run
+          - code [ref=e94]: ollama pull [model-name]
+          - text: then
+          - code [ref=e95]: ollama run [model-name]
+          - text: . See the
+          - link "Model Compendium" [ref=e96] [cursor=pointer]:
+            - /url: compendium.html
+          - text: for options.
+      - generic [ref=e97]:
+        - strong [ref=e98]: 📚 Need more help?
+        - text: Visit the
+        - link "Ollama GitHub" [ref=e99] [cursor=pointer]:
+          - /url: https://github.com/ollama/ollama
+        - text: or use our
+        - link "Wizard" [ref=e100] [cursor=pointer]:
+          - /url: index.html
+        - text: for a personalized recommendation.
+  - contentinfo [ref=e101]:
+    - generic [ref=e102]:
+      - generic [ref=e103]:
+        - link "GitHub" [ref=e104] [cursor=pointer]:
+          - /url: https://github.com/ebubeco/build-your-own-chatgpt
+        - link "Wizard" [ref=e105] [cursor=pointer]:
+          - /url: index.html
+        - link "Compare" [ref=e106] [cursor=pointer]:
+          - /url: compare.html
+        - link "Which AI" [ref=e107] [cursor=pointer]:
+          - /url: which-ai.html
+        - link "Offline Guide" [ref=e108] [cursor=pointer]:
+          - /url: best-offline-chatgpt.html
+        - link "Careers" [ref=e109] [cursor=pointer]:
+          - /url: career.html
+        - link "Model Compendium" [ref=e110] [cursor=pointer]:
+          - /url: compendium.html
+        - link "Use Cases" [ref=e111] [cursor=pointer]:
+          - /url: use-cases.html
+        - link "Starter Pack" [ref=e112] [cursor=pointer]:
+          - /url: starter-pack.html
+      - paragraph [ref=e113]: Built for beginners. Your data never leaves your machine.

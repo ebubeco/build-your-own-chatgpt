@@ -4,6 +4,8 @@
       "id": "groq",
       "name": "Groq",
       "badge": "🥇 Best overall",
+      "speed": 1000,
+      "speedLabel": "Very fast — near-instant responses",
       "shortDesc": "Free, fast, real-time response",
       "desc": "The speed king. Groq's LPU hardware pushes Llama 3.1 8B at around 1,000 tokens per second. Fast enough for real-time apps. Good for batch work too: 14,400 requests per day on the free tier.",
       "badges": [
@@ -26,6 +28,8 @@
       "id": "openrouter",
       "name": "OpenRouter",
       "badge": "🥉 Most variety",
+      "speed": 200,
+      "speedLabel": "Moderate — depends on model selected",
       "shortDesc": "27+ free models, auto-switches",
       "desc": "Access 27+ models through one standardized API. It also handles automatic failover. If one model hits rate limits, it routes to another. Best for benchmarking and finding the right model for your task.",
       "badges": [
@@ -48,6 +52,8 @@
       "id": "google",
       "name": "Google AI Studio",
       "badge": "🥈 Longest Context",
+      "speed": 150,
+      "speedLabel": "Fast — reads faster than you",
       "shortDesc": "Free, multimodal, huge context",
       "desc": "Gemini 2.5 Flash is the workhorse here. Native search grounding (it can check facts against Google), Python code execution, 1 million token context window, and solid multimodal support. 1,500 requests per day free.",
       "badges": [
@@ -71,6 +77,8 @@
       "name": "Cerebras",
       "badge": "",
       "shortDesc": "Wafer-scale speed",
+      "speed": 3000,
+      "speedLabel": "Instant — complete answers in under a second",
       "desc": "Wafer-scale hardware. This is where you go when you need raw throughput. GPT OSS 120B hits around 3,000 tokens per second. Llama 3.1 8B sits at 2,600+ TPS. No other free service comes close on sheer speed.",
       "badges": [
         { "text": "~3,000 TPS", "class": "b-green" },
@@ -93,6 +101,8 @@
       "name": "SiliconFlow",
       "badge": "",
       "shortDesc": "200+ models, image & video",
+      "speed": 100,
+      "speedLabel": "Moderate — like a fast typist",
       "desc": "200+ models under one roof, and a $1 free credit to start. The standout is Nex-N2-Pro at effectively $0 per million tokens on the free tier. Supports image and video generation too, like HunyuanVideo, FLUX.1, and Wan2.2.",
       "badges": [
         { "text": "$1 credit", "class": "b-green" },
@@ -115,6 +125,8 @@
       "name": "Ollama Cloud",
       "badge": "",
       "shortDesc": "Ollama, but in the cloud",
+      "speed": 60,
+      "speedLabel": "Moderate — depends on GPU availability",
       "desc": "Runs Ollama's model library on cloud GPUs. Same command-line interface you use locally, just with more horsepower. Good for long-horizon agentic tasks that need 1M token context beyond what your local machine can handle.",
       "badges": [
         { "text": "Same CLI", "class": "b-green" },
@@ -137,6 +149,8 @@
       "name": "Hugging Face Spaces",
       "badge": "",
       "shortDesc": "Browser-based AI apps",
+      "speed": 50,
+      "speedLabel": "Moderate — varies per app",
       "desc": "Browser-based AI apps. No API key needed for most. Thousands of apps covering chatbots, image generation, coding assistants, audio processing, and more. Hit or miss on quality, but completely free for most.",
       "badges": [
         { "text": "No API key", "class": "b-green" },
@@ -153,6 +167,150 @@
         "Sign up only if you want to create your own spaces"
       ],
       "note": "Best for: quick experiments, trying models without commitment, and exploring what's possible. Some popular spaces get slow during peak hours. No consistency guarantee."
+    },
+    {
+      "id": "together",
+      "name": "Together AI",
+      "badge": "",
+      "shortDesc": "100+ open models",
+      "speed": 200,
+      "speedLabel": "Fast — reads faster than you",
+      "desc": "100+ open models with a generous free tier. Llama 3.3 70B, DeepSeek R1, Qwen, and more. One of the best selections of open models with competitive pricing on the paid tiers.",
+      "badges": [
+        { "text": "100+ models", "class": "b-green" },
+        { "text": "Free tier", "class": "b-purple" },
+        { "text": "Open-source focus", "class": "b-primary" }
+      ],
+      "models": ["Llama 3.3 70B", "DeepSeek R1", "Qwen 2.5 32B", "Mistral Small 3.1"],
+      "link": "https://together.ai",
+      "btnText": "Try Together Free",
+      "steps": [
+        "Sign up at together.ai",
+        "Navigate to API Keys → Create Key",
+        "Use with any OpenAI-compatible client",
+        "The free tier includes many popular open models"
+      ],
+      "note": "Great for: evaluating multiple open models through one API, fine-tuning experiments, and production workloads with predictable pricing."
+    },
+    {
+      "id": "fireworks",
+      "name": "Fireworks AI",
+      "badge": "",
+      "shortDesc": "Fastest 70B inference",
+      "speed": 300,
+      "speedLabel": "Fast — reads faster than you",
+      "desc": "Optimized inference infrastructure with free tier for Llama 3.3 70B and other models. Known for extremely low latency on large models. Good for production apps needing speed.",
+      "badges": [
+        { "text": "Fast 70B", "class": "b-green" },
+        { "text": "Free tier", "class": "b-purple" },
+        { "text": "Low latency", "class": "b-primary" }
+      ],
+      "models": ["Llama 3.3 70B", "Llama 3.1 8B", "DeepSeek R1", "Mixtral 8x22B"],
+      "link": "https://fireworks.ai",
+      "btnText": "Try Fireworks Free",
+      "steps": [
+        "Sign up at fireworks.ai",
+        "Go to API Keys → Create API Key",
+        "OpenAI-compatible API, works with most clients",
+        "Free tier includes Llama 3.3 70B and other models"
+      ],
+      "note": "Best for: latency-sensitive applications, comparing model outputs, and production deployments needing consistent performance."
+    },
+    {
+      "id": "deepinfra",
+      "name": "DeepInfra",
+      "badge": "",
+      "shortDesc": "Serverless free tier",
+      "speed": 200,
+      "speedLabel": "Fast — reads faster than you",
+      "desc": "Serverless inference with a free tier for many popular models. Llama, Mistral, DeepSeek, and more. Pay-per-token pricing with no cold starts on the paid tier.",
+      "badges": [
+        { "text": "Free tier", "class": "b-green" },
+        { "text": "Serverless", "class": "b-purple" },
+        { "text": "No cold starts", "class": "b-primary" }
+      ],
+      "models": ["Meta-Llama 3.1 8B", "Mixtral 8x7B", "DeepSeek R1", "Qwen 2.5 7B"],
+      "link": "https://deepinfra.com",
+      "btnText": "Try DeepInfra Free",
+      "steps": [
+        "Sign up at deepinfra.com",
+        "Navigate to API Keys → Create Key",
+        "OpenAI-compatible, use with your favorite tools",
+        "Free tier covers most popular models at limited rate"
+      ],
+      "note": "Useful for: testing many models without committing to one provider, serverless workloads, and applications that need auto-scaling."
+    },
+    {
+      "id": "cloudflare",
+      "name": "Cloudflare Workers AI",
+      "badge": "",
+      "shortDesc": "Edge AI, 10K req/day free",
+      "speed": 100,
+      "speedLabel": "Moderate — like a fast typist",
+      "desc": "Run AI inference on Cloudflare's global edge network. 10,000 requests per day free. Optimized for low-latency, geo-distributed applications. Supports Llama, Mistral, and many more.",
+      "badges": [
+        { "text": "10K req/day", "class": "b-green" },
+        { "text": "Edge network", "class": "b-purple" },
+        { "text": "Global distribution", "class": "b-primary" }
+      ],
+      "models": ["Llama 3.3 70B", "Llama 3.1 8B", "Mistral 7B", "DeepSeek R1"],
+      "link": "https://cloudflare.com",
+      "btnText": "Try Cloudflare AI Free",
+      "steps": [
+        "Sign up for a free Cloudflare account",
+        "Navigate to Workers & Pages → AI",
+        "Use their REST API or Workers SDK",
+        "10,000 requests per day on the free plan"
+      ],
+      "note": "Best for: applications needing low latency worldwide, integrating AI with existing Cloudflare infrastructure, and prototypes with generous free limits."
+    },
+    {
+      "id": "opencode",
+      "name": "OpenCode Zen",
+      "badge": "",
+      "shortDesc": "75 providers, unlimited routing",
+      "speed": 200,
+      "speedLabel": "Fast — unlimited free routing",
+      "desc": "Routes across 75 AI providers with an unlimited free tier. Best when all other platforms hit their daily limits and you still need to work. Agentic coding IDE included.",
+      "badges": [
+        { "text": "75 providers", "class": "b-green" },
+        { "text": "Unlimited free tier", "class": "b-purple" },
+        { "text": "Agentic coding", "class": "b-primary" }
+      ],
+      "models": ["DeepSeek R1", "Llama 3.3 70B", "Claude Sonnet", "GPT-4o", "Qwen3 235B"],
+      "link": "https://opencode.ai",
+      "btnText": "Try OpenCode Zen →",
+      "steps": [
+        "Go to opencode.ai and create an account",
+        "Choose the free plan — no credit card needed",
+        "Browse 75+ providers and pick the best model for your task",
+        "Use the built-in agentic coding IDE or API"
+      ],
+      "note": "Best for: unlimited fallback when other platforms hit limits, agentic coding workflows, and accessing premium models through routing."
+    },
+    {
+      "id": "nvidia",
+      "name": "NVIDIA NIM",
+      "badge": "",
+      "shortDesc": "Nemotron 253B, 1M context",
+      "speed": 200,
+      "speedLabel": "Fast — research-grade models",
+      "desc": "Access Nemotron Ultra 253B through NVIDIA's NIM platform. 1,000,000 token context. Available through OpenRouter free tier. Best for deep research, large-scale reasoning, and long-context evaluation tasks.",
+      "badges": [
+        { "text": "Nemotron 253B", "class": "b-green" },
+        { "text": "1M context", "class": "b-purple" },
+        { "text": "Research grade", "class": "b-primary" }
+      ],
+      "models": ["Nemotron Ultra 253B", "Llama 3.3 70B", "Mistral Large"],
+      "link": "https://build.nvidia.com",
+      "btnText": "Try NVIDIA NIM Free",
+      "steps": [
+        "Go to build.nvidia.com and sign up",
+        "Browse the NIM catalog of available models",
+        "Use their API or connect through OpenRouter",
+        "Start with Nemotron Ultra 253B for research tasks"
+      ],
+      "note": "Best for: deep research, long-context evaluation, and accessing Nemotron's unique reasoning capabilities. 1M context handles book-length documents."
     }
   ]
 }

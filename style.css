@@ -208,6 +208,34 @@ body {
   color: var(--text-secondary);
   display: flex;
   align-items: center;
+
+.detected-banner.detect-fallback {
+  display: block;
+  text-align: center;
+}
+.detected-banner.detect-fallback p {
+  margin-bottom: 0.75rem;
+}
+.detect-fallback-btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+}
+.hw-fallback-btn {
+  padding: 0.4rem 0.75rem;
+  font-size: 0.8rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg-secondary);
+  cursor: pointer;
+  transition: all var(--transition);
+  color: var(--text);
+}
+.hw-fallback-btn:hover {
+  border-color: var(--accent);
+  background: var(--accent-light);
+}
   gap: 0.5rem;
   animation: slideDown 0.3s ease;
 }
@@ -2445,6 +2473,32 @@ body {
   margin-bottom: 0.4rem;
 }
 
+.cloud-speed-badge {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+.cloud-speed-badge.speed-instant {
+  background: #dcfce7;
+  color: #166534;
+}
+.cloud-speed-badge.speed-fast {
+  background: #dbeafe;
+  color: #1e40af;
+}
+.cloud-speed-badge.speed-moderate {
+  background: #fef9c3;
+  color: #854d0e;
+}
+.cloud-speed-badge[data-tooltip-key] {
+  cursor: help;
+}
+
 .cloud-provider-desc {
   font-size: 0.9rem;
   color: var(--text-secondary);
@@ -2797,6 +2851,70 @@ button:focus-visible, a:focus-visible, input:focus-visible {
 }
 
 
+
+/* ── Tooltip System ── */
+[data-tooltip] {
+  position: relative;
+  cursor: help;
+  border-bottom: 1px dashed var(--text-tertiary);
+}
+[data-tooltip]:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 5px 10px;
+  background: var(--text);
+  color: var(--bg);
+  border-radius: 6px;
+  font-size: 12px;
+  line-height: 1.4;
+  white-space: nowrap;
+  z-index: 9999;
+  pointer-events: none;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+.tooltip-trigger {
+  position: relative;
+  cursor: help;
+  border-bottom: 1px dotted var(--text-secondary);
+}
+.tip-mark {
+  font-size: 9px;
+  color: var(--accent);
+  margin-left: 1px;
+  vertical-align: super;
+}
+.tooltip-trigger:hover::after {
+  content: attr(data-tip);
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 0;
+  background: var(--bg-primary);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 11px;
+  line-height: 1.5;
+  max-width: 240px;
+  white-space: normal;
+  z-index: 100;
+  pointer-events: none;
+  color: var(--text-primary);
+}
+
+[data-tooltip]:hover::before {
+  content: '';
+  position: absolute;
+  bottom: calc(100% + 2px);
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: var(--text);
+  z-index: 9999;
+  pointer-events: none;
+}
 
 @media (prefers-color-scheme: dark) {
   :root {

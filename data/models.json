@@ -3,7 +3,7 @@
     {
       "id": "no-gpu",
       "name": "No GPU (CPU Only)",
-      "description": "Old laptops, modern laptops without a dedicated GPU, or any system relying on CPU inference. These models run on CPU — slower but they work.",
+      "description": "Old laptops, modern laptops without a dedicated GPU, or any system relying on CPU inference. These models run on CPU \u2014 slower but they work.",
       "icon": "laptop-old",
       "color": "#E24B4A",
       "minVRAM": 0,
@@ -13,7 +13,7 @@
     {
       "id": "budget-gpu",
       "name": "Budget GPU (4-6 GB VRAM)",
-      "description": "GPUs with 4-6 GB VRAM like GTX 1060, RTX 3050, GTX 1660 Super. Entry-level AI — good for small models and learning.",
+      "description": "GPUs with 4-6 GB VRAM like GTX 1060, RTX 3050, GTX 1660 Super. Entry-level AI \u2014 good for small models and learning.",
       "icon": "gpu-budget",
       "color": "#1D9E75",
       "minVRAM": 4,
@@ -23,7 +23,7 @@
     {
       "id": "mid-gpu",
       "name": "Mid-Range GPU (8-12 GB VRAM)",
-      "description": "GPUs with 8-12 GB VRAM like RTX 3060, RTX 4060, RTX 4070. The sweet spot — great models at good speeds.",
+      "description": "GPUs with 8-12 GB VRAM like RTX 3060, RTX 4060, RTX 4070. The sweet spot \u2014 great models at good speeds.",
       "icon": "gpu-mid",
       "color": "#0EA5E9",
       "minVRAM": 8,
@@ -43,7 +43,7 @@
     {
       "id": "apple",
       "name": "Apple Silicon (8 GB+ unified)",
-      "description": "Macs with Apple Silicon — M1, M2, M3, M4. Unified memory means more VRAM for AI. Metal acceleration makes these very capable.",
+      "description": "Macs with Apple Silicon \u2014 M1, M2, M3, M4. Unified memory means more VRAM for AI. Metal acceleration makes these very capable.",
       "icon": "apple",
       "color": "#6B5CF5",
       "minVRAM": 8,
@@ -112,7 +112,7 @@
         "privacy": "Fully local"
       },
       "bestForDisplay": "Lightweight tasks, learning local AI, experiments on old hardware",
-      "why": "Because it runs on literally anything — no exceptions.",
+      "why": "Because it runs on literally anything \u2014 no exceptions.",
       "whyNot": "Too small for serious work. You'll outgrow it fast.",
       "starterPrompts": [
         "Explain quantum physics in simple terms",
@@ -254,7 +254,7 @@
       "modelSizeGB": 0.7,
       "setupComplexity": "easiest",
       "beginnerFriendly": true,
-      "description": "Meta's smallest Llama model. Punchy and fast — great for real-time chat on modest hardware.",
+      "description": "Meta's smallest Llama model. Punchy and fast \u2014 great for real-time chat on modest hardware.",
       "toolRecommendation": "Ollama",
       "toolRecommendationReason": "Fastest inference on CPU with Ollama.",
       "successStory": "A digital nomad runs this on a $200 Chromebook for offline journaling and brainstorming.",
@@ -336,7 +336,7 @@
       "modelSizeGB": 1,
       "setupComplexity": "easiest",
       "beginnerFriendly": true,
-      "description": "A strong 1.5B model with 16K context — reads long articles, maintains coherent conversations. Outperforms most 3B models.",
+      "description": "A strong 1.5B model with 16K context \u2014 reads long articles, maintains coherent conversations. Outperforms most 3B models.",
       "toolRecommendation": "Ollama",
       "toolRecommendationReason": "Simplest setup with community Modelfiles for fine-tuning.",
       "successStory": "A journalist uses this to analyze 10-page PDFs on a ThinkPad without a GPU.",
@@ -519,7 +519,7 @@
       "description": "The best all-around model for CPU-only setups. Great chat, solid writing, decent coding. The 'Llama' name means you'll find help easily online.",
       "toolRecommendation": "Ollama",
       "toolRecommendationReason": "Largest community support for Llama models.",
-      "successStory": "A freelance writer runs this on a MacBook Air for all client work — articles, emails, and brainstorming.",
+      "successStory": "A freelance writer runs this on a MacBook Air for all client work \u2014 articles, emails, and brainstorming.",
       "quantVariants": [
         {
           "tag": "llama3.2:3b",
@@ -611,9 +611,9 @@
       "modelSizeGB": 4.4,
       "setupComplexity": "easy",
       "beginnerFriendly": true,
-      "description": "The most recommended local AI model. It punches well above its weight — rivals GPT-3.5 for many tasks. 32K context. Runs on almost any GPU.",
+      "description": "The most recommended local AI model. It punches well above its weight \u2014 rivals GPT-3.5 for many tasks. 32K context. Runs on almost any GPU.",
       "toolRecommendation": "Ollama",
-      "toolRecommendationReason": "Most popular Ollama model — best community support.",
+      "toolRecommendationReason": "Most popular Ollama model \u2014 best community support.",
       "successStory": "A startup replaced their $500/month OpenAI bill with this model on a single RTX 3060. Same results, zero privacy concerns.",
       "quantVariants": [
         {
@@ -675,98 +675,6 @@
       ]
     },
     {
-      "id": "mixtral-8x7b",
-      "name": "Mixtral 8x7B",
-      "fullName": "mixtral:8x7b",
-      "size": "47B (MoE)",
-      "tier": [
-        "budget-gpu",
-        "mid-gpu"
-      ],
-      "vramGB": 8,
-      "recommendedQuant": "Q4_K_M",
-      "contextLength": 32768,
-      "practicalRating": {
-        "chat": 9,
-        "writing": 8,
-        "coding": 8,
-        "reasoning": 9,
-        "agents": 8
-      },
-      "bestFor": [
-        "chat",
-        "reasoning",
-        "coding",
-        "agents"
-      ],
-      "ollamaTag": "mixtral:8x7b",
-      "installCommand": "ollama pull mixtral:8x7b",
-      "modelSizeGB": 8.5,
-      "setupComplexity": "easy",
-      "beginnerFriendly": true,
-      "description": "Mistral AI's mixture of experts model. 47B total parameters but only 12B active per token — fast and efficient. Strong reasoning and chat, comparable to much larger models.",
-      "toolRecommendation": "Ollama",
-      "toolRecommendationReason": "One-command install, excellent community support, runs well on 8GB+ VRAM.",
-      "successStory": "A developer runs Mixtral on an RTX 3070 for day-to-day coding tasks and research. Says it 'combines the speed of a small model with the smarts of a big one'.",
-      "quantVariants": [
-        {
-          "tag": "mixtral:8x7b",
-          "label": "Q4_K_M (recommended)",
-          "storage": "~8.5GB",
-          "quality": "Good",
-          "speed": "Fast"
-        },
-        {
-          "tag": "mixtral:8x7b:q2_k",
-          "label": "Q2_K (smallest)",
-          "storage": "~5GB",
-          "quality": "Reduced",
-          "speed": "Fast"
-        }
-      ],
-      "minVram": 8,
-      "minRam": 16,
-      "expectations": {
-        "startupTime": "20-30 seconds",
-        "storage": "~9GB",
-        "setupTime": "~10 minutes",
-        "difficulty": "Easy",
-        "internetRequired": "No",
-        "privacy": "Fully local"
-      },
-      "bestForDisplay": "Complex reasoning, chat, coding, and agent workflows",
-      "why": "Efficient MoE architecture. Only 12B active params for 47B model quality.",
-      "whyNot": "Needs 8GB+ VRAM. Alternative quantizations can reduce quality significantly.",
-      "starterPrompts": [
-        "Solve this complex problem step by step: [problem]",
-        "Design an agent workflow for [task]",
-        "Review this code architecture: [paste code]",
-        "Explain [concept] with real-world analogies"
-      ],
-      "careerFit": [
-        "software-developer",
-        "student",
-        "data-scientist",
-        "researcher"
-      ],
-      "platformType": "local",
-      "modelfileTemplate": "FROM mixtral:8x7b\nSYSTEM \"You are a helpful assistant.\"\nPARAMETER temperature 0.7\nPARAMETER num_ctx 16384",
-      "upgradeFrom": null,
-      "upgradeTo": "gemma-4-12b",
-      "benchmarks": {
-        "mmlu": null,
-        "humaneval": null,
-        "note": "See Mistral AI model card for latest benchmarks"
-      },
-      "provider": "Mistral AI",
-      "parameterSize": "47B (MoE)",
-      "notGoodFor": [
-        "vision",
-        "audio",
-        "agents"
-      ]
-    },
-    {
       "id": "deepseek-r1-8b",
       "name": "DeepSeek R1 8B",
       "fullName": "DeepSeek-R1-Distill-Qwen-7B",
@@ -799,7 +707,7 @@
       "description": "DeepSeek's distilled 7B model with chain-of-thought reasoning. Excellent at math, logic, and coding problems where step-by-step thinking matters.",
       "toolRecommendation": "Ollama",
       "toolRecommendationReason": "Ollama supports DeepSeek R1's full token output for thinking/reasoning.",
-      "successStory": "A high school student uses this for math homework and science explanations — it shows its reasoning step by step.",
+      "successStory": "A high school student uses this for math homework and science explanations \u2014 it shows its reasoning step by step.",
       "quantVariants": [
         {
           "tag": "deepseek-r1:8b",
@@ -883,7 +791,7 @@
       "description": "Google's latest open model. 12B parameters with strong performance across coding, reasoning, and chat. The best open model in its size class.",
       "toolRecommendation": "Ollama",
       "toolRecommendationReason": "Ollama maintains the official Gemma distribution.",
-      "successStory": "A data analyst runs this on an RTX 4070 for daily data analysis and reporting — replaces both ChatGPT and data tools.",
+      "successStory": "A data analyst runs this on an RTX 4070 for daily data analysis and reporting \u2014 replaces both ChatGPT and data tools.",
       "quantVariants": [
         {
           "tag": "gemma4:12b",
@@ -910,7 +818,7 @@
         "internetRequired": "No",
         "privacy": "Fully local"
       },
-      "bestForDisplay": "Professional work — coding, analysis, and complex chat",
+      "bestForDisplay": "Professional work \u2014 coding, analysis, and complex chat",
       "why": "Google quality. Best 12B model. Strong in every category.",
       "whyNot": "Requires 8GB+ VRAM. Not for budget GPUs.",
       "starterPrompts": [
@@ -928,7 +836,7 @@
       "platformType": "local",
       "modelfileTemplate": "FROM gemma4:12b\nSYSTEM \"You are a helpful assistant.\"\nPARAMETER temperature 0.7\nPARAMETER num_ctx 8192",
       "upgradeFrom": "qwen-2-5-7b",
-      "upgradeTo": "qwen-3-14b",
+      "upgradeTo": "qwen-2-5-14b",
       "benchmarks": {
         "mmlu": null,
         "humaneval": null,
@@ -943,14 +851,14 @@
       ]
     },
     {
-      "id": "qwen-3-14b",
-      "name": "Qwen 3 14B",
-      "fullName": "Qwen3-14B-Instruct",
+      "id": "qwen-2-5-14b",
+      "name": "Qwen 2.5 14B",
+      "fullName": "Qwen2.5-14B-Instruct",
       "size": "14B",
       "tier": [
         "mid-gpu"
       ],
-      "vramGB": 10.5,
+      "vramGB": 10.0,
       "recommendedQuant": "Q4_K_M",
       "contextLength": 32768,
       "practicalRating": {
@@ -966,9 +874,9 @@
         "writing",
         "coding"
       ],
-      "ollamaTag": "qwen3:14b",
-      "installCommand": "ollama pull qwen3:14b",
-      "modelSizeGB": 8.5,
+      "ollamaTag": "qwen2.5:14b",
+      "installCommand": "ollama pull qwen2.5:14b",
+      "modelSizeGB": 9.0,
       "setupComplexity": "moderate",
       "beginnerFriendly": true,
       "description": "Alibaba's latest 14B model. Near GPT-4 level quality. 32K context, strong reasoning, excellent writing. The new sweet spot for mid-range GPUs.",
@@ -977,25 +885,18 @@
       "successStory": "A small business replaced their Claude subscription with this model running on a $700 RTX 4070 build. Saves $200/month.",
       "quantVariants": [
         {
-          "tag": "qwen3:14b",
+          "tag": "qwen2.5:14b",
           "label": "Q4_K_M (recommended)",
-          "storage": "~8.5GB",
+          "storage": "~9GB",
           "quality": "Good",
           "speed": "Fast"
-        },
-        {
-          "tag": "qwen3:14b:q8_0",
-          "label": "Q8_0 (highest quality)",
-          "storage": "~14GB",
-          "quality": "Best",
-          "speed": "Moderate"
         }
       ],
-      "minVram": 10.5,
-      "minRam": 32,
+      "minVram": 10.0,
+      "minRam": 16,
       "expectations": {
         "startupTime": "30-60 seconds",
-        "storage": "~8-12GB",
+        "storage": "~9GB",
         "setupTime": "15 minutes",
         "difficulty": "Easy",
         "internetRequired": "No",
@@ -1017,9 +918,9 @@
         "content-creator"
       ],
       "platformType": "local",
-      "modelfileTemplate": "FROM qwen3:14b\nSYSTEM \"You are a helpful assistant.\"\nPARAMETER temperature 0.7\nPARAMETER num_ctx 16384",
+      "modelfileTemplate": "FROM qwen2.5:14b\nSYSTEM \"You are a helpful assistant.\"\nPARAMETER temperature 0.7\nPARAMETER num_ctx 16384",
       "upgradeFrom": "gemma-4-12b",
-      "upgradeTo": "qwen-3-5-27b",
+      "upgradeTo": "qwen-2-5-32b",
       "benchmarks": {
         "mmlu": null,
         "humaneval": null,
@@ -1063,7 +964,7 @@
       "modelSizeGB": 4.7,
       "setupComplexity": "easy",
       "beginnerFriendly": true,
-      "description": "Meta's 8B model with 128K context — the longest context window in its class. Excellent for analyzing large documents, codebases, and long conversations.",
+      "description": "Meta's 8B model with 128K context \u2014 the longest context window in its class. Excellent for analyzing large documents, codebases, and long conversations.",
       "toolRecommendation": "Ollama",
       "toolRecommendationReason": "Best Llama support and community resources.",
       "successStory": "A legal researcher uses this to analyze 100-page contracts in minutes. The 128K context fits entire documents.",
@@ -1111,7 +1012,7 @@
       "platformType": "local",
       "modelfileTemplate": "FROM llama3.1:8b\nSYSTEM \"You are a helpful assistant.\"\nPARAMETER temperature 0.7\nPARAMETER num_ctx 32768",
       "upgradeFrom": null,
-      "upgradeTo": "qwen-3-14b",
+      "upgradeTo": "qwen-2-5-14b",
       "benchmarks": {
         "mmlu": null,
         "humaneval": null,
@@ -1126,15 +1027,15 @@
       ]
     },
     {
-      "id": "qwen-3-5-27b",
-      "name": "Qwen 3-5 27B",
-      "fullName": "Qwen3.5-27B-Instruct",
-      "size": "27B",
+      "id": "qwen-2-5-32b",
+      "name": "Qwen 2.5 32B",
+      "fullName": "Qwen2.5-32B-Instruct",
+      "size": "32B",
       "tier": [
         "mid-gpu",
         "high-end-gpu"
       ],
-      "vramGB": 18,
+      "vramGB": 20.0,
       "recommendedQuant": "Q4_K_M",
       "contextLength": 32768,
       "practicalRating": {
@@ -1152,36 +1053,29 @@
         "analysis",
         "agents"
       ],
-      "ollamaTag": "qwen3.5:27b",
-      "installCommand": "ollama pull qwen3.5:27b",
-      "modelSizeGB": 16,
+      "ollamaTag": "qwen2.5:32b",
+      "installCommand": "ollama pull qwen2.5:32b",
+      "modelSizeGB": 19.0,
       "setupComplexity": "moderate",
       "beginnerFriendly": false,
       "description": "The most powerful open model we recommend. 27B parameters, GPT-4 class quality. Runs on 24GB GPUs like RTX 4090. This is where local AI matches the cloud.",
       "toolRecommendation": "Ollama",
       "toolRecommendationReason": "Ollama handles large models best with GPU acceleration.",
-      "successStory": "A game studio replaced ChatGPT enterprise with this model on a dual RTX 4090 setup. Generates game dialogue, lore, and quest design — all private.",
+      "successStory": "A game studio replaced ChatGPT enterprise with this model on a dual RTX 4090 setup. Generates game dialogue, lore, and quest design \u2014 all private.",
       "quantVariants": [
         {
-          "tag": "qwen3.5:27b",
+          "tag": "qwen2.5:32b",
           "label": "Q4_K_M (recommended)",
-          "storage": "~16GB",
+          "storage": "~19GB",
           "quality": "Good",
           "speed": "Fast"
-        },
-        {
-          "tag": "qwen3.5:27b:q8_0",
-          "label": "Q8_0 (highest quality)",
-          "storage": "~28GB",
-          "quality": "Best",
-          "speed": "Moderate"
         }
       ],
-      "minVram": 18,
+      "minVram": 20.0,
       "minRam": 32,
       "expectations": {
         "startupTime": "1-2 minutes",
-        "storage": "~18-32GB",
+        "storage": "~19-20GB",
         "setupTime": "20 minutes",
         "difficulty": "Moderate",
         "internetRequired": "No",
@@ -1204,8 +1098,8 @@
         "architect"
       ],
       "platformType": "local",
-      "modelfileTemplate": "FROM qwen3.5:27b\nSYSTEM \"You are a helpful assistant.\"\nPARAMETER temperature 0.7\nPARAMETER num_ctx 16384",
-      "upgradeFrom": "qwen-3-14b",
+      "modelfileTemplate": "FROM qwen2.5:32b\nSYSTEM \"You are a helpful assistant.\"\nPARAMETER temperature 0.7\nPARAMETER num_ctx 16384",
+      "upgradeFrom": "qwen-2-5-14b",
       "upgradeTo": null,
       "benchmarks": {
         "mmlu": null,
@@ -1254,7 +1148,7 @@
       "description": "Same great Qwen 2.5 7B model, optimized for Apple Silicon. Takes advantage of Metal acceleration for faster inference.",
       "toolRecommendation": "Ollama",
       "toolRecommendationReason": "Best Metal GPU support on Mac.",
-      "successStory": "A designer runs this on an M1 MacBook Air for brainstorming and copywriting — zero fan noise, 20 tok/s.",
+      "successStory": "A designer runs this on an M1 MacBook Air for brainstorming and copywriting \u2014 zero fan noise, 20 tok/s.",
       "quantVariants": [
         {
           "tag": "qwen2.5:7b",
@@ -1299,7 +1193,7 @@
       "platformType": "local",
       "modelfileTemplate": "FROM qwen2.5:7b\nSYSTEM \"You are a helpful assistant.\"\nPARAMETER temperature 0.7\nPARAMETER num_ctx 16384",
       "upgradeFrom": null,
-      "upgradeTo": "qwen-3-14b-silicon",
+      "upgradeTo": "qwen-2-5-14b-silicon",
       "benchmarks": {
         "mmlu": null,
         "humaneval": null,
@@ -1345,7 +1239,7 @@
       "description": "Meta's 8B model with 128K context, optimized for Apple Silicon. Metal acceleration ensures smooth performance on M-series chips.",
       "toolRecommendation": "Ollama",
       "toolRecommendationReason": "Best Llama + Metal support on Mac.",
-      "successStory": "A researcher uses this on an M3 MacBook Pro to analyze research papers — 128K context fits entire PDFs.",
+      "successStory": "A researcher uses this on an M3 MacBook Pro to analyze research papers \u2014 128K context fits entire PDFs.",
       "quantVariants": [
         {
           "tag": "llama3.1:8b",
@@ -1390,7 +1284,7 @@
       "platformType": "local",
       "modelfileTemplate": "FROM llama3.1:8b\nSYSTEM \"You are a helpful assistant.\"\nPARAMETER temperature 0.7\nPARAMETER num_ctx 32768",
       "upgradeFrom": null,
-      "upgradeTo": "qwen-3-14b-silicon",
+      "upgradeTo": "qwen-2-5-14b-silicon",
       "benchmarks": {
         "mmlu": null,
         "humaneval": null,
@@ -1405,14 +1299,14 @@
       ]
     },
     {
-      "id": "qwen-3-14b-silicon",
-      "name": "Qwen 3 14B (Apple Silicon)",
-      "fullName": "Qwen3-14B-Instruct (Apple Silicon optimized)",
+      "id": "qwen-2-5-14b-silicon",
+      "name": "Qwen 2.5 14B (Apple Silicon)",
+      "fullName": "Qwen2.5-14B-Instruct",
       "size": "14B",
       "tier": [
         "apple"
       ],
-      "vramGB": 14,
+      "vramGB": 10.0,
       "recommendedQuant": "Q4_K_M",
       "contextLength": 32768,
       "practicalRating": {
@@ -1428,36 +1322,29 @@
         "writing",
         "coding"
       ],
-      "ollamaTag": "qwen3:14b",
-      "installCommand": "ollama pull qwen3:14b",
-      "modelSizeGB": 8.5,
+      "ollamaTag": "qwen2.5:14b",
+      "installCommand": "ollama pull qwen2.5:14b",
+      "modelSizeGB": 9.0,
       "setupComplexity": "moderate",
       "beginnerFriendly": true,
-      "description": "High-end Qwen 3 14B optimized for Apple Silicon. Near GPT-4 quality on your Mac. The best model for 24-48GB Macs.",
+      "description": "High-end Qwen 2.5 14B optimized for Apple Silicon. Near GPT-4 quality on your Mac. The best model for 24-48GB Macs.",
       "toolRecommendation": "Ollama",
       "toolRecommendationReason": "Best Qwen performance on Apple Silicon.",
-      "successStory": "A developer replaced Cursor AI with this model on an M3 Pro MacBook Pro — full coding assistant with zero latency.",
+      "successStory": "A developer replaced Cursor AI with this model on an M3 Pro MacBook Pro \u2014 full coding assistant with zero latency.",
       "quantVariants": [
         {
-          "tag": "qwen3:14b",
+          "tag": "qwen2.5:14b",
           "label": "Q4_K_M (recommended)",
-          "storage": "~8.5GB",
+          "storage": "~9GB",
           "quality": "Good",
           "speed": "Fast"
-        },
-        {
-          "tag": "qwen3:14b:q8_0",
-          "label": "Q8_0 (highest quality)",
-          "storage": "~14GB",
-          "quality": "Best",
-          "speed": "Moderate"
         }
       ],
-      "minVram": 14,
-      "minRam": 24,
+      "minVram": 10.0,
+      "minRam": 16,
       "expectations": {
         "startupTime": "1-2 minutes",
-        "storage": "~18-32GB",
+        "storage": "~9GB",
         "setupTime": "20 minutes",
         "difficulty": "Moderate",
         "internetRequired": "No",
@@ -1479,9 +1366,9 @@
         "designer"
       ],
       "platformType": "local",
-      "modelfileTemplate": "FROM qwen3:14b\nSYSTEM \"You are a helpful assistant.\"\nPARAMETER temperature 0.7\nPARAMETER num_ctx 16384",
+      "modelfileTemplate": "FROM qwen2.5:14b\nSYSTEM \"You are a helpful assistant.\"\nPARAMETER temperature 0.7\nPARAMETER num_ctx 16384",
       "upgradeFrom": "llama-3-1-8b-silicon",
-      "upgradeTo": "qwen-3-5-27b-silicon",
+      "upgradeTo": "qwen-2-5-32b-silicon",
       "benchmarks": {
         "mmlu": null,
         "humaneval": null,
@@ -1496,14 +1383,14 @@
       ]
     },
     {
-      "id": "qwen-3-5-27b-silicon",
-      "name": "Qwen 3-5 27B (Apple Silicon)",
-      "fullName": "Qwen3.5-27B-Instruct (Apple Silicon optimized)",
-      "size": "27B",
+      "id": "qwen-2-5-32b-silicon",
+      "name": "Qwen 2.5 32B (Apple Silicon)",
+      "fullName": "Qwen2.5-32B-Instruct",
+      "size": "32B",
       "tier": [
         "apple"
       ],
-      "vramGB": 27,
+      "vramGB": 20.0,
       "recommendedQuant": "Q4_K_M",
       "contextLength": 32768,
       "practicalRating": {
@@ -1521,36 +1408,29 @@
         "analysis",
         "agents"
       ],
-      "ollamaTag": "qwen3.5:27b",
-      "installCommand": "ollama pull qwen3.5:27b",
-      "modelSizeGB": 16,
+      "ollamaTag": "qwen2.5:32b",
+      "installCommand": "ollama pull qwen2.5:32b",
+      "modelSizeGB": 19.0,
       "setupComplexity": "moderate",
       "beginnerFriendly": false,
       "description": "The most powerful open model, optimized for high-end Apple Silicon. Matches GPT-4 quality. For Mac Studio and MacBook Pro with 64GB+.",
       "toolRecommendation": "Ollama",
       "toolRecommendationReason": "Best large model support on Apple Silicon.",
-      "successStory": "A film studio runs this on a Mac Studio M2 Ultra 128GB for script analysis, story generation, and creative brainstorming — all completely private.",
+      "successStory": "A film studio runs this on a Mac Studio M2 Ultra 128GB for script analysis, story generation, and creative brainstorming \u2014 all completely private.",
       "quantVariants": [
         {
-          "tag": "qwen3.5:27b",
+          "tag": "qwen2.5:32b",
           "label": "Q4_K_M (recommended)",
-          "storage": "~16GB",
+          "storage": "~19GB",
           "quality": "Good",
           "speed": "Fast"
-        },
-        {
-          "tag": "qwen3.5:27b:q8_0",
-          "label": "Q8_0 (highest quality)",
-          "storage": "~28GB",
-          "quality": "Best",
-          "speed": "Moderate"
         }
       ],
-      "minVram": 27,
-      "minRam": 48,
+      "minVram": 20.0,
+      "minRam": 32,
       "expectations": {
         "startupTime": "1-2 minutes",
-        "storage": "~18-32GB",
+        "storage": "~19-20GB",
         "setupTime": "20 minutes",
         "difficulty": "Moderate",
         "internetRequired": "No",
@@ -1573,8 +1453,8 @@
         "creative-director"
       ],
       "platformType": "local",
-      "modelfileTemplate": "FROM qwen3.5:27b\nSYSTEM \"You are a helpful assistant.\"\nPARAMETER temperature 0.7\nPARAMETER num_ctx 16384",
-      "upgradeFrom": "qwen-3-14b-silicon",
+      "modelfileTemplate": "FROM qwen2.5:32b\nSYSTEM \"You are a helpful assistant.\"\nPARAMETER temperature 0.7\nPARAMETER num_ctx 16384",
+      "upgradeFrom": "qwen-2-5-14b-silicon",
       "upgradeTo": null,
       "benchmarks": {
         "mmlu": null,
@@ -2009,6 +1889,154 @@
         "audio",
         "agents"
       ]
+    },
+    {
+      "id": "devstral-22b",
+      "name": "Devstral 22B",
+      "fullName": "devstral:22b",
+      "size": "22B",
+      "tier": [
+        "mid-gpu",
+        "high-end-gpu"
+      ],
+      "vramGB": 14,
+      "recommendedQuant": "Q4_K_M",
+      "contextLength": 32768,
+      "practicalRating": {
+        "chat": 8,
+        "writing": 7,
+        "coding": 9,
+        "reasoning": 8,
+        "agents": 9
+      },
+      "bestFor": [
+        "coding",
+        "agents",
+        "reasoning"
+      ],
+      "ollamaTag": "devstral:22b",
+      "installCommand": "ollama pull devstral:22b",
+      "modelSizeGB": 14,
+      "setupComplexity": "intermediate",
+      "beginnerFriendly": false,
+      "description": "Built specifically for coding tasks in 2026. Handles multi-file agentic workflows, code review, and debugging at a level that rivals much larger models.",
+      "toolRecommendation": "Ollama",
+      "toolRecommendationReason": "Best performance with custom Modelfiles for agentic coding workflows.",
+      "successStory": null,
+      "quantVariants": [
+        {
+          "tag": "devstral:22b",
+          "label": "Q4_K_M (recommended)",
+          "storage": "~14GB",
+          "quality": "Excellent",
+          "speed": "Fast"
+        }
+      ],
+      "minVram": 14,
+      "minRam": 32,
+      "expectations": {
+        "startupTime": "40-50 seconds",
+        "storage": "~14 GB",
+        "setupTime": "~8 minutes",
+        "difficulty": "Intermediate",
+        "internetRequired": "No",
+        "privacy": "Fully local"
+      },
+      "bestForDisplay": "Code generation, code review, debugging, agentic coding workflows",
+      "why": "Best local coding model in 2026. Handles multi-file agentic workflows.",
+      "whyNot": "Needs 14GB+ VRAM. Not ideal for general chat or writing.",
+      "starterPrompts": [
+        "Review this codebase and suggest improvements: [paste]",
+        "Design an agent workflow to automate [task]",
+        "Write unit tests for this module: [paste code]",
+        "Refactor this to use [pattern]: [paste code]"
+      ],
+      "careerFit": [
+        "software-developer",
+        "data-analyst"
+      ],
+      "platformType": "local",
+      "modelfileTemplate": "FROM devstral:22b\nSYSTEM \"You are an expert software engineer.\"\nPARAMETER temperature 0.2\nPARAMETER num_ctx 8192",
+      "upgradeFrom": "qwen-2-5-7b",
+      "upgradeTo": null,
+      "benchmarks": {
+        "mmlu": null,
+        "humaneval": null,
+        "note": "See Devstral model card for latest benchmarks"
+      },
+      "provider": "Mistral AI",
+      "parameterSize": "22B",
+      "notGoodFor": [
+        "vision",
+        "audio",
+        "writing"
+      ]
+    },
+    {
+      "id": "phi-4-14b",
+      "name": "Phi-4 14B",
+      "fullName": "Phi-4-14B-Instruct",
+      "size": "14B",
+      "tier": [
+        "mid-gpu",
+        "high-end-gpu"
+      ],
+      "vramGB": 10.0,
+      "recommendedQuant": "Q4_K_M",
+      "contextLength": 16384,
+      "practicalRating": {
+        "chat": 8,
+        "writing": 8,
+        "coding": 9,
+        "reasoning": 9,
+        "agents": 8
+      },
+      "bestFor": [
+        "coding",
+        "reasoning",
+        "chat"
+      ],
+      "ollamaTag": "phi4:14b",
+      "installCommand": "ollama pull phi4:14b",
+      "modelSizeGB": 9.1,
+      "setupComplexity": "easy",
+      "beginnerFriendly": true,
+      "description": "Microsoft's Phi-4 14B model. Extremely strong reasoning and coding capabilities.",
+      "toolRecommendation": "Ollama",
+      "toolRecommendationReason": "Excellent speed on 12GB+ VRAM.",
+      "successStory": "A developer uses Phi-4 14B to generate test suites locally with zero latency.",
+      "quantVariants": [
+        {
+          "tag": "phi4:14b",
+          "label": "Q4_K_M (recommended)",
+          "storage": "~9.1GB",
+          "quality": "Good",
+          "speed": "Fast"
+        }
+      ],
+      "minVram": 10.0,
+      "minRam": 16,
+      "expectations": {
+        "startupTime": "15-25 seconds",
+        "storage": "~10GB",
+        "setupTime": "~8 minutes",
+        "difficulty": "Easy",
+        "internetRequired": "No",
+        "privacy": "Fully local"
+      },
+      "bestForDisplay": "Coding, reasoning, and instruction following",
+      "why": "Excellent logic and code generation. Fast speed.",
+      "whyNot": "Needs dedicated GPU.",
+      "starterPrompts": [
+        "Write a Python script to...",
+        "Solve this logic puzzle..."
+      ],
+      "careerFit": [
+        "software-developer",
+        "researcher"
+      ],
+      "platformType": "local",
+      "modelfileTemplate": "FROM phi4:14b\nSYSTEM \"You are a helpful assistant.\"\nPARAMETER temperature 0.2\nPARAMETER num_ctx 16384"
     }
   ]
 }

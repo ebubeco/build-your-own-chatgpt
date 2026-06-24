@@ -1,0 +1,8 @@
+[   58110ms] TypeError: (m.bestForDisplay || m.bestFor || []).slice(...).join is not a function
+    at Object.f (http://localhost:3333/compare.html:91:69)
+    at http://localhost:3333/compare.html:97:73
+    at Array.map (<anonymous>)
+    at http://localhost:3333/compare.html:97:16
+    at Array.map (<anonymous>)
+    at runComparison (http://localhost:3333/compare.html:95:23)
+    at HTMLButtonElement.onclick (http://localhost:3333/compare.html:44:135)

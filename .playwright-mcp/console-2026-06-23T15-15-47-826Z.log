@@ -1,0 +1,12 @@
+[      46ms] [LOG] [Analytics] wizard_started  @ http://localhost:3333/analytics.js:39
+[     101ms] [LOG] [Analytics] cloud_fallback_triggered {reason: documents_weak_hardware, tier: no-gpu, goal: documents} @ http://localhost:3333/analytics.js:39
+[     103ms] [LOG] [Analytics] Result Shown {model: llama-3-2-1b, goal: documents, tier: no-gpu} @ http://localhost:3333/analytics.js:39
+[     104ms] [LOG] [Analytics] recommendation_generated {model: llama3.2:1b, goal: documents, hardware: no-gpu, hasCloudFallback: true} @ http://localhost:3333/analytics.js:39
+[     106ms] [LOG] [Analytics] recommendation_generated {model: llama3.2:1b, goal: documents, hardware: no-gpu, confidence: 4} @ http://localhost:3333/analytics.js:39
+[     290ms] [WARNING] Ignoring Event: localhost @ https://plausible.io/js/pa-DBTdINzLX2L2B_fXJF0u1.js:0
+[     290ms] [WARNING] Ignoring Event: localhost @ https://plausible.io/js/pa-DBTdINzLX2L2B_fXJF0u1.js:0
+[     290ms] [WARNING] Ignoring Event: localhost @ https://plausible.io/js/pa-DBTdINzLX2L2B_fXJF0u1.js:0
+[     290ms] [WARNING] Ignoring Event: localhost @ https://plausible.io/js/pa-DBTdINzLX2L2B_fXJF0u1.js:0
+[     290ms] [WARNING] Ignoring Event: localhost @ https://plausible.io/js/pa-DBTdINzLX2L2B_fXJF0u1.js:0
+[     290ms] [WARNING] Ignoring Event: localhost @ https://plausible.io/js/pa-DBTdINzLX2L2B_fXJF0u1.js:0
+[     574ms] [ERROR] Failed to load resource: net::ERR_NAME_NOT_RESOLVED @ https://fxeygjmygxnirvsrndaa.supabase.co/rest/v1/recommendations:0

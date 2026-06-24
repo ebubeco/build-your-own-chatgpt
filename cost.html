@@ -1,322 +1,200 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta name="google-site-verification" content="5YRiOefTK9mTwEJEnLIH6BQ5xmP0NkwyfiaBWZJbdCg">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="See how much you save with local AI vs ChatGPT Plus, Pro, and GitHub Copilot. Interactive break-even calculator included.">
-  <meta property="og:title" content="Local AI Cost vs Cloud — How Much You Save Calculator">
-  <meta property="og:description" content="Compare local AI vs cloud costs. Break-even calculator shows when your hardware pays for itself.">
+  <title>AI Cost Calculator — Local vs Cloud — Build Your Own ChatGPT</title>
+  <meta name="description" content="Calculate savings with local AI vs ChatGPT Plus, Claude Pro, and other subscriptions. Break-even calculator included.">
   <meta property="og:image" content="https://build-your-own-chatgpt.vercel.app/og-image.jpg">
-  <meta name="twitter:card" content="summary_large_image">
-  <title>Local AI Cost vs Cloud — How Much You Save Calculator</title>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <script>!function(){var t=localStorage.getItem('theme');if(t==='dark'||(t===null&&window.matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark')}();</script>
-  <script async src="https://plausible.io/js/pa-DBTdINzLX2L2B_fXJF0u1.js"></script>
-  <script>window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()</script>
   <style>
-    :root{--card-bg:var(--bg-card);--rating-bar-h:6px;--rating-bar-radius:3px}
-    .cost-page{max-width:960px;margin:0 auto;padding:0 1.5rem 3rem}
-    .cost-page h1{font-family:'Outfit',sans-serif;font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;letter-spacing:-0.02em;margin:2rem 0 .5rem}
-    .cost-page .subtitle{color:var(--text-secondary);font-size:1rem;margin-bottom:2rem}
-    .cost-form{background:var(--bg-card);border:1.5px solid var(--border);border-radius:var(--radius);padding:1.5rem;margin-bottom:2rem}
-    .form-group{margin-bottom:1.25rem}
-    .form-group label{display:block;font-size:.82rem;font-weight:700;color:var(--text-secondary);margin-bottom:.4rem;text-transform:uppercase;letter-spacing:.05em}
-    .form-group select,.form-group input{width:100%;padding:.65rem .75rem;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-size:.95rem;background:var(--surface);color:var(--text);transition:border-color var(--transition);font-family:inherit}
-    .form-group select:focus,.form-group input:focus{outline:none;border-color:var(--accent)}
-    .form-group .hint{font-size:.75rem;color:var(--text-tertiary);margin-top:.25rem;display:block}
-    .sub-item{display:flex;align-items:center;gap:.5rem;padding:.5rem 0;border-bottom:1px solid var(--border-light);font-size:.9rem}
-    .sub-item:last-child{border-bottom:none}
-    .sub-item input[type=checkbox]{width:auto}
-    .sub-item .sub-name{font-weight:600;color:var(--text)}
-    .sub-item .sub-price{color:var(--text-tertiary);font-size:.82rem}
-    .sub-item .sub-capability{font-size:.75rem;color:var(--text-secondary);margin-left:auto}
-    .cost-btn{display:block;width:100%;padding:.85rem;background:var(--accent);color:#fff;border:none;border-radius:var(--radius-sm);font-size:1rem;font-weight:700;cursor:pointer;font-family:inherit;transition:opacity var(--transition)}
+    .cost-page{max-width:960px;margin:0 auto;padding:2rem 1rem}
+    .cost-page h1{font-family:'Outfit',sans-serif;font-size:clamp(1.6rem,4vw,2.4rem);font-weight:800;margin:0 0 .3rem}
+    .cost-page .sub{color:var(--text-secondary);font-size:.95rem;margin-bottom:1.5rem}
+    .cost-grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:1rem}
+    @media(max-width:600px){.cost-grid{grid-template-columns:1fr}}
+    .cost-field label{display:block;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--text-secondary);margin-bottom:.3rem}
+    .cost-field select,.cost-field input{width:100%;padding:.6rem .75rem;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-size:.9rem;background:var(--surface);color:var(--text);font-family:inherit;box-sizing:border-box}
+    .cost-field select:focus,.cost-field input:focus{outline:none;border-color:var(--accent)}
+    .subs-box{padding:.75rem;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:1rem}
+    .subs-box label{display:flex;align-items:center;gap:.5rem;padding:.3rem 0;font-size:.88rem;cursor:pointer}
+    .subs-box input{width:auto}
+    .sub-price{color:var(--text-tertiary);font-size:.8rem}
+    .cost-btn{width:100%;padding:.7rem;background:var(--accent);color:#fff;border:none;border-radius:var(--radius-sm);font-size:1rem;font-weight:700;cursor:pointer;font-family:inherit;transition:opacity .15s}
     .cost-btn:hover{opacity:.9}
-    .cost-result{display:none;animation:fadeIn .3s ease}
-    @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-    .cost-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin:1.5rem 0}
-    .cost-card{background:var(--bg-card);border:1.5px solid var(--border);border-radius:var(--radius);padding:1.25rem;text-align:center}
-    .cost-card h3{font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--text-secondary);margin-bottom:.5rem}
-    .cost-big{font-size:2rem;font-weight:800;color:var(--accent)}
-    .cost-annual{font-size:.78rem;color:var(--text-tertiary);margin-top:.25rem}
-    .savings-highlight{background:linear-gradient(135deg,var(--accent-light),var(--bg-card));border:1.5px solid var(--accent);border-radius:var(--radius);padding:1.5rem;text-align:center;margin:1.5rem 0}
-    .savings-highlight h3{font-size:.82rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--text-secondary);margin-bottom:.5rem}
-    .savings-num{font-size:2.5rem;font-weight:800;color:var(--green)}
-    .cost-table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:.9rem}
-    .cost-table th,.cost-table td{padding:.65rem .75rem;text-align:left;border-bottom:1px solid var(--border)}
-    .cost-table th{font-weight:600;color:var(--text-secondary);font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;background:var(--surface)}
-    .cost-table td:last-child{color:var(--text-secondary);font-size:.82rem}
-    .cost-table td:nth-child(2){font-weight:700;color:var(--text)}
-    .cta-box{background:var(--bg-card);border:1.5px solid var(--accent);border-radius:var(--radius);padding:1.25rem;text-align:center;margin-top:1.5rem}
-    .cta-box p{font-size:.9rem;color:var(--text-secondary);margin-bottom:.75rem}
-    .cta-btn{display:inline-block;padding:.65rem 1.5rem;background:var(--accent);color:#fff;text-decoration:none;border-radius:var(--radius-sm);font-weight:600;font-size:.9rem;transition:opacity var(--transition)}
-    .cta-btn:hover{opacity:.9}
+    .cost-result{display:none;margin-top:1.5rem;animation:fadeUp .3s ease}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+    .stat-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.75rem;margin-bottom:1rem}
+    .stat-card{background:var(--bg-card);border:1.5px solid var(--border);border-radius:var(--radius);padding:1rem;text-align:center}
+    .stat-card h3{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--text-secondary);margin-bottom:.3rem}
+    .stat-num{font-size:1.8rem;font-weight:800;color:var(--accent)}
+    .stat-num.green{color:var(--green)}
+    .savings-box{background:linear-gradient(135deg,var(--accent-light),var(--bg-card));border:1.5px solid var(--accent);border-radius:var(--radius);padding:1.25rem;text-align:center;margin-bottom:1rem}
+    .savings-box h3{font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--text-secondary);margin-bottom:.3rem}
+    .savings-num{font-size:2.2rem;font-weight:800;color:var(--green)}
+    .be-section{background:var(--bg-card);border:1.5px solid var(--border);border-radius:var(--radius);padding:1.25rem;margin-top:1.5rem}
+    .be-section h2{font-family:'Outfit',sans-serif;font-size:1.1rem;font-weight:700;margin-bottom:.75rem}
+    .be-grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:.75rem}
+    @media(max-width:480px){.be-grid{grid-template-columns:1fr}}
+    .be-label{font-size:.75rem;font-weight:600;color:var(--text-secondary);margin-bottom:.2rem;display:block}
+    .be-input{width:100%;padding:.5rem .7rem;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-size:.9rem;background:var(--surface);color:var(--text);font-family:inherit;box-sizing:border-box}
+    .be-result{padding:.75rem;border-radius:var(--radius-sm);text-align:center;font-size:1.2rem;font-weight:700;margin-top:.5rem}
     .be-result.green{background:var(--green);color:#fff}
     .be-result.amber{background:var(--amber);color:#fff}
-    .be-result.normal{background:var(--accent-light);color:var(--accent)}
-    .be-section{background:var(--bg-card);border:1.5px solid var(--border);border-radius:var(--radius);padding:1.5rem;margin-top:2rem}
-    .be-section h2{font-family:'Outfit',sans-serif;font-size:1.2rem;font-weight:700;margin-bottom:1rem}
-    .be-form{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
-    @media(max-width:480px){.be-form{grid-template-columns:1fr}}
-    .be-label{font-size:.78rem;font-weight:600;color:var(--text-secondary);margin-bottom:.25rem;display:block}
-    .be-input{width:100%;padding:.6rem .75rem;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-size:.95rem;background:var(--surface);color:var(--text);transition:border-color var(--transition);font-family:inherit}
-    .be-input:focus{outline:none;border-color:var(--accent)}
-    .be-outcome{font-size:1.8rem;font-weight:800;text-align:center;padding:1rem;border-radius:var(--radius-sm);margin-top:.5rem}
-    .be-table{width:100%;border-collapse:collapse;margin-top:1.5rem;font-size:.85rem}
-    .be-table th,.be-table td{padding:.6rem .75rem;text-align:left;border-bottom:1px solid var(--border)}
-    .be-table th{font-weight:600;color:var(--text-secondary);font-size:.72rem;text-transform:uppercase;letter-spacing:.05em}
-    .be-table td:last-child{font-weight:700;color:var(--green)}
-    .rating-row{display:flex;align-items:center;gap:.5rem;margin-top:.5rem;font-size:.78rem;font-weight:600}
-    .rating-bar{flex:1;height:var(--rating-bar-h);background:var(--border);border-radius:var(--rating-bar-radius);overflow:hidden}
-    .rating-fill{height:100%;border-radius:var(--rating-bar-radius);transition:width .6s ease}
-    .rating-fill.green{background:var(--green)}
-    .rating-fill.amber{background:var(--amber)}
-    .rating-fill.accent{background:var(--accent)}
-    .comp-card{background:var(--bg-card);border:1.5px solid var(--border);border-radius:var(--radius);padding:1.25rem;margin-bottom:1.5rem;transition:all var(--transition)}
-    .comp-card:hover{border-color:var(--accent);box-shadow:var(--shadow-glow)}
-    .comp-card h2{font-family:'Outfit',sans-serif;font-size:1.2rem;font-weight:700;margin-bottom:1rem}
-    .comp-split{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
-    @media(max-width:640px){.comp-split{grid-template-columns:1fr}}
-    .side-card{border:1px solid var(--border);border-radius:var(--radius-sm);padding:1rem;background:var(--surface)}
-    .side-card.local{border-color:var(--green)}
-    .side-card.cloud{border-color:var(--accent)}
-    .side-card h3{font-size:.95rem;font-weight:700;margin-bottom:.3rem}
-    .side-card .price{font-size:1.5rem;font-weight:800;color:var(--text);margin:.3rem 0}
-    .side-card .price span{font-size:.8rem;font-weight:400;color:var(--text-tertiary)}
-    .side-card .notes{font-size:.78rem;color:var(--text-secondary);line-height:1.5}
+    .be-result.normal{background:var(--bg);color:var(--text-secondary)}
+    .cta-box{background:var(--bg-card);border:1.5px solid var(--accent);border-radius:var(--radius);padding:1.25rem;text-align:center;margin-top:1.5rem}
+    .cta-box p{font-size:.9rem;color:var(--text-secondary);margin-bottom:.75rem}
+    .cta-btn{display:inline-block;padding:.6rem 1.5rem;background:var(--accent);color:#fff;border-radius:var(--radius-sm);font-weight:600;font-size:.9rem;text-decoration:none}
   </style>
 </head>
 <body>
   <nav class="site-topbar" role="navigation" aria-label="Site navigation">
     <div class="container">
       <div class="topbar-inner">
-        <span class="site-brand">🤖 Build Your Own ChatGPT</span>
-        <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle light/dark mode">
-          <span class="toggle-icon">🌙</span>
-          <span class="toggle-label">Dark mode</span>
-        </button>
+        <a href="index.html" style="text-decoration:none"><span class="site-brand">🤖 Build Your Own ChatGPT</span></a>
+        <div style="display:flex;gap:0.75rem;align-items:center">
+          <a href="compare.html" style="font-size:0.82rem;color:var(--text-secondary);text-decoration:none;font-weight:500">Compare</a>
+          <a href="which-ai.html" style="font-size:0.82rem;color:var(--text-secondary);text-decoration:none;font-weight:500">Which AI</a>
+          <a href="cost.html" style="font-size:0.82rem;color:var(--accent);text-decoration:none;font-weight:600">Cost</a>
+          <a href="upgrade.html" style="font-size:0.82rem;color:var(--text-secondary);text-decoration:none;font-weight:500">Upgrade</a>
+          <a href="compendium.html" style="font-size:0.82rem;color:var(--text-secondary);text-decoration:none;font-weight:500">Models</a>
+          <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle light/dark mode">
+            <span class="toggle-icon">🌙</span>
+            <span class="toggle-label">Dark mode</span>
+          </button>
+        </div>
       </div>
     </div>
   </nav>
-
   <main class="cost-page">
-    <h1>Local AI vs Subscription</h1>
-    <p class="subtitle">Calculate whether running local AI is cheaper than ChatGPT Plus. See your exact savings.</p>
+    <h1>Local AI vs Subscription Cost</h1>
+    <p class="sub">See how much you save by switching to local AI.</p>
 
-    <div class="cost-form">
-      <div class="form-group">
-        <label>Your hardware tier</label>
-        <select id="tier-select">
-          <option value="">Select your hardware...</option>
-          <option value="no-gpu">No GPU / Integrated Graphics</option>
+    <div class="cost-grid">
+      <div class="cost-field">
+        <label>Hardware Tier</label>
+        <select id="tier">
+          <option value="">Select...</option>
+          <option value="no-gpu">No GPU / Integrated</option>
           <option value="budget-gpu">Budget GPU (4-8GB VRAM)</option>
-          <option value="mid-gpu">Mid-Range GPU (8-16GB VRAM)</option>
-          <option value="high-end-gpu">High-End GPU (16GB+ VRAM)</option>
-          <option value="apple">Apple Silicon (M1/M2/M3/M4)</option>
+          <option value="mid-gpu">Mid GPU (8-16GB VRAM)</option>
+          <option value="high-gpu">High GPU (16GB+ VRAM)</option>
+          <option value="apple">Apple Silicon</option>
         </select>
       </div>
-
-      <div class="form-group">
-        <label>Current AI subscriptions (select all you pay for)</label>
-        <div id="subscriptions-list"></div>
-      </div>
-
-      <div class="form-group">
-        <label>How much do you use AI per day?</label>
+      <div class="cost-field">
+        <label>Daily Usage</label>
         <select id="usage">
-          <option value="light">Light — about 1 hour/day</option>
-          <option value="moderate" selected>Moderate — about 3 hours/day</option>
-          <option value="heavy">Heavy — 6+ hours/day</option>
+          <option value="light">Light (~1 hr/day)</option>
+          <option value="moderate" selected>Moderate (~3 hrs/day)</option>
+          <option value="heavy">Heavy (6+ hrs/day)</option>
         </select>
       </div>
-
-      <div class="form-group">
-        <label>Electricity cost (USD per kWh)</label>
-        <input type="number" id="electricity" value="0.13" step="0.01" min="0.01" max="1.00">
-        <span class="hint">Global average is ~$0.13. Check your electricity bill.</span>
+    </div>
+    <div class="cost-field">
+      <label>Subscriptions (select all you pay for)</label>
+      <div class="subs-box" id="subs-list"></div>
+    </div>
+    <div class="cost-grid">
+      <div class="cost-field">
+        <label>Electricity ($/kWh)</label>
+        <input type="number" id="elec" value="0.13" step="0.01" min="0.01">
       </div>
-
-      <button class="cost-btn" onclick="calculateCosts()">Calculate My Savings</button>
+      <div class="cost-field">
+        <label>&nbsp;</label>
+        <button class="cost-btn" onclick="calcCost()">Calculate My Savings</button>
+      </div>
     </div>
 
-    <div id="cost-result" class="cost-result"></div>
+    <div id="result" class="cost-result"></div>
 
-    <section class="be-section">
+    <div class="be-section">
       <h2>Quick Break-Even Calculator</h2>
-      <div class="be-form">
-        <div>
-          <label class="be-label">Hardware cost ($)</label>
-          <input type="number" id="hw-cost" class="be-input" value="300" min="0">
-        </div>
-        <div>
-          <label class="be-label">Monthly subscription ($)</label>
-          <input type="number" id="monthly-cloud" class="be-input" value="20" min="0">
-        </div>
+      <div class="be-grid">
+        <div><label class="be-label">Hardware Cost ($)</label><input type="number" id="be-hw" class="be-input" value="300" min="0"></div>
+        <div><label class="be-label">Monthly Subscription ($)</label><input type="number" id="be-sub" class="be-input" value="20" min="0"></div>
       </div>
-      <div id="be-outcome" class="be-outcome normal">Enter values above</div>
-      <table class="be-table">
-        <thead>
-          <tr>
-            <th>Hardware</th>
-            <th>vs Service</th>
-            <th>Break-Even</th>
-            <th>Notes</th>
-          </tr>
-        </thead>
-        <tbody id="be-table-body"></tbody>
-      </table>
-    </section>
-
-    <div id="comparisons"></div>
+      <div id="be-out" class="be-result normal">Enter values above</div>
+    </div>
   </main>
-
   <footer class="footer">
     <div class="container">
       <div class="footer-links">
-        <a href="https://github.com/ebubeco/build-your-own-chatgpt" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://github.com/ebubeco/build-your-own-chatgpt">GitHub</a>
         <a href="index.html">Wizard</a>
-        <a href="compendium.html">Model Compendium</a>
-        <a href="use-cases.html">Use Cases</a>
-        <a href="starter-pack.html">Starter Pack</a>
-        <a href="career.html">Careers</a>
+        <a href="compare.html">Compare</a>
+        <a href="compendium.html">All Models</a>
+        <a href="upgrade.html">Upgrade</a>
       </div>
       <p class="footer-tagline">Built for beginners. Your data never leaves your machine.</p>
     </div>
   </footer>
-
   <script>
-    document.getElementById('theme-toggle').addEventListener('click', function() {
-      var t = document.documentElement.getAttribute('data-theme');
-      var n = t === 'dark' ? 'light' : 'dark';
-      document.documentElement.setAttribute('data-theme', n);
-      localStorage.setItem('theme', n);
-      document.querySelector('.toggle-icon').textContent = n === 'dark' ? '☀️' : '🌙';
-      document.querySelector('.toggle-label').textContent = n === 'dark' ? 'Light mode' : 'Dark mode';
-    });
-    if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme:dark)').matches)) {
-      document.querySelector('.toggle-icon').textContent = '☀️';
-      document.querySelector('.toggle-label').textContent = 'Light mode';
+    document.getElementById('theme-toggle').addEventListener('click',function(){var e=document.documentElement;var t=e.getAttribute('data-theme');var n=t==='dark'?'light':'dark';e.setAttribute('data-theme',n);localStorage.setItem('theme',n);document.querySelector('.toggle-icon').textContent=n==='dark'?'☀️':'🌙';document.querySelector('.toggle-label').textContent=n==='dark'?'Light mode':'Dark mode';});
+    if(localStorage.getItem('theme')==='dark'||(!localStorage.getItem('theme')&&window.matchMedia('(prefers-color-scheme:dark)').matches)){document.querySelector('.toggle-icon').textContent='☀️';document.querySelector('.toggle-label').textContent='Light mode';}
+
+    const SUBS=[
+      {id:'chatgpt-plus',name:'ChatGPT Plus',price:20},
+      {id:'chatgpt-pro',name:'ChatGPT Pro',price:200},
+      {id:'claude-pro',name:'Claude Pro',price:20},
+      {id:'github-copilot',name:'GitHub Copilot',price:10},
+      {id:'gemini-advanced',name:'Gemini Advanced',price:20},
+      {id:'perplexity-pro',name:'Perplexity Pro',price:20}
+    ];
+
+    const HW_COST={noGpu:0,budgetGpu:150,midGpu:280,highGpu:650,apple:0};
+    const HW_POWER={noGpu:15,budgetGpu:120,midGpu:200,highGpu:350,apple:20};
+    const HOURS={light:1,moderate:3,heavy:6};
+
+    document.getElementById('subs-list').innerHTML=SUBS.map(s=>'<label><input type="checkbox" class="sub-cb" value="'+s.price+'"> '+s.name+' <span class="sub-price">— $'+s.price+'/mo</span></label>').join('');
+
+    function calcCost(){
+      const t=document.getElementById('tier').value;
+      const u=document.getElementById('usage').value;
+      const e=parseFloat(document.getElementById('elec').value)||.13;
+      const hwKey=t.replace(/-/g,'').replace(/-/g,'')||'noGpu';
+      let hk='noGpu';
+      if(t==='budget-gpu')hk='budgetGpu';
+      else if(t==='mid-gpu')hk='midGpu';
+      else if(t==='high-gpu')hk='highGpu';
+      else if(t==='apple')hk='apple';
+      const hwCost=HW_COST[hk]||0;
+      const power=(HW_POWER[hk]||15)/1000;
+      const hrs=HOURS[u]||3;
+      const monElec=power*hrs*e*30;
+      const cbs=document.querySelectorAll('.sub-cb:checked');
+      let monSub=0;
+      cbs.forEach(function(cb){monSub+=parseFloat(cb.value);});
+      const annSub=monSub*12;
+      const annElec=monElec*12;
+      const net=annSub-annElec-(hwCost/3);
+      const be=monSub>monElec&&hwCost>0?Math.ceil(hwCost/(monSub-monElec)):null;
+
+      const res=document.getElementById('result');
+      res.style.display='block';
+      res.innerHTML='<div class="stat-cards">'+
+        '<div class="stat-card"><h3>Subscriptions</h3><div class="stat-num">$'+monSub.toFixed(0)+'<span style="font-size:.9rem;font-weight:400;color:var(--text-tertiary)">/mo</span></div></div>'+
+        '<div class="stat-card"><h3>Local AI Electricity</h3><div class="stat-num">$'+monElec.toFixed(2)+'<span style="font-size:.9rem;font-weight:400;color:var(--text-tertiary)">/mo</span></div></div>'+
+        (hwCost>0?'<div class="stat-card"><h3>Hardware (one-time)</h3><div class="stat-num">$'+hwCost+'</div></div>':'')+
+        '</div>'+
+        (monSub>0?'<div class="savings-box"><h3>Annual Savings (3-yr amortized)</h3><div class="savings-num">'+(net>=0?'+$':'-$')+Math.abs(net).toFixed(0)+'</div>'+(be?'<p style="margin-top:.3rem;font-size:.85rem;color:var(--text-secondary)">Break-even: '+be+' months ('+(be/12).toFixed(1)+' yrs)</p>':'<p style="margin-top:.3rem;font-size:.85rem;color:var(--text-secondary)">No hardware cost needed</p>')+'</div>':'')+
+        '<div class="cta-box"><p>Ready to set up local AI?</p><a href="index.html" class="cta-btn">Get My Setup →</a></div>';
+      res.scrollIntoView({behavior:'smooth'});
     }
 
-    let costsData = null;
-    let gpusData = null;
-
-    function ratingBar(val, max) {
-      var pct = Math.round((val / max) * 100);
-      var cls = val >= 8 ? 'green' : val >= 5 ? 'amber' : 'accent';
-      return '<div class="rating-row"><div class="rating-bar"><div class="rating-fill ' + cls + '" style="width:' + pct + '%"></div></div><span>' + val + '/' + max + '</span></div>';
+    function calcBE(){
+      const hw=parseFloat(document.getElementById('be-hw').value)||0;
+      const mon=parseFloat(document.getElementById('be-sub').value)||0;
+      const el=document.getElementById('be-out');
+      if(hw<=0||mon<=0){el.className='be-result normal';el.innerHTML='Enter hardware and monthly costs above';return;}
+      const m=Math.ceil(hw/mon);
+      el.className=m<=12?'be-result green':m<=24?'be-result amber':'be-result normal';
+      el.innerHTML='You break even in <strong>'+m+' months</strong> ('+(m/12).toFixed(1)+' years)';
     }
-
-    function renderComparison(c) {
-      return '<div class="comp-card"><h2>' + c.title + '</h2><div class="comp-split"><div class="side-card local"><h3>Local AI</h3><div class="price">' + c.local.monthly + '<span>/mo</span></div><div style="font-size:.75rem;font-weight:700;color:var(--green);margin-bottom:.5rem">' + c.local.yearly + '/year</div><p class="notes">' + c.local.notes + '</p><div style="margin-top:.5rem;font-size:.78rem"><div style="font-weight:600;margin-bottom:.2rem">Privacy</div>' + ratingBar(c.local.privacyRating, 10) + '<div style="font-weight:600;margin:.5rem 0 .2rem">Speed</div>' + ratingBar(c.local.speedRating, 10) + '</div></div><div class="side-card cloud"><h3>' + c.cloud.name + '</h3><div class="price">' + c.cloud.monthly + '<span>/mo</span></div><div style="font-size:.75rem;font-weight:700;color:var(--accent);margin-bottom:.5rem">' + c.cloud.yearly + '/year</div><p class="notes">' + c.cloud.notes + '</p><div style="margin-top:.5rem;font-size:.78rem"><div style="font-weight:600;margin-bottom:.2rem">Privacy</div>' + ratingBar(c.cloud.privacyRating, 10) + '<div style="font-weight:600;margin:.5rem 0 .2rem">Speed</div>' + ratingBar(c.cloud.speedRating, 10) + '</div></div></div></div>';
-    }
-
-    function calcBreakEven() {
-      var hw = parseFloat(document.getElementById('hw-cost').value) || 0;
-      var monthly = parseFloat(document.getElementById('monthly-cloud').value) || 0;
-      var el = document.getElementById('be-outcome');
-      if (hw <= 0 || monthly <= 0) { el.className = 'be-outcome normal'; el.innerHTML = 'Enter hardware and monthly costs above'; return; }
-      var months = Math.ceil(hw / monthly);
-      var yrs = (months / 12).toFixed(1);
-      el.className = months <= 12 ? 'be-outcome green' : months <= 24 ? 'be-outcome amber' : 'be-outcome normal';
-      el.innerHTML = 'You break even in <strong>' + months + ' months</strong> (' + yrs + ' years)';
-    }
-
-    async function calculateCosts() {
-      var tierId = document.getElementById('tier-select').value;
-      var usage = document.getElementById('usage').value;
-      var elecRate = parseFloat(document.getElementById('electricity').value) || 0.13;
-
-      var gpu = gpusData ? gpusData.find(function(g) { return g.id === tierId; }) : null;
-      var hoursMap = { light: 1, moderate: 3, heavy: 6 };
-      var hoursPerDay = hoursMap[usage] || 3;
-
-      var powerDrawMap = { 'no-gpu': 15, 'budget-gpu': 120, 'mid-gpu': 200, 'high-end-gpu': 350, 'apple': 20 };
-      var powerDraw = (powerDrawMap[tierId] || 15) / 1000;
-      var dailyElec = powerDraw * hoursPerDay * elecRate;
-      var monthlyElec = dailyElec * 30;
-
-      var hardwareCostMap = { 'no-gpu': 0, 'budget-gpu': 150, 'mid-gpu': 280, 'high-end-gpu': 650, 'apple': 0 };
-      var hardwareCost = hardwareCostMap[tierId] || 0;
-
-      var subBoxes = document.querySelectorAll('#subscriptions-list input:checked');
-      var monthlySubCost = 0;
-      subBoxes.forEach(function(box) { monthlySubCost += parseFloat(box.value) || 0; });
-
-      var annualSubCost = monthlySubCost * 12;
-      var annualElec = monthlyElec * 12;
-      var netSavings = annualSubCost - annualElec - (hardwareCost / 3);
-      var breakEven = monthlySubCost > monthlyElec && hardwareCost > 0 ? Math.ceil(hardwareCost / (monthlySubCost - monthlyElec)) : null;
-
-      var result = document.getElementById('cost-result');
-      result.style.display = 'block';
-      var gpuName = gpu ? gpu.displayName : (tierId || 'your hardware');
-      var savingsColor = netSavings > 0 ? 'var(--green)' : 'var(--accent)';
-      var savingsSign = netSavings >= 0 ? '+$' : '-$';
-
-      result.innerHTML = '<h2 style="font-family:Outfit,sans-serif;font-size:1.3rem;font-weight:700;margin-bottom:1rem">Your Cost Breakdown</h2>' +
-        '<div class="cost-cards">' +
-        '<div class="cost-card"><h3>Current subscriptions</h3><div class="cost-big">$' + monthlySubCost.toFixed(0) + '/mo</div><div class="cost-annual">$' + annualSubCost.toFixed(0) + '/year</div></div>' +
-        '<div class="cost-card"><h3>Local AI (electricity)</h3><div class="cost-big">$' + monthlyElec.toFixed(2) + '/mo</div><div class="cost-annual">$' + annualElec.toFixed(2) + '/year</div></div>' +
-        (hardwareCost > 0 ? '<div class="cost-card"><h3>One-time hardware</h3><div class="cost-big">$' + hardwareCost + '</div><div class="cost-annual">One-time cost</div></div>' : '') +
-        '</div>' +
-        (monthlySubCost > 0 ? '<div class="savings-highlight"><h3>Annual savings with local AI (3-year amortized)</h3><div class="savings-num" style="color:' + savingsColor + '">' + savingsSign + Math.abs(netSavings).toFixed(0) + '</div>' +
-        (breakEven ? '<p style="margin-top:.5rem;font-size:.9rem;color:var(--text-secondary)"><strong>Break-even:</strong> ' + breakEven + ' months (' + (breakEven / 12).toFixed(1) + ' years)</p>' : '<p style="margin-top:.5rem;font-size:.9rem;color:var(--text-secondary)">No hardware cost needed for your tier</p>') +
-        '</div>' : '') +
-        '<table class="cost-table"><thead><tr><th>Item</th><th>Cost</th><th>Details</th></tr></thead><tbody>' +
-        '<tr><td>Software</td><td>$0</td><td>Ollama, LM Studio, OpenWebUI — all free</td></tr>' +
-        '<tr><td>Monthly electricity</td><td>$' + monthlyElec.toFixed(2) + '</td><td>' + hoursPerDay + 'hrs/day at $' + elecRate + '/kWh on ' + gpuName + '</td></tr>' +
-        '<tr><td>Hardware (one-time)</td><td>$' + hardwareCost + '</td><td>' + (tierId === 'no-gpu' || tierId === 'apple' ? 'Use existing hardware' : 'Approx. used ' + gpuName) + '</td></tr>' +
-        '</tbody></table>' +
-        '<div class="cta-box"><p>Ready to set up local AI on your ' + gpuName + '?</p><a href="index.html' + (tierId ? '?tier=' + tierId : '') + '" class="cta-btn">Get my setup →</a></div>';
-      result.scrollIntoView({ behavior: 'smooth' });
-      plausible('cost_calculated', { props: { tier: tierId, monthlySub: monthlySubCost } });
-    }
-
-    async function init() {
-      try {
-        var res = await Promise.all([
-          fetch('data/costs.json').then(function(r) { return r.json(); }),
-          fetch('data/gpus.json').then(function(r) { return r.json(); })
-        ]);
-        costsData = res[0];
-        gpusData = res[1];
-
-        document.getElementById('comparisons').innerHTML = (costsData.comparisons || []).map(renderComparison).join('');
-        document.getElementById('be-table-body').innerHTML = (costsData.breakEven || []).map(function(b) {
-          return '<tr><td>' + b.hardware + '</td><td>' + b.vsService + '</td><td>' + b.breakEvenMonths + ' months</td><td>' + b.note + '</td></tr>';
-        }).join('');
-
-        var tierSel = document.getElementById('tier-select');
-        gpusData.forEach(function(g) {
-          var opt = document.createElement('option');
-          opt.value = g.id;
-          opt.textContent = g.uiLabel;
-          tierSel.appendChild(opt);
-        });
-
-        var subList = document.getElementById('subscriptions-list');
-        var subs = costsData.cloudSubscriptions || [];
-        subList.innerHTML = subs.map(function(s) {
-          return '<div class="sub-item">' +
-            '<input type="checkbox" id="sub-' + s.id + '" value="' + s.monthlyPrice + '">' +
-            '<label for="sub-' + s.id + '" style="flex:1;cursor:pointer"><span class="sub-name">' + s.name + '</span> <span class="sub-price">— $' + s.monthlyPrice + '/mo</span></label>' +
-            '<span class="sub-capability">' + (s.bestFor ? s.bestFor.slice(0, 2).join(', ') : '') + '</span>' +
-            '</div>';
-        }).join('');
-      } catch(e) {
-        document.getElementById('comparisons').innerHTML = '<p style="color:var(--red)">Failed to load cost data.</p>';
-      }
-      document.getElementById('hw-cost').addEventListener('input', calcBreakEven);
-      document.getElementById('monthly-cloud').addEventListener('input', calcBreakEven);
-      calcBreakEven();
-    }
-    document.addEventListener('DOMContentLoaded', init);
+    document.getElementById('be-hw').addEventListener('input',calcBE);
+    document.getElementById('be-sub').addEventListener('input',calcBE);
   </script>
   <script src="shared.js"></script>
   <script src="analytics.js"></script>

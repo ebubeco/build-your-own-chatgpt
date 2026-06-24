@@ -4,7 +4,7 @@
       "id": "rtx3060-qwen14b-ollama-openwebui",
       "tier": "budget-gpu",
       "gpu": ["RTX 3060"],
-      "model": "Qwen 3 14B",
+      "model": "Qwen 2.5 14B",
       "quantization": "Q4_K_M",
       "tool": "Ollama",
       "ui": "Open WebUI",
@@ -14,7 +14,7 @@
       "successRate": 0.91,
       "setupSteps": [
         "Download Ollama from ollama.com",
-        "Open terminal, run: ollama pull qwen3:14b",
+        "Open terminal, run: ollama pull qwen2.5:14b",
         "Download Open WebUI from openwebui.com",
         "Open WebUI, connect to http://localhost:11434",
         "Start chatting"
@@ -30,7 +30,7 @@
       "id": "rtx3060-qwen7b-ollama",
       "tier": "budget-gpu",
       "gpu": ["RTX 3060"],
-      "model": "Qwen 3 7B",
+      "model": "Qwen 2.5 7B",
       "quantization": "Q4_K_M",
       "tool": "Ollama",
       "ui": "Ollama CLI (terminal)",
@@ -76,7 +76,7 @@
       "id": "rtx4070-qwen27b-ollama-openwebui",
       "tier": "power-gpu",
       "gpu": ["RTX 4070", "RTX 4070 Super", "RTX 4070 Ti"],
-      "model": "Qwen 3.5 27B",
+      "model": "Qwen 2.5 32B",
       "quantization": "Q4_K_M",
       "tool": "Ollama",
       "ui": "Open WebUI",
@@ -86,7 +86,7 @@
       "successRate": 0.93,
       "setupSteps": [
         "Download Ollama from ollama.com",
-        "Open terminal, run: ollama pull qwen3.5:27b",
+        "Open terminal, run: ollama pull qwen2.5:32b",
         "Download Open WebUI from openwebui.com",
         "Connect to Ollama server"
       ],
@@ -101,7 +101,7 @@
       "id": "rtx4090-qwen27b-ollama-openwebui",
       "tier": "power-gpu",
       "gpu": ["RTX 4090"],
-      "model": "Qwen 3.5 27B",
+      "model": "Qwen 2.5 32B",
       "quantization": "Q4_K_M",
       "tool": "Ollama",
       "ui": "Open WebUI",
@@ -111,7 +111,7 @@
       "successRate": 0.97,
       "setupSteps": [
         "Download Ollama from ollama.com",
-        "Open terminal, run: ollama pull qwen3.5:27b",
+        "Open terminal, run: ollama pull qwen2.5:32b",
         "Download Open WebUI from openwebui.com",
         "Start chatting"
       ],
@@ -123,7 +123,7 @@
       "id": "macm3pro-qwen7b-ollama",
       "tier": "power-gpu",
       "gpu": ["Apple M3 Pro", "Apple M3 Max"],
-      "model": "Qwen 3 7B",
+      "model": "Qwen 2.5 7B",
       "quantization": "Q4_K_M",
       "tool": "Ollama",
       "ui": "Ollama CLI or LM Studio",
@@ -144,7 +144,7 @@
       "id": "macm3max-qwen27b-ollama",
       "tier": "power-gpu",
       "gpu": ["Apple M3 Max", "Apple M4 Max"],
-      "model": "Qwen 3.5 27B",
+      "model": "Qwen 2.5 32B",
       "quantization": "Q4_K_M",
       "tool": "Ollama",
       "ui": "Open WebUI",
@@ -154,7 +154,7 @@
       "successRate": 0.94,
       "setupSteps": [
         "Download Ollama from ollama.com",
-        "Terminal: ollama pull qwen3.5:27b",
+        "Terminal: ollama pull qwen2.5:32b",
         "Download Open WebUI",
         "Connect to Ollama"
       ],

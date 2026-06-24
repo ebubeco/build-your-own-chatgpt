@@ -1,0 +1,66 @@
+- main [ref=e2]:
+  - link "← Use the wizard" [ref=e3] [cursor=pointer]:
+    - /url: /
+  - heading "ChatGPT Without a Subscription — Free Alternatives (2026)" [level=1] [ref=e4]
+  - paragraph [ref=e6]:
+    - strong [ref=e7]: You don't need to pay for ChatGPT.
+    - text: "There are two completely free paths to ChatGPT-quality AI: run local models on your computer, or use free cloud services. No subscription, no credit card required."
+  - generic [ref=e8]:
+    - 'heading "Option 1: Local AI — Free Forever" [level=2] [ref=e9]'
+    - paragraph [ref=e10]: Run AI on your own computer. No subscription, no internet needed after setup.
+    - generic [ref=e11]:
+      - generic [ref=e13]:
+        - generic [ref=e14]: Qwen 2.5 7B
+        - generic [ref=e15]: Free forever
+      - paragraph [ref=e16]: ChatGPT-quality AI that runs entirely on your computer. Free, private, unlimited, offline.
+      - generic [ref=e17]:
+        - generic [ref=e18]: Get started
+        - generic [ref=e19]: ollama pull qwen2.5:7b && ollama run qwen2.5:7b
+        - link "Download Ollama (free)" [ref=e20] [cursor=pointer]:
+          - /url: https://ollama.com/download
+  - generic [ref=e21]:
+    - 'heading "Option 2: Free Cloud AI" [level=2] [ref=e22]'
+    - paragraph [ref=e23]: No installation needed. Works on any device with a browser, including Chromebooks and tablets.
+    - generic [ref=e24]:
+      - generic [ref=e25]:
+        - generic [ref=e26]: Groq — Free Tier
+        - paragraph [ref=e27]: 1,000+ tokens/second. Llama 3.1 8B, Qwen 3 32B, and more. No credit card needed.
+        - link "Try Groq Free" [ref=e28] [cursor=pointer]:
+          - /url: https://console.groq.com
+      - generic [ref=e29]:
+        - generic [ref=e30]: Gemini — Free Tier
+        - paragraph [ref=e31]: Google's best models, multimodal, huge context. Free with Google account.
+        - link "Try Gemini Free" [ref=e32] [cursor=pointer]:
+          - /url: https://gemini.google.com
+  - generic [ref=e33]:
+    - heading "Cost Comparison" [level=2] [ref=e34]
+    - generic [ref=e35]:
+      - generic [ref=e36]:
+        - generic [ref=e37]: ChatGPT Plus
+        - paragraph [ref=e38]: $20/month · GPT-4 access · Priority speed
+      - generic [ref=e39]:
+        - generic [ref=e40]: Local AI (Ollama)
+        - paragraph [ref=e41]: $0/month · Free forever · Private · Offline
+      - generic [ref=e42]:
+        - generic [ref=e43]: Groq Free
+        - paragraph [ref=e44]: $0/month · 1,000+ tok/s · No installation
+  - generic [ref=e45]:
+    - heading "Frequently Asked Questions" [level=2] [ref=e46]
+    - generic [ref=e47]:
+      - generic [ref=e48]:
+        - heading "Can I use ChatGPT without a subscription?" [level=3] [ref=e49]
+        - paragraph [ref=e51]: "Yes. You have two options: run local AI with Ollama (completely free, runs on your computer) or use free cloud services like Groq and Gemini. Neither requires a subscription or credit card."
+      - generic [ref=e52]:
+        - heading "What is the best free alternative to ChatGPT Plus?" [level=3] [ref=e53]
+        - paragraph [ref=e55]: For most users, Ollama with Qwen 2.5 7B is the best free alternative to ChatGPT Plus. It's free forever, private, and works offline. For cloud users, Groq's Llama 3.1 8B delivers ChatGPT-quality responses at no cost.
+      - generic [ref=e56]:
+        - heading "Is local AI really free forever?" [level=3] [ref=e57]
+        - paragraph [ref=e59]: Yes. Ollama is open source and completely free. Models are free to download and use. You pay nothing — no subscription, no API fees, no usage limits. Ever.
+      - generic [ref=e60]:
+        - heading "How does free local AI compare to ChatGPT Plus?" [level=3] [ref=e61]
+        - paragraph [ref=e63]: Local AI (Qwen 2.5 7B) matches ChatGPT Plus for chat, writing, and coding. It lacks GPT-4's breadth and multimodal features but is private, offline, and completely free. For most daily tasks, the difference is negligible.
+  - generic [ref=e64]:
+    - heading "Find Your Free ChatGPT Alternative" [level=2] [ref=e65]
+    - paragraph [ref=e66]: Answer two questions and get the best free setup for your specific needs and hardware.
+    - link "Get Free AI" [ref=e67] [cursor=pointer]:
+      - /url: /

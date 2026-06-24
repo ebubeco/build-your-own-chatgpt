@@ -184,13 +184,13 @@ let currentView = 'grid';
 
 async function init() {
   try {
-    const res = await fetch('data/models.json');
+    const res = await fetch('data/models_compendium.json');
     const data = await res.json();
     allModels = data.models.map(m => ({
       ...m,
       tierId: m.tier,
       providerId: getProviderId(m),
-      isSilicon: m.tier.startsWith('silicon'),
+      isSilicon: (m.tier||'').startsWith('silicon'),
       specialties: m.bestFor || []
     }));
     document.getElementById('total-models').textContent = allModels.length;

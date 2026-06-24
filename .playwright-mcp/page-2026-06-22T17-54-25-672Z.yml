@@ -1,0 +1,124 @@
+- generic [active] [ref=e1]:
+  - navigation "Site navigation" [ref=e2]:
+    - generic [ref=e4]:
+      - generic [ref=e5]: 🤖 Build Your Own ChatGPT
+      - generic [ref=e6]:
+        - link "Compare" [ref=e7] [cursor=pointer]:
+          - /url: compare.html
+        - link "Which AI" [ref=e8] [cursor=pointer]:
+          - /url: which-ai.html
+        - link "Careers" [ref=e9] [cursor=pointer]:
+          - /url: career.html
+        - button "Toggle light/dark mode" [ref=e10] [cursor=pointer]:
+          - generic [ref=e11]: 🌙
+          - generic [ref=e12]: Dark mode
+  - banner [ref=e13]:
+    - generic [ref=e14]:
+      - generic [ref=e16]: Free · Private · Works offline
+      - heading "Build Your Own ChatGPT" [level=1] [ref=e17]
+      - paragraph [ref=e18]: From a beat-up 2014 laptop to a shiny gaming rig, whatever you're working with, we'll get a private AI running on it. No cloud, no subscription, your data stays on your machine.
+  - main [ref=e19]:
+    - generic [ref=e20]:
+      - generic [ref=e21]:
+        - paragraph [ref=e22]: Step 1
+        - heading "What do you want to do?" [level=2] [ref=e23]
+        - paragraph [ref=e24]: Pick one. This shapes which models we recommend.
+        - generic [ref=e25]:
+          - button "💬 Private ChatGPT Chat, brainstorm, answer questions. Fully private, on your machine." [ref=e26] [cursor=pointer]:
+            - generic [ref=e27]: 💬
+            - generic [ref=e28]: Private ChatGPT
+            - generic [ref=e29]: Chat, brainstorm, answer questions. Fully private, on your machine.
+          - button "💻 Coding assistant Write code, debug, explain functions. Models trained for programming." [ref=e30] [cursor=pointer]:
+            - generic [ref=e31]: 💻
+            - generic [ref=e32]: Coding assistant
+            - generic [ref=e33]: Write code, debug, explain functions. Models trained for programming.
+          - button "✍️ Research + writing Articles, reports, summaries, and research. Long context helps here." [ref=e34] [cursor=pointer]:
+            - generic [ref=e35]: ✍️
+            - generic [ref=e36]: Research + writing
+            - generic [ref=e37]: Articles, reports, summaries, and research. Long context helps here.
+          - button "📄 Chat with documents Ask questions about PDFs, codebases, transcripts. Needs 8K+ context." [ref=e38] [cursor=pointer]:
+            - generic [ref=e39]: 📄
+            - generic [ref=e40]: Chat with documents
+            - generic [ref=e41]: Ask questions about PDFs, codebases, transcripts. Needs 8K+ context.
+          - button "🤖 AI agents and automation Build automated workflows, research agents, and multi-step reasoning tasks." [ref=e42] [cursor=pointer]:
+            - generic [ref=e43]: 🤖
+            - generic [ref=e44]: AI agents and automation
+            - generic [ref=e45]: Build automated workflows, research agents, and multi-step reasoning tasks.
+          - button "❓ I Don't Know Not sure what's possible? Let's find the best fit together." [ref=e46] [cursor=pointer]:
+            - generic [ref=e47]: ❓
+            - generic [ref=e48]: I Don't Know
+            - generic [ref=e49]: Not sure what's possible? Let's find the best fit together.
+      - generic [ref=e51] [cursor=pointer]:
+        - checkbox "Explain jargon in plain English" [checked] [ref=e52]
+        - generic [ref=e53]: Explain jargon in plain English
+      - separator [ref=e54]
+      - generic [ref=e55]:
+        - paragraph [ref=e56]: Cloud AI - zero hardware
+        - heading "Run powerful AI without a GPU" [level=2] [ref=e57]
+        - paragraph [ref=e58]: No compatible hardware? Use free cloud AI instead. Pick a tool below, follow the steps, and start chatting in 5 minutes. No credit card needed.
+        - generic [ref=e59]:
+          - generic [ref=e60]: Connect in 5 minutes
+          - paragraph [ref=e61]: Choose how you want to connect. All free, no credit card.
+          - generic [ref=e62]:
+            - button "Use with Ollama" [ref=e63] [cursor=pointer]
+            - button "Use with LM Studio" [ref=e64] [cursor=pointer]
+            - button "Use with OpenCode" [ref=e65] [cursor=pointer]
+            - button "Developer (Python)" [ref=e66] [cursor=pointer]
+      - separator [ref=e67]
+      - generic [ref=e68]:
+        - paragraph [ref=e69]: Tools
+        - heading "Which local AI tool should I use?" [level=2] [ref=e70]
+        - paragraph [ref=e71]: All three are free. Pick based on how you like to work.
+        - generic [ref=e72]:
+          - generic [ref=e73] [cursor=pointer]:
+            - generic [ref=e74]: Ollama
+            - generic [ref=e75]: Best for beginners
+            - generic [ref=e76]: One command install. Terminal-based but surprisingly simple.
+          - generic [ref=e77] [cursor=pointer]:
+            - generic [ref=e78]: LM Studio
+            - generic [ref=e79]: Best for GUI lovers
+            - generic [ref=e80]: Polished app. Click to install models. Beautiful interface.
+          - generic [ref=e81] [cursor=pointer]:
+            - generic [ref=e82]: Jan
+            - generic [ref=e83]: Best for privacy nerds
+            - generic [ref=e84]: 100% open source, no telemetry, fully offline.
+        - paragraph [ref=e85]: Our recommendations use Ollama. It has the simplest install and biggest community.
+      - separator [ref=e86]
+      - generic [ref=e87]:
+        - paragraph [ref=e88]: How it works
+        - heading "Three steps to your own AI" [level=2] [ref=e89]
+        - generic [ref=e90]:
+          - generic [ref=e91]:
+            - generic [ref=e92]: Step 01
+            - generic [ref=e93]: Your goal + career
+            - generic [ref=e94]: Tell us what you want to do and what you do. Goal shapes the recommendation, career fine-tunes it.
+          - generic [ref=e95]:
+            - generic [ref=e96]: Step 02
+            - generic [ref=e97]: Select your hardware
+            - generic [ref=e98]: Tell us what you're working with. We'll detect it automatically if possible.
+          - generic [ref=e99]:
+            - generic [ref=e100]: Step 03
+            - generic [ref=e101]: Copy. Paste. Done.
+            - generic [ref=e102]: One command to install. Chat with your private AI in minutes.
+  - button "📢 What's New" [ref=e104] [cursor=pointer]
+  - contentinfo [ref=e105]:
+    - generic [ref=e106]:
+      - generic [ref=e107]:
+        - link "GitHub" [ref=e108] [cursor=pointer]:
+          - /url: https://github.com/ebubeco/build-your-own-chatgpt
+        - link "Compare" [ref=e109] [cursor=pointer]:
+          - /url: compare.html
+        - link "Which AI" [ref=e110] [cursor=pointer]:
+          - /url: which-ai.html
+        - link "Offline Guide" [ref=e111] [cursor=pointer]:
+          - /url: best-offline-chatgpt.html
+        - link "Careers" [ref=e112] [cursor=pointer]:
+          - /url: career.html
+        - link "Model Catalog" [ref=e113] [cursor=pointer]:
+          - /url: compendium.html
+        - link "Ollama" [ref=e114] [cursor=pointer]:
+          - /url: https://ollama.com
+        - link "Hugging Face" [ref=e115] [cursor=pointer]:
+          - /url: https://huggingface.co
+      - paragraph [ref=e116]: Built for beginners. Your data never leaves your machine.
+      - paragraph

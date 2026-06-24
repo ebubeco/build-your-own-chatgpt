@@ -1,0 +1,48 @@
+- main [ref=e2]:
+  - link "← Use the wizard" [ref=e3] [cursor=pointer]:
+    - /url: ../
+  - heading "What is a Local AI Model?" [level=1] [ref=e4]
+  - paragraph [ref=e6]:
+    - strong [ref=e7]: A local AI model is a large language model (LLM) that runs entirely on your computer — no internet, no subscription, no data leaving your machine.
+  - generic [ref=e8]:
+    - heading "How LLMs Work" [level=2] [ref=e9]
+    - paragraph [ref=e10]:
+      - text: Large language models are neural networks trained on vast amounts of text. They predict the next word in a sequence, which lets them generate human-like responses, write code, answer questions, and more. When you run a model locally with
+      - link "Ollama" [ref=e11] [cursor=pointer]:
+        - /url: https://ollama.com
+      - text: ", it downloads the model weights (typically 2-40GB) and runs inference using your computer's CPU, GPU, or both."
+  - generic [ref=e12]:
+    - heading "Key Concepts" [level=2] [ref=e13]
+    - list [ref=e14]:
+      - listitem [ref=e15]:
+        - strong [ref=e16]: "Model Size:"
+        - text: Measured in parameters (e.g., 7B = 7 billion). More parameters = smarter but slower and needs more RAM/VRAM.
+      - listitem [ref=e17]:
+        - strong [ref=e18]: "Quantization:"
+        - text: Compresses the model to use less memory while maintaining quality. Q4_K_M is the recommended default.
+      - listitem [ref=e19]:
+        - strong [ref=e20]: "Context Window:"
+        - text: How many tokens (words/characters) the model can remember. Longer = better for conversations and large documents.
+      - listitem [ref=e21]:
+        - strong [ref=e22]: "VRAM vs RAM:"
+        - text: GPU memory (VRAM) is fastest. CPU RAM works too but is slower. Apple Silicon unifies both.
+  - generic [ref=e23]:
+    - heading "Choosing a Model" [level=2] [ref=e24]
+    - list [ref=e25]:
+      - listitem [ref=e26]:
+        - strong [ref=e27]: "No GPU / 8GB RAM:"
+        - text: Phi-4-mini (3.8B), Llama 3.2 (1B/3B), Qwen 2.5 (1.5B)
+      - listitem [ref=e28]:
+        - strong [ref=e29]: "4-8GB VRAM / 16GB RAM:"
+        - text: Qwen 2.5 (7B), Gemma 3 (9B), Mistral (7B)
+      - listitem [ref=e30]:
+        - strong [ref=e31]: "8-16GB VRAM / 32GB RAM:"
+        - text: Qwen 2.5 (14B), Phi-4 (14B), DeepSeek R1 (8B)
+      - listitem [ref=e32]:
+        - strong [ref=e33]: "24GB+ VRAM / 64GB+ RAM:"
+        - text: Qwen 2.5 (32B), DeepSeek R1 (32B), Qwen 3 (35B)
+  - generic [ref=e34]:
+    - heading "Find Your Perfect Model" [level=2] [ref=e35]
+    - paragraph [ref=e36]: Tell us about your computer and get a personalized recommendation with install commands.
+    - link "Get Recommended" [ref=e37] [cursor=pointer]:
+      - /url: ../

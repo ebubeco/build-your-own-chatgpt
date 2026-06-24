@@ -1,0 +1,2 @@
+[      47ms] TypeError: data.filter is not a function
+    at http://localhost:3333/compare.html:52:17

@@ -1,0 +1,105 @@
+- generic [ref=e1]:
+  - navigation "Site navigation" [ref=e2]:
+    - generic [ref=e4]:
+      - link "🤖 Build Your Own ChatGPT" [ref=e5] [cursor=pointer]:
+        - /url: index.html
+        - generic [ref=e6]: 🤖 Build Your Own ChatGPT
+      - generic [ref=e7]:
+        - link "Compare" [ref=e8] [cursor=pointer]:
+          - /url: compare.html
+        - link "Which AI" [ref=e9] [cursor=pointer]:
+          - /url: which-ai.html
+        - link "Upgrade" [ref=e10] [cursor=pointer]:
+          - /url: upgrade.html
+        - link "Cost" [ref=e11] [cursor=pointer]:
+          - /url: cost.html
+        - link "All Models" [ref=e12] [cursor=pointer]:
+          - /url: compendium.html
+        - button "Toggle light/dark mode" [ref=e13] [cursor=pointer]:
+          - generic [ref=e14]: ☾
+          - generic [ref=e15]: Light mode
+  - main [ref=e16]:
+    - heading "Compare AI Models" [level=1] [ref=e17]
+    - paragraph [ref=e18]: Select up to 3 models to compare side by side.
+    - textbox "Type to search models..." [ref=e20]
+    - generic [ref=e48]:
+      - generic [ref=e59]:
+        - text: Qwen 0.5B
+        - button "×" [ref=e60] [cursor=pointer]
+      - generic [ref=e61]:
+        - text: Llama 3.2 1B
+        - button "×" [ref=e62] [cursor=pointer]
+    - button "Compare Selected" [active] [ref=e21] [cursor=pointer]
+    - table [ref=e64]:
+      - rowgroup [ref=e65]:
+        - row "Qwen 0.5B Llama 3.2 1B" [ref=e66]:
+          - columnheader [ref=e67]
+          - columnheader "Qwen 0.5B" [ref=e68]
+          - columnheader "Llama 3.2 1B" [ref=e69]
+      - rowgroup [ref=e70]:
+        - row "Model Qwen 0.5B Llama 3.2 1B" [ref=e71]:
+          - cell "Model" [ref=e72]
+          - cell "Qwen 0.5B" [ref=e73]
+          - cell "Llama 3.2 1B" [ref=e74]
+        - row "Tag qwen2.5:0.5b llama3.2:1b" [ref=e75]:
+          - cell "Tag" [ref=e76]
+          - cell "qwen2.5:0.5b" [ref=e77]
+          - cell "llama3.2:1b" [ref=e78]
+        - row "Size 0.5B 1B" [ref=e79]:
+          - cell "Size" [ref=e80]
+          - cell "0.5B" [ref=e81]
+          - cell "1B" [ref=e82]
+        - row "Min VRAM 0.6GB 1GB" [ref=e83]:
+          - cell "Min VRAM" [ref=e84]
+          - cell "0.6GB" [ref=e85]
+          - cell "1GB" [ref=e86]
+        - row "Storage ~1GB ~1GB" [ref=e87]:
+          - cell "Storage" [ref=e88]
+          - cell "~1GB" [ref=e89]
+          - cell "~1GB" [ref=e90]
+        - row "Startup 10-20 seconds 10-20 seconds" [ref=e91]:
+          - cell "Startup" [ref=e92]
+          - cell "10-20 seconds" [ref=e93]
+          - cell "10-20 seconds" [ref=e94]
+        - row "Setup 5 minutes 5 minutes" [ref=e95]:
+          - cell "Setup" [ref=e96]
+          - cell "5 minutes" [ref=e97]
+          - cell "5 minutes" [ref=e98]
+        - row "Difficulty Easiest Easiest" [ref=e99]:
+          - cell "Difficulty" [ref=e100]
+          - cell "Easiest" [ref=e101]
+          - cell "Easiest" [ref=e102]
+        - row "Internet No No" [ref=e103]:
+          - cell "Internet" [ref=e104]
+          - cell "No" [ref=e105]
+          - cell "No" [ref=e106]
+        - row "Privacy Fully local Fully local" [ref=e107]:
+          - cell "Privacy" [ref=e108]
+          - cell "Fully local" [ref=e109]
+          - cell "Fully local" [ref=e110]
+        - row "Context 8K 8K" [ref=e111]:
+          - cell "Context" [ref=e112]
+          - cell "8K" [ref=e113]
+          - cell "8K" [ref=e114]
+        - row "Best For Lightweight tasks, learning local AI, experiments on old hardware Real-time chat and simple Q&A on any device" [ref=e115]:
+          - cell "Best For" [ref=e116]
+          - cell "Lightweight tasks, learning local AI, experiments on old hardware" [ref=e117]
+          - cell "Real-time chat and simple Q&A on any device" [ref=e118]
+        - row "Install ollama pull qwen2.5:0.5b ollama pull llama3.2:1b" [ref=e119]:
+          - cell "Install" [ref=e120]
+          - cell "ollama pull qwen2.5:0.5b" [ref=e121]
+          - cell "ollama pull llama3.2:1b" [ref=e122]
+  - contentinfo [ref=e22]:
+    - generic [ref=e23]:
+      - generic [ref=e24]:
+        - link "GitHub" [ref=e25] [cursor=pointer]:
+          - /url: https://github.com/ebubeco/build-your-own-chatgpt
+        - link "Wizard" [ref=e26] [cursor=pointer]:
+          - /url: index.html
+        - link "All Models" [ref=e27] [cursor=pointer]:
+          - /url: compendium.html
+        - link "Cost" [ref=e28] [cursor=pointer]:
+          - /url: cost.html
+        - link "Career" [ref=e29] [cursor=pointer]:
+          - /url: career.html
+      - paragraph [ref=e30]: Built for beginners. Your data never leaves your machine.

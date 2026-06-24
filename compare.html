@@ -1,53 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta name="google-site-verification" content="5YRiOefTK9mTwEJEnLIH6BQ5xmP0NkwyfiaBWZJbdCg">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Compare local AI models side by side. Speed, quality, VRAM requirements, and use case ratings.">
-  <meta property="og:title" content="Compare Local AI Models — Build Your Own ChatGPT">
-  <meta property="og:description" content="Select up to 3 models and compare them side by side. See VRAM, storage, context, and more.">
-  <meta property="og:image" content="https://build-your-own-chatgpt.vercel.app/og-image.jpg">
-  <meta name="twitter:card" content="summary_large_image">
   <title>Compare Local AI Models — Build Your Own ChatGPT</title>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <meta name="description" content="Compare local AI models side by side. Storage, VRAM, startup time, and use case ratings for every Ollama model.">
+  <meta property="og:image" content="https://build-your-own-chatgpt.vercel.app/og-image.jpg">
   <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <script>!function(){var t=localStorage.getItem('theme');if(t==='dark'||(t===null&&window.matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark')}();</script>
-  <script async src="https://plausible.io/js/pa-DBTdINzLX2L2B_fXJF0u1.js"></script>
-  <script>window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()</script>
-  <style>
-    .cmp-page{max-width:960px;margin:0 auto;padding:0 1.5rem 3rem}
-    .cmp-page h1{font-family:'Outfit',sans-serif;font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;letter-spacing:-0.02em;margin:2rem 0 .5rem}
-    .cmp-page .subtitle{color:var(--text-secondary);font-size:1rem;margin-bottom:1.5rem}
-    .cmp-picker{position:relative;margin-bottom:1rem}
-    .cmp-picker input{width:100%;padding:.7rem .9rem;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-size:.95rem;background:var(--surface);color:var(--text);font-family:inherit;box-sizing:border-box}
-    .cmp-picker input:focus{outline:none;border-color:var(--accent)}
-    .model-dropdown{position:absolute;top:100%;left:0;right:0;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-sm);margin-top:.25rem;z-index:100;display:none;max-height:300px;overflow-y:auto;box-shadow:var(--shadow-md)}
-    .dropdown-item{padding:.65rem .9rem;cursor:pointer;font-size:.9rem;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border-light);transition:background var(--transition)}
-    .dropdown-item:last-child{border-bottom:none}
-    .dropdown-item:hover{background:var(--surface)}
-    .dropdown-item strong{color:var(--text);font-weight:600}
-    .dropdown-item span{color:var(--text-tertiary);font-size:.78rem;font-family:'SF Mono',monospace}
-    .selected-chips{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1rem}
-    .chip{display:inline-flex;align-items:center;gap:.4rem;padding:.35rem .75rem;background:var(--accent-light);border:1px solid var(--accent);border-radius:100px;font-size:.82rem;font-weight:600;color:var(--text)}
-    .chip button{background:none;border:none;cursor:pointer;color:var(--text-secondary);font-size:1rem;padding:0;line-height:1;margin-left:.1rem}
-    .chip button:hover{color:var(--red)}
-    .cmp-run-btn{display:block;width:100%;padding:.75rem;background:var(--accent);color:#fff;border:none;border-radius:var(--radius-sm);font-size:1rem;font-weight:700;cursor:pointer;font-family:inherit;margin-bottom:2rem;transition:opacity var(--transition)}
-    .cmp-run-btn:hover{opacity:.9}
-    .cmp-run-btn:disabled{background:var(--border);color:var(--text-tertiary);cursor:not-allowed}
-    .comparison-table{width:100%;border-collapse:collapse;font-size:.88rem;display:none}
-    .comparison-table th{background:var(--surface);border-bottom:2px solid var(--border);padding:.6rem .75rem;text-align:left;font-weight:600;color:var(--text-secondary);font-size:.72rem;text-transform:uppercase;letter-spacing:.05em}
-    .comparison-table th:first-child{width:30%}
-    .comparison-table td{padding:.55rem .75rem;border-bottom:1px solid var(--border-light);color:var(--text)}
-    .comparison-table tr:last-child td{border-bottom:none}
-    .comparison-table td:first-child{font-weight:600;color:var(--text-secondary);font-size:.78rem}
-    .comparison-table .model-header{background:var(--accent-light)}
-    .comparison-table .model-header td{font-size:1rem;font-weight:700;color:var(--accent);text-align:center;padding:.75rem}
-    .cmp-note{font-size:.82rem;color:var(--text-tertiary);margin-top:.5rem;margin-bottom:2rem}
-  </style>
 </head>
 <body>
   <nav class="site-topbar" role="navigation" aria-label="Site navigation">
@@ -59,8 +20,9 @@
         <div style="display:flex;gap:0.75rem;align-items:center">
           <a href="compare.html" style="font-size:0.82rem;color:var(--accent);text-decoration:none;font-weight:600">Compare</a>
           <a href="which-ai.html" style="font-size:0.82rem;color:var(--text-secondary);text-decoration:none;font-weight:500">Which AI</a>
-          <a href="career.html" style="font-size:0.82rem;color:var(--text-secondary);text-decoration:none;font-weight:500">Careers</a>
-          <a href="compendium.html" style="font-size:0.82rem;color:var(--text-secondary);text-decoration:none;font-weight:500">Models</a>
+          <a href="upgrade.html" style="font-size:0.82rem;color:var(--text-secondary);text-decoration:none;font-weight:500">Upgrade</a>
+          <a href="cost.html" style="font-size:0.82rem;color:var(--text-secondary);text-decoration:none;font-weight:500">Cost</a>
+          <a href="compendium.html" style="font-size:0.82rem;color:var(--text-secondary);text-decoration:none;font-weight:500">All Models</a>
           <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle light/dark mode">
             <span class="toggle-icon">🌙</span>
             <span class="toggle-label">Dark mode</span>
@@ -69,158 +31,96 @@
       </div>
     </div>
   </nav>
-
-  <main class="cmp-page">
+  <main style="max-width:940px;margin:0 auto;padding:2rem 1rem;">
     <h1>Compare AI Models</h1>
-    <p class="subtitle">Select up to 3 models to compare side by side.</p>
-
-    <div class="cmp-picker">
-      <input type="text" id="model-search" placeholder="Search models (e.g. qwen, llama, phi)..." autocomplete="off">
-      <div id="model-dropdown" class="model-dropdown"></div>
+    <p>Select up to 3 models to compare side by side.</p>
+    <div style="position:relative;margin-bottom:1rem;">
+      <input type="text" id="msearch" placeholder="Type to search models..."
+        style="width:100%;padding:10px 14px;font-size:14px;border:1px solid var(--border,#ddd);border-radius:8px;background:var(--surface,#fff);color:var(--text-primary,#111);">
+      <div id="mdrop" style="display:none;position:absolute;top:100%;left:0;right:0;background:var(--surface,#fff);border:1px solid var(--border,#ddd);border-radius:8px;z-index:100;max-height:300px;overflow-y:auto;box-shadow:0 4px 12px rgba(0,0,0,.1);"></div>
     </div>
-
-    <div id="selected-models" class="selected-chips"></div>
-
-    <button id="compare-btn" class="cmp-run-btn" onclick="runComparison()" disabled>Compare Selected Models</button>
-
-    <div id="comparison-output">
-      <table id="compare-table" class="comparison-table"></table>
-    </div>
-
-    <p class="cmp-note">Prices shown are for cloud subscriptions. Local AI runs entirely free on your own hardware after setup.</p>
-
-    <p style="margin-top:1.5rem;font-size:0.88rem;color:var(--text-secondary)">
-      Not sure which model to start with?
-      <a href="index.html" style="color:var(--accent)">Take the wizard</a> to get a personalized recommendation for your hardware, or
-      <a href="best-offline-chatgpt.html" style="color:var(--accent)">read our offline AI guide</a> for the full picture.
-    </p>
+    <div id="chips" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1rem;"></div>
+    <button id="cbtn" onclick="runComparison()" disabled
+      style="padding:10px 20px;font-size:14px;background:#3C3489;color:#fff;border:none;border-radius:8px;cursor:pointer;opacity:.5;">
+      Compare Selected
+    </button>
+    <div id="cout" style="display:none;margin-top:2rem;overflow-x:auto;"></div>
   </main>
-
+  <script>
+  let models=[], selected=[];
+  fetch('data/models.json').then(r=>r.json()).then(data=>{
+    models=data.models.filter(m=>!m.platformType||m.platformType==='local');
+    const inp=document.getElementById('msearch'), drop=document.getElementById('mdrop');
+    inp.addEventListener('input',()=>{
+      const q=inp.value.toLowerCase().trim();
+      if(!q){drop.style.display='none';return;}
+      const r=models.filter(m=>(m.name||'').toLowerCase().includes(q)||(m.ollamaTag||'').includes(q)).slice(0,8);
+      drop.innerHTML=r.map(m=>`<div onclick="pick('${(m.id||m.name).replace(/'/g,"\\'")}')"`+
+        ` style="padding:10px 14px;cursor:pointer;font-size:13px;border-bottom:1px solid var(--border,#eee);">`+
+        `<strong>${m.name}</strong> <span style="color:#888;font-family:monospace;font-size:11px;">${m.ollamaTag}</span></div>`).join('');
+      drop.style.display=r.length?'block':'none';
+    });
+    document.addEventListener('click',e=>{if(!e.target.closest('#msearch')&&!e.target.closest('#mdrop'))drop.style.display='none';});
+  });
+  function pick(id){
+    if(selected.length>=3)return;
+    const m=models.find(x=>(x.id||x.name)===id);
+    if(!m||selected.find(x=>(x.id||x.name)===id))return;
+    selected.push(m);
+    document.getElementById('msearch').value=''; document.getElementById('mdrop').style.display='none';
+    renderChips();
+    const b=document.getElementById('cbtn'); b.disabled=selected.length<2; b.style.opacity=selected.length<2?'.5':'1';
+  }
+  function remove(id){
+    selected=selected.filter(m=>(m.id||m.name)!==id); renderChips();
+    const b=document.getElementById('cbtn'); b.disabled=selected.length<2; b.style.opacity=selected.length<2?'.5':'1';
+  }
+  function renderChips(){
+    document.getElementById('chips').innerHTML=selected.map(m=>
+      `<span style="display:inline-flex;align-items:center;gap:6px;padding:5px 10px;background:var(--surface-secondary,#f3f4f6);border-radius:20px;font-size:12px;">`+
+      `${m.name}<button onclick="remove('${(m.id||m.name).replace(/'/g,"\\'")}')"`+
+      ` style="background:none;border:none;cursor:pointer;font-size:16px;line-height:1;padding:0;">×</button></span>`).join('');
+  }
+  const FIELDS=[
+    {l:'Model',f:m=>m.name},{l:'Tag',f:m=>m.ollamaTag||'—'},{l:'Size',f:m=>m.size||m.parameterSize||'—'},
+    {l:'Min VRAM',f:m=>m.minVram===0?'CPU only':m.vramGB?`${m.vramGB}GB`:'—'},
+    {l:'Storage',f:m=>m.expectations?.storage||'—'},{l:'Startup',f:m=>m.expectations?.startupTime||'—'},
+    {l:'Setup',f:m=>m.expectations?.setupTime||'—'},{l:'Difficulty',f:m=>m.expectations?.difficulty||'—'},
+    {l:'Internet',f:m=>m.expectations?.internetRequired||'No'},{l:'Privacy',f:m=>m.expectations?.privacy||'Fully local'},
+    {l:'Context',f:m=>m.contextLength?`${Math.round(m.contextLength/1000)}K`:'—'},
+    {l:'Best For',f:m=>{let b=m.bestForDisplay||m.bestFor||'';b=Array.isArray(b)?b.slice(0,2).join(', '):''+b;return b||'—';}},
+    {l:'Install',f:m=>m.installCommand||`ollama pull ${m.ollamaTag}`}
+  ];
+  function runComparison(){
+    const rows=FIELDS.map(f=>
+      `<tr><td style="font-weight:500;padding:8px 12px;background:var(--surface-secondary,#f9fafb);font-size:12px;white-space:nowrap;">${f.l}</td>`+
+      selected.map(m=>`<td style="padding:8px 12px;font-size:12px;">${f.f(m)}</td>`).join('')+`</tr>`).join('');
+    const out=document.getElementById('cout');
+    out.style.display='block';
+    out.innerHTML=`<table style="width:100%;border-collapse:collapse;border:1px solid var(--border,#eee);border-radius:8px;overflow:hidden;">`+
+      `<thead><tr><th style="padding:10px 12px;text-align:left;background:var(--surface-secondary,#f3f4f6);font-size:12px;"></th>`+
+      selected.map(m=>`<th style="padding:10px 12px;text-align:left;background:var(--surface-secondary,#f3f4f6);font-size:13px;">${m.name}</th>`).join('')+
+      `</tr></thead><tbody>${rows}</tbody></table>`;
+    out.scrollIntoView({behavior:'smooth'});
+  }
+  </script>
+  <script>
+    document.getElementById('theme-toggle').addEventListener('click',function(){var e=document.documentElement;var t=e.getAttribute('data-theme');var n=t==='dark'?'light':'dark';e.setAttribute('data-theme',n);localStorage.setItem('theme',n);document.querySelector('.toggle-icon').textContent=n==='dark'?'☾':'☀';document.querySelector('.toggle-label').textContent=n==='dark'?'Light mode':'Dark mode';});
+    if(localStorage.getItem('theme')==='dark'||(!localStorage.getItem('theme')&&window.matchMedia('(prefers-color-scheme:dark)').matches)){document.querySelector('.toggle-icon').textContent='☾';document.querySelector('.toggle-label').textContent='Light mode';}
+  </script>
   <footer class="footer">
     <div class="container">
       <div class="footer-links">
-        <a href="https://github.com/ebubeco/build-your-own-chatgpt" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://github.com/ebubeco/build-your-own-chatgpt">GitHub</a>
         <a href="index.html">Wizard</a>
-        <a href="which-ai.html">Which AI</a>
-        <a href="best-offline-chatgpt.html">Offline Guide</a>
-        <a href="career.html">Careers</a>
-        <a href="compendium.html">Model Compendium</a>
-        <a href="use-cases.html">Use Cases</a>
-        <a href="starter-pack.html">Starter Pack</a>
+        <a href="compendium.html">All Models</a>
+        <a href="cost.html">Cost</a>
+        <a href="career.html">Career</a>
+        <a href="evaluators.html">Evaluators</a>
       </div>
       <p class="footer-tagline">Built for beginners. Your data never leaves your machine.</p>
     </div>
   </footer>
-
-  <script>
-    document.getElementById('theme-toggle').addEventListener('click', function() {
-      var t = document.documentElement.getAttribute('data-theme');
-      var n = t === 'dark' ? 'light' : 'dark';
-      document.documentElement.setAttribute('data-theme', n);
-      localStorage.setItem('theme', n);
-      document.querySelector('.toggle-icon').textContent = n === 'dark' ? '☀️' : '🌙';
-      document.querySelector('.toggle-label').textContent = n === 'dark' ? 'Light mode' : 'Dark mode';
-    });
-    if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme:dark)').matches)) {
-      document.querySelector('.toggle-icon').textContent = '☀️';
-      document.querySelector('.toggle-label').textContent = 'Light mode';
-    }
-
-    var allModels = [];
-    var selected = [];
-
-    var COMPARE_FIELDS = [
-      { label: 'Ollama Tag', key: 'ollamaTag' },
-      { label: 'Provider', key: 'provider' },
-      { label: 'Parameters', key: 'parameterSize' },
-      { label: 'Min VRAM', key: function(m) { return m.minVram === 0 ? 'CPU only' : (m.minVram + 'GB'); } },
-      { label: 'Min RAM', key: function(m) { return m.minRam + 'GB'; } },
-      { label: 'Storage', key: function(m) { return m.expectations ? m.expectations.storage : '—'; } },
-      { label: 'Startup Time', key: function(m) { return m.expectations ? m.expectations.startupTime : '—'; } },
-      { label: 'Setup Difficulty', key: function(m) { return m.expectations ? m.expectations.difficulty : '—'; } },
-      { label: 'Internet Required', key: function(m) { return m.expectations ? m.expectations.internetRequired : '—'; } },
-      { label: 'Privacy', key: function(m) { return m.expectations ? m.expectations.privacy : '—'; } },
-      { label: 'Best For', key: function(m) { return (m.bestForDisplay || []).slice(0, 3).join(', '); } },
-      { label: 'Install Command', key: function(m) { return 'ollama pull ' + m.ollamaTag; } }
-    ];
-
-    function initSearch() {
-      var input = document.getElementById('model-search');
-      var dropdown = document.getElementById('model-dropdown');
-      input.addEventListener('input', function() {
-        var q = input.value.toLowerCase().trim();
-        dropdown.style.display = 'none';
-        if (!q) return;
-        var results = allModels.filter(function(m) {
-          return m.name.toLowerCase().includes(q) || (m.ollamaTag || '').toLowerCase().includes(q) || (m.id || '').toLowerCase().includes(q);
-        }).slice(0, 8);
-        if (results.length === 0) return;
-        dropdown.innerHTML = results.map(function(m) {
-          return '<div class="dropdown-item" data-id="' + m.id + '"><strong>' + m.name + '</strong><span>' + m.ollamaTag + '</span></div>';
-        }).join('');
-        dropdown.style.display = 'block';
-      });
-      dropdown.addEventListener('click', function(e) {
-        var item = e.target.closest('.dropdown-item');
-        if (!item) return;
-        selectModel(item.dataset.id);
-        dropdown.style.display = 'none';
-        input.value = '';
-      });
-      document.addEventListener('click', function(e) {
-        if (!e.target.closest('.cmp-picker')) dropdown.style.display = 'none';
-      });
-    }
-
-    function selectModel(id) {
-      if (selected.length >= 3) return;
-      if (selected.find(function(m) { return m.id === id; })) return;
-      var model = allModels.find(function(m) { return m.id === id; });
-      if (!model) return;
-      selected.push(model);
-      renderChips();
-      document.getElementById('compare-btn').disabled = selected.length < 2;
-    }
-
-    function removeModel(id) {
-      selected = selected.filter(function(m) { return m.id !== id; });
-      renderChips();
-      document.getElementById('compare-btn').disabled = selected.length < 2;
-      document.getElementById('compare-table').style.display = 'none';
-    }
-
-    function renderChips() {
-      document.getElementById('selected-models').innerHTML = selected.map(function(m) {
-        return '<div class="chip">' + m.name + ' <button onclick="removeModel(\'' + m.id + '\')">×</button></div>';
-      }).join('');
-    }
-
-    function runComparison() {
-      if (selected.length < 2) return;
-      var table = document.getElementById('compare-table');
-      var headerRow = '<tr><th></th>' + selected.map(function(m) { return '<th>' + m.name + '</th>'; }).join('') + '</tr>';
-      var modelHeaderRow = '<tr class="model-header"><td></td>' + selected.map(function(m) { return '<td>' + m.ollamaTag + '<br><span style="font-size:.72rem;font-weight:400;color:var(--text-secondary)">' + m.parameterSize + '</span></td>'; }).join('') + '</tr>';
-      var rows = COMPARE_FIELDS.map(function(field) {
-        var cells = selected.map(function(m) {
-          var val = typeof field.key === 'function' ? field.key(m) : (m[field.key] || '—');
-          return '<td>' + val + '</td>';
-        }).join('');
-        return '<tr><td>' + field.label + '</td>' + cells + '</tr>';
-      }).join('');
-
-      table.innerHTML = '<thead>' + headerRow + modelHeaderRow + '</thead><tbody>' + rows + '</tbody>';
-      table.style.display = 'table';
-      table.scrollIntoView({ behavior: 'smooth' });
-      plausible('models_compared', { props: { models: selected.map(function(m) { return m.id; }).join(',') } });
-    }
-
-    fetch('data/models.json').then(function(r) { return r.json(); }).then(function(data) {
-      allModels = data.models || [];
-      initSearch();
-    }).catch(function() {
-      document.getElementById('model-search').placeholder = 'Failed to load models data';
-    });
-  </script>
   <script src="shared.js"></script>
   <script src="analytics.js"></script>
 </body>

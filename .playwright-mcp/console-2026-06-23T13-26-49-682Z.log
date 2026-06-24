@@ -1,0 +1,4 @@
+[      90ms] [LOG] [Analytics] wizard_started  @ http://localhost:8082/analytics.js:39
+[     105ms] [WARNING] Unknown tier: mid-gpu @ http://localhost:8082/app.js:861
+[     153ms] [WARNING] Ignoring Event: localhost @ https://plausible.io/js/pa-DBTdINzLX2L2B_fXJF0u1.js:0
+[     154ms] [WARNING] Ignoring Event: localhost @ https://plausible.io/js/pa-DBTdINzLX2L2B_fXJF0u1.js:0

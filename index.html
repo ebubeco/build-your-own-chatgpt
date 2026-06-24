@@ -13,11 +13,14 @@
   <meta property="og:image" content="https://build-your-own-chatgpt.vercel.app/og-image.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://build-your-own-chatgpt.vercel.app/og-image.jpg">
-  <title>Build Your Own ChatGPT - Private AI Setup for Any Hardware</title>
+  <meta property="og:url" content="https://build-your-own-chatgpt.vercel.app">
+  <link rel="canonical" href="https://build-your-own-chatgpt.vercel.app">
+  <title>Build Your Own ChatGPT — Free Private AI for Any Hardware</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
   <!-- Anti-flash: apply theme before CSS renders -->
   <script>!function(){var t=localStorage.getItem('theme');if(t==='dark'||(t===null&&window.matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark')}();</script>
   <link rel="preload" href="data/config.json" as="fetch" crossorigin="anonymous">
@@ -86,6 +89,11 @@
   </script>
 </head>
 <body>
+  <noscript>
+    <div style="background:#d32f2f;color:#fff;padding:1rem;text-align:center;font-size:1rem">
+      ⚠️ This site requires JavaScript. Enable it in your browser settings to use the AI model wizard.
+    </div>
+  </noscript>
 
   <!-- Sticky top navigation with prominent theme toggle -->
   <nav class="site-topbar" role="navigation" aria-label="Site navigation">
@@ -93,10 +101,10 @@
       <div class="topbar-inner">
         <span class="site-brand">🤖 Build Your Own ChatGPT</span>
         <div style="display:flex;gap:0.75rem;align-items:center">
-          <a href="compare.html" style="font-size:0.82rem;color:var(--text-secondary);text-decoration:none;font-weight:500">Compare</a>
+          <a href="compare.html" style="font-size:0.82rem;color:var(--text-secondary);text-decoration:none;font-weight:500">Compare Models</a>
           <a href="which-ai.html" style="font-size:0.82rem;color:var(--text-secondary);text-decoration:none;font-weight:500">Which AI</a>
           <a href="career.html" style="font-size:0.82rem;color:var(--text-secondary);text-decoration:none;font-weight:500">Careers</a>
-          <a href="compendium.html" style="font-size:0.82rem;color:var(--text-secondary);text-decoration:none;font-weight:500">Models</a>
+          <a href="evaluators.html" style="font-size:0.82rem;color:var(--text-secondary);text-decoration:none;font-weight:500">Evaluators</a>
           <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle light/dark mode">
             <span class="toggle-icon">🌙</span>
             <span class="toggle-label">Dark mode</span>
@@ -121,7 +129,7 @@
 
       <div id="detected-banner" class="detected-banner hidden"></div>
 
-      <section class="section" id="wizard-section">
+      <section class="section step step-goal" id="wizard-section">
         <p class="section-label">Step 1</p>
         <h2>What do you want to do?</h2>
         <p class="section-desc">Pick one. This shapes which models we recommend.</p>
@@ -160,7 +168,7 @@
         </div>
       </section>
 
-      <section id="hw-section" class="section hidden">
+      <section id="hw-section" class="section step step-tier hidden">
         <p class="section-label">Step 2</p>
         <h2>What hardware are you using?</h2>
         <p class="section-desc">We'll only show models that actually run well on your machine.</p>
@@ -180,7 +188,18 @@
         </div>
       </section>
 
-      <section id="results-section" class="results-section hidden"></section>
+      <section id="results-section" class="results-section step step-results hidden"></section>
+
+      <div id="career-refinement" style="display:none; margin-top:2rem; padding-top:1.5rem; border-top:1px solid var(--border,#eee);">
+        <div id="career-area" class="hidden" style="margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--border)">
+          <h2>What best describes you?</h2>
+          <p class="section-desc">Your career helps us recommend models suited to your daily work.</p>
+          <div id="career-options" class="career-grid"></div>
+          <div style="text-align:center;margin-top:0.75rem">
+            <button class="skip-career-btn" id="btn-skip-career">Skip — not sure what I do</button>
+          </div>
+        </div>
+      </div>
 
       <div id="starter-pack" style="display:none;margin-top:2rem;padding-top:2rem;border-top:1px solid var(--border)">
         <h3>Your AI Starter Pack</h3>
@@ -188,15 +207,6 @@
         <div id="sp-modelfile"></div>
         <div id="sp-prompts"></div>
         <div id="sp-checklist"></div>
-      </div>
-
-      <div id="career-area" class="hidden" style="margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--border)">
-        <h2>What best describes you?</h2>
-        <p class="section-desc">Your career helps us recommend models suited to your daily work.</p>
-        <div id="career-options" class="career-grid"></div>
-        <div style="text-align:center;margin-top:0.75rem">
-          <button class="skip-career-btn" id="btn-skip-career">Skip — not sure what I do</button>
-        </div>
       </div>
 
       <section class="section">
@@ -284,6 +294,126 @@ API_KEY your_google_key_here</div>
                   <div class="gp-code-block">ollama create gemini-flash -f Modelfile
 ollama run gemini-flash</div>
                   <div class="gp-step"><span class="gp-n">5</span><span>Gemini 2.5 Flash is ready. 1M token context window.</span></div>
+                </div>
+              </div>
+
+              <div class="guide-platform">
+                <div class="gp-header">
+                  <div class="gp-name">Cerebras</div>
+                  <span class="gp-tag">~3,000 tokens/sec</span>
+                </div>
+                <div class="gp-desc">The fastest free API. Llama 3.1 8B at 3K+ tokens/sec. No credit card.</div>
+                <div class="gp-steps">
+                  <div class="gp-step"><span class="gp-n">1</span><span>Go to <strong>cloud.cerebras.ai</strong> → click "Sign Up" → use Google or email</span></div>
+                  <div class="gp-step"><span class="gp-n">2</span><span>Go to <strong>cloud.cerebras.ai</strong> → find your API key in the dashboard</span></div>
+                  <div class="gp-step"><span class="gp-n">3</span><span>Create a file named <code>Modelfile</code> with this content:</span></div>
+                  <div class="gp-code-block">FROM openai/chat
+BASE_URL https://api.cerebras.ai/openai/v1
+API_KEY csk_your_key_here</div>
+                  <div class="gp-step"><span class="gp-n">4</span><span>Run these commands in your terminal:</span></div>
+                  <div class="gp-code-block">ollama create cerebras-llama -f Modelfile
+ollama run cerebras-llama</div>
+                  <div class="gp-step"><span class="gp-n">5</span><span>Chat with Llama 3.1 8B at 3K+ tokens per second. Blazing fast.</span></div>
+                </div>
+              </div>
+
+              <div class="guide-platform">
+                <div class="gp-header">
+                  <div class="gp-name">SiliconFlow</div>
+                  <span class="gp-tag">Free image gen</span>
+                </div>
+                <div class="gp-desc">Free image and video generation plus text models. Generous free tier.</div>
+                <div class="gp-steps">
+                  <div class="gp-step"><span class="gp-n">1</span><span>Go to <strong>siliconflow.cn</strong> → click "Sign Up" → register with email</span></div>
+                  <div class="gp-step"><span class="gp-n">2</span><span>Go to <strong>siliconflow.cn/en/apikeys</strong> → click "Create API Key" → copy it</span></div>
+                  <div class="gp-step"><span class="gp-n">3</span><span>Create a file named <code>Modelfile</code> with this content:</span></div>
+                  <div class="gp-code-block">FROM openai/chat
+BASE_URL https://api.siliconflow.cn/v1
+API_KEY your_siliconflow_key_here</div>
+                  <div class="gp-step"><span class="gp-n">4</span><span>Run these commands in your terminal:</span></div>
+                  <div class="gp-code-block">ollama create sf-deepseek -f Modelfile
+ollama run sf-deepseek</div>
+                  <div class="gp-step"><span class="gp-n">5</span><span>Chat with DeepSeek R1. Also try their free image generation APIs.</span></div>
+                </div>
+              </div>
+
+              <div class="guide-platform">
+                <div class="gp-header">
+                  <div class="gp-name">Together AI</div>
+                  <span class="gp-tag">Most open models</span>
+                </div>
+                <div class="gp-desc">100+ open models with a free tier. Llama 3.3 70B, DeepSeek, Qwen, and more.</div>
+                <div class="gp-steps">
+                  <div class="gp-step"><span class="gp-n">1</span><span>Go to <strong>together.ai</strong> → click "Sign Up" → use Google or email</span></div>
+                  <div class="gp-step"><span class="gp-n">2</span><span>Go to <strong>together.ai/api-keys</strong> → click "Create Key" → copy it</span></div>
+                  <div class="gp-step"><span class="gp-n">3</span><span>Create a file named <code>Modelfile</code> with this content:</span></div>
+                  <div class="gp-code-block">FROM openai/chat
+BASE_URL https://api.together.xyz/v1
+API_KEY your_together_key_here</div>
+                  <div class="gp-step"><span class="gp-n">4</span><span>Run these commands in your terminal:</span></div>
+                  <div class="gp-code-block">ollama create together-llama -f Modelfile
+ollama run together-llama</div>
+                  <div class="gp-step"><span class="gp-n">5</span><span>Try Llama 3.3 70B or any of 100+ open models through Ollama.</span></div>
+                </div>
+              </div>
+
+              <div class="guide-platform">
+                <div class="gp-header">
+                  <div class="gp-name">Fireworks AI</div>
+                  <span class="gp-tag">Fastest 70B</span>
+                </div>
+                <div class="gp-desc">Free tier for Llama 3.3 70B and other models. Optimized for low latency.</div>
+                <div class="gp-steps">
+                  <div class="gp-step"><span class="gp-n">1</span><span>Go to <strong>fireworks.ai</strong> → click "Sign Up" → use Google or GitHub</span></div>
+                  <div class="gp-step"><span class="gp-n">2</span><span>Go to <strong>fireworks.ai/api-keys</strong> → click "Create API Key" → copy it</span></div>
+                  <div class="gp-step"><span class="gp-n">3</span><span>Create a file named <code>Modelfile</code> with this content:</span></div>
+                  <div class="gp-code-block">FROM openai/chat
+BASE_URL https://api.fireworks.ai/inference/v1
+API_KEY your_fireworks_key_here</div>
+                  <div class="gp-step"><span class="gp-n">4</span><span>Run these commands in your terminal:</span></div>
+                  <div class="gp-code-block">ollama create fw-llama -f Modelfile
+ollama run fw-llama</div>
+                  <div class="gp-step"><span class="gp-n">5</span><span>Try Llama 3.3 70B at impressive speeds through their optimized infrastructure.</span></div>
+                </div>
+              </div>
+
+              <div class="guide-platform">
+                <div class="gp-header">
+                  <div class="gp-name">DeepInfra</div>
+                  <span class="gp-tag">Serverless free tier</span>
+                </div>
+                <div class="gp-desc">Serverless inference with a free tier. Llama, Mistral, DeepSeek, and more.</div>
+                <div class="gp-steps">
+                  <div class="gp-step"><span class="gp-n">1</span><span>Go to <strong>deepinfra.com</strong> → click "Sign Up" → use Google or email</span></div>
+                  <div class="gp-step"><span class="gp-n">2</span><span>Go to <strong>deepinfra.com/api-keys</strong> → click "Create API Key" → copy it</span></div>
+                  <div class="gp-step"><span class="gp-n">3</span><span>Create a file named <code>Modelfile</code> with this content:</span></div>
+                  <div class="gp-code-block">FROM openai/chat
+BASE_URL https://api.deepinfra.com/v1/openai
+API_KEY your_deepinfra_key_here</div>
+                  <div class="gp-step"><span class="gp-n">4</span><span>Run these commands in your terminal:</span></div>
+                  <div class="gp-code-block">ollama create di-llama -f Modelfile
+ollama run di-llama</div>
+                  <div class="gp-step"><span class="gp-n">5</span><span>Try Meta-Llama 3.1 8B or any model on their free tier through Ollama.</span></div>
+                </div>
+              </div>
+
+              <div class="guide-platform">
+                <div class="gp-header">
+                  <div class="gp-name">Cloudflare Workers AI</div>
+                  <span class="gp-tag">Edge network</span>
+                </div>
+                <div class="gp-desc">Run AI on Cloudflare's global edge network. 10K free requests per day.</div>
+                <div class="gp-steps">
+                  <div class="gp-step"><span class="gp-n">1</span><span>Go to <strong>cloudflare.com</strong> → click "Sign Up" → create a free account</span></div>
+                  <div class="gp-step"><span class="gp-n">2</span><span>Go to <strong>dash.cloudflare.com/profile/api-tokens</strong> → create API token with Workers AI permission</span></div>
+                  <div class="gp-step"><span class="gp-n">3</span><span>Create a file named <code>Modelfile</code> with this content:</span></div>
+                  <div class="gp-code-block">FROM openai/chat
+BASE_URL https://api.cloudflare.com/client/v4/accounts/YOUR_ACCOUNT_ID/ai/v1
+API_KEY your_cf_api_token</div>
+                  <div class="gp-step"><span class="gp-n">4</span><span>Run these commands in your terminal (replace YOUR_ACCOUNT_ID):</span></div>
+                  <div class="gp-code-block">ollama create cf-llama -f Modelfile
+ollama run cf-llama</div>
+                  <div class="gp-step"><span class="gp-n">5</span><span>Try Llama 3.3 70B or @cf/meta/llama-3.1-8b-instruct on Cloudflare's edge.</span></div>
                 </div>
               </div>
             </div>
@@ -384,6 +514,51 @@ ollama run gemini-flash</div>
             <div class="guide-platforms">
               <div class="guide-platform">
                 <div class="gp-header">
+                  <div class="gp-name">Cerebras - Python example</div>
+                  <span class="gp-tag">Fastest free inference (~3,000 tok/s)</span>
+                </div>
+                <div class="gp-code-block">from openai import OpenAI
+
+client = OpenAI(
+    api_key="csk_your_key_here",
+    base_url="https://api.cerebras.ai/openai/v1"
+)
+
+response = client.chat.completions.create(
+    model="llama3.1-8b",  # or "gpt-oss-120b" for max speed
+    messages=[{"role": "user", "content": "Hello!"}],
+    max_tokens=1024
+)
+print(response.choices[0].message.content)</div>
+              </div>
+              <div class="guide-platform">
+                <div class="gp-header">
+                  <div class="gp-name">Fireworks AI - Python example</div>
+                  <span class="gp-tag">JSON schema mode (only free platform)</span>
+                </div>
+                <div class="gp-code-block">from openai import OpenAI
+import json
+
+client = OpenAI(
+    api_key="fw_your_key_here",
+    base_url="https://api.fireworks.ai/inference/v1"
+)
+
+response = client.chat.completions.create(
+    model="accounts/fireworks/models/kimi-k2-5",
+    messages=[
+        {"role": "system", "content": "Extract structured data. Return only valid JSON."},
+        {"role": "user",   "content": "Extract the name and email from: 'Hi I'm Jo, jo@example.com'"}
+    ],
+    response_format={"type": "json_object"},
+    max_tokens=512
+)
+data = json.loads(response.choices[0].message.content)
+print(data)
+# {"name": "Jo", "email": "jo@example.com"}</div>
+              </div>
+              <div class="guide-platform">
+                <div class="gp-header">
                   <div class="gp-name">Groq - Python example</div>
                   <span class="gp-tag">OpenAI-compatible</span>
                 </div>
@@ -429,6 +604,85 @@ genai.configure(api_key="your_google_key_here")
 model = genai.GenerativeModel("gemini-1.5-flash")
 response = model.generate_content("Hello!")
 print(response.text)</div>
+              </div>
+            </div>
+
+            <div class="guide-platforms" style="margin-top:1.5rem">
+              <div class="gp-header" style="margin-bottom:.5rem">
+                <div class="gp-name">Audio & Transcription</div>
+                <span class="gp-tag">STT + TTS + batch processing</span>
+              </div>
+
+              <div class="guide-platform">
+                <div class="gp-header">
+                  <div class="gp-name">Groq Whisper - Speech to text</div>
+                  <span class="gp-tag">Only free STT (300 TPS, 2,000 req/day)</span>
+                </div>
+                <div class="gp-code-block">from groq import Groq
+
+client = Groq(api_key="gsk_your_key_here")
+
+with open("audio.mp3", "rb") as f:
+    transcription = client.audio.transcriptions.create(
+        file=("audio.mp3", f.read()),
+        model="whisper-large-v3-turbo",
+        response_format="text",
+        language="en"
+    )
+
+print(transcription)</div>
+              </div>
+
+              <div class="guide-platform">
+                <div class="gp-header">
+                  <div class="gp-name">Groq Compound Beta - Batch processing</div>
+                  <span class="gp-tag">70,000 TPM — full backlog in one pass</span>
+                </div>
+                <div class="gp-code-block">from groq import Groq
+
+client = Groq(api_key="gsk_your_key_here")
+
+transcripts = ["transcript 1...", "transcript 2...", "transcript 3..."]
+
+results = []
+for transcript in transcripts:
+    response = client.chat.completions.create(
+        model="compound-beta",
+        messages=[
+            {"role": "system", "content": "Write concise show notes from this transcript."},
+            {"role": "user",   "content": transcript}
+        ]
+    )
+    results.append(response.choices[0].message.content)
+
+print(results)</div>
+              </div>
+
+              <div class="guide-platform">
+                <div class="gp-header">
+                  <div class="gp-name">SiliconFlow CosyVoice2 - Text to speech</div>
+                  <span class="gp-tag">Only free TTS API</span>
+                </div>
+                <div class="gp-code-block">import requests
+
+response = requests.post(
+    "https://api.siliconflow.cn/v1/audio/speech",
+    headers={
+        "Authorization": "Bearer sk_your_key_here",
+        "Content-Type": "application/json"
+    },
+    json={
+        "model": "FunAudioLLM/CosyVoice2-0.5B",
+        "input": "This is an AI-generated voiceover for my podcast intro.",
+        "voice": "alex",
+        "response_format": "mp3"
+    }
+)
+
+with open("output.mp3", "wb") as f:
+    f.write(response.content)
+
+print("Saved to output.mp3")</div>
               </div>
             </div>
           </div>
@@ -502,7 +756,7 @@ print(response.text)</div>
         <li>✓ Cloud Fallback</li>
         <li>✓ Readiness Scores</li>
         <li>✓ Hardware Detection</li>
-        <li>⏳ SEO Landing Pages (coming soon)</li>
+        <li>⏳ SEO Landing Pages (in progress)</li>
         <li>✓ Feedback Storage (Supabase)</li>
         <li>✓ Detailed Feedback Tags</li>
         <li>✓ Privacy in Expectations</li>
@@ -525,6 +779,7 @@ print(response.text)</div>
         <a href="compendium.html">Model Catalog</a>
         <a href="https://ollama.com" target="_blank" rel="noopener noreferrer">Ollama</a>
         <a href="https://huggingface.co" target="_blank" rel="noopener noreferrer">Hugging Face</a>
+        <a href="evaluators.html">Evaluators</a>
       </div>
       <p class="footer-tagline">Built for beginners. Your data never leaves your machine.</p>
       <p class="footer-dev"><a href="#" id="export-feedback-btn" style="display:none;" onclick="if(window.__analytics){window.__analytics.exportFeedbackData()}return false" title="Export feedback data (dev only)">📋 Export feedback</a></p>
@@ -534,6 +789,7 @@ print(response.text)</div>
   <template id="cloud-provider-template">
     <div class="cloud-card">
       <div class="cloud-provider-name"></div>
+      <div class="cloud-speed-badge"></div>
       <div class="cloud-provider-desc"></div>
       <div class="cloud-install-box"></div>
       <div class="cloud-models">

@@ -1,0 +1,80 @@
+- main [ref=e2]:
+  - link "← Use the wizard" [ref=e3] [cursor=pointer]:
+    - /url: /
+  - heading "Best Local AI Models For RTX 5080" [level=1] [ref=e4]
+  - generic [ref=e5]:
+    - heading "Hardware Overview" [level=2] [ref=e6]
+    - paragraph [ref=e7]:
+      - text: The
+      - strong [ref=e8]: NVIDIA RTX 5080
+      - text: with 16GB+ VRAM is capable of running local AI models efficiently.
+    - generic [ref=e9]:
+      - generic [ref=e10]: 🎮 NVIDIA RTX 5080
+      - generic [ref=e11]: 💾 16GB+
+  - generic [ref=e12]:
+    - heading "Recommended Model" [level=2] [ref=e13]
+    - generic [ref=e14]:
+      - generic [ref=e17]: Llama 3.1 70B (quantized)
+      - paragraph [ref=e18]: Optimized for NVIDIA RTX 5080. Recommended as the best balance of quality and performance.
+      - generic [ref=e19]:
+        - generic [ref=e20]: Run this command
+        - generic [ref=e21]: ollama pull llama3.1:70b
+        - link "Download Ollama" [ref=e22] [cursor=pointer]:
+          - /url: https://ollama.com/download
+  - generic [ref=e23]:
+    - heading "Alternatives" [level=2] [ref=e24]
+    - list [ref=e25]:
+      - listitem [ref=e26]:
+        - strong [ref=e27]: Qwen 2.5 32B
+        - text: — Great alternative with different strengths.
+      - listitem [ref=e28]:
+        - strong [ref=e29]: Mixtral 8x22B
+        - text: — Another solid option for this hardware.
+  - generic [ref=e30]:
+    - heading "What You Can Do" [level=2] [ref=e31]
+    - generic [ref=e32]:
+      - generic [ref=e33]:
+        - generic [ref=e34]: ✓ Can Run Well
+        - generic [ref=e35]:
+          - generic [ref=e36]:
+            - generic [ref=e37]: ✓
+            - generic [ref=e38]: Private ChatGPT
+          - generic [ref=e39]:
+            - generic [ref=e40]: ✓
+            - generic [ref=e41]: Coding Assistant
+          - generic [ref=e42]:
+            - generic [ref=e43]: ✓
+            - generic [ref=e44]: Writing & Research
+          - generic [ref=e45]:
+            - generic [ref=e46]: ✓
+            - generic [ref=e47]: AI Agents
+          - generic [ref=e48]:
+            - generic [ref=e49]: ✓
+            - generic [ref=e50]: Large Context Windows
+      - generic [ref=e51]:
+        - generic [ref=e52]: ⚠ Can Run Slowly
+        - generic [ref=e54]:
+          - generic [ref=e55]: ⚠
+          - generic [ref=e56]: Full 70B precision
+      - generic [ref=e57]:
+        - generic [ref=e58]: ✗ Not Recommended
+        - generic [ref=e60]:
+          - generic [ref=e61]: ✗
+          - generic [ref=e62]: Real-time Video Generation
+  - generic [ref=e63]:
+    - heading "Frequently Asked Questions" [level=2] [ref=e64]
+    - generic [ref=e65]:
+      - generic [ref=e66]:
+        - heading "Can RTX 5080 run 70B models?" [level=3] [ref=e67]
+        - paragraph [ref=e69]: Yes. The RTX 5080 can run quantized 70B models with good performance.
+      - generic [ref=e70]:
+        - heading "Is RTX 5080 overkill for local AI?" [level=3] [ref=e71]
+        - paragraph [ref=e73]: Not at all. You can run the largest open models at home without cloud dependency.
+      - generic [ref=e74]:
+        - heading "What is the best model for RTX 5080?" [level=3] [ref=e75]
+        - paragraph [ref=e77]: Llama 3.1 70B (quantized) takes full advantage of the available VRAM.
+  - generic [ref=e78]:
+    - heading "Want a personalized recommendation?" [level=2] [ref=e79]
+    - paragraph [ref=e80]: Tell us about your specific hardware and goals. Get your exact setup in under 60 seconds.
+    - link "Try the Wizard" [ref=e81] [cursor=pointer]:
+      - /url: /

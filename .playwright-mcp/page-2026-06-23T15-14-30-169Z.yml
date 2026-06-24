@@ -1,0 +1,81 @@
+- main [ref=e2]:
+  - link "← Use the wizard" [ref=e3] [cursor=pointer]:
+    - /url: /
+  - heading "Best Local AI Models For Old Laptops" [level=1] [ref=e4]
+  - generic [ref=e5]:
+    - heading "Hardware Overview" [level=2] [ref=e6]
+    - paragraph [ref=e7]:
+      - text: The
+      - strong [ref=e8]: Old Laptop (No GPU, 4-8GB RAM)
+      - text: can run local AI models, though GPU acceleration is not available.
+    - generic [ref=e9]:
+      - generic [ref=e10]: 🎮 Old Laptop (No GPU, 4-8GB RAM)
+      - generic [ref=e11]: 💾 None
+  - generic [ref=e12]:
+    - heading "Recommended Model" [level=2] [ref=e13]
+    - generic [ref=e14]:
+      - generic [ref=e17]: TinyLlama 1.1B
+      - paragraph [ref=e18]: Optimized for Old Laptop (No GPU, 4-8GB RAM). Recommended as the best balance of quality and performance.
+      - generic [ref=e19]:
+        - generic [ref=e20]: Run this command
+        - generic [ref=e21]: ollama pull tinylama:1.1b
+        - link "Download Ollama" [ref=e22] [cursor=pointer]:
+          - /url: https://ollama.com/download
+  - generic [ref=e23]:
+    - heading "Alternatives" [level=2] [ref=e24]
+    - list [ref=e25]:
+      - listitem [ref=e26]:
+        - strong [ref=e27]: Qwen 0.5B
+        - text: — Great alternative with different strengths.
+      - listitem [ref=e28]:
+        - strong [ref=e29]: Llama 3.2 1B
+        - text: — Another solid option for this hardware.
+  - generic [ref=e30]:
+    - heading "What You Can Do" [level=2] [ref=e31]
+    - generic [ref=e32]:
+      - generic [ref=e33]:
+        - generic [ref=e34]: ✓ Can Run Well
+        - generic [ref=e35]:
+          - generic [ref=e36]:
+            - generic [ref=e37]: ✓
+            - generic [ref=e38]: Simple Chat
+          - generic [ref=e39]:
+            - generic [ref=e40]: ✓
+            - generic [ref=e41]: Basic Writing
+      - generic [ref=e42]:
+        - generic [ref=e43]: ⚠ Can Run Slowly
+        - generic [ref=e45]:
+          - generic [ref=e46]: ⚠
+          - generic [ref=e47]: Coding Help
+      - generic [ref=e48]:
+        - generic [ref=e49]: ✗ Not Recommended
+        - generic [ref=e50]:
+          - generic [ref=e51]:
+            - generic [ref=e52]: ✗
+            - generic [ref=e53]: 7B+ Models
+          - generic [ref=e54]:
+            - generic [ref=e55]: ✗
+            - generic [ref=e56]: Real-time Chat
+          - generic [ref=e57]:
+            - generic [ref=e58]: ✗
+            - generic [ref=e59]: Coding Assistant
+  - generic [ref=e60]:
+    - heading "Frequently Asked Questions" [level=2] [ref=e61]
+    - generic [ref=e62]:
+      - generic [ref=e63]:
+        - heading "Can my old laptop run AI?" [level=3] [ref=e64]
+        - paragraph [ref=e66]: Yes. If it has at least 4GB RAM, you can run TinyLlama 1.1B and similar small models.
+      - generic [ref=e67]:
+        - heading "Will local AI drain my battery?" [level=3] [ref=e68]
+        - paragraph [ref=e70]: Yes, continuous inference uses CPU heavily. Expect 2-3 hours of runtime on battery.
+      - generic [ref=e71]:
+        - heading "Which OS supports local AI?" [level=3] [ref=e72]
+        - paragraph [ref=e74]: Windows, macOS, and Linux all support Ollama and local AI models.
+      - generic [ref=e75]:
+        - heading "Can I use local AI without internet?" [level=3] [ref=e76]
+        - paragraph [ref=e78]: Yes. After the initial model download, everything runs offline.
+  - generic [ref=e79]:
+    - heading "Want a personalized recommendation?" [level=2] [ref=e80]
+    - paragraph [ref=e81]: Tell us about your specific hardware and goals. Get your exact setup in under 60 seconds.
+    - link "Try the Wizard" [ref=e82] [cursor=pointer]:
+      - /url: /

@@ -46,13 +46,58 @@
         <li><strong>MCP Servers:</strong> Connect local models to file systems, databases, and APIs via the Model Context Protocol.</li>
       </ul>
     </section>
+    <section class="seo-section">
+      <h2>Understanding Model Sizes</h2>
+      <div class="table-wrap">
+        <table class="comp-table">
+          <thead><tr><th>Model Size</th><th>Parameters</th><th>Download</th><th>RAM Needed</th><th>Quality</th></tr></thead>
+          <tbody>
+            <tr><td>Small</td><td>1-3B</td><td>1-2 GB</td><td>8 GB</td><td>Basic chat, writing, simple Q&A</td></tr>
+            <tr><td>Medium</td><td>7-8B</td><td>4-5 GB</td><td>16 GB</td><td>Coding, analysis, good all-rounder</td></tr>
+            <tr><td>Large</td><td>14-16B</td><td>8-10 GB</td><td>32 GB</td><td>Expert reasoning, complex tasks</td></tr>
+            <tr><td>X-Large</td><td>30-35B</td><td>18-22 GB</td><td>64 GB</td><td>Near GPT-4 quality, agent workflows</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="seo-section">
+      <h2>Frequently Asked Questions</h2>
+      <div itemscope itemtype="https://schema.org/FAQPage">
+        <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="faq-item">
+          <h3 itemprop="name">Is Ollama really free?</h3>
+          <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">Yes. Ollama is open source and completely free. All models on Ollama's library are free to download and use. No subscription, no API fees, no usage limits. You only pay for your electricity.</p>
+          </div>
+        </div>
+        <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="faq-item">
+          <h3 itemprop="name">How long does it take to download a model?</h3>
+          <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">A 7B model (~4.7GB) takes 2-10 minutes on a typical broadband connection. A 14B model (~9GB) takes 5-20 minutes. You only download once — after that, the model is cached locally and works offline.</p>
+          </div>
+        </div>
+        <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="faq-item">
+          <h3 itemprop="name">Can I use local AI with VS Code?</h3>
+          <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">Yes. Install the Continue extension in VS Code, configure it to point at your local Ollama instance (<code>http://localhost:11434</code>), and you get AI code completion, chat, and refactoring — all running locally with zero API calls.</p>
+          </div>
+        </div>
+        <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="faq-item">
+          <h3 itemprop="name">What is the best first model to try?</h3>
+          <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">Qwen 2.5 7B is the best starting point for most people. It runs on 16GB RAM, downloads in ~5 minutes, and delivers excellent quality for chat, coding, and writing. For 8GB laptops, start with Phi-4 Mini 3.8B.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="seo-section seo-cta">
       <h2>What Model Should You Use?</h2>
       <p>Not sure which model fits your hardware? Get a personalized recommendation.</p>
       <a href="/" class="btn-primary" style="display:inline-block;margin-top:1rem">Find My Model</a>
     </section>
   </main>
-  <script src="analytics.js"></script>
   <script src="shared.js"></script>
+  <script src="analytics.js"></script>
 </body>
 </html>

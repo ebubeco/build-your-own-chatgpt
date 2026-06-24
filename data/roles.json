@@ -1,92 +1,484 @@
-{
-  "roles": [
-    {
-      "id": "software-developer",
-      "label": "Software Developer",
-      "icon": "💻",
-      "desc": "Write, debug, and refactor code. Generate boilerplate and explain complex functions.",
-      "matchedModels": ["qwen2.5:7b", "deepseek-r1:8b", "phi4-mini:3.8b"],
-      "priorities": ["coding", "reasoning"],
-      "primaryUses": ["Code generation", "Code review", "Debugging", "Documentation", "Architecture planning"],
-      "recommendedCloud": ["GitHub Copilot", "Cursor", "Claude claude.ai"],
-      "recommendedTools": ["Ollama", "OpenCode", "Continue (VS Code extension)"]
-    },
-    {
-      "id": "content-creator",
-      "label": "Content Creator / Writer",
-      "icon": "✍️",
-      "desc": "Draft articles, edit content, brainstorm ideas, and create copy.",
-      "matchedModels": ["qwen2.5:7b", "llama3.2:3b", "phi4-mini:3.8b"],
-      "priorities": ["writing", "chat"],
-      "primaryUses": ["Drafting", "Editing", "SEO content", "Social media posts", "Ideation"],
-      "recommendedCloud": ["Claude claude.ai", "ChatGPT", "Gemini"],
-      "recommendedTools": ["Ollama + OpenWebUI", "LM Studio"]
-    },
-    {
-      "id": "researcher",
-      "label": "Researcher / Academic",
-      "icon": "🔬",
-      "desc": "Analyze papers, summarize research, and explore complex topics.",
-      "matchedModels": ["deepseek-r1:8b", "qwen3:14b", "phi4-mini:3.8b"],
-      "priorities": ["reasoning", "research"],
-      "primaryUses": ["Literature review", "Summarization", "Data analysis", "Writing assistance", "Citation checking"],
-      "recommendedCloud": ["Perplexity", "Claude claude.ai", "Gemini Advanced"],
-      "recommendedTools": ["Ollama + AnythingLLM", "LM Studio + document Q&A"]
-    },
-    {
-      "id": "student",
-      "label": "Student",
-      "icon": "🎓",
-      "desc": "Learn concepts, get homework help, and study effectively.",
-      "matchedModels": ["phi4-mini:3.8b", "llama3.2:3b", "qwen2.5:1.5b"],
-      "priorities": ["learning", "chat"],
-      "primaryUses": ["Explaining concepts", "Essay help", "Study guides", "Problem solving", "Language learning"],
-      "recommendedCloud": ["ChatGPT free", "Gemini free", "Claude free"],
-      "recommendedTools": ["Ollama (beginner-friendly)", "LM Studio"]
-    },
-    {
-      "id": "data-analyst",
-      "label": "Data Analyst / Data Scientist",
-      "icon": "📊",
-      "desc": "Generate Python/SQL code, analyze data, and create visualizations.",
-      "matchedModels": ["qwen2.5:7b", "deepseek-r1:8b", "qwen3:14b"],
-      "priorities": ["coding", "reasoning"],
-      "primaryUses": ["Python/SQL code generation", "Data interpretation", "Report writing", "Statistical analysis", "Visualization code"],
-      "recommendedCloud": ["Claude claude.ai (code)", "ChatGPT with code interpreter", "Gemini Advanced"],
-      "recommendedTools": ["Ollama", "OpenCode", "Jupyter + Ollama integration"]
-    },
-    {
-      "id": "marketer",
-      "label": "Marketer / Growth",
-      "icon": "📣",
-      "desc": "Create ad copy, email campaigns, SEO content, and marketing materials.",
-      "matchedModels": ["qwen2.5:7b", "llama3.2:3b"],
-      "priorities": ["writing", "chat"],
-      "primaryUses": ["Ad copy", "Email campaigns", "SEO content", "A/B testing ideas", "Campaign briefs"],
-      "recommendedCloud": ["Claude claude.ai", "ChatGPT", "Perplexity for research"],
-      "recommendedTools": ["Ollama + OpenWebUI", "LM Studio"]
-    },
-    {
-      "id": "business-owner",
-      "label": "Small Business Owner",
-      "icon": "🏢",
-      "desc": "Draft professional emails, create business plans, and streamline operations.",
-      "matchedModels": ["phi4-mini:3.8b", "qwen2.5:7b"],
-      "priorities": ["chat", "writing"],
-      "primaryUses": ["Customer emails", "Business plans", "Social content", "Process documentation", "Meeting summaries"],
-      "recommendedCloud": ["ChatGPT", "Claude claude.ai", "Gemini"],
-      "recommendedTools": ["Ollama", "LM Studio (easy setup)"]
-    },
-    {
-      "id": "creative",
-      "label": "Creative (Artist / Designer)",
-      "icon": "🎨",
-      "desc": "Develop creative concepts, write scripts, and explore artistic ideas.",
-      "matchedModels": ["qwen2.5:7b", "llama3.2:3b", "gemma4:12b"],
-      "priorities": ["chat", "writing"],
-      "primaryUses": ["Concept development", "Script writing", "World building", "Game dialogue", "Lyrics and poetry"],
-      "recommendedCloud": ["Claude claude.ai", "ChatGPT", "Gemini"],
-      "recommendedTools": ["Ollama + OpenWebUI", "LM Studio"]
-    }
-  ]
-}
+[
+  {
+    "id": "software-developer",
+    "title": "Software Developer",
+    "icon": "\ud83d\udcbb",
+    "label": "Software Developer",
+    "desc": "Code generation, review, debugging",
+    "primaryUses": [
+      "Code generation",
+      "Code review",
+      "Debugging",
+      "Documentation"
+    ],
+    "recommendedModels": [
+      "qwen2.5-coder:7b",
+      "devstral:22b",
+      "qwen2.5:14b"
+    ],
+    "recommendedCloud": [
+      "GitHub Copilot",
+      "Cursor",
+      "Claude claude.ai"
+    ],
+    "recommendedTools": [
+      "OpenCode",
+      "Continue (VS Code extension)",
+      "Ollama"
+    ],
+    "starterPrompts": [
+      "Review this function for bugs and improvements:",
+      "Write unit tests for this code:",
+      "Explain this error and how to fix it:",
+      "Refactor this to be more readable:"
+    ],
+    "skillBuilding": [
+      "Learn prompt engineering for code",
+      "Try Continue IDE integration",
+      "Explore Devstral for agentic coding"
+    ],
+    "matchedModels": [
+      "qwen-2-5-7b",
+      "deepseek-r1-8b",
+      "phi-4-mini",
+      "qwen-2-5-14b",
+      "qwen-2-5-32b"
+    ],
+    "priorities": [
+      "coding",
+      "reasoning",
+      "agents"
+    ]
+  },
+  {
+    "id": "content-creator",
+    "title": "Content Creator / Writer",
+    "icon": "\u270d\ufe0f",
+    "label": "Content Creator / Writer",
+    "desc": "Drafting, editing, SEO, ideation",
+    "primaryUses": [
+      "Drafting",
+      "Editing",
+      "SEO content",
+      "Ideation"
+    ],
+    "recommendedModels": [
+      "qwen2.5:7b",
+      "llama3.3:8b",
+      "phi4:14b"
+    ],
+    "recommendedCloud": [
+      "Claude claude.ai",
+      "ChatGPT",
+      "Gemini"
+    ],
+    "recommendedTools": [
+      "Ollama + OpenWebUI",
+      "LM Studio"
+    ],
+    "starterPrompts": [
+      "Write a blog post outline about:",
+      "Improve the tone of this paragraph:",
+      "Generate 10 headline ideas for:",
+      "Summarize this article in 3 bullet points:"
+    ],
+    "skillBuilding": [
+      "Master system prompts for your writing style",
+      "Create a personal style Modelfile"
+    ],
+    "matchedModels": [
+      "qwen-2-5-7b",
+      "llama-3-1-8b",
+      "llama-3-2-3b",
+      "smollm-1-7b",
+      "qwen-2-5-14b"
+    ],
+    "priorities": [
+      "writing",
+      "chat",
+      "reasoning"
+    ]
+  },
+  {
+    "id": "researcher",
+    "title": "Researcher / Academic",
+    "icon": "\ud83d\udd2c",
+    "label": "Researcher / Academic",
+    "desc": "Literature review, summarization, analysis",
+    "primaryUses": [
+      "Literature review",
+      "Summarization",
+      "Data analysis",
+      "Writing"
+    ],
+    "recommendedModels": [
+      "deepseek-r1:8b",
+      "qwen2.5:14b",
+      "phi4:14b"
+    ],
+    "recommendedCloud": [
+      "Perplexity",
+      "Claude claude.ai",
+      "Gemini 2.5 Flash (1M context, free)"
+    ],
+    "recommendedTools": [
+      "Ollama + AnythingLLM",
+      "LM Studio"
+    ],
+    "starterPrompts": [
+      "Summarize the key findings of this paper:",
+      "What are the main counterarguments to:",
+      "Explain this concept at undergraduate level:",
+      "Help me structure a literature review on:"
+    ],
+    "skillBuilding": [
+      "Set up RAG with AnythingLLM for document Q&A",
+      "Use DeepSeek R1 for complex reasoning chains"
+    ],
+    "matchedModels": [
+      "deepseek-r1-8b",
+      "qwen-2-5-7b",
+      "llama-3-1-8b",
+      "qwen-2-5-14b",
+      "gemma-4-12b"
+    ],
+    "priorities": [
+      "reasoning",
+      "analysis",
+      "writing"
+    ]
+  },
+  {
+    "id": "student",
+    "title": "Student",
+    "icon": "\ud83c\udf93",
+    "label": "Student",
+    "desc": "Explaining concepts, essay help, study guides",
+    "primaryUses": [
+      "Explaining concepts",
+      "Essay help",
+      "Study guides",
+      "Practice questions"
+    ],
+    "recommendedModels": [
+      "qwen2.5:7b",
+      "phi4-mini:3.8b",
+      "gemma3:9b"
+    ],
+    "recommendedCloud": [
+      "ChatGPT free",
+      "Gemini free",
+      "Claude free"
+    ],
+    "recommendedTools": [
+      "Ollama",
+      "LM Studio"
+    ],
+    "starterPrompts": [
+      "Explain [concept] like I'm a beginner:",
+      "Create a study guide for:",
+      "Give me 10 practice questions on:",
+      "Check my essay for clarity and grammar:"
+    ],
+    "skillBuilding": [
+      "Start with free cloud options",
+      "Move to local when you have 16GB+ RAM"
+    ],
+    "matchedModels": [
+      "qwen-2-5-7b",
+      "phi-4-mini",
+      "llama-3-2-3b",
+      "llama-3-2-1b",
+      "qwen-1-5b",
+      "smollm-1-7b"
+    ],
+    "priorities": [
+      "chat",
+      "writing",
+      "learning"
+    ]
+  },
+  {
+    "id": "data-analyst",
+    "title": "Data Analyst / Data Scientist",
+    "icon": "\ud83d\udcca",
+    "label": "Data Analyst / Data Scientist",
+    "desc": "SQL/Python generation, data interpretation",
+    "primaryUses": [
+      "Python/SQL generation",
+      "Data interpretation",
+      "Report writing"
+    ],
+    "recommendedModels": [
+      "qwen2.5-coder:7b",
+      "deepseek-r1:8b",
+      "qwen2.5:14b"
+    ],
+    "recommendedCloud": [
+      "Claude claude.ai",
+      "Gemini 2.5 Flash (Python execution, free)",
+      "ChatGPT code interpreter"
+    ],
+    "recommendedTools": [
+      "Ollama",
+      "OpenCode"
+    ],
+    "starterPrompts": [
+      "Write a Python function to clean this dataset:",
+      "Generate a SQL query to:",
+      "Explain what this data pattern means:",
+      "Write code to visualize:"
+    ],
+    "skillBuilding": [
+      "Integrate Ollama with Jupyter notebooks",
+      "Use local models for sensitive data analysis"
+    ],
+    "matchedModels": [
+      "qwen-2-5-7b",
+      "deepseek-r1-8b",
+      "gemma-4-12b",
+      "phi-4-mini",
+      "qwen-2-5-14b"
+    ],
+    "priorities": [
+      "coding",
+      "reasoning",
+      "analysis"
+    ]
+  },
+  {
+    "id": "marketer",
+    "title": "Marketer",
+    "icon": "\ud83d\udce3",
+    "label": "Marketer",
+    "desc": "Ad copy, email campaigns, SEO",
+    "primaryUses": [
+      "Ad copy",
+      "Email campaigns",
+      "SEO content",
+      "Campaign briefs"
+    ],
+    "recommendedModels": [
+      "qwen2.5:7b",
+      "llama3.3:8b"
+    ],
+    "recommendedCloud": [
+      "Claude claude.ai",
+      "ChatGPT",
+      "Perplexity"
+    ],
+    "recommendedTools": [
+      "Ollama + OpenWebUI",
+      "LM Studio"
+    ],
+    "starterPrompts": [
+      "Write 5 email subject line variations for:",
+      "Create a Google Ads headline set for:",
+      "Generate a one-week content calendar for [brand]:",
+      "Write a product description emphasizing:"
+    ],
+    "skillBuilding": [
+      "Master few-shot prompting for brand voice",
+      "Create brand voice Modelfiles"
+    ],
+    "matchedModels": [
+      "qwen-2-5-7b",
+      "llama-3-1-8b",
+      "llama-3-2-3b",
+      "smollm-1-7b"
+    ],
+    "priorities": [
+      "writing",
+      "chat"
+    ]
+  },
+  {
+    "id": "business-owner",
+    "title": "Small Business Owner",
+    "icon": "\ud83c\udfe2",
+    "label": "Small Business Owner",
+    "desc": "Customer emails, business plans, social content",
+    "primaryUses": [
+      "Customer emails",
+      "Business plans",
+      "Social content",
+      "Meeting summaries"
+    ],
+    "recommendedModels": [
+      "qwen2.5:7b",
+      "phi4-mini:3.8b"
+    ],
+    "recommendedCloud": [
+      "ChatGPT",
+      "Claude claude.ai",
+      "Gemini"
+    ],
+    "recommendedTools": [
+      "LM Studio (no terminal needed)",
+      "Ollama"
+    ],
+    "starterPrompts": [
+      "Write a professional response to this customer complaint:",
+      "Create a simple business plan outline for:",
+      "Summarize this meeting transcript into action items:",
+      "Write a job posting for:"
+    ],
+    "skillBuilding": [
+      "Start with LM Studio \u2014 no terminal needed",
+      "Use AI for email templates daily"
+    ],
+    "matchedModels": [
+      "qwen-2-5-7b",
+      "phi-4-mini",
+      "llama-3-2-3b",
+      "qwen-1-5b"
+    ],
+    "priorities": [
+      "writing",
+      "chat"
+    ]
+  },
+  {
+    "id": "creative",
+    "title": "Creative (Artist / Designer / Writer)",
+    "icon": "\ud83c\udfa8",
+    "label": "Creative (Artist / Designer / Writer)",
+    "desc": "Concept development, script writing, world building",
+    "primaryUses": [
+      "Concept development",
+      "Script writing",
+      "World building",
+      "Poetry"
+    ],
+    "recommendedModels": [
+      "llama3.3:8b",
+      "qwen2.5:7b",
+      "gemma3:9b"
+    ],
+    "recommendedCloud": [
+      "Claude claude.ai",
+      "ChatGPT",
+      "Gemini"
+    ],
+    "recommendedTools": [
+      "Ollama + OpenWebUI",
+      "LM Studio"
+    ],
+    "starterPrompts": [
+      "Help me develop the backstory for this character:",
+      "Write dialogue for a scene where:",
+      "Generate 10 creative concepts for:",
+      "Continue this story in the same style:"
+    ],
+    "skillBuilding": [
+      "Experiment with high temperature (0.9+) for creativity",
+      "Use Modelfiles to set creative personas"
+    ],
+    "matchedModels": [
+      "llama-3-1-8b",
+      "qwen-2-5-7b",
+      "gemma-4-12b",
+      "smollm-1-7b",
+      "qwen-2-5-14b"
+    ],
+    "priorities": [
+      "writing",
+      "chat"
+    ]
+  },
+  {
+    "id": "video-editor",
+    "title": "Video Editor / Filmmaker",
+    "icon": "\ud83c\udfac",
+    "label": "Video Editor / Filmmaker",
+    "desc": "Script writing, subtitles, transcription",
+    "primaryUses": [
+      "Script writing",
+      "Subtitle generation",
+      "Audio transcription",
+      "Social media captions"
+    ],
+    "recommendedModels": [
+      "llama3.3:8b",
+      "qwen2.5:7b",
+      "phi4:14b"
+    ],
+    "recommendedCloud": [
+      "Groq Whisper Large v3 Turbo (free STT, 300 TPS, 2K RPD)",
+      "Google AI Studio Gemini 2.5 Flash (multimodal, frame analysis)",
+      "SiliconFlow FLUX.1 (free image gen, $1 credit)"
+    ],
+    "recommendedTools": [
+      "Ollama + OpenWebUI",
+      "LM Studio"
+    ],
+    "starterPrompts": [
+      "Write a YouTube script about [topic] in [tone]. Include hook, 3 main points, and CTA.",
+      "Generate timestamps and chapters for this transcript: [paste]",
+      "Write 10 B-roll shot descriptions for a video about [topic]",
+      "Create social media captions from this transcript: [paste]"
+    ],
+    "skillBuilding": [
+      "Set up Groq Whisper API (free) for automatic footage transcription",
+      "Use Gemini 2.5 Flash for frame-by-frame analysis",
+      "Build a script template Modelfile for your channel's tone"
+    ],
+    "matchedModels": [
+      "llama-3-1-8b",
+      "qwen-2-5-7b",
+      "qwen-2-5-14b",
+      "phi-4-14b"
+    ],
+    "priorities": [
+      "writing",
+      "chat"
+    ]
+  },
+  {
+    "id": "audio-producer",
+    "title": "Audio Producer / Podcaster",
+    "icon": "\ud83c\udf99\ufe0f",
+    "label": "Audio Producer / Podcaster",
+    "desc": "Show notes, transcription, interview prep",
+    "primaryUses": [
+      "Show notes",
+      "Episode scripts",
+      "Transcription",
+      "Guest research"
+    ],
+    "recommendedModels": [
+      "llama3.3:8b",
+      "qwen2.5:7b"
+    ],
+    "recommendedCloud": [
+      "Groq Whisper Large v3 Turbo (free podcast transcription, 300 TPS)",
+      "SiliconFlow CosyVoice2 (free TTS, $1 credit)",
+      "Google AI Studio Gemini 2.5 Flash (episode planning)"
+    ],
+    "recommendedTools": [
+      "Ollama + OpenWebUI",
+      "LM Studio"
+    ],
+    "starterPrompts": [
+      "Write detailed show notes for an episode about [topic]. Include timestamps, key quotes, and resources.",
+      "Generate 20 interview questions for a guest who [describe]",
+      "Summarize this transcript into a 200-word newsletter blurb: [paste]",
+      "Write 5 social posts from this podcast excerpt: [paste]"
+    ],
+    "skillBuilding": [
+      "Set up Groq Whisper API for automatic episode transcription",
+      "Use SiliconFlow CosyVoice2 ($1 credit) for voiceover experiments",
+      "Build a show notes template Modelfile for consistent episode output"
+    ],
+    "matchedModels": [
+      "llama-3-1-8b",
+      "qwen-2-5-7b",
+      "llama-3-2-3b",
+      "smollm-1-7b"
+    ],
+    "priorities": [
+      "writing",
+      "chat"
+    ]
+  }
+]

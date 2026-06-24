@@ -1,0 +1,72 @@
+- main [ref=e2]:
+  - link "← Use the wizard" [ref=e3] [cursor=pointer]:
+    - /url: /
+  - heading "Best Free ChatGPT Alternative (2026)" [level=1] [ref=e4]
+  - paragraph [ref=e6]:
+    - strong [ref=e7]: "There are two paths to a free ChatGPT alternative:"
+    - text: run local AI on your computer (Ollama, free forever) or use free cloud services (Groq, Gemini). Each has different hardware requirements and trade-offs.
+  - generic [ref=e8]:
+    - 'heading "Path 1: Local AI (Ollama) — Free Forever" [level=2] [ref=e9]'
+    - paragraph [ref=e10]: "Best for: computers with 8GB+ VRAM or 16GB+ RAM. Completely free, private, offline."
+    - generic [ref=e11]:
+      - generic [ref=e14]: Qwen 2.5 7B
+      - paragraph [ref=e15]: Free, open source, runs entirely on your computer. No subscription, no API, no data leaving your machine.
+      - generic [ref=e16]:
+        - generic [ref=e17]: Install
+        - generic [ref=e18]: ollama pull qwen2.5:7b
+        - link "Download Ollama" [ref=e19] [cursor=pointer]:
+          - /url: https://ollama.com/download
+  - generic [ref=e20]:
+    - 'heading "Path 2: Free Cloud AI (No Installation)" [level=2] [ref=e21]'
+    - paragraph [ref=e22]: "Best for: any device with a browser, including Chromebooks, tablets, and low-RAM computers."
+    - generic [ref=e23]:
+      - generic [ref=e24]:
+        - generic [ref=e25]: 🥇 Gemini 2.0 Flash (Google)
+        - paragraph [ref=e26]:
+          - text: Free, multimodal, huge context window. Available at
+          - link "gemini.google.com" [ref=e27] [cursor=pointer]:
+            - /url: https://gemini.google.com
+      - generic [ref=e28]:
+        - generic [ref=e29]: 🥈 Groq
+        - paragraph [ref=e30]:
+          - text: 1,000+ tokens/second on free tier. Llama 3.1 8B and other models. Available at
+          - link "console.groq.com" [ref=e31] [cursor=pointer]:
+            - /url: https://console.groq.com
+      - generic [ref=e32]:
+        - generic [ref=e33]: 🥉 OpenRouter
+        - paragraph [ref=e34]:
+          - text: 27+ free models, automatic fallback. Available at
+          - link "openrouter.ai" [ref=e35] [cursor=pointer]:
+            - /url: https://openrouter.ai
+  - generic [ref=e36]:
+    - heading "Which Should You Choose?" [level=2] [ref=e37]
+    - list [ref=e38]:
+      - listitem [ref=e39]:
+        - strong [ref=e40]: Have a gaming PC or recent Mac?
+        - text: Go local with Ollama. Free forever, private, offline.
+      - listitem [ref=e41]:
+        - strong [ref=e42]: Old laptop or Chromebook?
+        - text: Use Gemini or Groq free tier. No installation, works in browser.
+      - listitem [ref=e43]:
+        - strong [ref=e44]: Want both?
+        - text: Use local AI for daily work and cloud fallback for heavy tasks.
+  - generic [ref=e45]:
+    - heading "Frequently Asked Questions" [level=2] [ref=e46]
+    - generic [ref=e47]:
+      - generic [ref=e48]:
+        - heading "What is the best free ChatGPT alternative?" [level=3] [ref=e49]
+        - paragraph [ref=e51]: The best free ChatGPT alternative depends on your hardware. For computers with 8GB+ VRAM or 16GB+ RAM, Ollama with Qwen 2.5 7B is best. For weaker hardware, Groq (free cloud) or Gemini (free) are excellent zero-cost options.
+      - generic [ref=e52]:
+        - heading "Is there a completely free ChatGPT alternative?" [level=3] [ref=e53]
+        - paragraph [ref=e55]: Yes. Ollama is completely free and open source. Groq offers a generous free tier (1,000 tokens/second). Gemini has a free tier with Google's best models. No credit card required for any of them.
+      - generic [ref=e56]:
+        - heading "What is better than ChatGPT and free?" [level=3] [ref=e57]
+        - paragraph [ref=e59]: Local AI via Ollama is better than ChatGPT for privacy and offline use. Groq is faster for free cloud inference. Gemini 2.0 Flash has a free tier with multimodal capabilities. Each excels in different areas.
+      - generic [ref=e60]:
+        - heading "Can I get ChatGPT quality for free?" [level=3] [ref=e61]
+        - paragraph [ref=e63]: Yes. Modern open models like Qwen 2.5 7B and Llama 3.1 8B match ChatGPT quality for most tasks. Groq's Llama 3.1 8B runs at over 1,000 tokens/second on their free tier — much faster than ChatGPT.
+  - generic [ref=e64]:
+    - heading "Find Your Best Free Option" [level=2] [ref=e65]
+    - paragraph [ref=e66]: Answer two questions and get the ideal free ChatGPT alternative for your specific hardware.
+    - link "Get Your Free Setup" [ref=e67] [cursor=pointer]:
+      - /url: /

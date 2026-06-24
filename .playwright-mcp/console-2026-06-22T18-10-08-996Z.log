@@ -1,0 +1,16 @@
+[      90ms] [LOG] [Analytics] wizard_started  @ http://localhost:3333/analytics.js:39
+[      92ms] [WARNING] Ignoring Event: localhost @ https://plausible.io/js/pa-DBTdINzLX2L2B_fXJF0u1.js:0
+[      92ms] [WARNING] Ignoring Event: localhost @ https://plausible.io/js/pa-DBTdINzLX2L2B_fXJF0u1.js:0
+[     105ms] [WARNING] Ignoring Event: localhost @ https://plausible.io/js/pa-DBTdINzLX2L2B_fXJF0u1.js:0
+[     105ms] [LOG] [Analytics] cloud_fallback_triggered {reason: weak_hardware, tier: budget-gpu, goal: chat} @ http://localhost:3333/analytics.js:39
+[     109ms] [WARNING] Ignoring Event: localhost @ https://plausible.io/js/pa-DBTdINzLX2L2B_fXJF0u1.js:0
+[     109ms] [LOG] [Analytics] Result Shown {model: qwen-2-5-7b, goal: chat, tier: budget-gpu} @ http://localhost:3333/analytics.js:39
+[     111ms] [WARNING] Ignoring Event: localhost @ https://plausible.io/js/pa-DBTdINzLX2L2B_fXJF0u1.js:0
+[     111ms] [LOG] [Analytics] recommendation_generated {model: qwen2.5:7b, goal: chat, hardware: budget-gpu, hasCloudFallback: true} @ http://localhost:3333/analytics.js:39
+[     114ms] [WARNING] Ignoring Event: localhost @ https://plausible.io/js/pa-DBTdINzLX2L2B_fXJF0u1.js:0
+[     114ms] [LOG] [Analytics] recommendation_generated {model: qwen2.5:7b, goal: chat, hardware: budget-gpu, confidence: 8} @ http://localhost:3333/analytics.js:39
+[     227ms] [WARNING] Ignoring Event: localhost @ https://plausible.io/js/pa-DBTdINzLX2L2B_fXJF0u1.js:0
+[     227ms] [LOG] [Analytics] result_restored {goal: chat, tier: budget-gpu} @ http://localhost:3333/analytics.js:39
+[     426ms] [ERROR] Failed to load resource: net::ERR_NAME_NOT_RESOLVED @ https://fxeygjmygxnirvsrndaa.supabase.co/rest/v1/recommendations:0
+[   15963ms] [WARNING] Ignoring Event: localhost @ https://plausible.io/js/pa-DBTdINzLX2L2B_fXJF0u1.js:0
+[   15963ms] [LOG] [Analytics] goal_selected {goal: unknown, inferred: false} @ http://localhost:3333/analytics.js:39

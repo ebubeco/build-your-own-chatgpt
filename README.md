@@ -44,91 +44,68 @@ That's it. Private ChatGPT running on your machine.
 
 ## Hardware Tiers
 
-| Tier | VRAM | Examples | RAM Needed |
-|------|------|---------|------------|
-| **No GPU / Integrated** | 0-4GB shared | Old laptops, Intel Iris, office PCs | 8GB min, 16GB recommended |
-| **Budget GPU** | 4-8GB dedicated | GTX 1660, RTX 3050, RX 6600 | 16GB |
-| **Mid-Range GPU** | 8-16GB dedicated | RTX 3060 12GB, RTX 4060, RX 6700 XT | 16GB |
-| **High-End GPU** | 16GB+ dedicated | RTX 3090, 4080, 4090, RX 7900 XTX | 32GB |
-| **Apple Silicon** | Unified memory | M1/M2/M3/M4 all variants | N/A — uses unified |
-
----
-
-## Model Recommendations by Goal
-
-### Coding
-| Tier | Recommended | Alternative |
-|------|-------------|-------------|
-| No GPU / Integrated | Phi-4 Mini 3.8B | Qwen 1.5B |
-| Budget GPU | Qwen 2.5 7B | Gemma 4 12B |
-| Power GPU | Qwen 3.5 27B | DeepSeek R1 8B |
-| Apple Silicon 8-16GB | Qwen 2.5 7B | Llama 3.1 8B |
-| Apple Silicon 24-48GB | Qwen 3 14B | Qwen 2.5 7B |
-| Apple Silicon 64GB+ | Qwen 3.5 27B | Qwen 3 14B |
-
-### Writing
-| Tier | Recommended | Alternative |
-|------|-------------|-------------|
-| No GPU / Integrated | SmolLM2 1.7B | Llama 3.2 1B |
-| Budget GPU | Qwen 2.5 7B | Qwen 3 14B |
-| Power GPU | Qwen 3.5 27B | DeepSeek R1 8B |
-| Apple Silicon 8-16GB | Qwen 2.5 7B | Llama 3.1 8B |
-
-### Reasoning / Research
-| Tier | Recommended | Alternative |
-|------|-------------|-------------|
-| Budget GPU | Gemma 4 12B | Qwen 2.5 7B |
-| Power GPU | DeepSeek R1 8B | Qwen 3.5 27B |
-| Apple Silicon 24-48GB | Qwen 3 14B | Qwen 2.5 7B |
+| Tier | VRAM | Examples | Recommended Models |
+|------|------|---------|--------------------|
+| **No GPU / Integrated** | 0–4GB RAM, 0 VRAM | Old laptops, office PCs, integrated graphics | Phi-4 Mini 3.8B, Qwen 1.5B, SmolLM2 1.7B |
+| **Budget GPU** | 4–8GB | RTX 3060, 3070 | Qwen 2.5 7B, Llama 3.1 8B, Phi-4 Mini |
+| **Power GPU** | 12GB+ | RTX 4080, 4090 | Qwen 2.5 32B, DeepSeek R1 32B, Phi-4 14B |
+| **Apple Silicon** | Unified memory | M1/M2/M3/M4 all variants | Qwen 2.5 7B, Llama 3.3 8B, Phi-4 14B |
 
 ---
 
 ## Features
-
-- **Goal-first flow** — pick what you want to do first, then hardware match
-- **Confidence indicator** — High / Medium-High / Medium / Low match score
-- **Confidence Score (numeric)** — percentage match shown on result card
-- **"Why this?" points** — 4–7 clear reasons for each recommendation
-- **Capability Cards** — visual breakdown of what each model can do
-- **Readiness Scores** — shows how well hardware fits each use case
-- **"What to Expect"** — startup time, storage, setup time, difficulty, privacy
-- **"Best For" section** — job-oriented outcomes, not technical specs
-- **Cloud fallback** — when local AI is too slow, free cloud alternatives shown
-- **Shareable URLs** — `?goal=coding&tier=power-gpu` encodes your picks
-- **Apple Silicon support** — unified memory tiers with Metal GPU acceleration
-- **Quantization tooltips** — hover to see what Q2_K through F16 mean
-- **Hardware auto-detect** — suggests GPU tier where possible
-- **Feedback Storage** — Supabase collects success data to improve recommendations
-- **Result Persistence** — URL params restore result without re-running wizard
-- **Copy Setup button** — one-click copy of the complete install command
-- **Dark mode** — toggle in the nav bar
+- **Goal-first wizard** — pick your use case before seeing any models
+- **Hardware tier detection** — auto-detects your VRAM class
+- **Recommendation engine** — scored: bestFor (+40), goal, beginner (+10), fast (+20), slow (−5), wrong tier (−50)
+- **Confidence score** — numeric confidence per recommendation
+- **Why this?** — plain-English reasoning for every pick
+- **Capability cards** — visual breakdown of model strengths
+- **Readiness scores** — per-model assessment for your hardware
+- **Cloud fallback** — automatic cloud alternative when local hardware falls short
+- **Shareable URLs** — every result is a permalink
+- **Apple Silicon support** — M1/M2/M3 tier with correct model recommendations
+- **Quantization tooltips** — explains Q4, Q5, Q8 in plain language
+- **Copy setup button** — one-click install command copy
+- **Result persistence** — last result stays when you return
+- **Feedback storage** — Supabase-powered with detailed tag categories
+- **Dark mode** — system-aware
+- **Model comparison tool** — side-by-side compare ([compare.html](compare.html))
+- **Career recommendations** — AI setup guides by profession ([career.html](career.html))
+- **Local vs Cloud wizard** — which approach fits your situation ([which-ai.html](which-ai.html))
+- **Use case browser** — filter by hardware tier and task ([use-cases.html](use-cases.html))
+- **Hardware guides** — no-GPU guide, laptop checker, offline guide, starter pack
+- **Model compendium** — 53+ models with specs, benchmarks, filters ([compendium.html](compendium.html))
 
 ---
 
 ## File Structure
-
 ```
 build-your-own-chatgpt/
-├── index.html                  # Main wizard (1 recommendation + 2 alternatives)
-├── compendium.html             # Full catalog (25+ models, search, filters, table view)
-├── app.js                      # Wizard logic (recommendation engine, scoring, feedback UI)
-├── analytics.js                # Umami + Plausible tracking, Supabase feedback, export
-├── compendium.css              # Compendium styles
-├── style.css                   # Main stylesheet
-├── server.js                   # Local dev server (port 3333)
-├── sitemap.xml                 # SEO sitemap (17 URLs)
+├── index.html              # Main wizard
+├── career.html             # Career recommendations
+├── compare.html            # Model comparison tool
+├── which-ai.html           # Local vs Cloud wizard
+├── use-cases.html          # Use case browser
+├── best-offline-chatgpt.html  # SEO — offline guide
+├── starter-pack.html       # Starter pack recommendations
+├── run-ai-without-gpu.html # No-GPU guide
+├── can-my-laptop-run-ai.html  # Hardware checker
+├── compendium.html         # Full model catalog
+├── app.js                  # Main wizard logic
+├── generate_compendium.js  # Compendium generator
+├── server.js               # Dev server
+├── style.css               # Main styles
+├── compendium.css          # Compendium styles
 ├── favicon.svg
-├── anchored-summary.md         # Project progress tracking
-├── generate-seo.js             # SEO landing page generator script
-├── *.html                      # 18 SEO landing pages (rtx-3060-local-ai, cpu-only, etc.)
-├── data/
-│   ├── models_compendium.json  # Primary model database (25 models, 7 tiers)
-│   ├── models.json             # Secondary model database (used for compendium browse)
-│   ├── gpus.json               # Hardware database with VRAM specs and GPU map
-│   ├── setups.json             # Curated setups with success stories and steps
-│   ├── config.json             # Tier configs (readiness scores, context caps)
-│   ├── cloud_providers.json    # Free cloud AI alternatives
-│   └── glossary.json           # AI terminology explainer
+├── sitemap.xml
+├── robots.txt
+└── data/
+    ├── models.json
+    ├── gpus.json
+    ├── setups.json
+    ├── glossary.json
+    ├── cloud_providers.json
+    └── roles.json
 ```
 
 ---
@@ -165,11 +142,13 @@ When your hardware can't run local models well, free cloud options are recommend
 
 | Service | Best for | Free tier | Link |
 |---------|----------|-----------|------|
-| **Gemini 2.5 Flash** | General use, free, multimodal | 1,500 req/day | [gemini.google.com](https://gemini.google.com) |
-| **Groq** | Speed — 1,000 tokens/sec | 14,400 req/min | [console.groq.com](https://console.groq.com) |
-| **OpenRouter** | Variety — 27+ free models | Varies | [openrouter.ai](https://openrouter.ai) |
-| **Cerebras** | Fast inference, large models | Free tier | [cerebras.ai](https://cerebras.ai) |
-| **SiliconFlow** | Serverless API, many models | Free tier | [siliconflow.ai](https://siliconflow.ai) |
+| **Gemini 2.5 Flash** | General use, 1M context, multimodal | 1,500 req/day | [aistudio.google.com](https://aistudio.google.com) |
+| **Groq** | Speed — 1,000 tokens/sec, Whisper STT | 14,400 req/day | [console.groq.com](https://console.groq.com) |
+| **OpenRouter** | Variety — 27+ free models, auto-failover | Varies | [openrouter.ai](https://openrouter.ai) |
+| **Cerebras** | Fastest — ~3,000 tokens/sec, large models | 1M tokens/day | [console.cerebras.ai](https://console.cerebras.ai) |
+| **SiliconFlow** | Image gen (FLUX.1), video, TTS (CosyVoice2) | $1 starter credit | [siliconflow.cn](https://siliconflow.cn) |
+| **OpenCode Zen** | Agentic coding IDE | Free tier | [opencode.ai](https://opencode.ai) |
+| **Fireworks AI** | 50+ models, JSON schema mode | $1 starter credit | [fireworks.ai](https://fireworks.ai) |
 
 ---
 

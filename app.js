@@ -36,6 +36,29 @@
 
   let CAREER_MAP = {};
 
+  var wizardState = {
+    steps: ['goal', 'tier', 'results'],
+    currentIndex: 0,
+    goToStep: function(name) {
+      var idx = this.steps.indexOf(name);
+      if (idx === -1) return;
+      this.currentIndex = idx;
+      document.querySelectorAll('.step').forEach(function(el) { el.classList.add('hidden'); });
+      var target = document.querySelector('.step-' + name);
+      if (target) target.classList.remove('hidden');
+      document.body.className = document.body.className.replace(/wizard-step-\w+/g, '').trim();
+      document.body.classList.add('wizard-step-' + name);
+      window.dispatchEvent(new CustomEvent('step-change', { detail: { step: name } }));
+    },
+    getState: function() { return { step: this.steps[this.currentIndex], index: this.currentIndex }; },
+    reset: function() { this.goToStep('goal'); }
+  };
+
+  function goTo(step) {
+    var map = { 1: 'goal', 2: 'tier', 3: 'results' };
+    wizardState.goToStep(map[step] || 'goal');
+  }
+
   function track(name, props) {
     if (typeof window.__analytics !== 'undefined') {
       window.__analytics.trackEvent(name, props);
@@ -125,6 +148,22 @@
     // Kept for potential future use; navigator.deviceMemory returns GBs
     if (navigator.deviceMemory) return navigator.deviceMemory;
     return null;
+  }
+
+  function onHardwareDetectFail(error) {
+    track('hardware_detect_failed', { error: error ? error.message : 'gpu_not_found' });
+    var banner = document.getElementById('detected-banner');
+    if (!banner) return;
+    banner.classList.remove('hidden');
+    banner.className = 'detected-banner detect-fallback';
+    banner.innerHTML = '<p>🔍 Could not detect GPU automatically. Pick yours below:</p>'
+      + '<div class="detect-fallback-btns">'
+      + '<button class="hw-fallback-btn" onclick="window.dispatchEvent(new CustomEvent(\'select-tier\',{detail:\'modern-laptop-no-gpu\'}))">Old laptop / no GPU</button>'
+      + '<button class="hw-fallback-btn" onclick="window.dispatchEvent(new CustomEvent(\'select-tier\',{detail:\'budget-gpu\'}))">Budget GPU (4-8GB VRAM)</button>'
+      + '<button class="hw-fallback-btn" onclick="window.dispatchEvent(new CustomEvent(\'select-tier\',{detail:\'mid-gpu\'}))">Mid-range GPU (8-12GB)</button>'
+      + '<button class="hw-fallback-btn" onclick="window.dispatchEvent(new CustomEvent(\'select-tier\',{detail:\'high-end-gpu\'}))">Power GPU (12GB+)</button>'
+      + '<button class="hw-fallback-btn" onclick="window.dispatchEvent(new CustomEvent(\'select-tier\',{detail:\'apple-silicon\'}))">Mac (Apple Silicon)</button>'
+      + '</div>';
   }
 
   function getTierFromVRAM(vramGB) {
@@ -256,6 +295,11 @@
     } else {
       fallbackCopy(text, btn);
     }
+    trackCommandCopied(modelKey);
+  }
+
+  function trackCommandCopied(modelId) {
+    track('Command Copied', { model: modelId });
   }
 
   function fallbackCopy(text, btn, successText, resetText) {
@@ -366,6 +410,17 @@
     window.history.replaceState(null, '', newURL);
   }
 
+  function copyShareText(btn, text, successMsg, resetMsg) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function() {
+        btn.textContent = successMsg || 'Copied!';
+        setTimeout(function() { btn.textContent = resetMsg || btn.textContent; }, 2000);
+      }).catch(function() { fallbackCopy(text, btn, successMsg, resetMsg); });
+    } else {
+      fallbackCopy(text, btn, successMsg, resetMsg);
+    }
+  }
+
   function generateShareText() {
     if (!currentResult) return window.location.href;
     const r = currentResult;
@@ -390,18 +445,7 @@
 
     if (action === 'link') {
       track('share_clicked', { method: 'copy_link' });
-      const url = window.location.href;
-      const copyToClip = (str) => {
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-          navigator.clipboard.writeText(str).then(() => {
-            btn.textContent = 'Link copied!';
-            setTimeout(() => { btn.textContent = 'Copy result link'; }, 2000);
-          }).catch(() => fallbackCopy(str, btn, 'Link copied!', 'Copy result link'));
-        } else {
-          fallbackCopy(str, btn, 'Link copied!', 'Copy result link');
-        }
-      };
-      copyToClip(url);
+      copyShareText(btn, window.location.href, 'Link copied!', 'Copy result link');
       return;
     }
 
@@ -411,17 +455,25 @@
       navigator.share({ title: 'My AI Setup', text }).catch(() => {});
       return;
     }
-    const copyToClip = (str) => {
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(str).then(() => {
-          btn.textContent = 'Copied!';
-          setTimeout(() => { btn.textContent = 'Share text'; }, 2000);
-        }).catch(() => fallbackCopy(str, btn));
-      } else {
-        fallbackCopy(str, btn);
-      }
-    };
-    copyToClip(text);
+    copyShareText(btn, text, 'Copied!', 'Share My Setup');
+  }
+
+  function initCopyButtons() {
+    document.querySelectorAll('pre code').forEach(function(block) {
+      if (block.parentNode.querySelector('.copy-btn')) return;
+      var btn = document.createElement('button');
+      btn.className = 'copy-btn';
+      btn.textContent = 'Copy';
+      btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        navigator.clipboard.writeText(block.textContent.trim())['then'](function() {
+          btn.textContent = 'Copied ✓';
+          setTimeout(function() { btn.textContent = 'Copy'; }, 2000);
+        })['catch'](function() { });
+      });
+      block.parentNode.style.position = 'relative';
+      block.parentNode.appendChild(btn);
+    });
   }
 
   function detectAppleSilicon() {
@@ -443,14 +495,12 @@
       card.setAttribute('aria-pressed', 'true');
     }
 
-    const hwSection = document.getElementById('hw-section');
-
     if (goal === 'unknown') {
-      if (hwSection) hwSection.classList.add('hidden');
+      goTo(1);
       return;
     }
 
-    if (hwSection) hwSection.classList.remove('hidden');
+    goTo(2);
   }
 
   function showAllModelsDirect() {
@@ -609,6 +659,36 @@
     return { value: value, label: label, color: color, reasons: reasons, estimated: estimated };
   }
 
+  function getSpeedLabel(tps) {
+    if (tps >= 1000) return 'Instant — complete answer in under a second';
+    if (tps >= 500)  return 'Very fast — near-instant responses';
+    if (tps >= 200)  return 'Fast — reads faster than you';
+    return 'Moderate — like a fast typist';
+  }
+
+  const platformTPS = {
+    'cerebras-120b':   3000,
+    'cerebras-llama':  2600,
+    'groq-instant':    1000,
+    'groq-scout':       800,
+    'groq-qwen3-32b':  600,
+    'groq-70b':        400,
+    'groq-whisper':    300
+  };
+
+  function showCloudRecommendation(opts) {
+    if (!opts) return '';
+    var html = '<div class="opt-out-card"><div class="opt-out-title">' + (opts.heading || '') + '</div>';
+    if (opts.primary) {
+      html += '<div class="cloud-rec-primary"><h4>' + opts.primary.name + '</h4><p>' + opts.primary.context + '</p><a href="' + opts.primary.url + '" target="_blank" class="btn-secondary">' + (opts.primary.btnText || 'Get free API key →') + '</a></div>';
+    }
+    if (opts.alternatives && opts.alternatives.length) {
+      html += '<div class="cloud-rec-alts"><p>Alternatives:</p><ul>' + opts.alternatives.map(function(a) { return '<li><a href="' + a.url + '" target="_blank"><strong>' + a.name + '</strong></a> — ' + a.context + '</li>'; }).join('') + '</ul></div>';
+    }
+    html += '</div>';
+    return html;
+  }
+
   const BEST_FOR_LABELS = {
     'chat': 'Personal ChatGPT replacement',
     'coding': 'Coding help',
@@ -620,6 +700,36 @@
     'general': 'General use',
     'experiments': 'Experiments'
   };
+
+  const TOOLTIPS = {
+    chat: 'Best for conversations, brainstorming, Q&A — fast responses matter most',
+    coding: 'Prioritizes models with strong code understanding and generation',
+    writing: 'Long context and nuanced output for articles, reports, research',
+    documents: 'Needs models with 8K+ context for PDFs and document analysis',
+    agents: 'For multi-step tasks and automated workflows — needs reliability',
+    all: 'Balanced all-around model for mixed use'
+  };
+
+  function applyTooltips() {
+    document.querySelectorAll('.tooltip-trigger').forEach(function(el) {
+      var tip = el.querySelector('.tip-mark');
+      if (!tip) {
+        tip = document.createElement('span');
+        tip.className = 'tip-mark';
+        tip.textContent = '?';
+        el.appendChild(tip);
+      }
+      var existing = el.parentNode.querySelector('.tooltip');
+      if (existing) existing.remove();
+      var key = el.getAttribute('data-tip') || el.textContent.trim().toLowerCase();
+      var text = TOOLTIPS[key] || '';
+      if (!text) return;
+      var div = document.createElement('div');
+      div.className = 'tooltip';
+      div.textContent = text;
+      el.parentNode.insertBefore(div, el.nextSibling);
+    });
+  }
 
   function getExpectations(model) {
     const bStr = model.size.match(/(\d+\.?\d*)/);
@@ -704,7 +814,7 @@
         fromScore: 8,
         toScore: 10,
         unlocks: ['Run 14B-30B models', 'Better coding & reasoning', 'Larger context'],
-        models: ['Qwen3:14B', 'Qwen3.5:27B', 'DeepSeek R1 32B'],
+        models: ['Qwen2.5:14B', 'Qwen2.5:32B', 'DeepSeek R1 32B'],
         note: 'A used RTX 3090 (24GB) is the best upgrade for high-end local AI'
       },
       'apple': {
@@ -713,7 +823,7 @@
         fromScore: 7,
         toScore: 9,
         unlocks: ['Run larger models with Metal acceleration', 'Better multi-tasking', 'Larger context windows'],
-        models: ['Qwen3:14B', 'Qwen3.5:27B'],
+        models: ['Qwen2.5:14B', 'Qwen2.5:32B'],
         note: 'More unified memory unlocks much larger models on Apple Silicon'
       }
     };
@@ -814,8 +924,10 @@
 
     // IMPORTANT: compute showPrimary BEFORE building primaryHTML
     const conf = primary ? getConfidence(primary, tier, goal, selectedCareer) : null;
-    const showCloud = score <= 4 || (conf && (conf.level === 'Low' || conf.level === 'Very Low'));
-    if (showCloud) track('cloud_fallback_triggered', { reason: 'weak_hardware', tier, goal });
+    const weakTiers = ['no-gpu', 'cpu-only', 'modern-laptop-no-gpu'];
+    const isDocumentsOnWeakHW = goal === 'documents' && weakTiers.includes(tier);
+    const showCloud = score <= 4 || (conf && (conf.level === 'Low' || conf.level === 'Very Low')) || isDocumentsOnWeakHW;
+    if (showCloud) track('cloud_fallback_triggered', { reason: isDocumentsOnWeakHW ? 'documents_weak_hardware' : 'weak_hardware', tier, goal });
     const showPrimary = primary && !showCloud;
 
     const whyNotModels = showCloud ? [] : getWhyNotOthers(primary, tier, goal, models);
@@ -931,10 +1043,36 @@
       return 'var(--red)';
     };
 
+    var showCloudHTML = '';
+    if (showCloud) {
+      if (isDocumentsOnWeakHW) {
+        showCloudHTML = showCloudRecommendation({
+          heading: "Your hardware can't run a model large enough for documents.",
+          primary: { name: 'MiniMax-M3', context: '1,049,000 tokens — largest free context window available', url: 'https://siliconflow.cn', btnText: 'Get $1 starter credit →' },
+          alternatives: [
+            { name: 'Gemini 2.5 Flash', context: '1,000,000 tokens · 1,500 req/day', url: 'https://aistudio.google.com' },
+            { name: 'Llama 4 Maverick', context: '1,000,000 tokens · OpenRouter', url: 'https://openrouter.ai' }
+          ]
+        });
+      } else {
+        showCloudHTML = '<div class="opt-out-card"><div class="opt-out-title">Honestly, local AI might not be the move</div><p class="opt-out-desc">Based on your hardware, running local AI will be slow and limited. Here are free cloud alternatives that work better:</p><div class="cloud-alts-grid">';
+        showCloudHTML += '<div class="cloud-alt-card"><div class="cloud-alt-badge">\u{1F947} Best overall</div><div class="cloud-alt-name">GroqCloud</div><div class="cloud-alt-desc">Mixtral, Llama 3, Gemma — LPU inference, 30+ models, 32K context</div><a href="https://console.groq.com" target="_blank" rel="noopener noreferrer" class="btn-secondary">Try Groq Free</a></div>';
+        showCloudHTML += '<div class="cloud-alt-card"><div class="cloud-alt-badge">\u{1F948} Most variety</div><div class="cloud-alt-name">OpenRouter</div><div class="cloud-alt-desc">27+ free models, auto-switches, standardized API</div><a href="https://openrouter.ai" target="_blank" rel="noopener noreferrer" class="btn-secondary">Try OpenRouter Free</a></div>';
+        showCloudHTML += '<div class="cloud-alt-card"><div class="cloud-alt-badge">\u{1F949} Longest Context</div><div class="cloud-alt-name">Google AI Studio</div><div class="cloud-alt-desc">Gemini 2.5 Flash, 1M context, search grounding</div><a href="https://aistudio.google.com" target="_blank" rel="noopener noreferrer" class="btn-secondary">Use Gemini Free</a></div>';
+        showCloudHTML += '<div class="cloud-alt-card"><div class="cloud-alt-badge" style="font-size:0.65rem">\u26A1 Fastest</div><div class="cloud-alt-name">Cerebras</div><div class="cloud-alt-desc">Wafer-scale speed, ~3,000 tokens/sec</div><a href="https://cloud.cerebras.ai" target="_blank" rel="noopener noreferrer" class="btn-secondary">Try Cerebras Free</a></div>';
+        showCloudHTML += '<div class="cloud-alt-card"><div class="cloud-alt-badge" style="font-size:0.65rem">\u{1F3A8} Image/video</div><div class="cloud-alt-name">SiliconFlow</div><div class="cloud-alt-desc">200+ models, image & video, $1 credit</div><a href="https://siliconflow.cn" target="_blank" rel="noopener noreferrer" class="btn-secondary">Try SiliconFlow \u2192</a></div>';
+        showCloudHTML += '<div class="cloud-alt-card"><div class="cloud-alt-badge" style="font-size:0.65rem">\u{1F91D} Most models</div><div class="cloud-alt-name">Together AI</div><div class="cloud-alt-desc">100+ open models, generous free tier</div><a href="https://together.ai" target="_blank" rel="noopener noreferrer" class="btn-secondary">Try Together Free</a></div>';
+        showCloudHTML += '<div class="cloud-alt-card"><div class="cloud-alt-badge" style="font-size:0.65rem">\u{1F525} JSON/struct</div><div class="cloud-alt-name">Fireworks AI</div><div class="cloud-alt-desc">Fastest 70B inference, JSON schema mode</div><a href="https://fireworks.ai" target="_blank" rel="noopener noreferrer" class="btn-secondary">Try Fireworks Free</a></div>';
+        showCloudHTML += '<div class="cloud-alt-card"><div class="cloud-alt-badge" style="font-size:0.65rem">\u2601\uFE0F Serverless</div><div class="cloud-alt-name">DeepInfra</div><div class="cloud-alt-desc">Serverless free tier, 100+ models</div><a href="https://deepinfra.com" target="_blank" rel="noopener noreferrer" class="btn-secondary">Try DeepInfra Free</a></div>';
+        showCloudHTML += '<div class="cloud-alt-card"><div class="cloud-alt-badge" style="font-size:0.65rem">\u{1F310} Edge AI</div><div class="cloud-alt-name">Cloudflare Workers AI</div><div class="cloud-alt-desc">Edge AI, 10K req/day free</div><a href="https://cloudflare.com" target="_blank" rel="noopener noreferrer" class="btn-secondary">Try Cloudflare AI Free</a></div>';
+        showCloudHTML += '</div><p style="font-size:0.8rem;color:var(--text-tertiary);margin-top:0.75rem">Or scroll down for the full cloud guide with 13 free platforms.</p></div>';
+      }
+    }
+
     section.innerHTML = `
       <div class="fade-in">
         <div class="results-toolbar">
-          <button id="share-btn" class="btn-share">Share text</button>
+          <button id="share-btn" class="btn-share">Share My Setup</button>
           <button id="share-link-btn" class="btn-share">Copy result link</button>
           <button id="copy-setup-btn" class="btn-share">Copy Setup</button>
           <button id="dev-toggle-btn" class="btn-dev-toggle">Show install code (developers)</button>
@@ -1043,32 +1181,7 @@
           </div>
         </div>`; })()}
 
-        ${showCloud ? `
-        <div class="opt-out-card">
-          <div class="opt-out-title">Honestly, local AI might not be the move</div>
-          <p class="opt-out-desc">Based on your hardware, running local AI will be slow and limited. Here are free alternatives that work better:</p>
-          <div class="cloud-alts-grid">
-            <div class="cloud-alt-card">
-              <div class="cloud-alt-badge">🥇 Best overall</div>
-              <div class="cloud-alt-name">Gemini 2.0 Flash</div>
-              <div class="cloud-alt-desc">Free, multimodal, huge context</div>
-              <a href="https://gemini.google.com" target="_blank" rel="noopener noreferrer" class="btn-secondary">Use Gemini Free</a>
-            </div>
-            <div class="cloud-alt-card">
-              <div class="cloud-alt-badge">🥈 Fastest</div>
-              <div class="cloud-alt-name">Groq</div>
-              <div class="cloud-alt-desc">1,000 tokens/sec, free tier</div>
-              <a href="https://console.groq.com" target="_blank" rel="noopener noreferrer" class="btn-secondary">Try Groq Free</a>
-            </div>
-            <div class="cloud-alt-card">
-              <div class="cloud-alt-badge">🥉 Most variety</div>
-              <div class="cloud-alt-name">OpenRouter</div>
-              <div class="cloud-alt-desc">27+ free models, auto-switches</div>
-              <a href="https://openrouter.ai" target="_blank" rel="noopener noreferrer" class="btn-secondary">Try OpenRouter Free</a>
-            </div>
-          </div>
-          <p style="font-size:0.8rem;color:var(--text-tertiary);margin-top:0.75rem">Or try our smallest models - they work on any hardware, just slower.</p>
-        </div>` : ''}
+        ${showCloudHTML}
 
         ${primaryHTML}
         ${altHTML}
@@ -1108,13 +1221,18 @@
     const command = primary ? (primary.installCommand || 'ollama pull <model>') : 'ollama pull <model>';
     const alternativeNames = alternatives.map(m => m.name);
     currentResult = {
-      score,
-      canRun: [...capItems.can, ...capItems.slow].map(i => i.label),
-      modelName,
-      tool,
-      command,
-      alternativeNames
+      score: score,
+      canRun: [...capItems.can, ...capItems.slow].map(function(i) { return i.label; }),
+      modelName: modelName,
+      tool: tool,
+      command: command,
+      alternativeNames: alternativeNames,
+      goal: selectedGoal,
+      tier: selectedTier,
+      hardwareLabel: selectedTier ? (tierInfo.displayName || selectedTier) : selectedTier,
+      goalLabel: selectedGoal || 'General'
     };
+    if (primary) trackResultShown(primary.id || primary.name, selectedGoal, selectedTier);
 
     try {
       var persistData = { score: score, modelName: modelName, tool: tool, command: command, goal: selectedGoal, tier: selectedTier, career: selectedCareer, canRun: currentResult.canRun, timestamp: Date.now() };
@@ -1171,8 +1289,6 @@
       }
     }
 
-    section.classList.remove('hidden');
-    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
     if (careerArea) careerArea.classList.remove('hidden');
     track('recommendation_generated', { model: primary ? primary.ollamaTag || primary.name : 'none', goal: selectedGoal, hardware: selectedTier, hasCloudFallback: !!showCloud });
     if (typeof window.__analytics !== 'undefined' && primary) {
@@ -1185,6 +1301,12 @@
       );
     }
     renderStarterPack(primary, selectedGoal);
+
+    applyTooltips();
+    section.classList.remove('hidden');
+    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    var careerRef = document.getElementById('career-refinement');
+    if (careerRef) careerRef.style.display = 'block';
   }
 
   function renderStarterPack(model, goal) {
@@ -1194,7 +1316,7 @@
       var goalPrompts = prompts.byGoal && (prompts.byGoal[goal] || prompts.byGoal['general']);
       if (!goalPrompts || !goalPrompts.length) { sp.style.display = 'none'; return; }
 
-      var isLowEnd = !model.tier || (Array.isArray(model.tier) && model.tier === 'no-gpu');
+      var isLowEnd = !model.tier || (Array.isArray(model.tier) && model.tier[0] === 'no-gpu') || model.tier === 'no-gpu';
       var ui = isLowEnd ? 'LM Studio' : 'OpenWebUI';
 
       document.getElementById('sp-ui').innerHTML =
@@ -1278,7 +1400,7 @@
 
     resultsSection.innerHTML = `
       <div class="results-toolbar">
-        <button id="share-btn" class="btn-share">Share text</button>
+        <button id="share-btn" class="btn-share">Share My Setup</button>
         <button id="share-link-btn" class="btn-share">Copy result link</button>
         <button id="dev-toggle-btn" class="btn-dev-toggle">Show install code (developers)</button>
       </div>
@@ -1397,8 +1519,7 @@
             selectedGoal = state.goal;
             const goalCard = document.querySelector(`.goal-card[data-goal="${state.goal}"]`);
             if (goalCard) goalCard.classList.add('selected');
-            const hwSection = document.getElementById('hw-section');
-            if (hwSection) hwSection.classList.remove('hidden');
+            wizardState.goToStep('tier');
         }
         if (state.career) {
             selectedCareer = state.career;
@@ -1409,18 +1530,24 @@
             }
         }
         if (state.tier) {
-            selectedTier = state.tier;
-          const hwSection = document.getElementById('hw-section');
-          if (hwSection) hwSection.classList.remove('hidden');
-          const opt = gpusData.manualOptions.find(o => o.tier === state.tier);
+          wizardState.goToStep('tier');
+          const opt = gpusData.manualOptions.find(o => o.tier === state.tier || o.id === state.tier);
+          const actualTier = opt ? opt.tier : state.tier;
+          selectedTier = actualTier;
           if (opt) {
               const card = document.querySelector(`[data-id="${opt.id}"]`);
               if (card) card.classList.add('selected');
           }
-          renderResults(state.tier);
+          if (modelsData.tiers.find(t => t.id === actualTier)) {
+              renderResults(actualTier);
+          } else {
+              renderResults('no-gpu');
+          }
+          wizardState.goToStep('results');
       }
   }
     async function init() {
+    document.body.classList.add('wizard-step-goal');
     initTheme();
     // Show export button only when ?dev=true in URL
     if (new URLSearchParams(location.search).has('dev')) {
@@ -1442,6 +1569,8 @@
     renderCareerSelector();
     renderCloudProviders();
     setupEventListeners();
+    applyTooltips();
+    initCopyButtons();
     showGuide('ollama');
     isAppleSilicon = detectAppleSilicon();
 
@@ -1450,23 +1579,24 @@
 
     if (!state.tier) {
       try {
-        var saved = localStorage.getItem('byoc_recommendation');
+          var saved = localStorage.getItem('byoc_recommendation');
         if (saved) {
           var parsed = JSON.parse(saved);
           if (parsed.goal && parsed.tier) {
             selectedGoal = parsed.goal;
-            selectedTier = parsed.tier;
             if (parsed.career) selectedCareer = parsed.career;
             var goalCard = document.querySelector('.goal-card[data-goal="'+parsed.goal+'"]');
             if (goalCard) goalCard.classList.add('selected');
-            var hwSection = document.getElementById('hw-section');
-            if (hwSection) hwSection.classList.remove('hidden');
-            var opt = gpusData.manualOptions.find(function(o) { return o.tier === parsed.tier; });
+            wizardState.goToStep('tier');
+            var opt = gpusData.manualOptions.find(function(o) { return o.tier === parsed.tier || o.id === parsed.tier; });
+            var actualTier = opt ? opt.tier : parsed.tier;
+            selectedTier = actualTier;
             if (opt) {
               var card = document.querySelector('[data-id="'+opt.id+'"]');
               if (card) card.classList.add('selected');
             }
-            renderResults(parsed.tier);
+            renderResults(actualTier);
+            wizardState.goToStep('results');
             track('result_restored', { goal: parsed.goal, tier: parsed.tier });
           }
         }
@@ -1476,27 +1606,31 @@
         const gpuName = webgpuName || detectGPU();
         const vramGB = detectVRAM();
         const banner = document.getElementById('detected-banner');
-        if (gpuName && banner) {
-          const match = matchGPUName(gpuName);
-          if (match) {
-            banner.classList.remove('hidden');
-            const isSilicon = match.tier === 'apple';
-            const memLabel = isSilicon ? `${Math.round(match.vramGB)}GB unified` : `${match.vramGB}GB VRAM`;
-            banner.innerHTML = `🖥️ Detected: <strong>${match.name}</strong> (${memLabel}) - selecting automatically...`;
-            setTimeout(() => {
-              if (autoDetectCancelled) return;
-              const opt = gpusData.manualOptions.find(o => o.id === match.tier);
-              if (opt) {
-                const card = document.querySelector(`[data-id="${opt.id}"]`);
-                if (card) {
-                  card.click();
-                  card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        if (banner) {
+          if (gpuName) {
+            const match = matchGPUName(gpuName);
+            if (match) {
+              banner.classList.remove('hidden');
+              const isSilicon = match.tier === 'apple';
+              const memLabel = isSilicon ? `${Math.round(match.vramGB)}GB unified` : `${match.vramGB}GB VRAM`;
+              banner.innerHTML = `🖥️ Detected: <strong>${match.name}</strong> (${memLabel}) - selecting automatically...`;
+              setTimeout(() => {
+                if (autoDetectCancelled) return;
+                const opt = gpusData.manualOptions.find(o => o.id === match.tier);
+                if (opt) {
+                  const card = document.querySelector(`[data-id="${opt.id}"]`);
+                  if (card) {
+                    card.click();
+                    card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                  }
                 }
-              }
-            }, 800);
+              }, 800);
+            }
+          } else {
+            onHardwareDetectFail(null);
           }
         }
-      });
+      })['catch'](function(err) { onHardwareDetectFail(err); });
     }
   }
   }
@@ -1569,6 +1703,18 @@
     cloudProvidersData.providers.forEach(p => {
       const clone = tpl.content.cloneNode(true);
       clone.querySelector('.cloud-provider-name').textContent = p.name;
+      
+      const speedBadge = clone.querySelector('.cloud-speed-badge');
+      if (p.speed) {
+        var speedClass = 'speed-moderate';
+        if (p.speed >= 1000) speedClass = 'speed-instant';
+        else if (p.speed >= 200) speedClass = 'speed-fast';
+        speedBadge.className = 'cloud-speed-badge ' + speedClass;
+        speedBadge.textContent = p.speedLabel || p.speed + '+ tok/s';
+        speedBadge.setAttribute('data-tooltip-key', 'tps');
+        speedBadge.setAttribute('title', p.speed + '+ tokens per second');
+      }
+      
       clone.querySelector('.cloud-provider-desc').textContent = p.desc;
       
       const badgeBox = clone.querySelector('.cloud-install-box');
@@ -1616,6 +1762,14 @@
       });
     });
 
+    window.addEventListener('select-tier', function(e) {
+      var opt = gpusData.manualOptions.find(function(o) { return o.tier === e.detail || o.id === e.detail; });
+      if (opt) {
+        var card = document.querySelector('[data-id="'+opt.id+'"]');
+        if (card) card.click();
+      }
+    });
+
     const toggleInput = document.getElementById('beginner-toggle-input');
     if (toggleInput) toggleInput.addEventListener('change', (e) => toggleBeginnerMode(e.target.checked));
 
@@ -1636,12 +1790,7 @@
         var btn = e.target.closest('#copy-setup-btn');
         var cr = currentResult || {};
         var text = generateSetupText(cr.modelName, cr.alternativeNames || [], selectedTier, selectedGoal);
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-          navigator.clipboard.writeText(text).then(function() {
-            btn.textContent = 'Copied!';
-            setTimeout(function() { btn.textContent = 'Copy Setup'; }, 2000);
-          });
-        }
+        copyShareText(btn, text, 'Copied!', 'Copy Setup');
         track('share_setup_clicked', { goal: selectedGoal, tier: selectedTier });
       } else if (e.target.closest('.feedback-btn') && !e.target.closest('.feedback-btn').disabled) {
         const btn = e.target.closest('.feedback-btn');
@@ -1728,6 +1877,10 @@
         if (btn.dataset.id !== 'dont-know') selectHW(btn.dataset.id, btn.dataset.tier);
       }
     });
+  }
+
+  function trackResultShown(modelId, goal, tier) {
+    track('Result Shown', { model: modelId, goal: goal, tier: tier });
   }
 
   document.addEventListener('DOMContentLoaded', init);

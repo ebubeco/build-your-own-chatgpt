@@ -1,84 +1,61 @@
 {
   "byGoal": {
-    "coding": [
-      {
-        "id": "code-review",
-        "title": "Code Review",
-        "prompt": "Review this code for bugs, performance issues, and security vulnerabilities. Suggest specific fixes:\n\n```\n[Paste your code here]\n```",
-        "model": "deepseek-r1:8b",
-        "tips": "DeepSeek R1's chain-of-thought reasoning makes it especially good at finding subtle bugs"
-      },
-      {
-        "id": "explain-code",
-        "title": "Explain Code",
-        "prompt": "Explain what this code does in simple terms. Assume I'm a junior developer:\n\n```\n[Paste your code here]\n```",
-        "model": "phi4-mini:3.8b",
-        "tips": "Phi-4 Mini is excellent at clear explanations. Add 'line by line' for detailed breakdowns"
-      },
-      {
-        "id": "generate-boilerplate",
-        "title": "Generate Boilerplate",
-        "prompt": "Create a [language/framework] [type of component] that [description of what it should do]. Include error handling and input validation.",
-        "model": "qwen2.5:7b",
-        "tips": "Qwen 2.5 7B generates the most complete and correct boilerplate code"
-      },
-      {
-        "id": "debug-error",
-        "title": "Debug Error Message",
-        "prompt": "I'm getting this error:\n```\n[Paste error message]\n```\n\nHere's my code:\n```\n[Paste your code]\n```\n\nWhat's causing this and how do I fix it?",
-        "model": "deepseek-r1:8b",
-        "tips": "Include the full error stack trace for best results"
-      }
-    ],
-    "writing": [
-      {
-        "id": "draft-article",
-        "title": "Draft Article",
-        "prompt": "Write a [type of article] about [topic]. Target audience: [audience]. Tone: [formal/casual/persuasive]. Length: [word count] words. Include an outline first.",
-        "model": "qwen2.5:7b",
-        "tips": "Ask for outline first, then approve before full draft. Gives you control over direction"
-      },
-      {
-        "id": "summarize",
-        "title": "Summarize Text",
-        "prompt": "Summarize the following text in [bullet points / paragraph] format. Capture the key points and conclusions:\n\n[Paste text here]",
-        "model": "phi4-mini:3.8b",
-        "tips": "Phi-4 Mini gives concise, accurate summaries. Add 'at a [grade level] reading level' for accessibility"
-      },
-      {
-        "id": "brainstorm",
-        "title": "Brainstorm Ideas",
-        "prompt": "I need ideas for [topic/problem]. Give me [number] creative approaches. For each idea, explain the pros and cons and how to get started.",
-        "model": "qwen2.5:7b",
-        "tips": "Ask for 'unconventional' ideas to get more creative suggestions. Follow up on promising ones"
-      }
-    ],
-    "research": [
-      {
-        "id": "research-analysis",
-        "title": "Research Paper Analysis",
-        "prompt": "Analyze this research paper abstract/methodology. Tell me:\n1. What problem does it solve?\n2. What's the key innovation?\n3. What are the limitations?\n4. How does it compare to [alternative approach]?\n\n[Paste text here]",
-        "model": "deepseek-r1:8b",
-        "tips": "DeepSeek R1's reasoning abilities make complex paper analysis much more thorough"
-      }
-    ],
-    "agents": [
-      {
-        "id": "agent-workflow",
-        "title": "Design Agent Workflow",
-        "prompt": "Design an AI agent workflow that:\n1. [Task 1]\n2. [Task 2]\n3. [Task 3]\n\nFor each step, specify: input, processing logic, output, and how it passes to the next step.",
-        "model": "qwen2.5:14b",
-        "tips": "Use this with Qwen 2.5 14B or higher. Its reasoning abilities make complex workflow design much more coherent"
-      }
-    ],
-    "learning": [
-      {
-        "id": "learning-concept",
-        "title": "Learn a Concept",
-        "prompt": "Teach me [concept] from scratch. Use this structure:\n1. Simple analogy (what's it like in real life)\n2. Core concept (2-3 sentences)\n3. Example (concrete)\n4. Practice question\n5. Common mistake to avoid",
-        "model": "phi4-mini:3.8b",
-        "tips": "Phi-4 Mini is the best teacher among small models. Follow up with 'give me a harder example'"
-      }
-    ]
+    "general": {
+      "title": "General Assistant Prompts",
+      "prompts": [
+        "Explain [topic] in simple terms, then give me 3 practical examples.",
+        "Help me think through [problem] step by step.",
+        "Summarize this text in bullet points: [paste text]",
+        "What are the pros and cons of [decision]?",
+        "Write a professional response to: [paste message]"
+      ]
+    },
+    "coding": {
+      "title": "Coding Assistant Prompts",
+      "prompts": [
+        "Review this code and list specific improvements:\n```\n[paste code]\n```",
+        "Write a [language] function that [describe task]. Include error handling and comments.",
+        "This error is occurring: [paste error]. Explain cause and fix.",
+        "Refactor this to be more readable:\n```\n[paste code]\n```",
+        "Write unit tests for this function:\n```\n[paste code]\n```"
+      ]
+    },
+    "writing": {
+      "title": "Writing Assistant Prompts",
+      "prompts": [
+        "Improve clarity and flow of this paragraph:\n[paste paragraph]",
+        "Write a [content type] about [topic] for [audience]. Tone: [professional/casual].",
+        "Make this more concise without losing information:\n[paste text]",
+        "Generate 10 headline ideas for an article about [topic].",
+        "Proofread this and list all issues:\n[paste text]"
+      ]
+    },
+    "documents": {
+      "title": "Document Q&A Prompts",
+      "prompts": [
+        "What are the 5 most important points in this document?",
+        "Find everything this document says about [topic].",
+        "Does this document mention any deadlines or dates?",
+        "Summarize section [X] in 3 sentences.",
+        "What action items does this document require?"
+      ]
+    },
+    "agents": {
+      "title": "AI Agent Starter Tasks",
+      "prompts": [
+        "Find the top 5 resources on [topic] and summarize each.",
+        "Write a Python script to [task] and run it.",
+        "Organize the files in [folder] by [criteria].",
+        "Create a [document type] based on: [description]",
+        "Research [topic] and write a one-page summary."
+      ]
+    }
+  },
+  "systemPromptTemplates": {
+    "general": "You are a helpful assistant. Be concise and accurate. If you don't know something, say so.",
+    "coding": "You are an expert software engineer. Provide working, well-commented code. Suggest specific improvements with examples.",
+    "writing": "You are a professional editor. Preserve the author's voice while improving clarity, flow, and impact.",
+    "documents": "You are a document analyst. Extract information accurately. Flag ambiguity rather than guessing.",
+    "agents": "You are an AI agent. Plan tasks step by step, execute them, and report results clearly."
   }
 }

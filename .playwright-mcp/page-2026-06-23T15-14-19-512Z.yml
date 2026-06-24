@@ -1,0 +1,78 @@
+- main [ref=e2]:
+  - link "← Use the wizard" [ref=e3] [cursor=pointer]:
+    - /url: /
+  - heading "Best Local AI Models For Mac M3" [level=1] [ref=e4]
+  - generic [ref=e5]:
+    - heading "Hardware Overview" [level=2] [ref=e6]
+    - paragraph [ref=e7]:
+      - text: The
+      - strong [ref=e8]: Apple Mac M3
+      - text: can run local AI models, though GPU acceleration is not available.
+    - generic [ref=e9]:
+      - generic [ref=e10]: 🎮 Apple Mac M3
+      - generic [ref=e11]: 💾 Unified Memory
+  - generic [ref=e12]:
+    - heading "Recommended Model" [level=2] [ref=e13]
+    - generic [ref=e14]:
+      - generic [ref=e17]: Qwen 2.5 7B
+      - paragraph [ref=e18]: Optimized for Apple Mac M3. Recommended as the best balance of quality and performance.
+      - generic [ref=e19]:
+        - generic [ref=e20]: Run this command
+        - generic [ref=e21]: ollama pull qwen2.5:7b
+        - link "Download Ollama" [ref=e22] [cursor=pointer]:
+          - /url: https://ollama.com/download
+  - generic [ref=e23]:
+    - heading "Alternatives" [level=2] [ref=e24]
+    - list [ref=e25]:
+      - listitem [ref=e26]:
+        - strong [ref=e27]: Llama 3.1 8B
+        - text: — Great alternative with different strengths.
+      - listitem [ref=e28]:
+        - strong [ref=e29]: Mistral 7B
+        - text: — Another solid option for this hardware.
+  - generic [ref=e30]:
+    - heading "What You Can Do" [level=2] [ref=e31]
+    - generic [ref=e32]:
+      - generic [ref=e33]:
+        - generic [ref=e34]: ✓ Can Run Well
+        - generic [ref=e35]:
+          - generic [ref=e36]:
+            - generic [ref=e37]: ✓
+            - generic [ref=e38]: Private ChatGPT
+          - generic [ref=e39]:
+            - generic [ref=e40]: ✓
+            - generic [ref=e41]: Coding Assistant
+          - generic [ref=e42]:
+            - generic [ref=e43]: ✓
+            - generic [ref=e44]: Writing & Research
+      - generic [ref=e45]:
+        - generic [ref=e46]: ⚠ Can Run Slowly
+        - generic [ref=e48]:
+          - generic [ref=e49]: ⚠
+          - generic [ref=e50]: 30B Models (quantized)
+      - generic [ref=e51]:
+        - generic [ref=e52]: ✗ Not Recommended
+        - generic [ref=e53]:
+          - generic [ref=e54]:
+            - generic [ref=e55]: ✗
+            - generic [ref=e56]: Full 70B Models
+          - generic [ref=e57]:
+            - generic [ref=e58]: ✗
+            - generic [ref=e59]: Real-time Vision
+  - generic [ref=e60]:
+    - heading "Frequently Asked Questions" [level=2] [ref=e61]
+    - generic [ref=e62]:
+      - generic [ref=e63]:
+        - heading "Can Mac M3 run local AI?" [level=3] [ref=e64]
+        - paragraph [ref=e66]: Yes. The M3 chip handles local AI models efficiently with Metal GPU acceleration.
+      - generic [ref=e67]:
+        - heading "Is M3 better than M2 for AI?" [level=3] [ref=e68]
+        - paragraph [ref=e70]: The M3 offers modest GPU improvements over M2. Both handle 7B models with similar real-world performance.
+      - generic [ref=e71]:
+        - heading "Can I run Llama 3 on M3 Mac?" [level=3] [ref=e72]
+        - paragraph [ref=e74]: Yes. Llama 3.1 8B and Qwen 2.5 7B run great on M3 Macs with 16GB+ unified memory.
+  - generic [ref=e75]:
+    - heading "Want a personalized recommendation?" [level=2] [ref=e76]
+    - paragraph [ref=e77]: Tell us about your specific hardware and goals. Get your exact setup in under 60 seconds.
+    - link "Try the Wizard" [ref=e78] [cursor=pointer]:
+      - /url: /

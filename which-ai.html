@@ -1,66 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta name="google-site-verification" content="5YRiOefTK9mTwEJEnLIH6BQ5xmP0NkwyfiaBWZJbdCg">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Local AI vs Cloud AI — compare costs, privacy, capabilities. Get a personalized recommendation based on your needs, budget, and privacy preferences.">
-  <meta property="og:title" content="Local AI vs Cloud AI — Which Should You Use?">
-  <meta property="og:description" content="Compare local AI tools vs ChatGPT, Claude, and Gemini. Get a personalized recommendation based on your needs, budget, and privacy preferences.">
+  <title>Which AI Should You Use? — Build Your Own ChatGPT</title>
+  <meta name="description" content="Answer 3 questions and get a personalized AI recommendation. Compare local vs cloud based on your goal, budget, and privacy needs.">
   <meta property="og:image" content="https://build-your-own-chatgpt.vercel.app/og-image.jpg">
-  <meta name="twitter:card" content="summary_large_image">
-  <title>Local AI vs Cloud AI — Which Should You Use?</title>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <script>!function(){var t=localStorage.getItem('theme');if(t==='dark'||(t===null&&window.matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark')}();</script>
-  <script async src="https://plausible.io/js/pa-DBTdINzLX2L2B_fXJF0u1.js"></script>
-  <script>window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()</script>
   <style>
-    .which-page{max-width:800px;margin:0 auto;padding:0 1.5rem 3rem}
-    .which-page h1{font-family:'Outfit',sans-serif;font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;letter-spacing:-0.02em;margin:2rem 0 .5rem}
-    .which-page .subtitle{color:var(--text-secondary);font-size:1rem;margin-bottom:2rem}
-    .step{margin-bottom:2rem;padding:1.5rem;background:var(--bg-card);border:1.5px solid var(--border);border-radius:var(--radius)}
-    .step h2{font-family:'Outfit',sans-serif;font-size:1.2rem;font-weight:700;margin-bottom:.3rem}
-    .step p{color:var(--text-secondary);font-size:.9rem;margin-bottom:1rem}
-    .option-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;margin-top:1rem}
-    @media(max-width:600px){.option-grid{grid-template-columns:repeat(2,1fr)}}
-    .option-card{background:var(--surface);border:2px solid var(--border);border-radius:var(--radius);padding:1rem;cursor:pointer;transition:all var(--transition);text-align:center}
-    .option-card:hover{border-color:var(--accent);transform:translateY(-2px)}
-    .option-card.selected{border-color:var(--accent);background:var(--accent-light)}
-    .option-card .icon{font-size:1.8rem;margin-bottom:.3rem}
-    .option-card h3{font-size:.9rem;font-weight:600}
-    .option-card p{font-size:.75rem;color:var(--text-secondary);margin-top:.2rem}
-    .result-section{display:none;margin-top:2rem}
-    .result-section.show{display:block}
-    .option-list{margin-top:1rem}
-    .option-item{display:flex;align-items:center;gap:1rem;padding:1rem;background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);margin-bottom:.75rem;cursor:pointer;transition:all var(--transition)}
-    .option-item:hover{border-color:var(--accent);transform:translateX(4px)}
-    .option-item .option-icon{font-size:1.5rem}
-    .option-item .option-info{flex:1}
-    .option-item h4{font-size:1rem;font-weight:600;margin-bottom:.2rem}
-    .option-item p{font-size:.8rem;color:var(--text-secondary)}
-    .option-item .option-badge{display:inline-block;font-size:.7rem;font-weight:600;padding:.2rem .5rem;border-radius:20px;margin-top:.3rem}
-    .option-item .badge-local{background:var(--accent-light);color:var(--accent)}
-    .option-item .badge-cloud{background:#e6f0ff;color:#2266cc}
-    .option-item .badge-free{background:#e6ffe6;color:#1D9E75}
-    .option-item .badge-paid{background:#fff0e6;color:#cc6600}
-    .hidden{display:none}
+    .w-page{max-width:800px;margin:0 auto;padding:2rem 1rem}
+    .w-page h1{font-family:'Outfit',sans-serif;font-size:clamp(1.6rem,4vw,2.4rem);font-weight:800;margin:0 0 .3rem}
+    .w-page .sub{color:var(--text-secondary);font-size:.95rem;margin-bottom:1.5rem}
+    .step-box{background:var(--bg-card);border:1.5px solid var(--border);border-radius:var(--radius);padding:1.25rem;margin-bottom:1rem}
+    .step-box h2{font-family:'Outfit',sans-serif;font-size:1.1rem;font-weight:700;margin-bottom:.2rem}
+    .step-box>p{color:var(--text-secondary);font-size:.85rem;margin-bottom:.75rem}
+    .goal-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem}
+    @media(max-width:600px){.goal-grid{grid-template-columns:1fr}}
+    .goal-card{background:var(--surface);border:2px solid var(--border);border-radius:var(--radius);padding:.75rem;cursor:pointer;text-align:center;transition:all .15s;font-family:inherit;color:var(--text)}
+    .goal-card:hover{border-color:var(--accent);transform:translateY(-2px)}
+    .goal-card.sel{border-color:var(--accent);background:var(--accent-light)}
+    .goal-icon{font-size:1.5rem;display:block;margin-bottom:.2rem}
+    .goal-title{font-weight:600;font-size:.88rem}
+    .goal-desc{font-size:.72rem;color:var(--text-tertiary);margin-top:.15rem}
+    .opt-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem}
+    @media(max-width:600px){.opt-grid{grid-template-columns:1fr}}
+    .opt2{grid-template-columns:repeat(2,1fr)}
+    .w-btn{width:100%;padding:.7rem;background:var(--accent);color:#fff;border:none;border-radius:var(--radius-sm);font-size:1rem;font-weight:700;cursor:pointer;font-family:inherit;transition:opacity .15s;margin-top:.5rem}
+    .w-btn:hover{opacity:.9}
+    .w-result{display:none;margin-top:1.5rem}
+    .w-card{background:var(--bg-card);border:1.5px solid var(--border);border-radius:var(--radius);padding:1rem;margin-bottom:.75rem;display:flex;align-items:center;gap:.75rem;transition:all .15s}
+    .w-card:hover{border-color:var(--accent);transform:translateX(3px)}
+    .w-rank{font-size:1.2rem;font-weight:800;color:var(--accent);min-width:2rem;text-align:center}
+    .w-info{flex:1}
+    .w-name{font-weight:600;font-size:.9rem;color:var(--text)}
+    .w-desc{font-size:.78rem;color:var(--text-secondary);margin-top:.1rem}
+    .w-tags{display:flex;gap:.3rem;margin-top:.3rem;flex-wrap:wrap}
+    .w-tag{font-size:.65rem;font-weight:600;padding:.15rem .45rem;border-radius:6px}
+    .w-tag.local{background:var(--accent-light);color:var(--accent)}
+    .w-tag.cloud{background:#e6f0ff;color:#2266cc}
+    .w-install{font-size:.75rem;font-family:monospace;color:var(--text-secondary);background:var(--bg);padding:.2rem .5rem;border-radius:4px;display:inline-block;margin-top:.3rem}
+    .hidden{display:none!important}
   </style>
 </head>
 <body>
   <nav class="site-topbar" role="navigation" aria-label="Site navigation">
     <div class="container">
       <div class="topbar-inner">
-        <a href="index.html" style="text-decoration:none">
-          <span class="site-brand">🤖 Build Your Own ChatGPT</span>
-        </a>
+        <a href="index.html" style="text-decoration:none"><span class="site-brand">🤖 Build Your Own ChatGPT</span></a>
         <div style="display:flex;gap:0.75rem;align-items:center">
           <a href="compare.html" style="font-size:0.82rem;color:var(--text-secondary);text-decoration:none;font-weight:500">Compare</a>
           <a href="which-ai.html" style="font-size:0.82rem;color:var(--accent);text-decoration:none;font-weight:600">Which AI</a>
-          <a href="career.html" style="font-size:0.82rem;color:var(--text-secondary);text-decoration:none;font-weight:500">Careers</a>
+          <a href="upgrade.html" style="font-size:0.82rem;color:var(--text-secondary);text-decoration:none;font-weight:500">Upgrade</a>
+          <a href="cost.html" style="font-size:0.82rem;color:var(--text-secondary);text-decoration:none;font-weight:500">Cost</a>
           <a href="compendium.html" style="font-size:0.82rem;color:var(--text-secondary);text-decoration:none;font-weight:500">Models</a>
           <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle light/dark mode">
             <span class="toggle-icon">🌙</span>
@@ -70,277 +63,144 @@
       </div>
     </div>
   </nav>
+  <main class="w-page">
+    <h1>Which AI Should You Use?</h1>
+    <p class="sub">Answer 3 questions. We'll recommend the best model for you.</p>
 
-  <main class="which-page">
-    <h1>Local AI vs Cloud AI</h1>
-    <p class="subtitle">Compare costs, privacy, and capabilities. Get a personalized recommendation for your needs.</p>
-
-    <div class="step" id="step1">
-      <h2>What do you want to use AI for?</h2>
-      <p>Select your primary use case</p>
-      <div class="option-grid" id="useCaseOptions">
-        <div class="option-card" data-use-case="coding">
-          <div class="icon">💻</div>
-          <h3>Coding</h3>
-          <p>Code generation, review, debugging</p>
-        </div>
-        <div class="option-card" data-use-case="writing">
-          <div class="icon">✍️</div>
-          <h3>Writing</h3>
-          <p>Articles, emails, editing</p>
-        </div>
-        <div class="option-card" data-use-case="general">
-          <div class="icon">💬</div>
-          <h3>General Chat</h3>
-          <p>Questions, brainstorming</p>
-        </div>
-        <div class="option-card" data-use-case="documents">
-          <div class="icon">📄</div>
-          <h3>Documents</h3>
-          <p>Summarization, analysis</p>
-        </div>
-        <div class="option-card" data-use-case="research">
-          <div class="icon">🔬</div>
-          <h3>Research</h3>
-          <p>Analysis, reasoning</p>
-        </div>
-        <div class="option-card" data-use-case="agents">
-          <div class="icon">🤖</div>
-          <h3>AI Agents</h3>
-          <p>Automation, tasks</p>
-        </div>
+    <div class="step-box" id="step1">
+      <h2>1. What's your goal?</h2>
+      <p>What do you want to use AI for?</p>
+      <div class="goal-grid">
+        <button class="goal-card" data-goal="chat"><span class="goal-icon">💬</span><span class="goal-title">Private ChatGPT</span><span class="goal-desc">General chat, brainstorming</span></button>
+        <button class="goal-card" data-goal="coding"><span class="goal-icon">💻</span><span class="goal-title">Coding</span><span class="goal-desc">Code generation, debugging</span></button>
+        <button class="goal-card" data-goal="writing"><span class="goal-icon">✍️</span><span class="goal-title">Writing</span><span class="goal-desc">Articles, reports, editing</span></button>
+        <button class="goal-card" data-goal="documents"><span class="goal-icon">📄</span><span class="goal-title">Documents</span><span class="goal-desc">PDF Q&A, summarization</span></button>
+        <button class="goal-card" data-goal="agents"><span class="goal-icon">🤖</span><span class="goal-title">AI Agents</span><span class="goal-desc">Automation, multi-step</span></button>
+        <button class="goal-card" data-goal="research"><span class="goal-icon">🔬</span><span class="goal-title">Research</span><span class="goal-desc">Analysis, reasoning</span></button>
       </div>
     </div>
 
-    <div class="step hidden" id="step2">
-      <h2>What's your budget?</h2>
-      <p>How much are you willing to pay monthly for AI?</p>
-      <div class="option-grid" id="budgetOptions">
-        <div class="option-card" data-budget="free">
-          <div class="icon">🆓</div>
-          <h3>Free only</h3>
-          <p>No subscription costs</p>
-        </div>
-        <div class="option-card" data-budget="under25">
-          <div class="icon">💵</div>
-          <h3>Under $25/mo</h3>
-          <p>Standard subscriptions</p>
-        </div>
-        <div class="option-card" data-budget="nolimit">
-          <div class="icon">💎</div>
-          <h3>No limit</h3>
-          <p>Best quality regardless</p>
-        </div>
+    <div class="step-box hidden" id="step2">
+      <h2>2. What's your budget?</h2>
+      <p>How much are you willing to spend per month?</p>
+      <div class="opt-grid">
+        <button class="goal-card" data-budget="free"><span class="goal-icon">🆓</span><span class="goal-title">Free Only</span><span class="goal-desc">No subscriptions</span></button>
+        <button class="goal-card" data-budget="under25"><span class="goal-icon">💵</span><span class="goal-title">Under $25/mo</span><span class="goal-desc">Standard plans</span></button>
+        <button class="goal-card" data-budget="nolimit"><span class="goal-icon">💎</span><span class="goal-title">No Limit</span><span class="goal-desc">Best quality</span></button>
       </div>
     </div>
 
-    <div class="step hidden" id="step3">
-      <h2>How important is privacy?</h2>
+    <div class="step-box hidden" id="step3">
+      <h2>3. Privacy preference</h2>
       <p>Do you need your data to stay on your machine?</p>
-      <div class="option-grid" id="privacyOptions">
-        <div class="option-card" data-privacy="private">
-          <div class="icon">🔒</div>
-          <h3>Keep it private</h3>
-          <p>100% local, no data leaves device</p>
-        </div>
-        <div class="option-card" data-privacy="cloudok">
-          <div class="icon">☁️</div>
-          <h3>Cloud is fine</h3>
-          <p>Don't mind cloud processing</p>
-        </div>
+      <div class="opt-grid opt2">
+        <button class="goal-card" data-privacy="local"><span class="goal-icon">🔒</span><span class="goal-title">Local Only</span><span class="goal-desc">100% private, runs offline</span></button>
+        <button class="goal-card" data-privacy="cloud"><span class="goal-icon">☁️</span><span class="goal-title">Cloud is Fine</span><span class="goal-desc">Don't mind cloud processing</span></button>
       </div>
     </div>
 
-    <div class="result-section" id="results">
-      <h2>Your AI Options</h2>
-      <p>Ranked recommendations based on your preferences</p>
-      <div class="option-list" id="optionsList"></div>
-    </div>
+    <button class="w-btn hidden" id="rec-btn" onclick="getRecs()">Get My Recommendations</button>
 
-    <div style="margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--border);font-size:0.88rem;color:var(--text-secondary)">
-      <p>Want to compare specific models side-by-side? <a href="compare.html" style="color:var(--accent)">Use the comparison tool →</a></p>
-      <p style="margin-top:0.5rem">Prefer to answer a few questions about your hardware? <a href="index.html" style="color:var(--accent)">Try the personalized wizard →</a></p>
+    <div id="result" class="w-result"></div>
+
+    <div style="margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--border);font-size:.85rem;color:var(--text-secondary)">
+      <p>Want to compare models side-by-side? <a href="compare.html" style="color:var(--accent)">Use the comparison tool →</a></p>
+      <p style="margin-top:.3rem">Prefer a hardware-based recommendation? <a href="index.html" style="color:var(--accent)">Try the wizard →</a></p>
     </div>
   </main>
-
   <footer class="footer">
     <div class="container">
       <div class="footer-links">
-        <a href="https://github.com/ebubeco/build-your-own-chatgpt" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://github.com/ebubeco/build-your-own-chatgpt">GitHub</a>
         <a href="index.html">Wizard</a>
         <a href="compare.html">Compare</a>
-        <a href="best-offline-chatgpt.html">Offline Guide</a>
-        <a href="career.html">Careers</a>
         <a href="compendium.html">All Models</a>
-        <a href="use-cases.html">Use Cases</a>
-        <a href="starter-pack.html">Starter Pack</a>
+        <a href="cost.html">Cost</a>
+        <a href="evaluators.html">Evaluators</a>
       </div>
       <p class="footer-tagline">Built for beginners. Your data never leaves your machine.</p>
     </div>
   </footer>
-
   <script>
-    var selectedUseCase = null;
-    var selectedBudget = null;
-    var selectedPrivacy = null;
-    var costsData = null;
+    document.getElementById('theme-toggle').addEventListener('click',function(){var e=document.documentElement;var t=e.getAttribute('data-theme');var n=t==='dark'?'light':'dark';e.setAttribute('data-theme',n);localStorage.setItem('theme',n);document.querySelector('.toggle-icon').textContent=n==='dark'?'☀️':'🌙';document.querySelector('.toggle-label').textContent=n==='dark'?'Light mode':'Dark mode';});
+    if(localStorage.getItem('theme')==='dark'||(!localStorage.getItem('theme')&&window.matchMedia('(prefers-color-scheme:dark)').matches)){document.querySelector('.toggle-icon').textContent='☀️';document.querySelector('.toggle-label').textContent='Light mode';}
 
-    async function loadData() {
-      try {
-        const res = await fetch('data/costs.json');
-        costsData = await res.json();
-      } catch(e) {
-        console.error('Failed to load data:', e);
-      }
-    }
+    let goal=null,budget=null,privacy=null;
+    let allModels=[];
 
-    function selectUseCase(el) {
-      document.querySelectorAll('#useCaseOptions .option-card').forEach(c => c.classList.remove('selected'));
-      el.classList.add('selected');
-      selectedUseCase = el.dataset.useCase;
-      document.getElementById('step2').classList.remove('hidden');
-      document.getElementById('step2').scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
+    fetch('data/models.json').then(r=>r.json()).then(d=>{allModels=d.models.filter(m=>!m.platformType||m.platformType==='local');});
 
-    function selectBudget(el) {
-      document.querySelectorAll('#budgetOptions .option-card').forEach(c => c.classList.remove('selected'));
-      el.classList.add('selected');
-      selectedBudget = el.dataset.budget;
-      document.getElementById('step3').classList.remove('hidden');
-      document.getElementById('step3').scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-
-    function selectPrivacy(el) {
-      document.querySelectorAll('#privacyOptions .option-card').forEach(c => c.classList.remove('selected'));
-      el.classList.add('selected');
-      selectedPrivacy = el.dataset.privacy;
-      showResults();
-    }
-
-    function getCloudServices() {
-      return costsData && costsData.cloudSubscriptions ? costsData.cloudSubscriptions : [];
-    }
-
-    function filterCloudServices() {
-      var services = getCloudServices();
-      if (selectedBudget === 'free') {
-        return services.filter(function(s) { return s.monthlyUSD === 0; });
-      } else if (selectedBudget === 'under25') {
-        return services.filter(function(s) { return s.monthlyUSD <= 25; });
-      }
-      return services;
-    }
-
-    function getCapabilityScore(service, useCase) {
-      var caps = service.capabilities || {};
-      var scoreMap = {
-        coding: 'coding',
-        writing: 'writing', 
-        general: 'chat',
-        documents: 'analysis',
-        research: 'analysis',
-        agents: 'agents'
-      };
-      var key = scoreMap[useCase] || 'chat';
-      return caps[key] || 5;
-    }
-
-    function showResults() {
-      if (!selectedUseCase || !selectedBudget || !selectedPrivacy) return;
-
-      var results = [];
-      var useCase = selectedUseCase;
-
-      // Local AI options (always available if privacy preference allows)
-      if (selectedPrivacy === 'private' || selectedPrivacy === 'cloudok') {
-        var localItems = [
-          { id: 'local-free', type: 'local', badge: 'Local', badgeClass: 'badge-local',
-            name: 'Local AI (Free)',
-            desc: 'Run models on your own hardware. 100% private, no subscription.',
-            url: '/',
-            score: 8 },
-          { id: 'local-setup', type: 'local', badge: 'Local', badgeClass: 'badge-local',
-            name: 'Get Local Setup Guide',
-            desc: 'Answer a few questions to get your personalized local AI recommendation.',
-            url: '/',
-            score: 7 }
-        ];
-        results = results.concat(localItems);
-      }
-
-      // Cloud options (if budget allows)
-      if (selectedBudget !== 'free' || selectedPrivacy === 'cloudok') {
-        var cloudSvcs = filterCloudServices();
-        cloudSvcs.forEach(function(svc) {
-          results.push({
-            id: svc.name.toLowerCase().replace(/\s+/g, '-'),
-            type: 'cloud',
-            badge: svc.name,
-            badgeClass: svc.monthlyUSD === 0 ? 'badge-free' : 'badge-paid',
-            name: svc.name + ' — $' + svc.monthlyUSD + '/mo',
-            desc: svc.features ? svc.features.join(', ') : 'AI assistant',
-            url: svc.url || '#',
-            score: getCapabilityScore(svc, useCase) + (svc.monthlyUSD <= 20 ? 0 : -1)
-          });
-        });
-      }
-
-      // If privacy is private and budget allows cloud-free
-      if (selectedPrivacy === 'private' && selectedBudget === 'free') {
-        // Add free cloud options that prioritize privacy
-        var freeCloud = getCloudServices().filter(function(s) { return s.monthlyUSD === 0; });
-        freeCloud.forEach(function(svc) {
-          results.push({
-            id: svc.name.toLowerCase().replace(/\s+/g, '-') + '-free',
-            type: 'cloud-free',
-            badge: svc.name + ' (Free)',
-            badgeClass: 'badge-free',
-            name: svc.name + ' (Free tier)',
-            desc: 'Free cloud access with some limitations',
-            url: svc.url || '#',
-            score: getCapabilityScore(svc, useCase) - 1
-          });
-        });
-      }
-
-      // Sort by score
-      results.sort(function(a, b) { return b.score - a.score; });
-
-      // Render
-      var list = document.getElementById('optionsList');
-      list.innerHTML = results.map(function(r) {
-        return '<div class="option-item" onclick="window.location.href=\'' + r.url + '\'">' +
-          '<div class="option-icon">' + (r.type === 'local' ? '💻' : '☁️') + '</div>' +
-          '<div class="option-info">' +
-            '<h4>' + r.name + '</h4>' +
-            '<p>' + r.desc + '</p>' +
-            '<span class="option-badge ' + r.badgeClass + '">' + r.badge + '</span>' +
-          '</div>' +
-          '<div>' + (r.type === 'local' ? '<a href="/">Setup →</a>' : '<a href="' + r.url + '" target="_blank">Try →</a>') + '</div>' +
-        '</div>';
-      }).join('');
-
-      document.getElementById('results').classList.add('show');
-      document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-
-    document.addEventListener('DOMContentLoaded', function() {
-      loadData();
-
-      document.querySelectorAll('#useCaseOptions .option-card').forEach(function(card) {
-        card.addEventListener('click', function() { selectUseCase(this); });
-      });
-
-      document.querySelectorAll('#budgetOptions .option-card').forEach(function(card) {
-        card.addEventListener('click', function() { selectBudget(this); });
-      });
-
-      document.querySelectorAll('#privacyOptions .option-card').forEach(function(card) {
-        card.addEventListener('click', function() { selectPrivacy(this); });
+    document.querySelectorAll('#step1 .goal-card').forEach(function(c){
+      c.addEventListener('click',function(){
+        document.querySelectorAll('#step1 .goal-card').forEach(function(x){x.classList.remove('sel');});
+        this.classList.add('sel');goal=this.dataset.goal;
+        document.getElementById('step2').classList.remove('hidden');
+        document.getElementById('step2').scrollIntoView({behavior:'smooth',block:'center'});
       });
     });
+    document.querySelectorAll('#step2 .goal-card').forEach(function(c){
+      c.addEventListener('click',function(){
+        document.querySelectorAll('#step2 .goal-card').forEach(function(x){x.classList.remove('sel');});
+        this.classList.add('sel');budget=this.dataset.budget;
+        document.getElementById('step3').classList.remove('hidden');
+        document.getElementById('step3').scrollIntoView({behavior:'smooth',block:'center'});
+      });
+    });
+    document.querySelectorAll('#step3 .goal-card').forEach(function(c){
+      c.addEventListener('click',function(){
+        document.querySelectorAll('#step3 .goal-card').forEach(function(x){x.classList.remove('sel');});
+        this.classList.add('sel');privacy=this.dataset.privacy;
+        document.getElementById('rec-btn').classList.remove('hidden');
+        document.getElementById('rec-btn').scrollIntoView({behavior:'smooth',block:'center'});
+      });
+    });
+
+    const GOAL_MAP={chat:'chat',coding:'coding',writing:'writing',documents:'documents',agents:'agents',research:'research'};
+
+    function getRecs(){
+      if(!goal||!budget||!privacy)return;
+      const res=document.getElementById('result');
+      res.style.display='block';
+
+      let filtered=allModels.filter(function(m){
+        const bestFor=m.bestFor||m.bestForDisplay||[];
+        if(goal==='chat')return true;
+        if(goal==='coding')return bestFor.some(function(b){return b.toLowerCase().includes('code')||b.toLowerCase().includes('program')||b.toLowerCase().includes('develop');});
+        if(goal==='writing')return bestFor.some(function(b){return b.toLowerCase().includes('write')||b.toLowerCase().includes('creativ')||b.toLowerCase().includes('content');});
+        if(goal==='documents')return true;
+        if(goal==='agents')return bestFor.some(function(b){return b.toLowerCase().includes('agent')||b.toLowerCase().includes('automation')||b.toLowerCase().includes('reason');});
+        if(goal==='research')return bestFor.some(function(b){return b.toLowerCase().includes('reason')||b.toLowerCase().includes('research')||b.toLowerCase().includes('analys');});
+        return true;
+      }).slice(0,10);
+
+      const goalLabels={chat:'💬 Private ChatGPT',coding:'💻 Coding',writing:'✍️ Writing',documents:'📄 Documents',agents:'🤖 AI Agents',research:'🔬 Research'};
+
+      let items=[];
+      if(privacy==='local'||budget==='free'){
+        filtered.forEach(function(m,i){
+          items.push({rank:i+1,name:m.name,desc:m.description||'',tag:'local',tagClass:'local',install:m.installCommand||'ollama pull '+m.ollamaTag});
+        });
+      }
+      if(privacy==='cloud'&&budget!=='free'){
+        const cloudItems=[
+          {name:'ChatGPT Plus',desc:'Best all-round cloud AI',tag:'Cloud',tagClass:'cloud',install:'chatgpt.com/subscribe'},
+          {name:'Claude Pro',desc:'Excellent for writing and analysis',tag:'Cloud',tagClass:'cloud',install:'claude.ai/subscribe'},
+          {name:'Gemini Advanced',desc:'Deep Google integration',tag:'Cloud',tagClass:'cloud',install:'gemini.google.com/advanced'}
+        ];
+        cloudItems.forEach(function(c,i){items.push({rank:filtered.length+i+1,name:c.name,desc:c.desc,tag:c.tag,tagClass:c.tagClass,install:c.install});});
+      }
+      if(items.length===0){
+        filtered.forEach(function(m,i){items.push({rank:i+1,name:m.name,desc:m.description||'',tag:'local',tagClass:'local',install:m.installCommand||'ollama pull '+m.ollamaTag});});
+      }
+
+      res.innerHTML='<h2 style="font-family:Outfit,sans-serif;font-size:1.2rem;font-weight:700;margin-bottom:.5rem">Recommendations for '+goalLabels[goal]+'</h2>'+
+        items.map(function(item){
+          return '<div class="w-card"><div class="w-rank">#'+item.rank+'</div><div class="w-info"><div class="w-name">'+item.name+'</div><div class="w-desc">'+item.desc+'</div><div class="w-tags"><span class="w-tag '+item.tagClass+'">'+item.tag+'</span></div><div class="w-install">'+item.install+'</div></div></div>';
+        }).join('');
+      res.scrollIntoView({behavior:'smooth'});
+    }
   </script>
-  <script src="analytics.js"></script>
   <script src="shared.js"></script>
+  <script src="analytics.js"></script>
 </body>
 </html>

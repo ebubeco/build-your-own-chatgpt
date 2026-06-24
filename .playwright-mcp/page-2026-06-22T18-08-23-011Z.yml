@@ -1,0 +1,99 @@
+- main [ref=e2]:
+  - link "← Use the wizard" [ref=e3] [cursor=pointer]:
+    - /url: /
+  - heading "How to Run Local AI Without a GPU" [level=1] [ref=e4]
+  - paragraph [ref=e6]:
+    - strong [ref=e7]: You do not need a GPU to run local AI.
+    - text: CPU-only inference works well on most modern laptops. Whether you have an ultrabook, business laptop, or old desktop, here's what's possible with your RAM and how to get started in minutes.
+  - generic [ref=e8]:
+    - heading "What You Can Run (CPU Only)" [level=2] [ref=e9]
+    - table [ref=e11]:
+      - rowgroup [ref=e12]:
+        - row "Your RAM Recommended Model Speed (tok/s) Good For" [ref=e13]:
+          - columnheader "Your RAM" [ref=e14]
+          - columnheader "Recommended Model" [ref=e15]
+          - columnheader "Speed (tok/s)" [ref=e16]
+          - columnheader "Good For" [ref=e17]
+      - rowgroup [ref=e18]:
+        - row "8 GB Phi-4 Mini 3.8B 5-15 Basic chat, writing, simple coding" [ref=e19]:
+          - cell "8 GB" [ref=e20]
+          - cell "Phi-4 Mini 3.8B" [ref=e21]
+          - cell "5-15" [ref=e22]
+          - cell "Basic chat, writing, simple coding" [ref=e23]
+        - row "16 GB Qwen 2.5 7B 3-5 Quality chat, research, coding assistance" [ref=e24]:
+          - cell "16 GB" [ref=e25]
+          - cell "Qwen 2.5 7B" [ref=e26]
+          - cell "3-5" [ref=e27]
+          - cell "Quality chat, research, coding assistance" [ref=e28]
+        - row "32 GB Qwen 2.5 14B 2-4 Expert-level reasoning, large document analysis" [ref=e29]:
+          - cell "32 GB" [ref=e30]
+          - cell "Qwen 2.5 14B" [ref=e31]
+          - cell "2-4" [ref=e32]
+          - cell "Expert-level reasoning, large document analysis" [ref=e33]
+        - row "64 GB DeepSeek R1 32B 1-2 Complex reasoning, agent workflows" [ref=e34]:
+          - cell "64 GB" [ref=e35]
+          - cell "DeepSeek R1 32B" [ref=e36]
+          - cell "1-2" [ref=e37]
+          - cell "Complex reasoning, agent workflows" [ref=e38]
+  - generic [ref=e39]:
+    - heading "Setup Guide (3 Steps)" [level=2] [ref=e40]
+    - list [ref=e41]:
+      - listitem [ref=e42]:
+        - strong [ref=e43]: Install Ollama
+        - text: — free from
+        - link "ollama.com/download" [ref=e44] [cursor=pointer]:
+          - /url: https://ollama.com/download
+        - text: . Works on Windows, macOS, Linux.
+      - listitem [ref=e45]:
+        - strong [ref=e46]: Pull your model
+        - text: —
+        - code [ref=e47]: ollama pull qwen2.5:7b
+        - text: (if you have 16GB RAM) or
+        - code [ref=e48]: ollama pull phi4-mini:3.8b
+        - text: (if you have 8GB RAM)
+      - listitem [ref=e49]:
+        - strong [ref=e50]: Start chatting
+        - text: —
+        - code [ref=e51]: ollama run qwen2.5:7b
+    - generic [ref=e52]:
+      - generic [ref=e53]: "Example: complete setup for 16GB laptop"
+      - generic [ref=e54]: ollama pull qwen2.5:7b && ollama run qwen2.5:7b
+  - generic [ref=e55]:
+    - heading "Tips for Better CPU Performance" [level=2] [ref=e56]
+    - list [ref=e57]:
+      - listitem [ref=e58]:
+        - strong [ref=e59]: "Close other apps:"
+        - text: CPU AI needs available RAM. Close browsers, Slack, and other memory-heavy apps.
+      - listitem [ref=e60]:
+        - strong [ref=e61]: "Use smaller quantizations:"
+        - text: Q4_K_M is the sweet spot. Q3_K_M runs faster but slightly lower quality.
+      - listitem [ref=e62]:
+        - strong [ref=e63]: "Keep prompts concise:"
+        - text: Long prompts use more context and slow down generation. Be direct.
+      - listitem [ref=e64]:
+        - strong [ref=e65]: "Use a laptop cooling pad:"
+        - text: Sustained 100% CPU usage generates heat. Good airflow prevents thermal throttling.
+  - generic [ref=e66]:
+    - heading "Frequently Asked Questions" [level=2] [ref=e67]
+    - generic [ref=e68]:
+      - generic [ref=e69]:
+        - heading "How fast is CPU-only AI exactly?" [level=3] [ref=e70]
+        - paragraph [ref=e72]: 1-5 tokens per second for 7B models. A typical 100-token response takes 20-60 seconds. Small models (1-3B) run at 5-15 tok/s with 5-15 second responses. For comparison, GPU inference runs at 30-60 tok/s — 5-10x faster, but CPU is still usable.
+      - generic [ref=e73]:
+        - heading "Will CPU-only AI damage my computer?" [level=3] [ref=e74]
+        - paragraph [ref=e76]: No. CPU inference uses 100% of your CPU for sustained periods, but modern CPUs throttle safely when they reach temperature limits. Laptops may get warm — ensure good ventilation and avoid using on soft surfaces like beds or couches.
+      - generic [ref=e77]:
+        - heading "Can I use GPU + CPU together?" [level=3] [ref=e78]
+        - paragraph [ref=e80]: Yes — Ollama automatically uses GPU if available, offloading remaining layers to CPU. This is the default behavior and requires no configuration. If you add a GPU later, Ollama detects it and accelerates inference automatically — zero reconfiguration needed.
+      - generic [ref=e81]:
+        - heading "What if CPU-only AI is too slow for me?" [level=3] [ref=e82]
+        - paragraph [ref=e84]:
+          - text: Try free cloud options while you save for a GPU. Groq offers 1,000+ tokens/second free. Gemini has a generous free tier. Both work in any browser with zero setup. Or check our
+          - link "upgrade guide" [ref=e85] [cursor=pointer]:
+            - /url: /upgrade
+          - text: for budget GPU recommendations.
+  - generic [ref=e86]:
+    - heading "Get Your Exact CPU Setup" [level=2] [ref=e87]
+    - paragraph [ref=e88]: Tell us your RAM and CPU model. We'll give you the optimal model and command.
+    - link "Find My Setup" [ref=e89] [cursor=pointer]:
+      - /url: /

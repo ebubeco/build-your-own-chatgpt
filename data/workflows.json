@@ -1,82 +1,99 @@
-{
-  "workflows": [
-    {
-      "id": "daily-chat",
-      "name": "Daily Assistant",
-      "icon": "💬",
-      "description": "Ask questions, brainstorm ideas, get advice. Your private ChatGPT replacement.",
-      "bestModelTier": "any",
-      "recommendedModels": ["qwen2.5:7b", "phi4-mini:3.8b", "llama3.2:3b"],
-      "tips": [
-        "Use Qwen 2.5 7B for best quality on budget GPUs",
-        "Phi-4 Mini is great for CPU-only setups",
-        "Models remember context in the same session"
-      ]
-    },
-    {
-      "id": "coding",
-      "name": "Coding Assistant",
-      "icon": "💻",
-      "description": "Write, debug, and refactor code. Explain complex functions. Generate boilerplate.",
-      "bestModelTier": "budget-gpu",
-      "recommendedModels": ["qwen2.5:7b", "deepseek-r1:8b", "phi4-mini:3.8b"],
-      "tips": [
-        "DeepSeek R1 excels at debugging and reasoning about code",
-        "Qwen 2.5 7B is best for code generation and completion",
-        "Use Ollama with Continue.dev plugin for VS Code integration"
-      ]
-    },
-    {
-      "id": "writing",
-      "name": "Writing & Research",
-      "icon": "✍️",
-      "description": "Draft articles, edit content, summarize research papers, analyze documents.",
-      "bestModelTier": "budget-gpu",
-      "recommendedModels": ["qwen2.5:7b", "qwen3:14b", "gemma4:12b"],
-      "tips": [
-        "Use Qwen 3 14B for long-form writing and research analysis",
-        "Gemma 4 12B excels at following complex writing instructions",
-        "32K+ context models can analyze entire research papers"
-      ]
-    },
-    {
-      "id": "agents",
-      "name": "AI Agents & Automation",
-      "icon": "🤖",
-      "description": "Build automated workflows, multi-step reasoning tasks, and agent chains.",
-      "bestModelTier": "high-end-gpu",
-      "recommendedModels": ["qwen3.5:27b", "qwen3:14b", "deepseek-r1:8b"],
-      "tips": [
-        "Qwen 3.5 27B is the best open model for agent workflows",
-        "DeepSeek R1's chain-of-thought is excellent for multi-step planning",
-        "Combine with LangChain or CrewAI for complex agent pipelines"
-      ]
-    },
-    {
-      "id": "documents",
-      "name": "Chat with Documents",
-      "icon": "📄",
-      "description": "Ask questions about PDFs, codebases, transcripts. Extract insights from long documents.",
-      "bestModelTier": "budget-gpu",
-      "recommendedModels": ["qwen3:14b", "qwen2.5:7b", "gemma4:12b"],
-      "tips": [
-        "Use models with 32K+ context for full document analysis",
-        "Qwen 3 14B handles 32K context windows comfortably on 12GB VRAM",
-        "Pair with Open WebUI or AnythingLLM for RAG workflows"
-      ]
-    },
-    {
-      "id": "learning",
-      "name": "Learning & Tutoring",
-      "icon": "🎓",
-      "description": "Explain concepts, generate practice problems, tutor through difficult topics.",
-      "bestModelTier": "no-gpu",
-      "recommendedModels": ["phi4-mini:3.8b", "llama3.2:3b", "qwen2.5:1.5b"],
-      "tips": [
-        "Phi-4 Mini is excellent at explaining concepts clearly",
-        "Ask models to 'explain like I'm 5' for simpler explanations",
-        "Smaller models are fine for learning - speed matters less for study"
-      ]
-    }
-  ]
-}
+[
+  {
+    "id": "coding-assistant",
+    "title": "Local Coding Assistant",
+    "icon": "💻",
+    "goal": "coding",
+    "description": "Private coding assistant in your IDE — no API key, no usage limits.",
+    "recommendedModel": "qwen2.5-coder:7b",
+    "alternativeModels": ["devstral:22b", "qwen2.5:14b"],
+    "recommendedUI": "OpenCode or Continue (VS Code extension)",
+    "difficulty": "Easy",
+    "setupTime": "15 minutes",
+    "steps": [
+      { "n": 1, "title": "Install Ollama", "cmd": "Download from ollama.com", "note": "Free, Mac/Windows/Linux" },
+      { "n": 2, "title": "Download model", "cmd": "ollama pull qwen2.5-coder:7b", "note": "~5GB" },
+      { "n": 3, "title": "Install OpenCode", "cmd": "npm install -g opencode-ai", "note": "Or Continue in VS Code" },
+      { "n": 4, "title": "Connect", "cmd": "Set base URL: http://localhost:11434", "note": "In OpenCode/Continue settings" },
+      { "n": 5, "title": "Start coding", "cmd": "Open any file and use chat or tab completion", "note": "Offline, zero cost" }
+    ],
+    "starterPrompts": ["Review this function for bugs:", "Write a unit test for:", "Refactor this:", "Explain this error:"]
+  },
+  {
+    "id": "document-qa",
+    "title": "Chat With Your Documents",
+    "icon": "📄",
+    "goal": "documents",
+    "description": "Ask questions about PDFs, Word docs, and notes — privately.",
+    "recommendedModel": "qwen2.5:7b",
+    "cloudAlternative": "Gemini 2.5 Flash (Google AI Studio) — free, 1M context — for users who can't run local",
+    "alternativeModels": ["llama3.3:8b", "phi4:14b"],
+    "recommendedUI": "AnythingLLM or OpenWebUI",
+    "difficulty": "Intermediate",
+    "setupTime": "20 minutes",
+    "steps": [
+      { "n": 1, "title": "Install Ollama", "cmd": "Download from ollama.com", "note": null },
+      { "n": 2, "title": "Download model", "cmd": "ollama pull qwen2.5:7b", "note": "~5GB" },
+      { "n": 3, "title": "Install AnythingLLM", "cmd": "Download from anythingllm.com", "note": "Free desktop app" },
+      { "n": 4, "title": "Connect", "cmd": "Settings → LLM Provider → Ollama → http://localhost:11434", "note": null },
+      { "n": 5, "title": "Upload and chat", "cmd": "New Workspace → Upload docs → Start chatting", "note": "PDF, DOCX, TXT, CSV" }
+    ],
+    "starterPrompts": ["Summarize the key points:", "What does this say about [topic]?", "Find all mentions of [keyword]:", "What action items does this require?"]
+  },
+  {
+    "id": "private-chatgpt",
+    "title": "Private ChatGPT Replacement",
+    "icon": "💬",
+    "goal": "general",
+    "description": "Unlimited ChatGPT alternative running entirely on your machine.",
+    "recommendedModel": "qwen2.5:7b",
+    "alternativeModels": ["llama3.3:8b", "qwen2.5:7b"],
+    "recommendedUI": "OpenWebUI",
+    "difficulty": "Easy",
+    "setupTime": "10 minutes",
+    "steps": [
+      { "n": 1, "title": "Install Ollama", "cmd": "Download from ollama.com", "note": null },
+      { "n": 2, "title": "Download model", "cmd": "ollama pull qwen2.5:7b", "note": "~5GB" },
+      { "n": 3, "title": "Install OpenWebUI", "cmd": "docker run -d -p 3000:8080 --add-host=host.docker.internal:host-gateway ghcr.io/open-webui/open-webui:main", "note": "Or use LM Studio for no-Docker option" },
+      { "n": 4, "title": "Open in browser", "cmd": "Go to http://localhost:3000", "note": "ChatGPT-like interface, fully local" }
+    ],
+    "starterPrompts": ["Explain [topic] in simple terms:", "Help me think through:", "Write a professional email about:", "Summarize:"]
+  },
+  {
+    "id": "writing-assistant",
+    "title": "Private Writing Assistant",
+    "icon": "✍️",
+    "goal": "writing",
+    "description": "Writing assistant for drafts, editing, and ideation — all private.",
+    "recommendedModel": "llama3.3:8b",
+    "alternativeModels": ["qwen2.5:7b", "phi4:14b"],
+    "recommendedUI": "LM Studio",
+    "difficulty": "Easy",
+    "setupTime": "10 minutes",
+    "steps": [
+      { "n": 1, "title": "Install LM Studio", "cmd": "Download from lmstudio.ai", "note": "No terminal needed" },
+      { "n": 2, "title": "Download model", "cmd": "Search 'llama-3.3-8b' in LM Studio → Download", "note": null },
+      { "n": 3, "title": "Load and chat", "cmd": "Click Load Model → Chat tab", "note": null }
+    ],
+    "starterPrompts": ["Improve clarity of this paragraph:", "Make this more concise:", "Write an introduction for:", "5 alternative ways to say:"]
+  },
+  {
+    "id": "ai-agent",
+    "title": "Local AI Agent",
+    "icon": "🤖",
+    "goal": "agents",
+    "description": "Run AI agents locally — automate tasks, write and run code, privately.",
+    "recommendedModel": "qwen2.5:14b",
+    "alternativeModels": ["devstral:22b", "qwen2.5:14b"],
+    "recommendedUI": "OpenCode or Open Interpreter",
+    "difficulty": "Advanced",
+    "setupTime": "30 minutes",
+    "steps": [
+      { "n": 1, "title": "Install Ollama", "cmd": "Download from ollama.com", "note": null },
+      { "n": 2, "title": "Download model", "cmd": "ollama pull qwen2.5:14b", "note": "~9GB — agents need larger models" },
+      { "n": 3, "title": "Install Open Interpreter", "cmd": "pip install open-interpreter", "note": "Python required" },
+      { "n": 4, "title": "Run", "cmd": "interpreter --model ollama/qwen2.5:14b", "note": null }
+    ],
+    "starterPrompts": ["Organize files in my Downloads folder by type", "Write a Python script to process this CSV", "Research [topic] and write a summary", "Create a [document] based on:"]
+  }
+]

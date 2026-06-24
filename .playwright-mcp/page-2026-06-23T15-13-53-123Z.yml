@@ -1,0 +1,56 @@
+- generic [active] [ref=e1]:
+  - navigation "Site navigation" [ref=e2]:
+    - generic [ref=e4]:
+      - link "🤖 Build Your Own ChatGPT" [ref=e5] [cursor=pointer]:
+        - /url: index.html
+        - generic [ref=e6]: 🤖 Build Your Own ChatGPT
+      - generic [ref=e7]:
+        - link "Compare" [ref=e8] [cursor=pointer]:
+          - /url: compare.html
+        - link "Compatibility" [ref=e9] [cursor=pointer]:
+          - /url: compatibility.html
+        - link "Commands" [ref=e10] [cursor=pointer]:
+          - /url: commands.html
+        - link "Cost" [ref=e11] [cursor=pointer]:
+          - /url: cost.html
+        - link "Models" [ref=e12] [cursor=pointer]:
+          - /url: compendium.html
+        - button "Toggle light/dark mode" [ref=e13] [cursor=pointer]:
+          - generic [ref=e14]: 🌙
+          - generic [ref=e15]: Dark mode
+  - main [ref=e16]:
+    - heading "Ollama Command Generator" [level=1] [ref=e17]
+    - paragraph [ref=e18]: Pick a model and use case — get pull, run, API, and Modelfile commands ready to copy.
+    - generic [ref=e19]:
+      - generic [ref=e20]:
+        - generic [ref=e21]: Model
+        - textbox "Search model..." [ref=e22]
+      - generic [ref=e23]:
+        - generic [ref=e24]: Quality Preset
+        - combobox [ref=e25]:
+          - option "Recommended (Q4_K_M)" [selected]
+          - option "High Quality (Q8)"
+          - option "Smallest (Q2)"
+      - generic [ref=e26]:
+        - generic [ref=e27]: Use Case
+        - combobox [ref=e28]:
+          - option "General Chat" [selected]
+          - option "Coding Assistant"
+          - option "Writing Helper"
+          - option "Document Q&A"
+          - option "API / Developer Mode"
+      - button "Generate Commands" [disabled] [ref=e29] [cursor=pointer]
+  - contentinfo [ref=e30]:
+    - generic [ref=e31]:
+      - generic [ref=e32]:
+        - link "GitHub" [ref=e33] [cursor=pointer]:
+          - /url: https://github.com/ebubeco/build-your-own-chatgpt
+        - link "Wizard" [ref=e34] [cursor=pointer]:
+          - /url: index.html
+        - link "All Models" [ref=e35] [cursor=pointer]:
+          - /url: compendium.html
+        - link "Compare" [ref=e36] [cursor=pointer]:
+          - /url: compare.html
+        - link "Cost" [ref=e37] [cursor=pointer]:
+          - /url: cost.html
+      - paragraph [ref=e38]: Built for beginners. Your data never leaves your machine.

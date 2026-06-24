@@ -1,0 +1,72 @@
+- generic [active] [ref=e1]:
+  - navigation "Site navigation" [ref=e2]:
+    - generic [ref=e4]:
+      - link "🤖 Build Your Own ChatGPT" [ref=e5] [cursor=pointer]:
+        - /url: index.html
+        - generic [ref=e6]: 🤖 Build Your Own ChatGPT
+      - generic [ref=e7]:
+        - link "Compare" [ref=e8] [cursor=pointer]:
+          - /url: compare.html
+        - link "Which AI" [ref=e9] [cursor=pointer]:
+          - /url: which-ai.html
+        - link "Use Cases" [ref=e10] [cursor=pointer]:
+          - /url: use-cases.html
+        - link "Commands" [ref=e11] [cursor=pointer]:
+          - /url: commands.html
+        - link "Models" [ref=e12] [cursor=pointer]:
+          - /url: compendium.html
+        - button "Toggle light/dark mode" [ref=e13] [cursor=pointer]:
+          - generic [ref=e14]: 🌙
+          - generic [ref=e15]: Dark mode
+  - main [ref=e16]:
+    - heading "Local AI Use Cases" [level=1] [ref=e17]
+    - paragraph [ref=e18]: Click any card to see setup steps, commands, starter prompts, and cloud alternatives.
+    - generic [ref=e19]:
+      - generic [ref=e20] [cursor=pointer]:
+        - generic [ref=e21]: 💻
+        - generic [ref=e22]: Local Coding Assistant
+        - generic [ref=e23]: Private coding assistant in your IDE — no API key, no usage limits.
+        - generic [ref=e25]: Any Hardware
+        - text: → → → → → → → → →
+      - generic [ref=e26] [cursor=pointer]:
+        - generic [ref=e27]: 📄
+        - generic [ref=e28]: Chat With Your Documents
+        - generic [ref=e29]: Ask questions about PDFs, Word docs, and notes — privately.
+        - generic [ref=e31]: CPU/GPU
+        - text: → → → → → → → → →
+      - generic [ref=e32] [cursor=pointer]:
+        - generic [ref=e33]: 💬
+        - generic [ref=e34]: Private ChatGPT Replacement
+        - generic [ref=e35]: Unlimited ChatGPT alternative running entirely on your machine.
+        - generic [ref=e37]: Any Hardware
+        - text: → → → → → → → →
+      - generic [ref=e38] [cursor=pointer]:
+        - generic [ref=e39]: ✍️
+        - generic [ref=e40]: Private Writing Assistant
+        - generic [ref=e41]: Writing assistant for drafts, editing, and ideation — all private.
+        - generic [ref=e43]: Any Hardware
+        - text: → → → → → → →
+      - generic [ref=e44] [cursor=pointer]:
+        - generic [ref=e45]: 🤖
+        - generic [ref=e46]: Local AI Agent
+        - generic [ref=e47]: Run AI agents locally — automate tasks, write and run code, privately.
+        - generic [ref=e49]: GPU Recommended
+        - text: → → → → → → → →
+    - generic [ref=e50]:
+      - paragraph [ref=e51]: Not sure where to start?
+      - link "Take the Wizard →" [ref=e52] [cursor=pointer]:
+        - /url: index.html
+  - contentinfo [ref=e53]:
+    - generic [ref=e54]:
+      - generic [ref=e55]:
+        - link "GitHub" [ref=e56] [cursor=pointer]:
+          - /url: https://github.com/ebubeco/build-your-own-chatgpt
+        - link "Wizard" [ref=e57] [cursor=pointer]:
+          - /url: index.html
+        - link "Compare" [ref=e58] [cursor=pointer]:
+          - /url: compare.html
+        - link "All Models" [ref=e59] [cursor=pointer]:
+          - /url: compendium.html
+        - link "Commands" [ref=e60] [cursor=pointer]:
+          - /url: commands.html
+      - paragraph [ref=e61]: Built for beginners. Your data never leaves your machine.

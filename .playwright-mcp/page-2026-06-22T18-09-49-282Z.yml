@@ -1,0 +1,158 @@
+- generic [active] [ref=e1]:
+  - navigation "Site navigation" [ref=e2]:
+    - generic [ref=e4]:
+      - link "🤖 Build Your Own ChatGPT" [ref=e5] [cursor=pointer]:
+        - /url: index.html
+        - generic [ref=e6]: 🤖 Build Your Own ChatGPT
+      - generic [ref=e7]:
+        - link "Compare" [ref=e8] [cursor=pointer]:
+          - /url: compare.html
+        - link "Which AI" [ref=e9] [cursor=pointer]:
+          - /url: which-ai.html
+        - link "Careers" [ref=e10] [cursor=pointer]:
+          - /url: career.html
+        - link "Models" [ref=e11] [cursor=pointer]:
+          - /url: compendium.html
+        - button "Toggle theme" [ref=e12] [cursor=pointer]:
+          - generic [ref=e13]: 🌙
+  - main [ref=e14]:
+    - link "← Use the wizard" [ref=e15] [cursor=pointer]:
+      - /url: /
+    - heading "Best Offline ChatGPT Alternative (2026)" [level=1] [ref=e16]
+    - paragraph [ref=e18]:
+      - strong [ref=e19]: The best offline ChatGPT alternative is Ollama + Qwen 2.5 7B.
+      - text: It runs entirely on your computer with no internet required after setup. Free, private, no subscription, and no data leaves your machine.
+    - generic [ref=e20]:
+      - heading "Why Go Offline?" [level=2] [ref=e21]
+      - list [ref=e22]:
+        - listitem [ref=e23]:
+          - strong [ref=e24]: "Privacy:"
+          - text: Your conversations never leave your computer. No data logging, no API monitoring.
+        - listitem [ref=e25]:
+          - strong [ref=e26]: "No subscription:"
+          - text: Free forever. Pay nothing after the initial download.
+        - listitem [ref=e27]:
+          - strong [ref=e28]: "No internet:"
+          - text: Works on planes, trains, remote areas, or air-gapped environments.
+        - listitem [ref=e29]:
+          - strong [ref=e30]: "No limits:"
+          - text: Unlimited conversations. No rate limits, no token caps, no usage tiers.
+    - generic [ref=e31]:
+      - heading "Recommended Offline Setup" [level=2] [ref=e32]
+      - generic [ref=e33]:
+        - generic [ref=e36]: Qwen 2.5 7B
+        - paragraph [ref=e37]: The best offline ChatGPT alternative. Runs on 8GB+ VRAM or 16GB+ RAM. Delivers excellent chat, coding, and writing quality. Completely offline after download.
+        - generic [ref=e38]:
+          - generic [ref=e39]: Run these commands
+          - generic [ref=e40]: ollama pull qwen2.5:7b
+          - generic [ref=e41]: ollama run qwen2.5:7b
+          - link "Download Ollama (free)" [ref=e42] [cursor=pointer]:
+            - /url: https://ollama.com/download
+    - generic [ref=e43]:
+      - heading "Offline AI Model Comparison" [level=2] [ref=e44]
+      - table [ref=e46]:
+        - rowgroup [ref=e47]:
+          - row "Model Best For RAM / VRAM Storage" [ref=e48]:
+            - columnheader "Model" [ref=e49]
+            - columnheader "Best For" [ref=e50]
+            - columnheader "RAM / VRAM" [ref=e51]
+            - columnheader "Storage" [ref=e52]
+        - rowgroup [ref=e53]:
+          - row "Qwen 2.5 7B Best overall — chat, coding, writing 8GB VRAM / 16GB RAM 4.7 GB" [ref=e54]:
+            - cell "Qwen 2.5 7B" [ref=e55]:
+              - strong [ref=e56]: Qwen 2.5 7B
+            - cell "Best overall — chat, coding, writing" [ref=e57]
+            - cell "8GB VRAM / 16GB RAM" [ref=e58]
+            - cell "4.7 GB" [ref=e59]
+          - row "Llama 3.1 8B All-rounder, slightly larger 8GB VRAM / 16GB RAM 4.9 GB" [ref=e60]:
+            - cell "Llama 3.1 8B" [ref=e61]:
+              - strong [ref=e62]: Llama 3.1 8B
+            - cell "All-rounder, slightly larger" [ref=e63]
+            - cell "8GB VRAM / 16GB RAM" [ref=e64]
+            - cell "4.9 GB" [ref=e65]
+          - row "Phi-4-mini 3.8B CPU-only, low-spec laptops 8GB RAM 2.5 GB" [ref=e66]:
+            - cell "Phi-4-mini 3.8B" [ref=e67]:
+              - strong [ref=e68]: Phi-4-mini 3.8B
+            - cell "CPU-only, low-spec laptops" [ref=e69]
+            - cell "8GB RAM" [ref=e70]
+            - cell "2.5 GB" [ref=e71]
+          - row "Qwen 2.5 Coder 7B Coding assistant 8GB VRAM / 16GB RAM 4.7 GB" [ref=e72]:
+            - cell "Qwen 2.5 Coder 7B" [ref=e73]:
+              - strong [ref=e74]: Qwen 2.5 Coder 7B
+            - cell "Coding assistant" [ref=e75]
+            - cell "8GB VRAM / 16GB RAM" [ref=e76]
+            - cell "4.7 GB" [ref=e77]
+          - row "Qwen 2.5 1.5B Very low-spec, fast CPU 4GB RAM 1.1 GB" [ref=e78]:
+            - cell "Qwen 2.5 1.5B" [ref=e79]:
+              - strong [ref=e80]: Qwen 2.5 1.5B
+            - cell "Very low-spec, fast CPU" [ref=e81]
+            - cell "4GB RAM" [ref=e82]
+            - cell "1.1 GB" [ref=e83]
+    - generic [ref=e84]:
+      - heading "Alternatives for Lower Specs" [level=2] [ref=e85]
+      - list [ref=e86]:
+        - listitem [ref=e87]:
+          - strong [ref=e88]: "Phi-4-mini (3.8B):"
+          - text: Runs on 8GB RAM, no GPU needed. Good for basic chat.
+        - listitem [ref=e89]:
+          - strong [ref=e90]: "Qwen 2.5 Coder 7B:"
+          - text: Best offline coding assistant. Specialized for programming.
+        - listitem [ref=e91]:
+          - strong [ref=e92]: "Llama 3.1 8B:"
+          - text: Strong all-rounder. Slightly larger than Qwen 2.5 7B.
+    - generic [ref=e93]:
+      - heading "Frequently Asked Questions" [level=2] [ref=e94]
+      - generic [ref=e95]:
+        - generic [ref=e96]:
+          - heading "What is the best offline ChatGPT alternative?" [level=3] [ref=e97]
+          - paragraph [ref=e99]: Ollama with Qwen 2.5 7B is the best offline ChatGPT alternative. It runs entirely on your computer, requires no internet after setup, and keeps all your data private.
+        - generic [ref=e100]:
+          - heading "Is there a completely free offline ChatGPT?" [level=3] [ref=e101]
+          - paragraph [ref=e103]: Yes, Ollama is completely free and open source. You download the models once and they run forever on your computer with no subscription, no API fees, and no usage limits.
+        - generic [ref=e104]:
+          - heading "How much storage does offline AI need?" [level=3] [ref=e105]
+          - paragraph [ref=e107]: A 7B model requires about 4.7GB of storage. Smaller 1-3B models need 1-3GB. You need the space only once for the initial download.
+        - generic [ref=e108]:
+          - heading "Can offline AI match ChatGPT quality?" [level=3] [ref=e109]
+          - paragraph [ref=e111]: "Modern open models like Qwen 2.5 7B and Llama 3.1 8B are competitive with ChatGPT for most everyday tasks: chat, writing, coding help, and research. They excel at privacy-sensitive work."
+    - generic [ref=e112]:
+      - heading "Related Guides" [level=2] [ref=e113]
+      - list [ref=e114]:
+        - listitem [ref=e115]:
+          - link "Run Local AI Without a GPU" [ref=e116] [cursor=pointer]:
+            - /url: /run-ai-without-gpu.html
+            - strong [ref=e117]: Run Local AI Without a GPU
+          - text: — Complete guide to CPU-only inference on any laptop.
+        - listitem [ref=e118]:
+          - link "Can My Laptop Run Local AI?" [ref=e119] [cursor=pointer]:
+            - /url: /can-my-laptop-run-ai.html
+            - strong [ref=e120]: Can My Laptop Run Local AI?
+          - text: — Check your hardware and find the right model.
+        - listitem [ref=e121]:
+          - link "Compare AI Models" [ref=e122] [cursor=pointer]:
+            - /url: /compare.html
+            - strong [ref=e123]: Compare AI Models
+          - text: — Side-by-side comparison of any 3 models.
+    - generic [ref=e124]:
+      - heading "Get Your Offline AI Setup" [level=2] [ref=e125]
+      - paragraph [ref=e126]: Tell us about your hardware and get the exact model and command for your machine.
+      - link "Start the Wizard" [ref=e127] [cursor=pointer]:
+        - /url: /
+      - link "Which AI for me?" [ref=e128] [cursor=pointer]:
+        - /url: which-ai.html
+  - contentinfo [ref=e129]:
+    - generic [ref=e130]:
+      - generic [ref=e131]:
+        - link "GitHub" [ref=e132] [cursor=pointer]:
+          - /url: https://github.com/ebubeco/build-your-own-chatgpt
+        - link "Wizard" [ref=e133] [cursor=pointer]:
+          - /url: index.html
+        - link "Compare" [ref=e134] [cursor=pointer]:
+          - /url: compare.html
+        - link "Which AI" [ref=e135] [cursor=pointer]:
+          - /url: which-ai.html
+        - link "Careers" [ref=e136] [cursor=pointer]:
+          - /url: career.html
+        - link "Models" [ref=e137] [cursor=pointer]:
+          - /url: compendium.html
+      - paragraph [ref=e138]: Built for beginners. Your data never leaves your machine.

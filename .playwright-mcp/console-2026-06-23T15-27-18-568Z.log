@@ -1,0 +1,14 @@
+[      70ms] [LOG] [Analytics] wizard_started  @ http://localhost:3333/analytics.js:39
+[     110ms] [LOG] [Analytics] cloud_fallback_triggered {reason: weak_hardware, tier: no-gpu, goal: chat} @ http://localhost:3333/analytics.js:39
+[     112ms] [LOG] [Analytics] Result Shown {model: llama-3-2-1b, goal: chat, tier: no-gpu} @ http://localhost:3333/analytics.js:39
+[     113ms] [LOG] [Analytics] recommendation_generated {model: llama3.2:1b, goal: chat, hardware: no-gpu, hasCloudFallback: true} @ http://localhost:3333/analytics.js:39
+[     115ms] [LOG] [Analytics] recommendation_generated {model: llama3.2:1b, goal: chat, hardware: no-gpu, confidence: 4} @ http://localhost:3333/analytics.js:39
+[     190ms] [LOG] [Analytics] result_restored {goal: chat, tier: no-gpu} @ http://localhost:3333/analytics.js:39
+[     202ms] [WARNING] Ignoring Event: localhost @ https://plausible.io/js/pa-DBTdINzLX2L2B_fXJF0u1.js:0
+[     202ms] [WARNING] Ignoring Event: localhost @ https://plausible.io/js/pa-DBTdINzLX2L2B_fXJF0u1.js:0
+[     202ms] [WARNING] Ignoring Event: localhost @ https://plausible.io/js/pa-DBTdINzLX2L2B_fXJF0u1.js:0
+[     202ms] [WARNING] Ignoring Event: localhost @ https://plausible.io/js/pa-DBTdINzLX2L2B_fXJF0u1.js:0
+[     202ms] [WARNING] Ignoring Event: localhost @ https://plausible.io/js/pa-DBTdINzLX2L2B_fXJF0u1.js:0
+[     203ms] [WARNING] Ignoring Event: localhost @ https://plausible.io/js/pa-DBTdINzLX2L2B_fXJF0u1.js:0
+[     203ms] [WARNING] Ignoring Event: localhost @ https://plausible.io/js/pa-DBTdINzLX2L2B_fXJF0u1.js:0
+[     596ms] [ERROR] Failed to load resource: net::ERR_NAME_NOT_RESOLVED @ https://fxeygjmygxnirvsrndaa.supabase.co/rest/v1/recommendations:0

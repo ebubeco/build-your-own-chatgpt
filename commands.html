@@ -1,407 +1,162 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta name="google-site-verification" content="5YRiOefTK9mTwEJEnLIH6BQ5xmP0NkwyfiaBWZJbdCg">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Generate exact Ollama commands for any model — pull, run, Modelfile, API setup, OpenWebUI integration.">
-  <meta property="og:title" content="Ollama Command Generator — Build Your Own ChatGPT">
-  <meta property="og:description" content="Pick a model and use case. Get every command you need, ready to copy.">
-  <meta property="og:image" content="https://build-your-own-chatgpt.vercel.app/og-image.jpg">
-  <meta name="twitter:card" content="summary_large_image">
   <title>Ollama Command Generator — Build Your Own ChatGPT</title>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <meta name="description" content="Generate Ollama commands for any model — pull, run, API, Modelfile. Customize by use case and quality preset.">
+  <meta property="og:image" content="https://build-your-own-chatgpt.vercel.app/og-image.jpg">
   <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <script>!function(){var t=localStorage.getItem('theme');if(t==='dark'||(t===null&&window.matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark')}();</script>
-  <script async src="https://plausible.io/js/pa-DBTdINzLX2L2B_fXJF0u1.js"></script>
-  <script>window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()</script>
   <style>
-    .cmd-gen-page{max-width:960px;margin:0 auto;padding:0 1.5rem 3rem}
-    .cmd-gen-page h1{font-family:'Outfit',sans-serif;font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;letter-spacing:-0.02em;margin:2rem 0 .5rem}
-    .cmd-gen-page .subtitle{color:var(--text-secondary);font-size:1rem;margin-bottom:2rem}
-    .cmd-form{background:var(--bg-card);border:1.5px solid var(--border);border-radius:var(--radius);padding:1.5rem;margin-bottom:2rem}
-    .form-group{margin-bottom:1.25rem}
-    .form-group label{display:block;font-size:.82rem;font-weight:700;color:var(--text-secondary);margin-bottom:.4rem;text-transform:uppercase;letter-spacing:.05em}
-    .form-group select,.form-group input{width:100%;padding:.65rem .75rem;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-size:.95rem;background:var(--surface);color:var(--text);transition:border-color var(--transition);font-family:inherit;box-sizing:border-box}
-    .form-group select:focus,.form-group input:focus{outline:none;border-color:var(--accent)}
-    .model-picker{position:relative}
-    .model-picker input{width:100%;padding:.65rem .75rem;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-size:.95rem;background:var(--surface);color:var(--text);font-family:inherit;box-sizing:border-box}
-    .model-picker input:focus{outline:none;border-color:var(--accent)}
-    .model-dropdown{position:absolute;top:100%;left:0;right:0;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-sm);margin-top:.25rem;z-index:100;display:none;max-height:280px;overflow-y:auto;box-shadow:var(--shadow-md)}
-    .dropdown-item{padding:.6rem .9rem;cursor:pointer;font-size:.88rem;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border-light);transition:background var(--transition)}
-    .dropdown-item:last-child{border-bottom:none}
-    .dropdown-item:hover{background:var(--surface)}
-    .dropdown-item strong{color:var(--text);font-weight:600}
-    .dropdown-item span{color:var(--text-tertiary);font-size:.75rem;font-family:'SF Mono',monospace}
-    .cmd-gen-btn{display:block;width:100%;padding:.75rem;background:var(--accent);color:#fff;border:none;border-radius:var(--radius-sm);font-size:1rem;font-weight:700;cursor:pointer;font-family:inherit;transition:opacity var(--transition)}
+    .cmd-page{max-width:960px;margin:0 auto;padding:2rem 1rem}
+    .cmd-page h1{font-family:'Outfit',sans-serif;font-size:clamp(1.6rem,4vw,2.4rem);font-weight:800;margin:0 0 .3rem}
+    .cmd-page .sub{color:var(--text-secondary);font-size:.95rem;margin-bottom:1.5rem}
+    .cmd-form{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:1.5rem}
+    @media(max-width:600px){.cmd-form{grid-template-columns:1fr}}
+    .cmd-field label{display:block;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--text-secondary);margin-bottom:.3rem}
+    .cmd-field select,.cmd-field input{width:100%;padding:.6rem .75rem;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-size:.9rem;background:var(--surface);color:var(--text);font-family:inherit;box-sizing:border-box}
+    .cmd-field select:focus,.cmd-field input:focus{outline:none;border-color:var(--accent)}
+    .cmd-search{position:relative}
+    .cmd-drop{position:absolute;top:100%;left:0;right:0;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-sm);z-index:100;display:none;max-height:240px;overflow-y:auto}
+    .cmd-drop-item{padding:.5rem .75rem;cursor:pointer;font-size:.85rem;border-bottom:1px solid var(--border-light);display:flex;justify-content:space-between}
+    .cmd-drop-item:hover{background:var(--surface)}
+    .cmd-gen-btn{grid-column:1/-1;padding:.7rem;background:var(--accent);color:#fff;border:none;border-radius:var(--radius-sm);font-size:1rem;font-weight:700;cursor:pointer;font-family:inherit;transition:opacity .15s}
     .cmd-gen-btn:hover{opacity:.9}
-    .cmd-gen-btn:disabled{background:var(--border);color:var(--text-tertiary);cursor:not-allowed}
-    .cmd-output{display:none;margin-top:2rem}
-    .cmd-block{background:var(--bg-card);border:1.5px solid var(--border);border-radius:var(--radius);padding:1.25rem;margin-bottom:1.25rem}
-    .cmd-block h3{font-family:'Outfit',sans-serif;font-size:1rem;font-weight:700;margin-bottom:.75rem;color:var(--text)}
-    .cmd-block pre{background:var(--bg);border:1px solid var(--border-light);border-radius:var(--radius-sm);padding:.65rem .9rem;font-family:'JetBrains Mono',monospace;font-size:.82rem;color:var(--text);overflow-x:auto;margin-bottom:.5rem;white-space:pre-wrap;word-break:break-all}
-    .cmd-block p{font-size:.82rem;color:var(--text-secondary);margin:.35rem 0}
-    .cmd-block p code{font-family:'JetBrains Mono',monospace;background:var(--bg-warm);padding:.1rem .35rem;border-radius:4px;font-size:.78rem}
-    .cmd-copy-btn{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:.35rem .9rem;cursor:pointer;font-size:.82rem;font-weight:600;color:var(--text);font-family:inherit;transition:all var(--transition)}
-    .cmd-copy-btn:hover{border-color:var(--accent);color:var(--accent)}
-    .cmd-copy-btn.copied{border-color:var(--green);color:var(--green)}
-    .cmd-selected{display:inline-flex;align-items:center;gap:.4rem;padding:.35rem .9rem;background:var(--accent-light);border:1px solid var(--accent);border-radius:100px;font-size:.82rem;font-weight:600;color:var(--accent);margin-bottom:1rem}
-    .cmd-selected span{font-family:'JetBrains Mono',monospace;font-size:.78rem}
-    .api-note{margin-top:.5rem;padding:.5rem .75rem;background:var(--bg-warm);border-left:3px solid var(--accent);border-radius:0 var(--radius-sm) var(--radius-sm) 0;font-size:.82rem;color:var(--text-secondary)}
-    .cheat-nav{display:flex;gap:.75rem;flex-wrap:wrap;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:1px solid var(--border)}
-    .cheat-nav a{color:var(--text-secondary);text-decoration:none;font-size:.85rem;padding:.3rem .75rem;border-radius:6px;transition:all .15s}
-    .cheat-nav a:hover,.cheat-nav a.active{color:var(--accent);background:var(--accent-light)}
-    .cheat-section{margin-bottom:2rem}
-    .cheat-section h2{font-family:'Outfit',sans-serif;font-size:1.2rem;font-weight:700;color:var(--text);margin-bottom:1rem;padding-bottom:.5rem;border-bottom:2px solid var(--border);display:flex;align-items:center;gap:.5rem}
-    .cheat-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:.9rem;margin-bottom:.65rem;transition:border-color .15s}
-    .cheat-card:hover{border-color:var(--accent)}
-    .cheat-card-name{font-family:'JetBrains Mono',monospace;font-size:.95rem;font-weight:600;color:var(--accent);margin-bottom:.3rem}
-    .cheat-card-desc{font-size:.82rem;color:var(--text-secondary);margin-bottom:.5rem}
-    .cheat-box{display:flex;align-items:center;gap:.5rem;background:var(--bg);border:1px solid var(--border-light);border-radius:var(--radius-sm);padding:.45rem .7rem}
-    .cheat-box code{flex:1;font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--text);overflow-x:auto;white-space:nowrap}
+    .cmd-out{display:none;margin-top:1.5rem}
+    .cmd-block{background:var(--bg-card);border:1.5px solid var(--border);border-radius:var(--radius);padding:1.25rem;margin-bottom:1rem}
+    .cmd-block h3{font-family:'Outfit',sans-serif;font-size:1rem;font-weight:700;margin-bottom:.5rem}
+    .cmd-block pre{background:var(--bg);border:1px solid var(--border-light);border-radius:var(--radius-sm);padding:.6rem .8rem;font-family:'SF Mono','Fira Code',monospace;font-size:.82rem;color:var(--text);overflow-x:auto;margin-bottom:.5rem;white-space:pre-wrap;word-break:break-all}
+    .cpy-btn{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:.3rem .7rem;cursor:pointer;font-size:.8rem;font-weight:600;color:var(--text);font-family:inherit;transition:all .15s}
+    .cpy-btn:hover{border-color:var(--accent);color:var(--accent)}
+    .cpy-btn.copied{border-color:var(--green);color:var(--green)}
+    .cmd-tag{display:inline-block;font-size:.7rem;font-weight:600;padding:.2rem .5rem;border-radius:6px;background:var(--accent-light);color:var(--accent);margin-bottom:.5rem}
   </style>
 </head>
 <body>
   <nav class="site-topbar" role="navigation" aria-label="Site navigation">
     <div class="container">
       <div class="topbar-inner">
-        <span class="site-brand">🤖 Build Your Own ChatGPT</span>
-        <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle light/dark mode">
-          <span class="toggle-icon">🌙</span>
-          <span class="toggle-label">Dark mode</span>
-        </button>
+        <a href="index.html" style="text-decoration:none"><span class="site-brand">🤖 Build Your Own ChatGPT</span></a>
+        <div style="display:flex;gap:0.75rem;align-items:center">
+          <a href="compare.html" style="font-size:0.82rem;color:var(--text-secondary);text-decoration:none;font-weight:500">Compare</a>
+          <a href="compatibility.html" style="font-size:0.82rem;color:var(--text-secondary);text-decoration:none;font-weight:500">Compatibility</a>
+          <a href="commands.html" style="font-size:0.82rem;color:var(--accent);text-decoration:none;font-weight:600">Commands</a>
+          <a href="cost.html" style="font-size:0.82rem;color:var(--text-secondary);text-decoration:none;font-weight:500">Cost</a>
+          <a href="compendium.html" style="font-size:0.82rem;color:var(--text-secondary);text-decoration:none;font-weight:500">Models</a>
+          <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle light/dark mode">
+            <span class="toggle-icon">🌙</span>
+            <span class="toggle-label">Dark mode</span>
+          </button>
+        </div>
       </div>
     </div>
   </nav>
-
-  <main class="cmd-gen-page">
-    <div class="cheat-nav">
-      <a href="index.html">🏠 Wizard</a>
-      <a href="compendium.html">📚 Compendium</a>
-      <a href="compare.html">📊 Compare</a>
-      <a href="compatibility.html">🔧 Compatibility</a>
-      <a href="#" class="active">⌨️ Commands</a>
-    </div>
-
+  <main class="cmd-page">
     <h1>Ollama Command Generator</h1>
-    <p class="subtitle">Pick a model and use case — get every command you need, ready to copy.</p>
+    <p class="sub">Pick a model and use case — get pull, run, API, and Modelfile commands ready to copy.</p>
 
     <div class="cmd-form">
-      <div class="form-group">
+      <div class="cmd-field cmd-search">
         <label>Model</label>
-        <div class="model-picker">
-          <input type="text" id="model-search" placeholder="Search model (e.g. qwen2.5:7b, llama3.3:8b)..." autocomplete="off">
-          <div id="model-dropdown" class="model-dropdown"></div>
-        </div>
-        <div id="selected-display" style="display:none" class="cmd-selected"></div>
+        <input type="text" id="mdl-search" placeholder="Search model..." autocomplete="off">
+        <div class="cmd-drop" id="mdl-drop"></div>
       </div>
-
-      <div class="form-group">
-        <label>Quality vs Speed</label>
-        <select id="quant-pref">
-          <option value="recommended">Recommended (Q4_K_M) — best balance</option>
-          <option value="quality">High Quality (Q8) — needs more VRAM</option>
-          <option value="small">Smallest (Q2) — fastest, lower quality</option>
+      <div class="cmd-field">
+        <label>Quality Preset</label>
+        <select id="quality">
+          <option value="recommended">Recommended (Q4_K_M)</option>
+          <option value="high">High Quality (Q8)</option>
+          <option value="small">Smallest (Q2)</option>
         </select>
       </div>
-
-      <div class="form-group">
+      <div class="cmd-field">
         <label>Use Case</label>
-        <select id="use-case">
-          <option value="general">General chat</option>
-          <option value="coding">Coding assistant</option>
-          <option value="writing">Writing helper</option>
+        <select id="usecase">
+          <option value="general">General Chat</option>
+          <option value="coding">Coding Assistant</option>
+          <option value="writing">Writing Helper</option>
           <option value="documents">Document Q&A</option>
-          <option value="api">API / developer mode</option>
+          <option value="api">API / Developer Mode</option>
         </select>
       </div>
-
-      <button id="gen-btn" class="cmd-gen-btn" onclick="generateCommands()" disabled>Generate Commands</button>
+      <button class="cmd-gen-btn" id="gen-btn" onclick="genCommands()" disabled>Generate Commands</button>
     </div>
-
-    <div id="commands-output" class="cmd-output"></div>
-
-    <section class="cheat-section">
-      <h2>📋 All Ollama Commands</h2>
-
-      <div class="cheat-card">
-        <div class="cheat-card-name">ollama pull</div>
-        <div class="cheat-card-desc">Download a model from the Ollama library</div>
-        <div class="cheat-box"><code id="cmd-pull-ex">ollama pull qwen2.5:7b</code><button class="cmd-copy-btn" onclick="copyCmd(this, 'ollama pull qwen2.5:7b')">Copy</button></div>
-      </div>
-
-      <div class="cheat-card">
-        <div class="cheat-card-name">ollama run</div>
-        <div class="cheat-card-desc">Start a chat session with a model directly in terminal</div>
-        <div class="cheat-box"><code id="cmd-run-ex">ollama run qwen2.5:7b</code><button class="cmd-copy-btn" onclick="copyCmd(this, 'ollama run qwen2.5:7b')">Copy</button></div>
-      </div>
-
-      <div class="cheat-card">
-        <div class="cheat-card-name">ollama list</div>
-        <div class="cheat-card-desc">Show all installed models</div>
-        <div class="cheat-box"><code>ollama list</code><button class="cmd-copy-btn" onclick="copyCmd(this, 'ollama list')">Copy</button></div>
-      </div>
-
-      <div class="cheat-card">
-        <div class="cheat-card-name">ollama show</div>
-        <div class="cheat-card-desc">Display model details (parameters, size, modified date)</div>
-        <div class="cheat-box"><code>ollama show qwen2.5:7b</code><button class="cmd-copy-btn" onclick="copyCmd(this, 'ollama show qwen2.5:7b')">Copy</button></div>
-      </div>
-
-      <div class="cheat-card">
-        <div class="cheat-card-name">ollama create</div>
-        <div class="cheat-card-desc">Create a custom model from a Modelfile</div>
-        <div class="cheat-box"><code>ollama create my-model -f Modelfile</code><button class="cmd-copy-btn" onclick="copyCmd(this, 'ollama create my-model -f Modelfile')">Copy</button></div>
-      </div>
-
-      <div class="cheat-card">
-        <div class="cheat-card-name">ollama cp</div>
-        <div class="cheat-card-desc">Copy a model to create a new variant</div>
-        <div class="cheat-box"><code>ollama cp qwen2.5:7b my-custom-qwen</code><button class="cmd-copy-btn" onclick="copyCmd(this, 'ollama cp qwen2.5:7b my-custom-qwen')">Copy</button></div>
-      </div>
-
-      <div class="cheat-card">
-        <div class="cheat-card-name">ollama rm</div>
-        <div class="cheat-card-desc">Delete a model from your system</div>
-        <div class="cheat-box"><code>ollama rm qwen2.5:7b</code><button class="cmd-copy-btn" onclick="copyCmd(this, 'ollama rm qwen2.5:7b')">Copy</button></div>
-      </div>
-
-      <div class="cheat-card">
-        <div class="cheat-card-name">ollama serve</div>
-        <div class="cheat-card-desc">Start the Ollama server (API available at localhost:11434)</div>
-        <div class="cheat-box"><code>ollama serve</code><button class="cmd-copy-btn" onclick="copyCmd(this, 'ollama serve')">Copy</button></div>
-      </div>
-
-      <div class="cheat-card">
-        <div class="cheat-card-name">ollama ps</div>
-        <div class="cheat-card-desc">Show currently running models</div>
-        <div class="cheat-box"><code>ollama ps</code><button class="cmd-copy-btn" onclick="copyCmd(this, 'ollama ps')">Copy</button></div>
-      </div>
-
-      <div class="cheat-card">
-        <div class="cheat-card-name">ollama stop</div>
-        <div class="cheat-card-desc">Stop a running model</div>
-        <div class="cheat-box"><code>ollama stop qwen2.5:7b</code><button class="cmd-copy-btn" onclick="copyCmd(this, 'ollama stop qwen2.5:7b')">Copy</button></div>
-      </div>
-    </section>
-
-    <section class="cheat-section">
-      <h2>⚙️ Modelfile Reference</h2>
-      <div class="cheat-card">
-        <div class="cheat-card-name">Basic Modelfile Structure</div>
-        <div class="cheat-card-desc">Create a custom model with system prompt and parameters</div>
-        <div class="cheat-box" style="flex-direction:column;align-items:flex-start;gap:.5rem"><pre style="margin:0;width:100%;white-space:pre-wrap"><code>FROM qwen2.5:7b
-SYSTEM "You are a helpful coding assistant."
-PARAMETER temperature 0.7
-PARAMETER num_ctx 4096
-PARAMETER top_p 0.9</code></pre><button class="cmd-copy-btn" onclick="copyCmd(this, 'FROM qwen2.5:7b\nSYSTEM \"You are a helpful coding assistant.\"\nPARAMETER temperature 0.7\nPARAMETER num_ctx 4096')">Copy</button></div>
-      </div>
-      <div class="cheat-card">
-        <div class="cheat-card-name">Common Parameters</div>
-        <div class="cheat-card-desc">Most useful parameters to customize model behavior</div>
-        <div class="cheat-box" style="flex-direction:column;align-items:flex-start;gap:.3rem"><pre style="margin:0;width:100%"><code>temperature 0.7      # Creativity (0=exact, 1=creative)
-num_ctx 4096        # Context window size
-top_p 0.9           # Nucleus sampling threshold
-top_k 40            # Consider top K tokens
-repeat_penalty 1.1  # Penalize repetition
-stop []             # Stop sequences (comma-separated)</code></pre><button class="cmd-copy-btn" onclick="copyCmd(this, 'PARAMETER temperature 0.7\nPARAMETER num_ctx 4096\nPARAMETER top_p 0.9')">Copy</button></div>
-      </div>
-      <div class="cheat-card">
-        <div class="cheat-card-name">Quantization Options</div>
-        <div class="cheat-card-desc">Reduce model size with minimal quality loss</div>
-        <div class="cheat-box"><code>ollama create my-model:q4 -f Modelfile</code><button class="cmd-copy-btn" onclick="copyCmd(this, 'ollama create my-model:q4 -f Modelfile')">Copy</button></div>
-        <p style="font-size:.78rem;color:var(--text-secondary);margin:.3rem 0 0">Then pull the base model and run: <code>ollama create my-model:q4 -f Modelfile qwen2.5:7b-q4_K_M</code></p>
-      </div>
-    </section>
-
-    <section class="cheat-section">
-      <h2>🌐 API Reference</h2>
-      <div class="cheat-card">
-        <div class="cheat-card-name">Generate Endpoint (curl)</div>
-        <div class="cheat-card-desc">Basic text generation via the Ollama API</div>
-        <div class="cheat-box" style="flex-direction:column;align-items:flex-start;gap:.5rem"><pre style="margin:0;width:100%"><code>curl http://localhost:11434/api/generate \
-  -d '{"model":"qwen2.5:7b","prompt":"Hello","stream":false}'</code></pre><button class="cmd-copy-btn" onclick="copyCmd(this, \"curl http://localhost:11434/api/generate -d '{\\\"model\\\":\\\"qwen2.5:7b\\\",\\\"prompt\\\":\\\"Hello\\\",\\\"stream\\\":false}'\")">Copy</button></div>
-      </div>
-      <div class="cheat-card">
-        <div class="cheat-card-name">Chat Endpoint (curl)</div>
-        <div class="cheat-card-desc">Conversation-style API with message history</div>
-        <div class="cheat-box" style="flex-direction:column;align-items:flex-start;gap:.5rem"><pre style="margin:0;width:100%"><code>curl http://localhost:11434/api/chat \
-  -d '{"model":"qwen2.5:7b","messages":[{"role":"user","content":"Hello"}]}'</code></pre><button class="cmd-copy-btn" onclick="copyCmd(this, \"curl http://localhost:11434/api/chat -d '{\\\"model\\\":\\\"qwen2.5:7b\\\",\\\"messages\\\":[{\\\"role\\\":\\\"user\\\",\\\"content\\\":\\\"Hello\\\"}]}'\")">Copy</button></div>
-      </div>
-      <div class="cheat-card">
-        <div class="cheat-card-name">OpenAI-Compatible Endpoint</div>
-        <div class="cheat-card-desc">Use Ollama with any OpenAI SDK-compatible tool</div>
-        <div class="cheat-box" style="flex-direction:column;align-items:flex-start;gap:.5rem"><pre style="margin:0;width:100%"><code>curl http://localhost:11434/v1/chat/completions \
-  -H "Content-Type: application/json" \
-  -d '{"model":"qwen2.5:7b","messages":[{"role":"user","content":"Hello"}]}'</code></pre><button class="cmd-copy-btn" onclick="copyCmd(this, \"curl http://localhost:11434/v1/chat/completions -H 'Content-Type: application/json' -d '{\\\"model\\\":\\\"qwen2.5:7b\\\",\\\"messages\\\":[{\\\"role\\\":\\\"user\\\",\\\"content\\\":\\\"Hello\\\"}]}'\")">Copy</button></div>
-        <div class="api-note">Set base URL to <code>http://localhost:11434/v1</code> when using OpenAI SDK with Ollama.</div>
-      </div>
-    </section>
-
-    <section class="cheat-section">
-      <h2>🐳 Docker / OpenWebUI</h2>
-      <div class="cheat-card">
-        <div class="cheat-card-name">Start OpenWebUI</div>
-        <div class="cheat-card-desc">Full-featured chat interface (requires Docker)</div>
-        <div class="cheat-box" style="flex-direction:column;align-items:flex-start;gap:.5rem"><pre style="margin:0;width:100%"><code>docker run -d -p 3000:8080 \
-  --add-host=host.docker.internal:host-gateway \
-  ghcr.io/open-webui/open-webui:main</code></pre><button class="cmd-copy-btn" onclick="copyCmd(this, 'docker run -d -p 3000:8080 --add-host=host.docker.internal:host-gateway ghcr.io/open-webui/open-webui:main')">Copy</button></div>
-        <p style="font-size:.78rem;color:var(--text-secondary);margin:.3rem 0 0">Then open <code>http://localhost:3000</code> in your browser.</p>
-      </div>
-      <div class="cheat-card">
-        <div class="cheat-card-name">Ollama + OpenWebUI (docker-compose)</div>
-        <div class="cheat-card-desc">Run both Ollama and OpenWebUI together</div>
-        <div class="cheat-box" style="flex-direction:column;align-items:flex-start;gap:.5rem"><pre style="margin:0;width:100%"><code>services:
-  ollama:
-    image: ollama/ollama:latest
-    volumes:
-      - ollama:/root/.ollama
-    ports:
-      - "11434:11434"
-  open-webui:
-    image: ghcr.io/open-webui/open-webui:main
-    ports:
-      - "3000:8080"
-    environment:
-      - OLLAMA_BASE_URL=http://ollama:11434
-    depends_on:
-      - ollama</code></pre><button class="cmd-copy-btn" onclick="copyCmd(this, 'docker run -d -p 3000:8080 --add-host=host.docker.internal:host-gateway ghcr.io/open-webui/open-webui:main')">Copy</button></div>
-      </div>
-    </section>
+    <div id="out" class="cmd-out"></div>
   </main>
-
   <footer class="footer">
     <div class="container">
       <div class="footer-links">
-        <a href="https://github.com/ebubeco/build-your-own-chatgpt" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://github.com/ebubeco/build-your-own-chatgpt">GitHub</a>
         <a href="index.html">Wizard</a>
-        <a href="compendium.html">Model Compendium</a>
-        <a href="use-cases.html">Use Cases</a>
-        <a href="starter-pack.html">Starter Pack</a>
-        <a href="career.html">Careers</a>
+        <a href="compendium.html">All Models</a>
+        <a href="compare.html">Compare</a>
+        <a href="cost.html">Cost</a>
       </div>
       <p class="footer-tagline">Built for beginners. Your data never leaves your machine.</p>
     </div>
   </footer>
-
   <script>
-    document.getElementById('theme-toggle').addEventListener('click', function() {
-      var t = document.documentElement.getAttribute('data-theme');
-      var n = t === 'dark' ? 'light' : 'dark';
-      document.documentElement.setAttribute('data-theme', n);
-      localStorage.setItem('theme', n);
-      document.querySelector('.toggle-icon').textContent = n === 'dark' ? '☀️' : '🌙';
-      document.querySelector('.toggle-label').textContent = n === 'dark' ? 'Light mode' : 'Dark mode';
+    document.getElementById('theme-toggle').addEventListener('click',function(){var e=document.documentElement;var t=e.getAttribute('data-theme');var n=t==='dark'?'light':'dark';e.setAttribute('data-theme',n);localStorage.setItem('theme',n);document.querySelector('.toggle-icon').textContent=n==='dark'?'☀️':'🌙';document.querySelector('.toggle-label').textContent=n==='dark'?'Light mode':'Dark mode';});
+    if(localStorage.getItem('theme')==='dark'||(!localStorage.getItem('theme')&&window.matchMedia('(prefers-color-scheme:dark)').matches)){document.querySelector('.toggle-icon').textContent='☀️';document.querySelector('.toggle-label').textContent='Light mode';}
+
+    let models=[], selModel=null;
+
+    fetch('data/models.json').then(r=>r.json()).then(d=>{models=d.models.filter(m=>!m.platformType||m.platformType==='local');});
+
+    const sInp=document.getElementById('mdl-search'), sDrop=document.getElementById('mdl-drop');
+    sInp.addEventListener('input',function(){
+      const q=this.value.toLowerCase().trim();
+      if(!q){sDrop.style.display='none';return;}
+      const r=models.filter(m=>m.name.toLowerCase().includes(q)||(m.ollamaTag||'').includes(q)).slice(0,8);
+      sDrop.innerHTML=r.map(m=>'<div class="cmd-drop-item" onclick="pickModel(\''+m.id+'\')"><strong>'+m.name+'</strong><span style="color:var(--text-tertiary);font-size:.75rem;font-family:monospace">'+m.ollamaTag+'</span></div>').join('');
+      sDrop.style.display=r.length?'block':'none';
     });
-    if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme:dark)').matches)) {
-      document.querySelector('.toggle-icon').textContent = '☀️';
-      document.querySelector('.toggle-label').textContent = 'Light mode';
+    document.addEventListener('click',function(e){if(!e.target.closest('.cmd-search'))sDrop.style.display='none';});
+
+    function pickModel(id){
+      selModel=models.find(m=>m.id===id);
+      sInp.value=selModel?selModel.name:'';
+      sDrop.style.display='none';
+      document.getElementById('gen-btn').disabled=!selModel;
     }
 
-    var allModels = [];
-    var selectedModel = null;
+    const SYS_PROMPTS={general:'You are a helpful assistant. Be concise and accurate.',coding:'You are an expert software engineer. Provide working, well-commented code with error handling.',writing:'You are a professional editor. Improve clarity while preserving the author\\\'s voice.',documents:'You are a document analyst. Extract information accurately. Flag ambiguity clearly.',api:'You are a helpful assistant.'};
 
-    function initSearch() {
-      var input = document.getElementById('model-search');
-      var dropdown = document.getElementById('model-dropdown');
-      input.addEventListener('input', function() {
-        var q = input.value.toLowerCase().trim();
-        dropdown.style.display = 'none';
-        if (!q) return;
-        var results = allModels.filter(function(m) {
-          return m.name.toLowerCase().includes(q) || (m.ollamaTag || '').toLowerCase().includes(q) || (m.id || '').toLowerCase().includes(q);
-        }).slice(0, 8);
-        if (results.length === 0) return;
-        dropdown.innerHTML = results.map(function(m) {
-          return '<div class="dropdown-item" data-id="' + m.id + '"><strong>' + m.name + '</strong><span>' + m.ollamaTag + '</span></div>';
-        }).join('');
-        dropdown.style.display = 'block';
-      });
-      dropdown.addEventListener('click', function(e) {
-        var item = e.target.closest('.dropdown-item');
-        if (!item) return;
-        pickModel(item.dataset.id);
-        dropdown.style.display = 'none';
-        input.value = '';
-      });
-      document.addEventListener('click', function(e) {
-        if (!e.target.closest('.model-picker')) dropdown.style.display = 'none';
-      });
+    function getTag(m,q){
+      if(!m.quantVariants||!m.quantVariants.length)return m.ollamaTag;
+      const s=q==='high'?'q8':q==='small'?'q2':'q4';
+      const v=m.quantVariants.find(v=>v.tag&&v.tag.toLowerCase().includes(s));
+      return v?v.tag:m.ollamaTag;
     }
 
-    function pickModel(id) {
-      selectedModel = allModels.find(function(m) { return m.id === id; });
-      if (!selectedModel) return;
-      var display = document.getElementById('selected-display');
-      display.style.display = 'inline-flex';
-      display.innerHTML = 'Selected: <span>' + selectedModel.name + '</span> (' + selectedModel.ollamaTag + ')';
-      document.getElementById('gen-btn').disabled = false;
+    function genCommands(){
+      if(!selModel)return;
+      const q=document.getElementById('quality').value;
+      const uc=document.getElementById('usecase').value;
+      const tag=getTag(selModel,q);
+      const sp=SYS_PROMPTS[uc];
+      const mf='FROM '+tag+'\nSYSTEM "'+sp+'"\nPARAMETER temperature '+(uc==='coding'?'0.2':'0.7')+'\nPARAMETER num_ctx 4096';
+      const out=document.getElementById('out');
+      out.style.display='block';
+      out.innerHTML='<div class="cmd-tag">'+selModel.name+' · '+uc+' · '+(q==='high'?'Q8':q==='small'?'Q2':'Q4_K_M')+'</div>'+
+        '<div class="cmd-block"><h3>1. Pull Command</h3><pre><code>ollama pull '+tag+'</code></pre><button class="cpy-btn" onclick="cpy(this,\'ollama pull '+tag+'\')">Copy</button></div>'+
+        '<div class="cmd-block"><h3>2. Run Command</h3><pre><code>ollama run '+tag+'</code></pre><button class="cpy-btn" onclick="cpy(this,\'ollama run '+tag+'\')">Copy</button></div>'+
+        '<div class="cmd-block"><h3>3. API Server</h3><pre><code>ollama serve</code></pre><p style="font-size:.82rem;color:var(--text-secondary)">API at <code>http://localhost:11434</code></p><button class="cpy-btn" onclick="cpy(this,\'ollama serve\')">Copy</button></div>'+
+        '<div class="cmd-block"><h3>4. Custom Modelfile</h3><pre><code>'+mf.replace(/</g,'&lt;').replace(/>/g,'&gt;')+'</code></pre><p style="font-size:.82rem;color:var(--text-secondary)">Save as <code>Modelfile</code>, run: <code>ollama create my-assistant -f Modelfile</code></p><button class="cpy-btn" onclick="cpy(this,\''+mf.replace(/\\/g,'\\\\').replace(/'/g,"\\'")+'\')">Copy Modelfile</button></div>'+
+        '<div class="cmd-block"><h3>5. curl API Call</h3><pre><code>curl http://localhost:11434/api/generate -d \'{"model":"'+tag+'","prompt":"Hello","stream":false}\'</code></pre><button class="cpy-btn" onclick="cpy(this,\'curl http://localhost:11434/api/generate -d \\\'{"model":"'+tag+'","prompt":"Hello","stream":false}\\\'\')">Copy</button></div>'+
+        (uc==='api'?'<div class="cmd-block"><h3>6. OpenAI-Compatible Endpoint</h3><pre><code>curl http://localhost:11434/v1/chat/completions -H "Content-Type: application/json" -d \'{"model":"'+tag+'","messages":[{"role":"user","content":"Hello"}]}\'</code></pre><button class="cpy-btn" onclick="cpy(this,\'curl http://localhost:11434/v1/chat/completions -H "Content-Type: application/json" -d \\\'{"model":"'+tag+'","messages":[{"role":"user","content":"Hello"}]}\\\'\')">Copy</button><p style="font-size:.8rem;color:var(--text-secondary);margin-top:.4rem">Base URL: <code>http://localhost:11434/v1</code></p></div>':'');
+      out.scrollIntoView({behavior:'smooth'});
     }
 
-    function getOllamaTag(model, quantPref) {
-      if (!model.quantVariants || !model.quantVariants.length) return model.ollamaTag;
-      if (quantPref === 'quality') {
-        var vq = model.quantVariants.find(function(v) { return v.tag && v.tag.toLowerCase().includes('q8'); });
-        return vq ? vq.tag : model.ollamaTag;
-      }
-      if (quantPref === 'small') {
-        var vs = model.quantVariants.find(function(v) { return v.tag && v.tag.toLowerCase().includes('q2'); });
-        return vs ? vs.tag : model.ollamaTag;
-      }
-      return model.ollamaTag;
-    }
-
-    function getSystemPrompt(useCase) {
-      var templates = {
-        general: 'You are a helpful assistant. Be concise and accurate.',
-        coding: 'You are an expert software engineer. Provide working, well-commented code. Always include error handling.',
-        writing: 'You are a professional editor. Improve clarity while preserving the author\'s voice.',
-        documents: 'You are a document analyst. Extract information accurately. Flag ambiguity clearly.',
-        api: 'You are a helpful assistant.'
-      };
-      return templates[useCase] || templates.general;
-    }
-
-    function generateCommands() {
-      if (!selectedModel) return;
-      var quantPref = document.getElementById('quant-pref').value;
-      var useCase = document.getElementById('use-case').value;
-      var tag = getOllamaTag(selectedModel, quantPref);
-      var systemPrompt = getSystemPrompt(useCase);
-      var modelfile = 'FROM ' + tag + '\nSYSTEM "' + systemPrompt + '"\nPARAMETER temperature ' + (useCase === 'coding' ? '0.2' : '0.7') + '\nPARAMETER num_ctx 4096';
-      var output = document.getElementById('commands-output');
-      output.style.display = 'block';
-
-      var apiNote = useCase === 'api' ? '<div class="cmd-block"><h3>6. OpenAI-Compatible Endpoint</h3><pre><code>curl http://localhost:11434/v1/chat/completions \\\n  -H "Content-Type: application/json" \\\n  -d \'{"model":"' + tag + '","messages":[{"role":"user","content":"Hello"}]}\'</code></pre><div class="api-note">Set base URL to <code>http://localhost:11434/v1</code> when using OpenAI SDK with Ollama.</div></div>' : '';
-
-      output.innerHTML =
-        '<div class="cmd-block"><h3>1. Download the model</h3><pre><code>ollama pull ' + tag + '</code></pre><button class="cmd-copy-btn" onclick="copyCmd(this, \'ollama pull ' + tag + '\')">Copy</button></div>' +
-        '<div class="cmd-block"><h3>2. Run in terminal</h3><pre><code>ollama run ' + tag + '</code></pre><button class="cmd-copy-btn" onclick="copyCmd(this, \'ollama run ' + tag + '\')">Copy</button></div>' +
-        '<div class="cmd-block"><h3>3. Start API server</h3><pre><code>ollama serve</code></pre><p>API available at: <code>http://localhost:11434</code></p><button class="cmd-copy-btn" onclick="copyCmd(this, \'ollama serve\')">Copy</button></div>' +
-        '<div class="cmd-block"><h3>4. Custom Modelfile (system prompt for ' + useCase + ')</h3><pre><code>' + modelfile.replace(/</g, '<').replace(/>/g, '>') + '</code></pre><button class="cmd-copy-btn" onclick="copyCmd(this, \'' + modelfile.replace(/\\/g, '\\\\').replace(/'/g, "\\'") + '\')">Copy Modelfile</button><p>Save as <code>Modelfile</code>, then run: <code>ollama create my-assistant -f Modelfile</code></p></div>' +
-        '<div class="cmd-block"><h3>5. API call example (curl)</h3><pre><code>curl http://localhost:11434/api/generate -d \'{"model":"' + tag + '","prompt":"Hello, how are you?","stream":false}\'</code></pre><button class="cmd-copy-btn" onclick="copyCmd(this, \'curl http://localhost:11434/api/generate -d \\\'{"model":"' + tag + '","prompt":"Hello","stream":false}\\\'\')">Copy</button></div>' +
-        apiNote +
-        '<p style="font-size:.85rem;color:var(--text-secondary);margin-top:1rem">Replace <code>localhost:11434</code> with your server IP if accessing remotely.</p>';
-      output.scrollIntoView({ behavior: 'smooth' });
-      plausible('commands_generated', { props: { model: selectedModel.id, useCase: useCase } });
-    }
-
-    function copyCmd(btn, text) {
-      navigator.clipboard.writeText(text).then(function() {
+    function cpy(btn,txt){
+      navigator.clipboard.writeText(txt).then(function(){
         btn.classList.add('copied');
-        var orig = btn.textContent;
-        btn.textContent = '✓ Copied';
-        setTimeout(function() { btn.classList.remove('copied'); btn.textContent = orig; }, 2000);
+        var o=btn.textContent;btn.textContent='✓ Copied';
+        setTimeout(function(){btn.classList.remove('copied');btn.textContent=o;},2000);
       });
     }
-
-    fetch('data/models.json').then(function(r) { return r.json(); }).then(function(data) {
-      allModels = data.models || [];
-      initSearch();
-    });
   </script>
   <script src="shared.js"></script>
   <script src="analytics.js"></script>

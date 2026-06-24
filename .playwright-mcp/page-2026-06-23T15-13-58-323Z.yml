@@ -1,0 +1,37 @@
+- main [ref=e2]:
+  - link "← Get your personalized setup" [ref=e3] [cursor=pointer]:
+    - /url: /
+  - heading "Local AI Model Leaderboard" [level=1] [ref=e4]
+  - paragraph [ref=e5]: Community-powered rankings based on real recommendations and success reports. Data updates as more users contribute.
+  - generic [ref=e6]:
+    - button "Most Recommended" [ref=e7] [cursor=pointer]
+    - button "Highest Success" [ref=e8] [cursor=pointer]
+    - button "By Goal" [ref=e9] [cursor=pointer]
+  - table [ref=e12]:
+    - rowgroup [ref=e13]:
+      - row "# Model Recommendations" [ref=e14]:
+        - columnheader "#" [ref=e15]
+        - columnheader "Model" [ref=e16]
+        - columnheader "Recommendations" [ref=e17]
+    - rowgroup [ref=e18]:
+      - row "1 llama3.2:1b 6" [ref=e19]:
+        - cell "1" [ref=e20]
+        - cell "llama3.2:1b" [ref=e21]:
+          - strong [ref=e22]: llama3.2:1b
+        - cell "6" [ref=e23]
+      - row "2 qwen2.5:7b 4" [ref=e24]:
+        - cell "2" [ref=e25]
+        - cell "qwen2.5:7b" [ref=e26]:
+          - strong [ref=e27]: qwen2.5:7b
+        - cell "4" [ref=e28]
+      - row "3 deepseek-r1:8b 1" [ref=e29]:
+        - cell "3" [ref=e30]
+        - cell "deepseek-r1:8b" [ref=e31]:
+          - strong [ref=e32]: deepseek-r1:8b
+        - cell "1" [ref=e33]
+  - paragraph [ref=e34]: Leaderboard data comes from users who share their setups and success reports. The more people use the wizard, the more accurate these rankings become.
+  - generic [ref=e35]:
+    - heading "Not sure which model fits you?" [level=2] [ref=e36]
+    - paragraph [ref=e37]: Tell us about your hardware and what you want to do. Get a personalized recommendation in under 60 seconds.
+    - link "Find Your Model" [ref=e38] [cursor=pointer]:
+      - /url: /

@@ -4,66 +4,28 @@
       "fromTier": "no-gpu",
       "toTier": "budget-gpu",
       "recommendedGPUs": [
-        { "name": "RTX 3060 6GB", "vram": "6GB", "approxPriceUSD": 150, "used": true, "notes": "Best used value for local AI" },
-        { "name": "RTX 3050 8GB", "vram": "8GB", "approxPriceUSD": 200, "used": false, "notes": "New card, good VRAM for price" },
-        { "name": "RX 6600", "vram": "8GB", "approxPriceUSD": 140, "used": true, "notes": "AMD alternative, good Linux support" }
+        { "name": "RTX 3060 12GB", "vram": "12GB", "approxPriceUSD": 250, "used": true, "notes": "Best VRAM per dollar in 2026 used market" },
+        { "name": "RTX 3050 8GB", "vram": "8GB", "approxPriceUSD": 200, "used": false, "notes": "Good new entry point" },
+        { "name": "RX 6600 8GB", "vram": "8GB", "approxPriceUSD": 140, "used": true, "notes": "AMD alternative, great Linux support" }
       ],
-      "unlocks": ["qwen2.5:7b on GPU", "Full 7B model acceleration", "10-20x speed increase vs CPU"],
-      "estimatedSpeedup": "10-20x faster inference"
+      "unlocks": ["Qwen 2.5 7B fully on GPU", "10–20x faster inference vs CPU", "Full 7B–14B model support"],
+      "estimatedSpeedup": "10–20x faster than CPU-only"
     },
     {
       "fromTier": "budget-gpu",
-      "toTier": "mid-gpu",
+      "toTier": "power-gpu",
       "recommendedGPUs": [
-        { "name": "RTX 3060 12GB", "vram": "12GB", "approxPriceUSD": 250, "used": true, "notes": "Best VRAM per dollar in 2026" },
-        { "name": "RTX 4060 Ti 16GB", "vram": "16GB", "approxPriceUSD": 400, "used": false, "notes": "16GB new, future-proof" },
-        { "name": "RTX 3070 Ti", "vram": "8GB", "approxPriceUSD": 280, "used": true, "notes": "Faster but less VRAM" }
+        { "name": "RTX 3090 24GB", "vram": "24GB", "approxPriceUSD": 600, "used": true, "notes": "24GB VRAM king of used market" },
+        { "name": "RTX 4080 16GB", "vram": "16GB", "approxPriceUSD": 750, "used": false, "notes": "Fastest mid-high new option" },
+        { "name": "RTX 4090 24GB", "vram": "24GB", "approxPriceUSD": 1600, "used": false, "notes": "Best overall, highest cost" }
       ],
-      "unlocks": ["qwen2.5:14b at Q4", "phi4:14b", "Larger context windows", "Faster 7B inference"],
-      "estimatedSpeedup": "Additional 2-3x vs budget GPU"
-    },
-    {
-      "fromTier": "mid-gpu",
-      "toTier": "high-end-gpu",
-      "recommendedGPUs": [
-        { "name": "RTX 3090", "vram": "24GB", "approxPriceUSD": 600, "used": true, "notes": "24GB VRAM king of used market" },
-        { "name": "RTX 4080 16GB", "vram": "16GB", "approxPriceUSD": 750, "used": false, "notes": "Fastest mid-high option" },
-        { "name": "RTX 4090", "vram": "24GB", "approxPriceUSD": 1600, "used": false, "notes": "Best overall, high cost" }
-      ],
-      "unlocks": ["qwen2.5:32b", "deepseek-r1:32b", "Full 33B models", "Multi-model concurrent"],
-      "estimatedSpeedup": "Additional 2-4x vs mid GPU"
+      "unlocks": ["Qwen 2.5 32B", "DeepSeek R1 32B", "Devstral 22B", "Full 32B+ models"],
+      "estimatedSpeedup": "2–4x vs budget GPU on same model"
     }
   ],
   "ramUpgrades": [
-    {
-      "fromGb": 8,
-      "toGb": 16,
-      "approxPriceUSD": 35,
-      "unlocks": ["qwen2.5:7b on CPU-only", "Better CPU offloading", "Smoother multitasking"],
-      "notes": "Most impactful single upgrade for laptop users"
-    },
-    {
-      "fromGb": 16,
-      "toGb": 32,
-      "approxPriceUSD": 65,
-      "unlocks": ["qwen2.5:14b with CPU offload", "Large context windows", "Better agent performance"],
-      "notes": "Recommended for power users"
-    },
-    {
-      "fromGb": 32,
-      "toGb": 64,
-      "approxPriceUSD": 120,
-      "unlocks": ["Run multiple models simultaneously", "Full 32B with CPU offload", "Agent workflows"],
-      "notes": "Only needed for advanced use cases"
-    }
+    { "fromGb": 8, "toGb": 16, "approxPriceUSD": 35, "unlocks": ["Qwen 2.5 7B on CPU-only", "Smoother multitasking"], "notes": "Most impactful single upgrade for laptop users" },
+    { "fromGb": 16, "toGb": 32, "approxPriceUSD": 65, "unlocks": ["14B models with CPU offload", "Large context windows"], "notes": "Recommended for power users" }
   ],
-  "storageUpgrades": [
-    {
-      "note": "SSD recommended for model loading speed",
-      "minRecommended": "500GB free",
-      "optimalRecommended": "1TB+ SSD",
-      "approxPriceUSD": 60,
-      "speedImpact": "3-5x faster model loading vs HDD"
-    }
-  ]
+  "storageNote": "SSD recommended. 3–5x faster model loading vs HDD. 500GB+ free space minimum."
 }

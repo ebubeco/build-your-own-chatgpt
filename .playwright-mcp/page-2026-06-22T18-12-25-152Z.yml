@@ -1,0 +1,104 @@
+- main [ref=e2]:
+  - link "← Use the wizard" [ref=e3] [cursor=pointer]:
+    - /url: /
+  - 'heading "How Local AI Works: A Beginner''s Guide" [level=1] [ref=e4]'
+  - paragraph [ref=e6]:
+    - strong [ref=e7]: Running local AI is simpler than you think. Install Ollama, pull a model with one command, and start chatting — all on your own computer, completely free and private.
+  - generic [ref=e8]:
+    - 'heading "Step 1: Install Ollama" [level=2] [ref=e9]'
+    - paragraph [ref=e10]:
+      - link "Ollama" [ref=e11] [cursor=pointer]:
+        - /url: https://ollama.com/download
+      - text: is a free, open-source tool that makes running local AI as simple as installing any other app. Download the installer for Windows, macOS, or Linux, run it, and Ollama runs in the background as a system service.
+    - generic [ref=e12]:
+      - generic [ref=e13]: One command install (macOS/Linux)
+      - generic [ref=e14]: curl -fsSL https://ollama.com/install.sh | sh
+  - generic [ref=e15]:
+    - 'heading "Step 2: Pull a Model" [level=2] [ref=e16]'
+    - paragraph [ref=e17]: "Once Ollama is installed, open a terminal and pull a model. Models are identified by name and size tag. For most users, Qwen 2.5 7B is the best starting point:"
+    - generic [ref=e18]:
+      - generic [ref=e19]: Pull a model
+      - generic [ref=e20]: ollama pull qwen2.5:7b
+      - generic [ref=e21]: Download size
+      - generic [ref=e22]: ~4.7GB (takes 2-10 minutes depending on internet speed)
+  - generic [ref=e23]:
+    - 'heading "Step 3: Run Your First Prompt" [level=2] [ref=e24]'
+    - paragraph [ref=e25]: "Start a chat session with the model:"
+    - generic [ref=e26]:
+      - generic [ref=e27]: Run the model
+      - generic [ref=e28]: ollama run qwen2.5:7b
+    - paragraph [ref=e29]:
+      - text: You'll see a
+      - code [ref=e30]: ">>>"
+      - text: prompt. Type your message and press Enter. The model will respond. That's it — you're running local AI!
+  - generic [ref=e31]:
+    - 'heading "Step 4: Integrate with Tools" [level=2] [ref=e32]'
+    - list [ref=e33]:
+      - listitem [ref=e34]:
+        - strong [ref=e35]: "Open WebUI:"
+        - text: A ChatGPT-like web interface that connects to your local Ollama.
+        - code [ref=e36]: docker run -d -p 3000:8080 ghcr.io/open-webui/open-webui:main
+      - listitem [ref=e37]:
+        - strong [ref=e38]: "VS Code + Continue:"
+        - text: Code assistant in your editor. Install the Continue extension and point it to Ollama.
+      - listitem [ref=e39]:
+        - strong [ref=e40]: "MCP Servers:"
+        - text: Connect local models to file systems, databases, and APIs via the Model Context Protocol.
+  - generic [ref=e41]:
+    - heading "Understanding Model Sizes" [level=2] [ref=e42]
+    - table [ref=e44]:
+      - rowgroup [ref=e45]:
+        - row "Model Size Parameters Download RAM Needed Quality" [ref=e46]:
+          - columnheader "Model Size" [ref=e47]
+          - columnheader "Parameters" [ref=e48]
+          - columnheader "Download" [ref=e49]
+          - columnheader "RAM Needed" [ref=e50]
+          - columnheader "Quality" [ref=e51]
+      - rowgroup [ref=e52]:
+        - row "Small 1-3B 1-2 GB 8 GB Basic chat, writing, simple Q&A" [ref=e53]:
+          - cell "Small" [ref=e54]
+          - cell "1-3B" [ref=e55]
+          - cell "1-2 GB" [ref=e56]
+          - cell "8 GB" [ref=e57]
+          - cell "Basic chat, writing, simple Q&A" [ref=e58]
+        - row "Medium 7-8B 4-5 GB 16 GB Coding, analysis, good all-rounder" [ref=e59]:
+          - cell "Medium" [ref=e60]
+          - cell "7-8B" [ref=e61]
+          - cell "4-5 GB" [ref=e62]
+          - cell "16 GB" [ref=e63]
+          - cell "Coding, analysis, good all-rounder" [ref=e64]
+        - row "Large 14-16B 8-10 GB 32 GB Expert reasoning, complex tasks" [ref=e65]:
+          - cell "Large" [ref=e66]
+          - cell "14-16B" [ref=e67]
+          - cell "8-10 GB" [ref=e68]
+          - cell "32 GB" [ref=e69]
+          - cell "Expert reasoning, complex tasks" [ref=e70]
+        - row "X-Large 30-35B 18-22 GB 64 GB Near GPT-4 quality, agent workflows" [ref=e71]:
+          - cell "X-Large" [ref=e72]
+          - cell "30-35B" [ref=e73]
+          - cell "18-22 GB" [ref=e74]
+          - cell "64 GB" [ref=e75]
+          - cell "Near GPT-4 quality, agent workflows" [ref=e76]
+  - generic [ref=e77]:
+    - heading "Frequently Asked Questions" [level=2] [ref=e78]
+    - generic [ref=e79]:
+      - generic [ref=e80]:
+        - heading "Is Ollama really free?" [level=3] [ref=e81]
+        - paragraph [ref=e83]: Yes. Ollama is open source and completely free. All models on Ollama's library are free to download and use. No subscription, no API fees, no usage limits. You only pay for your electricity.
+      - generic [ref=e84]:
+        - heading "How long does it take to download a model?" [level=3] [ref=e85]
+        - paragraph [ref=e87]: A 7B model (~4.7GB) takes 2-10 minutes on a typical broadband connection. A 14B model (~9GB) takes 5-20 minutes. You only download once — after that, the model is cached locally and works offline.
+      - generic [ref=e88]:
+        - heading "Can I use local AI with VS Code?" [level=3] [ref=e89]
+        - paragraph [ref=e91]:
+          - text: Yes. Install the Continue extension in VS Code, configure it to point at your local Ollama instance (
+          - code [ref=e92]: http://localhost:11434
+          - text: ), and you get AI code completion, chat, and refactoring — all running locally with zero API calls.
+      - generic [ref=e93]:
+        - heading "What is the best first model to try?" [level=3] [ref=e94]
+        - paragraph [ref=e96]: Qwen 2.5 7B is the best starting point for most people. It runs on 16GB RAM, downloads in ~5 minutes, and delivers excellent quality for chat, coding, and writing. For 8GB laptops, start with Phi-4 Mini 3.8B.
+  - generic [ref=e97]:
+    - heading "What Model Should You Use?" [level=2] [ref=e98]
+    - paragraph [ref=e99]: Not sure which model fits your hardware? Get a personalized recommendation.
+    - link "Find My Model" [ref=e100] [cursor=pointer]:
+      - /url: /

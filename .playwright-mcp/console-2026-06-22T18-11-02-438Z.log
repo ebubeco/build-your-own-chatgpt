@@ -1,0 +1,12 @@
+[      50ms] [LOG] [Analytics] wizard_started  @ http://localhost:3333/analytics.js:39
+[      53ms] [WARNING] Ignoring Event: localhost @ https://plausible.io/js/pa-DBTdINzLX2L2B_fXJF0u1.js:0
+[      54ms] [WARNING] Ignoring Event: localhost @ https://plausible.io/js/pa-DBTdINzLX2L2B_fXJF0u1.js:0
+[      65ms] [WARNING] Ignoring Event: localhost @ https://plausible.io/js/pa-DBTdINzLX2L2B_fXJF0u1.js:0
+[      65ms] [LOG] [Analytics] cloud_fallback_triggered {reason: weak_hardware, tier: power-gpu, goal: agents} @ http://localhost:3333/analytics.js:39
+[      67ms] [WARNING] Ignoring Event: localhost @ https://plausible.io/js/pa-DBTdINzLX2L2B_fXJF0u1.js:0
+[      67ms] [LOG] [Analytics] Result Shown {model: deepseek-r1-8b, goal: agents, tier: power-gpu} @ http://localhost:3333/analytics.js:39
+[      70ms] [WARNING] Ignoring Event: localhost @ https://plausible.io/js/pa-DBTdINzLX2L2B_fXJF0u1.js:0
+[      70ms] [LOG] [Analytics] recommendation_generated {model: deepseek-r1:8b, goal: agents, hardware: power-gpu, hasCloudFallback: true} @ http://localhost:3333/analytics.js:39
+[      72ms] [WARNING] Ignoring Event: localhost @ https://plausible.io/js/pa-DBTdINzLX2L2B_fXJF0u1.js:0
+[      72ms] [LOG] [Analytics] recommendation_generated {model: deepseek-r1:8b, goal: agents, hardware: power-gpu, confidence: 10} @ http://localhost:3333/analytics.js:39
+[     525ms] [ERROR] Failed to load resource: net::ERR_NAME_NOT_RESOLVED @ https://fxeygjmygxnirvsrndaa.supabase.co/rest/v1/recommendations:0

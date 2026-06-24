@@ -69,7 +69,7 @@
       "aliases": ["LLM", "Language Model"],
       "simpleDefinition": "The AI brain. It's a very large file of math that has learned to understand and generate text from reading billions of pages of the internet.",
       "detailedDefinition": "A language model is a neural network trained on text data. After training on massive datasets, it can understand questions and generate responses. 'Local AI' means running this model on YOUR computer instead of paying a company to run it for you.",
-      "example": "Qwen 3 7B is a model. GPT-4 is a model. The difference is: one runs on your machine, one runs on OpenAI's servers.",
+      "example": "Qwen 2.5 7B is a model. GPT-4 is a model. The difference is: one runs on your machine, one runs on OpenAI's servers.",
       "beginnerTip": "Think of a model like a person who has read a lot and can answer questions. Smaller models are like enthusiastic interns. Larger models are like experts."
     },
     {

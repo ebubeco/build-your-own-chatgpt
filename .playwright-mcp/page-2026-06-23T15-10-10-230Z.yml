@@ -1,0 +1,805 @@
+- generic [active] [ref=e1]:
+  - navigation "Site navigation" [ref=e2]:
+    - generic [ref=e4]:
+      - generic [ref=e5]: 🤖 Build Your Own ChatGPT
+      - generic [ref=e6]:
+        - link "Compare Models" [ref=e7] [cursor=pointer]:
+          - /url: compare.html
+        - link "Which AI" [ref=e8] [cursor=pointer]:
+          - /url: which-ai.html
+        - link "Careers" [ref=e9] [cursor=pointer]:
+          - /url: career.html
+        - button "Toggle light/dark mode" [ref=e10] [cursor=pointer]:
+          - generic [ref=e11]: 🌙
+          - generic [ref=e12]: Dark mode
+  - banner [ref=e13]:
+    - generic [ref=e14]:
+      - generic [ref=e16]: Free · Private · Works offline
+      - heading "Build Your Own ChatGPT" [level=1] [ref=e17]
+      - paragraph [ref=e18]: From a beat-up 2014 laptop to a shiny gaming rig, whatever you're working with, we'll get a private AI running on it. No cloud, no subscription, your data stays on your machine.
+  - main [ref=e19]:
+    - generic [ref=e20]:
+      - generic [ref=e22]:
+        - generic [ref=e23]:
+          - button "Share My Setup" [ref=e24] [cursor=pointer]
+          - button "Copy result link" [ref=e25] [cursor=pointer]
+          - button "Copy Setup" [ref=e26] [cursor=pointer]
+          - button "Show install code (developers)" [ref=e27] [cursor=pointer]
+        - generic [ref=e29]:
+          - generic [ref=e30]:
+            - generic [ref=e31]: Your AI Readiness
+            - generic [ref=e32]: 4/10
+            - generic [ref=e33]: Local AI will be slow on this setup - but it's possible.
+          - generic [ref=e34]:
+            - generic [ref=e36]: chat
+            - generic [ref=e40]: writing
+            - generic [ref=e44]: coding
+            - generic [ref=e48]: reasoning
+            - generic [ref=e52]: agents
+        - generic [ref=e55]:
+          - heading "What you can do with local AI" [level=3] [ref=e57]
+          - generic [ref=e58]:
+            - generic [ref=e59]: ✓ Can Run Well
+            - generic [ref=e61]:
+              - generic [ref=e62]: 💬
+              - generic [ref=e63]: Private ChatGPT
+              - generic [ref=e64]: Good
+          - generic [ref=e65]:
+            - generic [ref=e66]: ⚠ Can Run Slowly
+            - generic [ref=e68]:
+              - generic [ref=e69]: ✍️
+              - generic [ref=e70]: Writing
+              - generic [ref=e71]: Basic assistance
+          - generic [ref=e72]:
+            - generic [ref=e73]: ✗ Not Recommended
+            - generic [ref=e74]:
+              - generic [ref=e75]:
+                - generic [ref=e76]: 🦙
+                - generic [ref=e77]: 70B+ Models
+                - generic [ref=e78]: Needs 14GB+ VRAM
+              - generic [ref=e79]:
+                - generic [ref=e80]: 👁️
+                - generic [ref=e81]: Real-time Vision
+                - generic [ref=e82]: Needs dedicated GPU
+              - generic [ref=e83]:
+                - generic [ref=e84]: 🧠
+                - generic [ref=e85]: Large Agent Swarms
+                - generic [ref=e86]: Needs more memory
+        - generic [ref=e87]:
+          - text: 🚀
+          - generic [ref=e88]: Want better performance?
+          - generic [ref=e89]:
+            - generic [ref=e90]:
+              - generic [ref=e91]: Current score
+              - generic [ref=e92]: 4/10
+            - generic [ref=e93]: →
+            - generic [ref=e94]:
+              - generic [ref=e95]: Projected score
+              - generic [ref=e96]: 6/10
+          - generic [ref=e97]:
+            - generic [ref=e98]: Suggested upgrade
+            - generic [ref=e99]: Add a budget GPU (GTX 1660, used RTX 3060)
+          - paragraph [ref=e100]: Even a small GPU makes a big difference
+          - generic [ref=e101]:
+            - generic [ref=e102]: What you'd unlock
+            - list [ref=e103]:
+              - listitem [ref=e104]: ✓ GPU-accelerated models
+              - listitem [ref=e105]: ✓ Better chat & writing
+              - listitem [ref=e106]: ✓ Coding basics
+          - generic [ref=e107]:
+            - generic [ref=e108]: "Models you could run:"
+            - generic [ref=e109]: Qwen2.5:7B
+            - generic [ref=e110]: Phi-4-mini
+        - generic [ref=e111]:
+          - generic [ref=e112]: Your hardware can't run a model large enough for documents.
+          - generic [ref=e113]:
+            - heading "MiniMax-M3" [level=4] [ref=e114]
+            - paragraph [ref=e115]: 1,049,000 tokens — largest free context window available
+            - link "Get $1 starter credit →" [ref=e116] [cursor=pointer]:
+              - /url: https://siliconflow.cn
+          - generic [ref=e117]:
+            - paragraph [ref=e118]: "Alternatives:"
+            - list [ref=e119]:
+              - listitem [ref=e120]:
+                - link "Gemini 2.5 Flash" [ref=e121] [cursor=pointer]:
+                  - /url: https://aistudio.google.com
+                  - strong [ref=e122]: Gemini 2.5 Flash
+                - text: — 1,000,000 tokens · 1,500 req/day
+              - listitem [ref=e123]:
+                - link "Llama 4 Maverick" [ref=e124] [cursor=pointer]:
+                  - /url: https://openrouter.ai
+                  - strong [ref=e125]: Llama 4 Maverick
+                - text: — 1,000,000 tokens · OpenRouter
+        - generic [ref=e126]:
+          - heading "Also worth considering" [level=3] [ref=e127]
+          - generic [ref=e128]:
+            - generic [ref=e129]:
+              - generic [ref=e130]:
+                - generic [ref=e131]: SmolLM2
+                - generic [ref=e132]: 1.7B
+              - paragraph [ref=e133]: Best for coding
+              - generic [ref=e134]: ollama pull smollm2:1.7b
+            - generic [ref=e135]:
+              - generic [ref=e136]:
+                - generic [ref=e137]: Qwen
+                - generic [ref=e138]: 0.5B
+              - paragraph [ref=e139]: Best for quality
+              - generic [ref=e140]: ollama pull qwen2.5:0.5b
+        - generic [ref=e141]:
+          - generic [ref=e142]: Want to explore more options?
+          - link "View Free AI Models Compendium →" [ref=e143] [cursor=pointer]:
+            - /url: "#"
+        - generic [ref=e144]:
+          - paragraph [ref=e145]: Did this setup work?
+          - generic [ref=e146]:
+            - button "👍 Yes" [ref=e147] [cursor=pointer]
+            - button "🤷 Partially" [ref=e148] [cursor=pointer]
+            - button "👎 No" [ref=e149] [cursor=pointer]
+        - generic [ref=e150]:
+          - paragraph [ref=e151]: Was anything confusing?
+          - generic [ref=e152]:
+            - button "Wrong Recommendation" [ref=e153] [cursor=pointer]
+            - button "Too Technical" [ref=e154] [cursor=pointer]
+            - button "Hardware Missing" [ref=e155] [cursor=pointer]
+            - button "Model Missing" [ref=e156] [cursor=pointer]
+            - button "Confusing" [ref=e157] [cursor=pointer]
+            - button "Other" [ref=e158] [cursor=pointer]
+          - textbox "Tell us more (optional)..." [ref=e159]
+          - button "Submit" [ref=e160] [cursor=pointer]
+      - generic [ref=e162]:
+        - heading "What best describes you?" [level=2] [ref=e163]
+        - paragraph [ref=e164]: Your career helps us recommend models suited to your daily work.
+        - button "Skip — not sure what I do" [ref=e166] [cursor=pointer]
+      - generic [ref=e168] [cursor=pointer]:
+        - checkbox "Explain jargon in plain English" [checked] [ref=e169]
+        - generic [ref=e170]: Explain jargon in plain English
+      - separator [ref=e171]
+      - generic [ref=e172]:
+        - paragraph [ref=e173]: Cloud AI - zero hardware
+        - heading "Run powerful AI without a GPU" [level=2] [ref=e174]
+        - paragraph [ref=e175]: No compatible hardware? Use free cloud AI instead. Pick a tool below, follow the steps, and start chatting in 5 minutes. No credit card needed.
+        - generic [ref=e176]:
+          - generic [ref=e177]: Connect in 5 minutes
+          - paragraph [ref=e178]: Choose how you want to connect. All free, no credit card.
+          - generic [ref=e179]:
+            - button "Use with Ollama" [ref=e180] [cursor=pointer]
+            - button "Use with LM Studio" [ref=e181] [cursor=pointer]
+            - button "Use with OpenCode" [ref=e182] [cursor=pointer]
+            - button "Developer (Python)" [ref=e183] [cursor=pointer]
+          - generic [ref=e184]:
+            - generic [ref=e185]:
+              - text: These free cloud providers work with Ollama. Once set up, you use the same
+              - code [ref=e186]: ollama run
+              - text: commands you already know. The model just runs on the cloud instead of your machine.
+            - generic [ref=e187]:
+              - generic [ref=e188]:
+                - generic [ref=e189]:
+                  - generic [ref=e190]: Groq
+                  - generic [ref=e191]: Fastest free AI
+                - generic [ref=e192]: 1,000+ tokens/sec. No credit card. Best for real-time chat.
+                - generic [ref=e193]:
+                  - generic [ref=e194]:
+                    - generic [ref=e195]: "1"
+                    - generic [ref=e196]:
+                      - text: Go to
+                      - strong [ref=e197]: console.groq.com
+                      - text: → click "Sign Up" → use Google or email
+                  - generic [ref=e198]:
+                    - generic [ref=e199]: "2"
+                    - generic [ref=e200]:
+                      - text: Go to
+                      - strong [ref=e201]: console.groq.com/keys
+                      - text: → click "Create API Key" → copy it
+                  - generic [ref=e202]:
+                    - generic [ref=e203]: "3"
+                    - generic [ref=e204]:
+                      - text: Create a file named
+                      - code [ref=e205]: Modelfile
+                      - text: "with this content:"
+                  - generic [ref=e206]: FROM openai/chat BASE_URL https://api.groq.com/openai/v1 API_KEY gsk_your_key_here
+                  - generic [ref=e207]:
+                    - generic [ref=e208]: "4"
+                    - generic [ref=e209]: "Run these commands in your terminal:"
+                  - generic [ref=e210]: ollama create groq-llama -f Modelfile ollama run groq-llama
+                  - generic [ref=e211]:
+                    - generic [ref=e212]: "5"
+                    - generic [ref=e213]: That's it. Chat with Llama 3.1 8B at ~1,000 tokens per second.
+              - generic [ref=e214]:
+                - generic [ref=e215]:
+                  - generic [ref=e216]: OpenRouter
+                  - generic [ref=e217]: Most free models
+                - generic [ref=e218]: 27+ free models. Auto-switches when one hits limits.
+                - generic [ref=e219]:
+                  - generic [ref=e220]:
+                    - generic [ref=e221]: "1"
+                    - generic [ref=e222]:
+                      - text: Go to
+                      - strong [ref=e223]: openrouter.ai
+                      - text: → click "Sign In" → create account
+                  - generic [ref=e224]:
+                    - generic [ref=e225]: "2"
+                    - generic [ref=e226]:
+                      - text: Go to
+                      - strong [ref=e227]: openrouter.ai/keys
+                      - text: → click "Create Key" → copy it
+                  - generic [ref=e228]:
+                    - generic [ref=e229]: "3"
+                    - generic [ref=e230]:
+                      - text: Create a file named
+                      - code [ref=e231]: Modelfile
+                      - text: "with this content:"
+                  - generic [ref=e232]: FROM openai/chat BASE_URL https://openrouter.ai/api/v1 API_KEY sk-or-v1_your_key_here
+                  - generic [ref=e233]:
+                    - generic [ref=e234]: "4"
+                    - generic [ref=e235]: "Run these commands in your terminal:"
+                  - generic [ref=e236]: ollama create or-deepseek -f Modelfile ollama run or-deepseek
+                  - generic [ref=e237]:
+                    - generic [ref=e238]: "5"
+                    - generic [ref=e239]: You're now chatting with DeepSeek R1 or any free model through Ollama.
+              - generic [ref=e240]:
+                - generic [ref=e241]:
+                  - generic [ref=e242]: Google AI Studio
+                  - generic [ref=e243]: Longest context
+                - generic [ref=e244]: 1 million token context. Gemini 2.5 Flash, no credit card.
+                - generic [ref=e245]:
+                  - generic [ref=e246]:
+                    - generic [ref=e247]: "1"
+                    - generic [ref=e248]:
+                      - text: Go to
+                      - strong [ref=e249]: aistudio.google.com
+                      - text: → sign in with Google account
+                  - generic [ref=e250]:
+                    - generic [ref=e251]: "2"
+                    - generic [ref=e252]:
+                      - text: Go to
+                      - strong [ref=e253]: aistudio.google.com/app/api-keys
+                      - text: → click "Create API Key" → copy it
+                  - generic [ref=e254]:
+                    - generic [ref=e255]: "3"
+                    - generic [ref=e256]:
+                      - text: Create a file named
+                      - code [ref=e257]: Modelfile
+                      - text: "with this content:"
+                  - generic [ref=e258]: FROM openai/chat BASE_URL https://generativelanguage.googleapis.com/v1beta API_KEY your_google_key_here
+                  - generic [ref=e259]:
+                    - generic [ref=e260]: "4"
+                    - generic [ref=e261]: "Run these commands in your terminal:"
+                  - generic [ref=e262]: ollama create gemini-flash -f Modelfile ollama run gemini-flash
+                  - generic [ref=e263]:
+                    - generic [ref=e264]: "5"
+                    - generic [ref=e265]: Gemini 2.5 Flash is ready. 1M token context window.
+              - generic [ref=e266]:
+                - generic [ref=e267]:
+                  - generic [ref=e268]: Cerebras
+                  - generic [ref=e269]: ~3,000 tokens/sec
+                - generic [ref=e270]: The fastest free API. Llama 3.1 8B at 3K+ tokens/sec. No credit card.
+                - generic [ref=e271]:
+                  - generic [ref=e272]:
+                    - generic [ref=e273]: "1"
+                    - generic [ref=e274]:
+                      - text: Go to
+                      - strong [ref=e275]: cloud.cerebras.ai
+                      - text: → click "Sign Up" → use Google or email
+                  - generic [ref=e276]:
+                    - generic [ref=e277]: "2"
+                    - generic [ref=e278]:
+                      - text: Go to
+                      - strong [ref=e279]: cloud.cerebras.ai
+                      - text: → find your API key in the dashboard
+                  - generic [ref=e280]:
+                    - generic [ref=e281]: "3"
+                    - generic [ref=e282]:
+                      - text: Create a file named
+                      - code [ref=e283]: Modelfile
+                      - text: "with this content:"
+                  - generic [ref=e284]: FROM openai/chat BASE_URL https://api.cerebras.ai/openai/v1 API_KEY csk_your_key_here
+                  - generic [ref=e285]:
+                    - generic [ref=e286]: "4"
+                    - generic [ref=e287]: "Run these commands in your terminal:"
+                  - generic [ref=e288]: ollama create cerebras-llama -f Modelfile ollama run cerebras-llama
+                  - generic [ref=e289]:
+                    - generic [ref=e290]: "5"
+                    - generic [ref=e291]: Chat with Llama 3.1 8B at 3K+ tokens per second. Blazing fast.
+              - generic [ref=e292]:
+                - generic [ref=e293]:
+                  - generic [ref=e294]: SiliconFlow
+                  - generic [ref=e295]: Free image gen
+                - generic [ref=e296]: Free image and video generation plus text models. Generous free tier.
+                - generic [ref=e297]:
+                  - generic [ref=e298]:
+                    - generic [ref=e299]: "1"
+                    - generic [ref=e300]:
+                      - text: Go to
+                      - strong [ref=e301]: siliconflow.cn
+                      - text: → click "Sign Up" → register with email
+                  - generic [ref=e302]:
+                    - generic [ref=e303]: "2"
+                    - generic [ref=e304]:
+                      - text: Go to
+                      - strong [ref=e305]: siliconflow.cn/en/apikeys
+                      - text: → click "Create API Key" → copy it
+                  - generic [ref=e306]:
+                    - generic [ref=e307]: "3"
+                    - generic [ref=e308]:
+                      - text: Create a file named
+                      - code [ref=e309]: Modelfile
+                      - text: "with this content:"
+                  - generic [ref=e310]: FROM openai/chat BASE_URL https://api.siliconflow.cn/v1 API_KEY your_siliconflow_key_here
+                  - generic [ref=e311]:
+                    - generic [ref=e312]: "4"
+                    - generic [ref=e313]: "Run these commands in your terminal:"
+                  - generic [ref=e314]: ollama create sf-deepseek -f Modelfile ollama run sf-deepseek
+                  - generic [ref=e315]:
+                    - generic [ref=e316]: "5"
+                    - generic [ref=e317]: Chat with DeepSeek R1. Also try their free image generation APIs.
+              - generic [ref=e318]:
+                - generic [ref=e319]:
+                  - generic [ref=e320]: Together AI
+                  - generic [ref=e321]: Most open models
+                - generic [ref=e322]: 100+ open models with a free tier. Llama 3.3 70B, DeepSeek, Qwen, and more.
+                - generic [ref=e323]:
+                  - generic [ref=e324]:
+                    - generic [ref=e325]: "1"
+                    - generic [ref=e326]:
+                      - text: Go to
+                      - strong [ref=e327]: together.ai
+                      - text: → click "Sign Up" → use Google or email
+                  - generic [ref=e328]:
+                    - generic [ref=e329]: "2"
+                    - generic [ref=e330]:
+                      - text: Go to
+                      - strong [ref=e331]: together.ai/api-keys
+                      - text: → click "Create Key" → copy it
+                  - generic [ref=e332]:
+                    - generic [ref=e333]: "3"
+                    - generic [ref=e334]:
+                      - text: Create a file named
+                      - code [ref=e335]: Modelfile
+                      - text: "with this content:"
+                  - generic [ref=e336]: FROM openai/chat BASE_URL https://api.together.xyz/v1 API_KEY your_together_key_here
+                  - generic [ref=e337]:
+                    - generic [ref=e338]: "4"
+                    - generic [ref=e339]: "Run these commands in your terminal:"
+                  - generic [ref=e340]: ollama create together-llama -f Modelfile ollama run together-llama
+                  - generic [ref=e341]:
+                    - generic [ref=e342]: "5"
+                    - generic [ref=e343]: Try Llama 3.3 70B or any of 100+ open models through Ollama.
+              - generic [ref=e344]:
+                - generic [ref=e345]:
+                  - generic [ref=e346]: Fireworks AI
+                  - generic [ref=e347]: Fastest 70B
+                - generic [ref=e348]: Free tier for Llama 3.3 70B and other models. Optimized for low latency.
+                - generic [ref=e349]:
+                  - generic [ref=e350]:
+                    - generic [ref=e351]: "1"
+                    - generic [ref=e352]:
+                      - text: Go to
+                      - strong [ref=e353]: fireworks.ai
+                      - text: → click "Sign Up" → use Google or GitHub
+                  - generic [ref=e354]:
+                    - generic [ref=e355]: "2"
+                    - generic [ref=e356]:
+                      - text: Go to
+                      - strong [ref=e357]: fireworks.ai/api-keys
+                      - text: → click "Create API Key" → copy it
+                  - generic [ref=e358]:
+                    - generic [ref=e359]: "3"
+                    - generic [ref=e360]:
+                      - text: Create a file named
+                      - code [ref=e361]: Modelfile
+                      - text: "with this content:"
+                  - generic [ref=e362]: FROM openai/chat BASE_URL https://api.fireworks.ai/inference/v1 API_KEY your_fireworks_key_here
+                  - generic [ref=e363]:
+                    - generic [ref=e364]: "4"
+                    - generic [ref=e365]: "Run these commands in your terminal:"
+                  - generic [ref=e366]: ollama create fw-llama -f Modelfile ollama run fw-llama
+                  - generic [ref=e367]:
+                    - generic [ref=e368]: "5"
+                    - generic [ref=e369]: Try Llama 3.3 70B at impressive speeds through their optimized infrastructure.
+              - generic [ref=e370]:
+                - generic [ref=e371]:
+                  - generic [ref=e372]: DeepInfra
+                  - generic [ref=e373]: Serverless free tier
+                - generic [ref=e374]: Serverless inference with a free tier. Llama, Mistral, DeepSeek, and more.
+                - generic [ref=e375]:
+                  - generic [ref=e376]:
+                    - generic [ref=e377]: "1"
+                    - generic [ref=e378]:
+                      - text: Go to
+                      - strong [ref=e379]: deepinfra.com
+                      - text: → click "Sign Up" → use Google or email
+                  - generic [ref=e380]:
+                    - generic [ref=e381]: "2"
+                    - generic [ref=e382]:
+                      - text: Go to
+                      - strong [ref=e383]: deepinfra.com/api-keys
+                      - text: → click "Create API Key" → copy it
+                  - generic [ref=e384]:
+                    - generic [ref=e385]: "3"
+                    - generic [ref=e386]:
+                      - text: Create a file named
+                      - code [ref=e387]: Modelfile
+                      - text: "with this content:"
+                  - generic [ref=e388]: FROM openai/chat BASE_URL https://api.deepinfra.com/v1/openai API_KEY your_deepinfra_key_here
+                  - generic [ref=e389]:
+                    - generic [ref=e390]: "4"
+                    - generic [ref=e391]: "Run these commands in your terminal:"
+                  - generic [ref=e392]: ollama create di-llama -f Modelfile ollama run di-llama
+                  - generic [ref=e393]:
+                    - generic [ref=e394]: "5"
+                    - generic [ref=e395]: Try Meta-Llama 3.1 8B or any model on their free tier through Ollama.
+              - generic [ref=e396]:
+                - generic [ref=e397]:
+                  - generic [ref=e398]: Cloudflare Workers AI
+                  - generic [ref=e399]: Edge network
+                - generic [ref=e400]: Run AI on Cloudflare's global edge network. 10K free requests per day.
+                - generic [ref=e401]:
+                  - generic [ref=e402]:
+                    - generic [ref=e403]: "1"
+                    - generic [ref=e404]:
+                      - text: Go to
+                      - strong [ref=e405]: cloudflare.com
+                      - text: → click "Sign Up" → create a free account
+                  - generic [ref=e406]:
+                    - generic [ref=e407]: "2"
+                    - generic [ref=e408]:
+                      - text: Go to
+                      - strong [ref=e409]: dash.cloudflare.com/profile/api-tokens
+                      - text: → create API token with Workers AI permission
+                  - generic [ref=e410]:
+                    - generic [ref=e411]: "3"
+                    - generic [ref=e412]:
+                      - text: Create a file named
+                      - code [ref=e413]: Modelfile
+                      - text: "with this content:"
+                  - generic [ref=e414]: FROM openai/chat BASE_URL https://api.cloudflare.com/client/v4/accounts/YOUR_ACCOUNT_ID/ai/v1 API_KEY your_cf_api_token
+                  - generic [ref=e415]:
+                    - generic [ref=e416]: "4"
+                    - generic [ref=e417]: "Run these commands in your terminal (replace YOUR_ACCOUNT_ID):"
+                  - generic [ref=e418]: ollama create cf-llama -f Modelfile ollama run cf-llama
+                  - generic [ref=e419]:
+                    - generic [ref=e420]: "5"
+                    - generic [ref=e421]: Try Llama 3.3 70B or @cf/meta/llama-3.1-8b-instruct on Cloudflare's edge.
+        - generic [ref=e422]:
+          - generic [ref=e423]:
+            - generic [ref=e424]: Groq
+            - generic "1000+ tokens per second" [ref=e425]: Very fast — near-instant responses
+            - generic [ref=e426]: "The speed king. Groq's LPU hardware pushes Llama 3.1 8B at around 1,000 tokens per second. Fast enough for real-time apps. Good for batch work too: 14,400 requests per day on the free tier."
+            - generic [ref=e427]:
+              - generic [ref=e428]: 1,000+ TPS
+              - generic [ref=e429]: 14,400 req/day
+              - generic [ref=e430]: Whisper included
+            - generic [ref=e431]:
+              - generic [ref=e432]: "Best free models:"
+              - generic [ref=e433]: Llama 3.1 8B Instant
+              - generic [ref=e434]: Llama 3.3 70B
+              - generic [ref=e435]: Qwen3 32B
+              - generic [ref=e436]: Whisper v3 Turbo
+            - generic [ref=e437]:
+              - paragraph [ref=e438]: "Get started:"
+              - list [ref=e439]:
+                - listitem [ref=e440]: Head to console.groq.com
+                - listitem [ref=e441]: Create an account (free, no card)
+                - listitem [ref=e442]: Grab your API key. Takes about 10 seconds.
+                - listitem [ref=e443]: Paste it into any OpenAI-compatible app, or use ChatUI, LibreChat, or Open WebUI
+              - paragraph [ref=e444]: "Great for: high-volume annotation, real-time chat, speech-to-text. The speed advantage is real. It genuinely feels snappier than most local setups."
+          - generic [ref=e445]:
+            - generic [ref=e446]: OpenRouter
+            - generic "200+ tokens per second" [ref=e447]: Moderate — depends on model selected
+            - generic [ref=e448]: Access 27+ models through one standardized API. It also handles automatic failover. If one model hits rate limits, it routes to another. Best for benchmarking and finding the right model for your task.
+            - generic [ref=e449]:
+              - generic [ref=e450]: 27+ free models
+              - generic [ref=e451]: Auto-failover
+              - generic [ref=e452]: Standardized API
+            - generic [ref=e453]:
+              - generic [ref=e454]: "Best free models:"
+              - generic [ref=e455]: DeepSeek R1
+              - generic [ref=e456]: Llama 4 Scout
+              - generic [ref=e457]: Gemini 2.5 Flash
+              - generic [ref=e458]: GLM-4 32B
+              - generic [ref=e459]: Mistral Small 3.1
+              - generic [ref=e460]: DeepSeek Chat v3
+            - generic [ref=e461]:
+              - paragraph [ref=e462]: "Get started:"
+              - list [ref=e463]:
+                - listitem [ref=e464]: Go to openrouter.ai and sign up
+                - listitem [ref=e465]: Navigate to Keys → Create new key
+                - listitem [ref=e466]: Check the free models filter under Models to see what's available
+                - listitem [ref=e467]: Use with any OpenAI-compatible client
+              - paragraph [ref=e468]: "Use `openrouter/free` as your fallback endpoint. It auto-routes to whatever free model is available when others hit limits. 20 requests/min, 200/day."
+          - generic [ref=e469]:
+            - generic [ref=e470]: Google AI Studio
+            - generic "150+ tokens per second" [ref=e471]: Fast — reads faster than you
+            - generic [ref=e472]: Gemini 2.5 Flash is the workhorse here. Native search grounding (it can check facts against Google), Python code execution, 1 million token context window, and solid multimodal support. 1,500 requests per day free.
+            - generic [ref=e473]:
+              - generic [ref=e474]: 1,500 req/day
+              - generic [ref=e475]: 1M context
+              - generic [ref=e476]: Search grounding
+            - generic [ref=e477]:
+              - generic [ref=e478]: "Best free models:"
+              - generic [ref=e479]: Gemini 2.5 Flash
+              - generic [ref=e480]: Gemini 2.5 Pro (50/day)
+              - generic [ref=e481]: Gemini 2.5 Flash-Lite
+            - generic [ref=e482]:
+              - paragraph [ref=e483]: "Get started:"
+              - list [ref=e484]:
+                - listitem [ref=e485]: Visit aistudio.google.com
+                - listitem [ref=e486]: Sign in with any Google account
+                - listitem [ref=e487]: Go to API keys → Create API key
+                - listitem [ref=e488]: Integrate with any Gemini-compatible app
+              - paragraph [ref=e489]: "Best for: long documents, data science, hallucination checking (search grounding is genuinely useful), and nuanced evaluation work. Gemini 2.5 Pro has a tighter limit but better reasoning."
+          - generic [ref=e490]:
+            - generic [ref=e491]: Cerebras
+            - generic "3000+ tokens per second" [ref=e492]: Instant — complete answers in under a second
+            - generic [ref=e493]: Wafer-scale hardware. This is where you go when you need raw throughput. GPT OSS 120B hits around 3,000 tokens per second. Llama 3.1 8B sits at 2,600+ TPS. No other free service comes close on sheer speed.
+            - generic [ref=e494]:
+              - generic [ref=e495]: ~3,000 TPS
+              - generic [ref=e496]: 1M tokens/day
+              - generic [ref=e497]: Wafer-scale speed
+            - generic [ref=e498]:
+              - generic [ref=e499]: "Best free models:"
+              - generic [ref=e500]: GPT OSS 120B
+              - generic [ref=e501]: Llama 3.1 8B
+              - generic [ref=e502]: Qwen3 235B
+              - generic [ref=e503]: GLM 4.7 355B
+            - generic [ref=e504]:
+              - paragraph [ref=e505]: "Get started:"
+              - list [ref=e506]:
+                - listitem [ref=e507]: Go to cerebras.ai and create an account
+                - listitem [ref=e508]: Navigate to API → Get API key
+                - listitem [ref=e509]: Use their SDK or any OpenAI-compatible client
+                - listitem [ref=e510]: Start with Llama 3.1 8B for the fastest responses
+              - paragraph [ref=e511]: For batch annotation. You can process 50,000 audits in minutes. This is the platform to use when Groq's speed still isn't fast enough and you're processing large volumes.
+          - generic [ref=e512]:
+            - generic [ref=e513]: SiliconFlow
+            - generic "100+ tokens per second" [ref=e514]: Moderate — like a fast typist
+            - generic [ref=e515]: 200+ models under one roof, and a $1 free credit to start. The standout is Nex-N2-Pro at effectively $0 per million tokens on the free tier. Supports image and video generation too, like HunyuanVideo, FLUX.1, and Wan2.2.
+            - generic [ref=e516]:
+              - generic [ref=e517]: $1 credit
+              - generic [ref=e518]: 200+ models
+              - generic [ref=e519]: Image + video gen
+            - generic [ref=e520]:
+              - generic [ref=e521]: "Best free models:"
+              - generic [ref=e522]: Nex-N2-Pro ($0/M)
+              - generic [ref=e523]: MiniMax-M3 (1M context)
+              - generic [ref=e524]: DeepSeek-V4-Pro
+              - generic [ref=e525]: DeepSeek-V4-Flash
+              - generic [ref=e526]: FLUX.1 (image)
+              - generic [ref=e527]: HunyuanVideo
+            - generic [ref=e528]:
+              - paragraph [ref=e529]: "Get started:"
+              - list [ref=e530]:
+                - listitem [ref=e531]: Sign up at siliconflow.com
+                - listitem [ref=e532]: Get $1 free credit on signup
+                - listitem [ref=e533]: Browse models and filter by cost to find the free ones
+                - listitem [ref=e534]: API is OpenAI-compatible, works with most clients
+              - paragraph [ref=e535]: "Best for: long-context batch processing, image generation, and video. The $1 credit goes a long way when using the free-tier models. No credit card needed to start."
+          - generic [ref=e536]:
+            - generic [ref=e537]: Ollama Cloud
+            - generic "60+ tokens per second" [ref=e538]: Moderate — depends on GPU availability
+            - generic [ref=e539]: Runs Ollama's model library on cloud GPUs. Same command-line interface you use locally, just with more horsepower. Good for long-horizon agentic tasks that need 1M token context beyond what your local machine can handle.
+            - generic [ref=e540]:
+              - generic [ref=e541]: Same CLI
+              - generic [ref=e542]: Cloud GPU
+              - generic [ref=e543]: 1M context models
+            - generic [ref=e544]:
+              - generic [ref=e545]: "Best free models:"
+              - generic [ref=e546]: minimax-m3 (1M context)
+              - generic [ref=e547]: qwen3.5 variants
+              - generic [ref=e548]: glm-5 744B
+              - generic [ref=e549]: devstral-small-2 24B
+            - generic [ref=e550]:
+              - paragraph [ref=e551]: "Get started:"
+              - list [ref=e552]:
+                - listitem [ref=e553]: Install Ollama locally from ollama.com
+                - listitem [ref=e554]: Sign up for Ollama Cloud at cloud.ollama.com
+                - listitem [ref=e555]: Run cloud models with the same ollama run command
+                - listitem [ref=e556]: Use custom modelfiles to point to cloud endpoints
+              - paragraph [ref=e557]: The magic here is consistency. If you're already using Ollama locally, the cloud version feels identical. Sessions reset every ~5 hours, so don't expect long-running state.
+          - generic [ref=e558]:
+            - generic [ref=e559]: Hugging Face Spaces
+            - generic "50+ tokens per second" [ref=e560]: Moderate — varies per app
+            - generic [ref=e561]: Browser-based AI apps. No API key needed for most. Thousands of apps covering chatbots, image generation, coding assistants, audio processing, and more. Hit or miss on quality, but completely free for most.
+            - generic [ref=e562]:
+              - generic [ref=e563]: No API key
+              - generic [ref=e564]: 1000s of apps
+              - generic [ref=e565]: Browser-only
+            - generic [ref=e567]: "Best free models:"
+            - generic [ref=e568]:
+              - paragraph [ref=e569]: "Get started:"
+              - list [ref=e570]:
+                - listitem [ref=e571]: Go to huggingface.co/spaces
+                - listitem [ref=e572]: Browse by category or search for what you need
+                - listitem [ref=e573]: Click any space. Most run directly in your browser
+                - listitem [ref=e574]: Sign up only if you want to create your own spaces
+              - paragraph [ref=e575]: "Best for: quick experiments, trying models without commitment, and exploring what's possible. Some popular spaces get slow during peak hours. No consistency guarantee."
+          - generic [ref=e576]:
+            - generic [ref=e577]: Together AI
+            - generic "200+ tokens per second" [ref=e578]: Fast — reads faster than you
+            - generic [ref=e579]: 100+ open models with a generous free tier. Llama 3.3 70B, DeepSeek R1, Qwen, and more. One of the best selections of open models with competitive pricing on the paid tiers.
+            - generic [ref=e580]:
+              - generic [ref=e581]: 100+ models
+              - generic [ref=e582]: Free tier
+              - generic [ref=e583]: Open-source focus
+            - generic [ref=e584]:
+              - generic [ref=e585]: "Best free models:"
+              - generic [ref=e586]: Llama 3.3 70B
+              - generic [ref=e587]: DeepSeek R1
+              - generic [ref=e588]: Qwen 2.5 32B
+              - generic [ref=e589]: Mistral Small 3.1
+            - generic [ref=e590]:
+              - paragraph [ref=e591]: "Get started:"
+              - list [ref=e592]:
+                - listitem [ref=e593]: Sign up at together.ai
+                - listitem [ref=e594]: Navigate to API Keys → Create Key
+                - listitem [ref=e595]: Use with any OpenAI-compatible client
+                - listitem [ref=e596]: The free tier includes many popular open models
+              - paragraph [ref=e597]: "Great for: evaluating multiple open models through one API, fine-tuning experiments, and production workloads with predictable pricing."
+          - generic [ref=e598]:
+            - generic [ref=e599]: Fireworks AI
+            - generic "300+ tokens per second" [ref=e600]: Fast — reads faster than you
+            - generic [ref=e601]: Optimized inference infrastructure with free tier for Llama 3.3 70B and other models. Known for extremely low latency on large models. Good for production apps needing speed.
+            - generic [ref=e602]:
+              - generic [ref=e603]: Fast 70B
+              - generic [ref=e604]: Free tier
+              - generic [ref=e605]: Low latency
+            - generic [ref=e606]:
+              - generic [ref=e607]: "Best free models:"
+              - generic [ref=e608]: Llama 3.3 70B
+              - generic [ref=e609]: Llama 3.1 8B
+              - generic [ref=e610]: DeepSeek R1
+              - generic [ref=e611]: Mixtral 8x22B
+            - generic [ref=e612]:
+              - paragraph [ref=e613]: "Get started:"
+              - list [ref=e614]:
+                - listitem [ref=e615]: Sign up at fireworks.ai
+                - listitem [ref=e616]: Go to API Keys → Create API Key
+                - listitem [ref=e617]: OpenAI-compatible API, works with most clients
+                - listitem [ref=e618]: Free tier includes Llama 3.3 70B and other models
+              - paragraph [ref=e619]: "Best for: latency-sensitive applications, comparing model outputs, and production deployments needing consistent performance."
+          - generic [ref=e620]:
+            - generic [ref=e621]: DeepInfra
+            - generic "200+ tokens per second" [ref=e622]: Fast — reads faster than you
+            - generic [ref=e623]: Serverless inference with a free tier for many popular models. Llama, Mistral, DeepSeek, and more. Pay-per-token pricing with no cold starts on the paid tier.
+            - generic [ref=e624]:
+              - generic [ref=e625]: Free tier
+              - generic [ref=e626]: Serverless
+              - generic [ref=e627]: No cold starts
+            - generic [ref=e628]:
+              - generic [ref=e629]: "Best free models:"
+              - generic [ref=e630]: Meta-Llama 3.1 8B
+              - generic [ref=e631]: Mixtral 8x7B
+              - generic [ref=e632]: DeepSeek R1
+              - generic [ref=e633]: Qwen 2.5 7B
+            - generic [ref=e634]:
+              - paragraph [ref=e635]: "Get started:"
+              - list [ref=e636]:
+                - listitem [ref=e637]: Sign up at deepinfra.com
+                - listitem [ref=e638]: Navigate to API Keys → Create Key
+                - listitem [ref=e639]: OpenAI-compatible, use with your favorite tools
+                - listitem [ref=e640]: Free tier covers most popular models at limited rate
+              - paragraph [ref=e641]: "Useful for: testing many models without committing to one provider, serverless workloads, and applications that need auto-scaling."
+          - generic [ref=e642]:
+            - generic [ref=e643]: Cloudflare Workers AI
+            - generic "100+ tokens per second" [ref=e644]: Moderate — like a fast typist
+            - generic [ref=e645]: Run AI inference on Cloudflare's global edge network. 10,000 requests per day free. Optimized for low-latency, geo-distributed applications. Supports Llama, Mistral, and many more.
+            - generic [ref=e646]:
+              - generic [ref=e647]: 10K req/day
+              - generic [ref=e648]: Edge network
+              - generic [ref=e649]: Global distribution
+            - generic [ref=e650]:
+              - generic [ref=e651]: "Best free models:"
+              - generic [ref=e652]: Llama 3.3 70B
+              - generic [ref=e653]: Llama 3.1 8B
+              - generic [ref=e654]: Mistral 7B
+              - generic [ref=e655]: DeepSeek R1
+            - generic [ref=e656]:
+              - paragraph [ref=e657]: "Get started:"
+              - list [ref=e658]:
+                - listitem [ref=e659]: Sign up for a free Cloudflare account
+                - listitem [ref=e660]: Navigate to Workers & Pages → AI
+                - listitem [ref=e661]: Use their REST API or Workers SDK
+                - listitem [ref=e662]: 10,000 requests per day on the free plan
+              - paragraph [ref=e663]: "Best for: applications needing low latency worldwide, integrating AI with existing Cloudflare infrastructure, and prototypes with generous free limits."
+          - generic [ref=e664]:
+            - generic [ref=e665]: OpenCode Zen
+            - generic "200+ tokens per second" [ref=e666]: Fast — unlimited free routing
+            - generic [ref=e667]: Routes across 75 AI providers with an unlimited free tier. Best when all other platforms hit their daily limits and you still need to work. Agentic coding IDE included.
+            - generic [ref=e668]:
+              - generic [ref=e669]: 75 providers
+              - generic [ref=e670]: Unlimited free tier
+              - generic [ref=e671]: Agentic coding
+            - generic [ref=e672]:
+              - generic [ref=e673]: "Best free models:"
+              - generic [ref=e674]: DeepSeek R1
+              - generic [ref=e675]: Llama 3.3 70B
+              - generic [ref=e676]: Claude Sonnet
+              - generic [ref=e677]: GPT-4o
+              - generic [ref=e678]: Qwen3 235B
+            - generic [ref=e679]:
+              - paragraph [ref=e680]: "Get started:"
+              - list [ref=e681]:
+                - listitem [ref=e682]: Go to opencode.ai and create an account
+                - listitem [ref=e683]: Choose the free plan — no credit card needed
+                - listitem [ref=e684]: Browse 75+ providers and pick the best model for your task
+                - listitem [ref=e685]: Use the built-in agentic coding IDE or API
+              - paragraph [ref=e686]: "Best for: unlimited fallback when other platforms hit limits, agentic coding workflows, and accessing premium models through routing."
+          - generic [ref=e687]:
+            - generic [ref=e688]: NVIDIA NIM
+            - generic "200+ tokens per second" [ref=e689]: Fast — research-grade models
+            - generic [ref=e690]: Access Nemotron Ultra 253B through NVIDIA's NIM platform. 1,000,000 token context. Available through OpenRouter free tier. Best for deep research, large-scale reasoning, and long-context evaluation tasks.
+            - generic [ref=e691]:
+              - generic [ref=e692]: Nemotron 253B
+              - generic [ref=e693]: 1M context
+              - generic [ref=e694]: Research grade
+            - generic [ref=e695]:
+              - generic [ref=e696]: "Best free models:"
+              - generic [ref=e697]: Nemotron Ultra 253B
+              - generic [ref=e698]: Llama 3.3 70B
+              - generic [ref=e699]: Mistral Large
+            - generic [ref=e700]:
+              - paragraph [ref=e701]: "Get started:"
+              - list [ref=e702]:
+                - listitem [ref=e703]: Go to build.nvidia.com and sign up
+                - listitem [ref=e704]: Browse the NIM catalog of available models
+                - listitem [ref=e705]: Use their API or connect through OpenRouter
+                - listitem [ref=e706]: Start with Nemotron Ultra 253B for research tasks
+              - paragraph [ref=e707]: "Best for: deep research, long-context evaluation, and accessing Nemotron's unique reasoning capabilities. 1M context handles book-length documents."
+      - separator [ref=e708]
+      - generic [ref=e709]:
+        - paragraph [ref=e710]: Tools
+        - heading "Which local AI tool should I use?" [level=2] [ref=e711]
+        - paragraph [ref=e712]: All three are free. Pick based on how you like to work.
+        - generic [ref=e713]:
+          - generic [ref=e714] [cursor=pointer]:
+            - generic [ref=e715]: Ollama
+            - generic [ref=e716]: Best for beginners
+            - generic [ref=e717]: One command install. Terminal-based but surprisingly simple.
+          - generic [ref=e718] [cursor=pointer]:
+            - generic [ref=e719]: LM Studio
+            - generic [ref=e720]: Best for GUI lovers
+            - generic [ref=e721]: Polished app. Click to install models. Beautiful interface.
+          - generic [ref=e722] [cursor=pointer]:
+            - generic [ref=e723]: Jan
+            - generic [ref=e724]: Best for privacy nerds
+            - generic [ref=e725]: 100% open source, no telemetry, fully offline.
+        - paragraph [ref=e726]: Our recommendations use Ollama. It has the simplest install and biggest community.
+      - separator [ref=e727]
+      - generic [ref=e728]:
+        - paragraph [ref=e729]: How it works
+        - heading "Three steps to your own AI" [level=2] [ref=e730]
+        - generic [ref=e731]:
+          - generic [ref=e732]:
+            - generic [ref=e733]: Step 01
+            - generic [ref=e734]: Your goal + career
+            - generic [ref=e735]: Tell us what you want to do and what you do. Goal shapes the recommendation, career fine-tunes it.
+          - generic [ref=e736]:
+            - generic [ref=e737]: Step 02
+            - generic [ref=e738]: Select your hardware
+            - generic [ref=e739]: Tell us what you're working with. We'll detect it automatically if possible.
+          - generic [ref=e740]:
+            - generic [ref=e741]: Step 03
+            - generic [ref=e742]: Copy. Paste. Done.
+            - generic [ref=e743]: One command to install. Chat with your private AI in minutes.
+  - button "📢 What's New" [ref=e745] [cursor=pointer]
+  - contentinfo [ref=e746]:
+    - generic [ref=e747]:
+      - generic [ref=e748]:
+        - link "GitHub" [ref=e749] [cursor=pointer]:
+          - /url: https://github.com/ebubeco/build-your-own-chatgpt
+        - link "Compare" [ref=e750] [cursor=pointer]:
+          - /url: compare.html
+        - link "Which AI" [ref=e751] [cursor=pointer]:
+          - /url: which-ai.html
+        - link "Offline Guide" [ref=e752] [cursor=pointer]:
+          - /url: best-offline-chatgpt.html
+        - link "Careers" [ref=e753] [cursor=pointer]:
+          - /url: career.html
+        - link "Model Catalog" [ref=e754] [cursor=pointer]:
+          - /url: compendium.html
+        - link "Ollama" [ref=e755] [cursor=pointer]:
+          - /url: https://ollama.com
+        - link "Hugging Face" [ref=e756] [cursor=pointer]:
+          - /url: https://huggingface.co
+      - paragraph [ref=e757]: Built for beginners. Your data never leaves your machine.
+      - paragraph

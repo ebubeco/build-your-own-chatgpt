@@ -1,0 +1,103 @@
+- main [ref=e2]:
+  - link "← Use the wizard" [ref=e3] [cursor=pointer]:
+    - /url: /
+  - heading "Can My Laptop Run Local AI?" [level=1] [ref=e4]
+  - paragraph [ref=e6]:
+    - strong [ref=e7]: "Short answer: yes — most laptops made after 2015 can run some form of local AI."
+    - text: Whether you have a MacBook, Windows laptop, or Chromebook, here's exactly what your hardware can handle and how to get started.
+  - generic [ref=e8]:
+    - heading "Hardware Quick Check" [level=2] [ref=e9]
+    - table [ref=e11]:
+      - rowgroup [ref=e12]:
+        - row "Your Laptop What You Can Run Speed" [ref=e13]:
+          - columnheader "Your Laptop" [ref=e14]
+          - columnheader "What You Can Run" [ref=e15]
+          - columnheader "Speed" [ref=e16]
+      - rowgroup [ref=e17]:
+        - row "8GB RAM, no GPU Phi-4 Mini 3.8B, Llama 3.2 3B 5-15 tok/s" [ref=e18]:
+          - cell "8GB RAM, no GPU" [ref=e19]
+          - cell "Phi-4 Mini 3.8B, Llama 3.2 3B" [ref=e20]
+          - cell "5-15 tok/s" [ref=e21]
+        - row "16GB RAM, no GPU Qwen 2.5 7B, Mistral 7B 3-5 tok/s" [ref=e22]:
+          - cell "16GB RAM, no GPU" [ref=e23]
+          - cell "Qwen 2.5 7B, Mistral 7B" [ref=e24]
+          - cell "3-5 tok/s" [ref=e25]
+        - row "32GB RAM, no GPU Qwen 2.5 14B, Phi-4 14B 2-4 tok/s" [ref=e26]:
+          - cell "32GB RAM, no GPU" [ref=e27]
+          - cell "Qwen 2.5 14B, Phi-4 14B" [ref=e28]
+          - cell "2-4 tok/s" [ref=e29]
+        - row "Apple Silicon 8GB Phi-4 Mini 3.8B 15-25 tok/s" [ref=e30]:
+          - cell "Apple Silicon 8GB" [ref=e31]
+          - cell "Phi-4 Mini 3.8B" [ref=e32]
+          - cell "15-25 tok/s" [ref=e33]
+        - row "Apple Silicon 16GB+ Qwen 2.5 7B, Llama 3.1 8B 15-30 tok/s" [ref=e34]:
+          - cell "Apple Silicon 16GB+" [ref=e35]
+          - cell "Qwen 2.5 7B, Llama 3.1 8B" [ref=e36]
+          - cell "15-30 tok/s" [ref=e37]
+        - row "NVIDIA GPU 8GB+ VRAM Qwen 2.5 7B, Phi-4 14B 30-60 tok/s" [ref=e38]:
+          - cell "NVIDIA GPU 8GB+ VRAM" [ref=e39]
+          - cell "Qwen 2.5 7B, Phi-4 14B" [ref=e40]
+          - cell "30-60 tok/s" [ref=e41]
+    - paragraph [ref=e42]: Token speed estimates for Q4_K_M quantization. Actual performance varies by CPU/GPU model.
+  - generic [ref=e43]:
+    - heading "How to Check Your Specs" [level=2] [ref=e44]
+    - list [ref=e45]:
+      - listitem [ref=e46]:
+        - strong [ref=e47]: "Windows:"
+        - text: Open Task Manager (Ctrl+Shift+Esc) → Performance tab → check RAM and GPU
+      - listitem [ref=e48]:
+        - strong [ref=e49]: "macOS:"
+        - text: Click Apple icon → About This Mac → check Memory and Chip
+      - listitem [ref=e50]:
+        - strong [ref=e51]: "Linux:"
+        - text: Run
+        - code [ref=e52]: free -h
+        - text: for RAM,
+        - code [ref=e53]: lspci | grep VGA
+        - text: for GPU
+      - listitem [ref=e54]:
+        - strong [ref=e55]: "Chromebook:"
+        - text: Settings → About Chrome OS → Diagnostics → check RAM
+  - generic [ref=e56]:
+    - heading "Getting Started in 3 Steps" [level=2] [ref=e57]
+    - list [ref=e58]:
+      - listitem [ref=e59]:
+        - strong [ref=e60]: Install Ollama
+        - text: — free from
+        - link "ollama.com/download" [ref=e61] [cursor=pointer]:
+          - /url: https://ollama.com/download
+        - text: . Works on Windows, macOS, and Linux.
+      - listitem [ref=e62]:
+        - strong [ref=e63]: Pull a model
+        - text: "— based on your RAM from the table above. Example:"
+        - code [ref=e64]: ollama pull qwen2.5:7b
+      - listitem [ref=e65]:
+        - strong [ref=e66]: Start chatting
+        - text: —
+        - code [ref=e67]: ollama run qwen2.5:7b
+        - text: . Type your messages at the
+        - code [ref=e68]: ">>>"
+        - text: prompt.
+    - generic [ref=e69]:
+      - generic [ref=e70]: Quick start (16GB RAM laptop)
+      - generic [ref=e71]: ollama pull qwen2.5:7b && ollama run qwen2.5:7b
+  - generic [ref=e72]:
+    - heading "Frequently Asked Questions" [level=2] [ref=e73]
+    - generic [ref=e74]:
+      - generic [ref=e75]:
+        - heading "Can my 10-year-old laptop run AI?" [level=3] [ref=e76]
+        - paragraph [ref=e78]: If it has 8GB+ RAM and a 64-bit processor (most Intel Core i5/i7 from 2015+ qualify), yes. You can run Phi-4 Mini 3.8B or SmolLM2 1.7B. Expect 1-5 tokens per second on CPU — slow but functional for basic chat and writing.
+      - generic [ref=e79]:
+        - heading "Can a Surface Pro run local AI?" [level=3] [ref=e80]
+        - paragraph [ref=e82]: Yes. Surface Pro 7+ and newer with 16GB RAM can run Qwen 2.5 7B at 3-5 tokens/second on CPU. Surface Pro X (ARM) has limited compatibility — check Ollama's ARM support first.
+      - generic [ref=e83]:
+        - heading "MacBook Air vs MacBook Pro for AI?" [level=3] [ref=e84]
+        - paragraph [ref=e86]: "Both work well. The key factor is RAM: 8GB runs small models, 16GB runs 7B models well, 24GB+ runs 14B+ models. MacBook Pro has active cooling (fans) for sustained workloads. MacBook Air may throttle under extended heavy use but works fine for typical chat sessions."
+      - generic [ref=e87]:
+        - heading "Can I run AI on a tablet or iPad?" [level=3] [ref=e88]
+        - paragraph [ref=e90]: Not directly via Ollama. iPads and Android tablets cannot run Ollama natively. Your best option is a free cloud service like Gemini (gemini.google.com) or Groq (console.groq.com) — both work in the browser with zero installation.
+  - generic [ref=e91]:
+    - heading "Get a Precise Answer for Your Exact Laptop" [level=2] [ref=e92]
+    - paragraph [ref=e93]: Tell us your specs and get a personalized recommendation with the exact install command.
+    - link "Check My Laptop →" [ref=e94] [cursor=pointer]:
+      - /url: /compatibility
