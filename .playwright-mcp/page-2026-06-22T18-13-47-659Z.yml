@@ -1,5 +1,0 @@
-- main [ref=e2]:
-  - heading "404" [level=1] [ref=e3]
-  - paragraph [ref=e4]: This page doesn't exist yet — or never did. Try the wizard to find your perfect local AI setup.
-  - link "Go to Wizard" [ref=e5] [cursor=pointer]:
-    - /url: /

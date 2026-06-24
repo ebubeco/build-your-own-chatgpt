@@ -1,4 +1,0 @@
-[     100ms] [ERROR] TypeError: m.tier.startsWith is not a function
-    at http://localhost:3333/compendium.html:193:25
-    at Array.map (<anonymous>)
-    at init (http://localhost:3333/compendium.html:189:29) @ http://localhost:3333/compendium.html:199

@@ -1,2 +1,0 @@
-[      44ms] TypeError: d.filter is not a function
-    at http://localhost:3333/commands.html:106:67

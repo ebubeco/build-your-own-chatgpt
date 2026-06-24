@@ -1,0 +1,7 @@
+.playwright-mcp/
+token-optimizer/
+screenshots/
+homepage-initial.png
+*.db
+*.db-shm
+*.db-wal

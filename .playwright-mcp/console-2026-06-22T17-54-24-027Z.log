@@ -1,6 +1,0 @@
-[    1493ms] [LOG] [Analytics] wizard_started  @ http://localhost:3333/analytics.js:39
-[    1508ms] TypeError: Cannot read properties of undefined (reading 'forEach')
-    at renderHWSelector (http://localhost:3333/app.js:314:28)
-    at HTMLDocument.init (http://localhost:3333/app.js:1486:5)
-[    1600ms] [WARNING] Ignoring Event: localhost @ https://plausible.io/js/pa-DBTdINzLX2L2B_fXJF0u1.js:0
-[    1600ms] [WARNING] Ignoring Event: localhost @ https://plausible.io/js/pa-DBTdINzLX2L2B_fXJF0u1.js:0
