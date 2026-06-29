@@ -104,7 +104,7 @@
 
     let roles=[];
     fetch('data/roles.json').then(function(r){return r.json();}).then(function(d){
-      roles=d.roles||[];
+      roles=Array.isArray(d)?d:d.roles||[];
       const grid=document.getElementById('grid');
       const loading=document.getElementById('loading');
       if(roles.length===0){loading.innerHTML='No career data found.';return;}
