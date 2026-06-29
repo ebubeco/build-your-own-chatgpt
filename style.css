@@ -131,9 +131,6 @@ body {
   font-size: 1rem;
   line-height: 1;
 }
-.theme-toggle-btn .toggle-label {
-  letter-spacing: 0.01em;
-}
 
 ::selection { background: #e85d0415; color: var(--accent); }
 
@@ -2816,7 +2813,6 @@ input:focus-visible {
 
 /* Responsive topbar */
 @media (max-width: 480px) {
-  .theme-toggle-btn .toggle-label { display: none; }
   .site-brand { font-size: 0.82rem; }
 }
 /* Accessibility & Focus States */

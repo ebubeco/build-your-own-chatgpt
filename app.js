@@ -1482,9 +1482,7 @@
       localStorage.setItem('theme', 'dark');
       if (btn) {
         const icon = btn.querySelector('.toggle-icon');
-        const label = btn.querySelector('.toggle-label');
         if (icon) icon.textContent = '☀️';
-        if (label) label.textContent = 'Light mode';
         else btn.textContent = '☀️';
       }
     } else {
@@ -1492,9 +1490,7 @@
       localStorage.setItem('theme', 'light');
       if (btn) {
         const icon = btn.querySelector('.toggle-icon');
-        const label = btn.querySelector('.toggle-label');
         if (icon) icon.textContent = '🌙';
-        if (label) label.textContent = 'Dark mode';
         else btn.textContent = '🌙';
       }
     }
