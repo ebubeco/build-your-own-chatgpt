@@ -55,26 +55,27 @@ That's it. Private ChatGPT running on your machine.
 
 ## Features
 - **Goal-first wizard** — pick your use case before seeing any models
-- **Hardware tier detection** — auto-detects your VRAM class
-- **Recommendation engine** — scored: bestFor (+40), goal, beginner (+10), fast (+20), slow (−5), wrong tier (−50)
+- **Hardware tier detection** — auto-detects your VRAM class on load
+- **Recommendation engine** — scored: bestFor (+30), goal (×4), career match (+25), career priorities (+5/match), beginner (+10), fast (+20), slow (+5), not-recommended (−50), historical success (up to +9)
 - **Confidence score** — numeric confidence per recommendation
 - **Why this?** — plain-English reasoning for every pick
-- **Capability cards** — visual breakdown of model strengths
-- **Readiness scores** — per-model assessment for your hardware
+- **Capability cards** — visual breakdown of model strengths and weaknesses
+- **Readiness scores** — per-model assessment for your exact hardware
 - **Cloud fallback** — automatic cloud alternative when local hardware falls short
 - **Shareable URLs** — every result is a permalink
-- **Apple Silicon support** — M1/M2/M3 tier with correct model recommendations
+- **Apple Silicon support** — M1/M2/M3/M4 all variants with optimised model recommendations
 - **Quantization tooltips** — explains Q4, Q5, Q8 in plain language
 - **Copy setup button** — one-click install command copy
 - **Result persistence** — last result stays when you return
 - **Feedback storage** — Supabase-powered with detailed tag categories
-- **Dark mode** — system-aware
+- **Dark mode** — system-aware dark/light theme
 - **Model comparison tool** — side-by-side compare ([compare.html](compare.html))
 - **Career recommendations** — AI setup guides by profession ([career.html](career.html))
 - **Local vs Cloud wizard** — which approach fits your situation ([which-ai.html](which-ai.html))
 - **Use case browser** — filter by hardware tier and task ([use-cases.html](use-cases.html))
-- **Hardware guides** — no-GPU guide, laptop checker, offline guide, starter pack
-- **Model compendium** — 53+ models with specs, benchmarks, filters ([compendium.html](compendium.html))
+- **Hardware guides** — offline guide, laptop checker, no-GPU guide, starter pack
+- **Model compendium** — 53+ models with specs, benchmarks, and filters ([compendium.html](compendium.html))
+- **AI Evaluators page** — free evaluation stack for RLHF annotators ([evaluators.html](evaluators.html))
 
 ---
 
@@ -90,7 +91,8 @@ build-your-own-chatgpt/
 ├── starter-pack.html       # Starter pack recommendations
 ├── run-ai-without-gpu.html # No-GPU guide
 ├── can-my-laptop-run-ai.html  # Hardware checker
-├── compendium.html         # Full model catalog
+├── compendium.html         # Full model catalog (53+ models)
+├── evaluators.html         # Free AI stack for RLHF annotators
 ├── app.js                  # Main wizard logic
 ├── generate_compendium.js  # Compendium generator
 ├── server.js               # Dev server
