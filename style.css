@@ -2686,52 +2686,117 @@ body {
   line-height: 1.5;
 }
 
-/* ===== HOW IT WORKS ===== */
+/* ===== HOW IT WORKS — connected timeline ===== */
+.how-it-works { position: relative; }
 .steps-grid {
+  position: relative;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-  margin-top: 1rem;
+  gap: 1.25rem;
+  margin-top: 2rem;
+}
+/* The connecting line behind the orbs */
+.steps-grid::before {
+  content: '';
+  position: absolute;
+  top: 44px;
+  left: 12%;
+  right: 12%;
+  height: 2px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    color-mix(in srgb, var(--accent) 32%, transparent) 18%,
+    color-mix(in srgb, var(--accent) 55%, transparent) 50%,
+    color-mix(in srgb, var(--accent) 32%, transparent) 82%,
+    transparent 100%
+  );
+  z-index: 0;
+  pointer-events: none;
 }
 
-@media (max-width: 560px) {
-  .steps-grid { grid-template-columns: 1fr; }
+@media (max-width: 760px) {
+  .steps-grid { grid-template-columns: 1fr; gap: 1rem; }
+  .steps-grid::before { display: none; }
 }
 
 .step-card {
   background: var(--bg-card);
-  border: 1.5px solid var(--border-light);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
   border-radius: var(--radius-lg);
-  padding: 1.5rem;
+  padding: 1.75rem 1.4rem 1.5rem;
   text-align: center;
-  transition: all var(--transition);
-}
-
-.step-card:hover {
-  border-color: var(--accent);
   box-shadow: var(--shadow-sm);
+  position: relative;
+  z-index: 1;
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+}
+.step-card:hover {
+  border-color: color-mix(in srgb, var(--accent) 38%, var(--border));
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-4px);
 }
 
-.step-num {
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
+/* Numbered illustration orb — sits on top of the connecting line */
+.step-orb {
+  position: relative;
+  width: 88px;
+  height: 88px;
+  margin: -3.25rem auto 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-md);
   color: var(--accent);
-  margin-bottom: 0.75rem;
+}
+.step-orb::before {
+  content: '';
+  position: absolute;
+  inset: 6px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 30%, var(--accent-light), transparent 70%);
+  pointer-events: none;
+}
+.step-illust { width: 46px; height: 46px; position: relative; z-index: 1; }
+.step-num-orb {
+  position: absolute;
+  bottom: -6px;
+  right: -6px;
+  min-width: 26px;
+  height: 26px;
+  padding: 0 0.45rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: #fff;
+  background: var(--accent-gradient);
+  box-shadow: var(--shadow-accent);
+  letter-spacing: 0.02em;
 }
 
 .step-title {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: 1.05rem;
-  font-weight: 600;
+  font-family: var(--font-display);
+  font-size: 1.12rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
   margin-bottom: 0.4rem;
+  color: var(--text);
 }
 
 .step-desc {
-  font-size: 0.82rem;
+  font-size: 0.85rem;
   color: var(--text-secondary);
-  line-height: 1.5;
+  line-height: 1.55;
+  max-width: 24ch;
+  margin: 0 auto;
 }
 
 /* ===== FOOTER ===== */
