@@ -154,6 +154,40 @@
     </div>
   </header>
 
+  <!-- Supported-model marquee -->
+  <section class="marquee" aria-label="Supported AI models" aria-hidden="true">
+    <p class="marquee-eyebrow">Runs locally with</p>
+    <div class="marquee-track-wrap">
+      <div class="marquee-track">
+        <span class="m-chip">Qwen 2.5 7B</span>
+        <span class="m-chip">Llama 3.3 8B</span>
+        <span class="m-chip">DeepSeek R1</span>
+        <span class="m-chip">Phi-4 14B</span>
+        <span class="m-chip">Gemma 3 12B</span>
+        <span class="m-chip">Mistral Nemo</span>
+        <span class="m-chip">Qwen 2.5 Coder</span>
+        <span class="m-chip">Llama 3.2 1B</span>
+        <span class="m-chip">SmolLM2 1.7B</span>
+        <span class="m-chip">Phi-4 Mini</span>
+        <span class="m-chip">DeepSeek Coder</span>
+        <span class="m-chip">Qwen 2.5 32B</span>
+        <!-- duplicate for seamless loop -->
+        <span class="m-chip" aria-hidden="true">Qwen 2.5 7B</span>
+        <span class="m-chip" aria-hidden="true">Llama 3.3 8B</span>
+        <span class="m-chip" aria-hidden="true">DeepSeek R1</span>
+        <span class="m-chip" aria-hidden="true">Phi-4 14B</span>
+        <span class="m-chip" aria-hidden="true">Gemma 3 12B</span>
+        <span class="m-chip" aria-hidden="true">Mistral Nemo</span>
+        <span class="m-chip" aria-hidden="true">Qwen 2.5 Coder</span>
+        <span class="m-chip" aria-hidden="true">Llama 3.2 1B</span>
+        <span class="m-chip" aria-hidden="true">SmolLM2 1.7B</span>
+        <span class="m-chip" aria-hidden="true">Phi-4 Mini</span>
+        <span class="m-chip" aria-hidden="true">DeepSeek Coder</span>
+        <span class="m-chip" aria-hidden="true">Qwen 2.5 32B</span>
+      </div>
+    </div>
+  </section>
+
   <main class="main">
     <div class="container">
 
@@ -797,6 +831,15 @@ print("Saved to output.mp3")</div>
             <div class="step-title">Copy. Paste. Done.</div>
             <div class="step-desc">One command to install. Chat with your private AI in minutes.</div>
           </div>
+        </div>
+
+        <!-- Live terminal demo — types itself out on scroll-into-view -->
+        <div class="term-demo" id="term-demo" aria-hidden="true">
+          <div class="term-bar">
+            <span class="cm-dots"><i></i><i></i><i></i></span>
+            <span class="term-title">~ — bash</span>
+          </div>
+          <div class="term-body" id="term-body"></div>
         </div>
       </section>
 
