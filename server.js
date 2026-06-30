@@ -8,7 +8,12 @@ const fs = require('fs');
 const path = require('path');
 
 const base = path.resolve('C:/Users/user/Documents/My Builds and Softwares/Pojects/ToolsAI/build-your-own-chatgpt');
-const MIME = { html: 'text/html', css: 'text/css', js: 'application/javascript', json: 'application/json' };
+const MIME = {
+  html: 'text/html', css: 'text/css', js: 'application/javascript', json: 'application/json',
+  svg: 'image/svg+xml', png: 'image/png', jpg: 'image/jpeg', jpeg: 'image/jpeg',
+  webp: 'image/webp', ico: 'image/x-icon', gif: 'image/gif',
+  woff: 'font/woff', woff2: 'font/woff2', txt: 'text/plain', xml: 'application/xml'
+};
 
 http.createServer((req, res) => {
   let urlPath = decodeURIComponent(req.url.split('?')[0]);
