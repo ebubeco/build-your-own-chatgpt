@@ -140,11 +140,12 @@
     const canvas = document.createElement('canvas');
     const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
     if (!gl) return 0;
-    const ext = gl.getExtension('WEBGL_debug_renderer_info');
-    if (!ext) return 0;
-    const dbgRenderInfo = gl.getParameter(ext.UNMASKED_RENDERER_WEBGL);
-    const isNvidia = dbgRenderInfo && dbgRenderInfo.includes('NVIDIA');
-    if (!isNvidia) return 0;
+    // MAX_TEXTURE_SIZE is a coarse but vendor-agnostic signal. This used to
+    // gate on the renderer string containing "NVIDIA", which silently
+    // estimated 0 VRAM for every AMD/Intel GPU not found in gpuMap -- pushing
+    // unmatched non-NVIDIA hardware (common on Linux, and plenty of Windows
+    // rigs too) straight to the lowest "no-gpu" tier regardless of its real
+    // capability. Apply the same heuristic to all vendors instead.
     const pixels = gl.createTexture();
     gl.bindTexture(gl.TEXTURE_2D, pixels);
     gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array([0,0,0,0]));
@@ -187,6 +188,21 @@
     return 'no-gpu';
   }
 
+  // Some vendors (notably Intel) report WebGL renderer strings with inline
+  // trademark notation, e.g. "Intel(R) Arc(TM) A770 Graphics" on both Windows
+  // (ANGLE/D3D11) and Linux (Mesa) -- a plain substring check against a key
+  // like "Intel Arc A770" never matches because of the (R)/(TM) in the way.
+  // Stripping that notation before matching fixes it without changing any
+  // case that already worked (NVIDIA/AMD strings rarely include it).
+  function normalizeGpuString(s) {
+    return s
+      .replace(/\(R\)/gi, '')
+      .replace(/\(TM\)/gi, '')
+      .replace(/[®™©]/g, '')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
   function matchGPUName(name) {
     if (!name) return null;
     const gpuMap = gpusData.gpuMap;
@@ -194,8 +210,10 @@
       const mem = detectUnifiedMemory();
       return { tier: 'apple', vramGB: mem || 16, name: 'Apple Silicon (' + (mem || 16) + 'GB)', ram: mem || 16 };
     }
+    const normalizedName = normalizeGpuString(name);
     for (const [key, val] of Object.entries(gpuMap)) {
-      if (name.includes(key.replace('NVIDIA ', '').replace('AMD ', ''))) {
+      const modelName = key.replace('NVIDIA ', '').replace('AMD ', '').replace('Intel ', '');
+      if (normalizedName.includes(modelName)) {
         return { key, ...val };
       }
     }
