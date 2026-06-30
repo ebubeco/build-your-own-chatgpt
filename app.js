@@ -21,6 +21,20 @@
     'agents': '🤖'
   };
 
+  // Crafted line-icons (Feather-style) for the hardware cards, matching the
+  // custom goal-card icon set. Stroke uses currentColor so CSS sets the colour.
+  const _svg = (inner) => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">' + inner + '</svg>';
+  const ICON_SVG = {
+    'laptop-old': _svg('<rect x="4" y="5" width="16" height="11" rx="1.5"/><line x1="2" y1="20" x2="22" y2="20"/>'),
+    'laptop':     _svg('<rect x="4" y="5" width="16" height="11" rx="1.5"/><line x1="2" y1="20" x2="22" y2="20"/><line x1="10" y1="9" x2="14" y2="9"/>'),
+    'monitor':    _svg('<rect x="3" y="4" width="18" height="12" rx="2"/><line x1="8" y1="20" x2="16" y2="20"/><line x1="12" y1="16" x2="12" y2="20"/>'),
+    'gpu-budget': _svg('<rect x="2.5" y="6.5" width="19" height="11" rx="1.5"/><circle cx="9" cy="12" r="2.6"/><line x1="14" y1="10" x2="18" y2="10"/><line x1="14" y1="14" x2="18" y2="14"/>'),
+    'gpu-power':  _svg('<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>'),
+    'apple':      _svg('<rect x="5" y="5" width="14" height="14" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="2" x2="9" y2="5"/><line x1="15" y1="2" x2="15" y2="5"/><line x1="9" y1="19" x2="9" y2="22"/><line x1="15" y1="19" x2="15" y2="22"/><line x1="2" y1="9" x2="5" y2="9"/><line x1="2" y1="15" x2="5" y2="15"/><line x1="19" y1="9" x2="22" y2="9"/><line x1="19" y1="15" x2="22" y2="15"/>'),
+    'help':       _svg('<circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>')
+  };
+  function iconSvg(key) { return ICON_SVG[key] || _svg('<rect x="4" y="4" width="16" height="16" rx="2"/>'); }
+
   let modelsData, gpusData, setupsData, glossaryData, appConfig, cloudProvidersData;
   let selectedTier = null;
   let selectedGoal = null;
@@ -343,7 +357,7 @@
       const btn = clone.querySelector('.hw-card');
       btn.dataset.tier = opt.tier;
       btn.dataset.id = opt.id;
-      btn.querySelector('.hw-icon').textContent = icon(opt.icon);
+      btn.querySelector('.hw-icon').innerHTML = iconSvg(opt.icon);
       btn.querySelector('.hw-title').textContent = opt.label;
       btn.querySelector('.hw-desc').textContent = opt.description;
       container.appendChild(clone);

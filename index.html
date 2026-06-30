@@ -117,15 +117,38 @@
 
   <header class="header">
     <div class="container">
-      <div class="header-inner">
-        <span class="header-badge">Free · Private · Works offline</span>
-      </div>
-      <h1>Build Your Own <em>ChatGPT</em></h1>
-      <p>From a beat-up 2014 laptop to a shiny gaming rig, whatever you're working with, we'll get a private AI running on it. No cloud, no subscription, your data stays on your machine.</p>
-      <div class="hero-stats" role="list">
-        <div class="hero-stat" role="listitem"><span class="hero-stat-num">53+</span><span class="hero-stat-label">models matched</span></div>
-        <div class="hero-stat" role="listitem"><span class="hero-stat-num">100%</span><span class="hero-stat-label">offline &amp; private</span></div>
-        <div class="hero-stat" role="listitem"><span class="hero-stat-num">$0</span><span class="hero-stat-label">forever</span></div>
+      <div class="hero-layout">
+        <div class="hero-copy">
+          <div class="header-inner">
+            <span class="header-badge">Free · Private · Works offline</span>
+          </div>
+          <h1>Build Your Own <em>ChatGPT</em></h1>
+          <p>From a beat-up 2014 laptop to a shiny gaming rig, whatever you're working with, we'll get a private AI running on it. No cloud, no subscription, your data stays on your machine.</p>
+          <div class="hero-stats" role="list">
+            <div class="hero-stat" role="listitem"><span class="hero-stat-num">53+</span><span class="hero-stat-label">models matched</span></div>
+            <div class="hero-stat" role="listitem"><span class="hero-stat-num">100%</span><span class="hero-stat-label">offline &amp; private</span></div>
+            <div class="hero-stat" role="listitem"><span class="hero-stat-num">$0</span><span class="hero-stat-label">forever</span></div>
+          </div>
+        </div>
+
+        <div class="hero-visual" aria-hidden="true">
+          <div class="chat-mock">
+            <div class="chat-mock-bar">
+              <span class="cm-dots"><i></i><i></i><i></i></span>
+              <span class="cm-title">qwen2.5:7b</span>
+              <span class="cm-badge"><i class="cm-live"></i>Local</span>
+            </div>
+            <div class="chat-mock-body">
+              <div class="cm-msg cm-user">Explain quantization like I'm five.</div>
+              <div class="cm-msg cm-ai">Think of a giant box of crayons — quantization swaps it for a smaller pack. Fewer shades, but it still fits in your bag and the picture looks the same.</div>
+              <div class="cm-msg cm-ai cm-typing"><i></i><i></i><i></i></div>
+            </div>
+            <div class="chat-mock-input">
+              <span class="cm-placeholder">Message your private AI…</span>
+              <span class="cm-send">↑</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </header>
@@ -142,32 +165,32 @@
 
         <div id="goal-options" class="goal-grid">
           <button class="goal-card" data-goal="chat" aria-pressed="false">
-            <span class="goal-icon">💬</span>
+            <span class="goal-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.5 8.5 0 0 1-12.2 7.7L3 21l1.8-5.8A8.5 8.5 0 1 1 21 11.5Z"/><path d="M8.5 11.5h.01M12 11.5h.01M15.5 11.5h.01"/></svg></span>
             <span class="goal-title">Private ChatGPT</span>
             <span class="goal-desc">Chat, brainstorm, answer questions. Fully private, on your machine.</span>
           </button>
           <button class="goal-card" data-goal="coding" aria-pressed="false">
-            <span class="goal-icon">💻</span>
+            <span class="goal-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></span>
             <span class="goal-title">Coding assistant</span>
             <span class="goal-desc">Write code, debug, explain functions. Models trained for programming.</span>
           </button>
           <button class="goal-card" data-goal="writing" aria-pressed="false">
-            <span class="goal-icon">✍️</span>
+            <span class="goal-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></span>
             <span class="goal-title">Research + writing</span>
             <span class="goal-desc">Articles, reports, summaries, and research. Long context helps here.</span>
           </button>
           <button class="goal-card" data-goal="documents" aria-pressed="false">
-            <span class="goal-icon">📄</span>
+            <span class="goal-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="13" y2="17"/></svg></span>
             <span class="goal-title">Chat with documents</span>
             <span class="goal-desc">Ask questions about PDFs, codebases, transcripts. Needs 8K+ context.</span>
           </button>
           <button class="goal-card" data-goal="agents" aria-pressed="false">
-            <span class="goal-icon">🤖</span>
+            <span class="goal-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="13.5" x2="15.4" y2="17.5"/><line x1="15.4" y1="6.5" x2="8.6" y2="10.5"/></svg></span>
             <span class="goal-title">AI agents and automation</span>
             <span class="goal-desc">Build automated workflows, research agents, and multi-step reasoning tasks.</span>
           </button>
           <button class="goal-card" data-goal="unknown" aria-pressed="false">
-            <span class="goal-icon">❓</span>
+            <span class="goal-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></span>
             <span class="goal-title">I Don't Know</span>
             <span class="goal-desc">Not sure what's possible? Let's find the best fit together.</span>
           </button>
