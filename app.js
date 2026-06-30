@@ -1490,23 +1490,14 @@
   };
 
   function applyTheme(theme) {
-    const btn = document.getElementById('theme-toggle');
+    // Icon swap is handled entirely by CSS reacting to [data-theme] — no
+    // textContent writes here, which would otherwise wipe the sun/moon SVGs.
     if (theme === 'dark') {
       document.documentElement.setAttribute('data-theme', 'dark');
       localStorage.setItem('theme', 'dark');
-      if (btn) {
-        const icon = btn.querySelector('.toggle-icon');
-        if (icon) icon.textContent = '☀️';
-        else btn.textContent = '☀️';
-      }
     } else {
       document.documentElement.removeAttribute('data-theme');
       localStorage.setItem('theme', 'light');
-      if (btn) {
-        const icon = btn.querySelector('.toggle-icon');
-        if (icon) icon.textContent = '🌙';
-        else btn.textContent = '🌙';
-      }
     }
   }
 
