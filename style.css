@@ -3335,6 +3335,108 @@ body {
   border-radius: var(--radius-sm);
 }
 
+/* =====================================================
+   INTERACTIVE LAYER — scroll progress, reveals, spotlight,
+   typing cursor, scroll-fill line, headline glow.
+   All gated on .reveal/.has-spotlight/etc. classes added
+   by interactive.js so content is never hidden without JS.
+   ===================================================== */
+
+/* Scroll progress bar at very top */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--accent-gradient);
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+  z-index: 10000;
+  pointer-events: none;
+  box-shadow: 0 0 12px color-mix(in srgb, var(--accent) 45%, transparent);
+  will-change: transform;
+}
+
+/* Scroll reveal — only applied when JS is present */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+.reveal-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+/* Belt-and-suspenders: motion-reduce users get instant reveal */
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+}
+
+/* Cursor spotlight on cards — a soft accent radial that follows the mouse */
+.has-spotlight {
+  position: relative;
+}
+.has-spotlight::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    240px circle at var(--mx, -100px) var(--my, -100px),
+    color-mix(in srgb, var(--accent) 14%, transparent),
+    transparent 65%
+  );
+  opacity: 0;
+  transition: opacity var(--transition);
+  pointer-events: none;
+  z-index: 0;
+}
+.has-spotlight:hover::before { opacity: 1; }
+/* Ensure card content sits above the spotlight */
+.has-spotlight > * { position: relative; z-index: 1; }
+
+/* Typing cursor for the chat AI bubble */
+.cm-ai.typing-cursor::after {
+  content: '';
+  display: inline-block;
+  width: 7px;
+  height: 0.95em;
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  background: var(--accent);
+  border-radius: 1px;
+  animation: cmCaretBlink 0.85s steps(2) infinite;
+}
+@keyframes cmCaretBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Scroll-fill connecting line in "How it works" — overrides the static
+   line by using transform-origin and scaling it in left-to-right. */
+.steps-grid.line-pending::before { transform: scaleX(0); transform-origin: 0 50%; }
+.steps-grid.line-fill::before {
+  transform: scaleX(1);
+  transition: transform 1.1s cubic-bezier(0.22, 1, 0.36, 1) 0.15s;
+}
+@media (prefers-reduced-motion: reduce) {
+  .steps-grid.line-pending::before { transform: scaleX(1); }
+}
+
+/* Subtle OLED-style bloom under the headline emphasis word */
+.header h1 em { position: relative; }
+.header h1 em::before {
+  content: '';
+  position: absolute;
+  inset: 8% -6% 8% -6%;
+  background: radial-gradient(ellipse at 50% 60%, color-mix(in srgb, var(--accent) 30%, transparent), transparent 65%);
+  filter: blur(22px);
+  z-index: -1;
+  pointer-events: none;
+}
+
 /* ===== ACCESSIBILITY & FOCUS ===== */
 button:focus-visible,
 a:focus-visible,
