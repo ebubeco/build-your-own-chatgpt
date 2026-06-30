@@ -21,6 +21,20 @@
     'agents': '🤖'
   };
 
+  // Crafted line-icons (Feather-style) for the hardware cards, matching the
+  // custom goal-card icon set. Stroke uses currentColor so CSS sets the colour.
+  const _svg = (inner) => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">' + inner + '</svg>';
+  const ICON_SVG = {
+    'laptop-old': _svg('<rect x="4" y="5" width="16" height="11" rx="1.5"/><line x1="2" y1="20" x2="22" y2="20"/>'),
+    'laptop':     _svg('<rect x="4" y="5" width="16" height="11" rx="1.5"/><line x1="2" y1="20" x2="22" y2="20"/><line x1="10" y1="9" x2="14" y2="9"/>'),
+    'monitor':    _svg('<rect x="3" y="4" width="18" height="12" rx="2"/><line x1="8" y1="20" x2="16" y2="20"/><line x1="12" y1="16" x2="12" y2="20"/>'),
+    'gpu-budget': _svg('<rect x="2.5" y="6.5" width="19" height="11" rx="1.5"/><circle cx="9" cy="12" r="2.6"/><line x1="14" y1="10" x2="18" y2="10"/><line x1="14" y1="14" x2="18" y2="14"/>'),
+    'gpu-power':  _svg('<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>'),
+    'apple':      _svg('<rect x="5" y="5" width="14" height="14" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="2" x2="9" y2="5"/><line x1="15" y1="2" x2="15" y2="5"/><line x1="9" y1="19" x2="9" y2="22"/><line x1="15" y1="19" x2="15" y2="22"/><line x1="2" y1="9" x2="5" y2="9"/><line x1="2" y1="15" x2="5" y2="15"/><line x1="19" y1="9" x2="22" y2="9"/><line x1="19" y1="15" x2="22" y2="15"/>'),
+    'help':       _svg('<circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>')
+  };
+  function iconSvg(key) { return ICON_SVG[key] || _svg('<rect x="4" y="4" width="16" height="16" rx="2"/>'); }
+
   let modelsData, gpusData, setupsData, glossaryData, appConfig, cloudProvidersData;
   let selectedTier = null;
   let selectedGoal = null;
@@ -343,7 +357,7 @@
       const btn = clone.querySelector('.hw-card');
       btn.dataset.tier = opt.tier;
       btn.dataset.id = opt.id;
-      btn.querySelector('.hw-icon').textContent = icon(opt.icon);
+      btn.querySelector('.hw-icon').innerHTML = iconSvg(opt.icon);
       btn.querySelector('.hw-title').textContent = opt.label;
       btn.querySelector('.hw-desc').textContent = opt.description;
       container.appendChild(clone);
@@ -1871,66 +1885,6 @@
       } else if (e.target.closest('.hw-card')) {
         const btn = e.target.closest('.hw-card');
         if (btn.dataset.id !== 'dont-know') selectHW(btn.dataset.id, btn.dataset.tier);
-      }
-    });
-  }
-
-  function initCopyButtons() {
-    document.querySelectorAll('pre code').forEach(block => {
-      if (block.parentNode.querySelector('.copy-btn')) return;
-      const btn = document.createElement('button');
-      btn.className = 'copy-btn';
-      btn.textContent = 'Copy';
-      btn.addEventListener('click', e => {
-        e.stopPropagation();
-        navigator.clipboard.writeText(block.textContent.trim()).then(() => {
-          btn.textContent = 'Copied ✓';
-          setTimeout(() => { btn.textContent = 'Copy'; }, 2000);
-        });
-      });
-      block.parentNode.style.position = 'relative';
-      block.parentNode.appendChild(btn);
-    });
-  }
-
-  const TOOLTIPS = {
-    'VRAM':           'Video RAM — memory on your graphics card. More VRAM = larger AI models you can run.',
-    'Quantization':   'Compression that makes models smaller. Q4 = small + fast. Q8 = larger + more accurate.',
-    'Parameters':     "Model size. 7B = 7 billion parameters. Bigger = usually smarter but needs more RAM.",
-    'Ollama':         'Free software that runs AI models on your computer. Like a media player, but for AI.',
-    'LM Studio':      'Desktop app for running local AI models. Visual interface — no terminal needed.',
-    'OpenWebUI':      'Chat interface that connects to Ollama. Looks like ChatGPT but runs on your machine.',
-    'TPS':            'Tokens per second — how fast the AI writes. 100+ TPS feels instant.',
-    'RPD':            'Requests per day — how many times you can call a free API before the daily limit resets.',
-    'RPM':            'Requests per minute — calls per minute before hitting a rate limit.',
-    'Modelfile':      'Config file that tells Ollama how to connect to a cloud API instead of running locally.',
-    'STT':            'Speech to text — converts spoken audio into written text.',
-    'TTS':            'Text to speech — converts written text into spoken audio.',
-    'TPM':            'Tokens per minute — total text volume you can process per minute.',
-    'Context window': 'How much text the AI can read at once. 1M context ≈ 750,000 words.'
-  };
-
-  function applyTooltips() {
-    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
-    const nodes = [];
-    while (walker.nextNode()) nodes.push(walker.currentNode);
-    nodes.forEach(node => {
-      if (!node.textContent.trim()) return;
-      if (node.parentElement.closest('script,style,pre,code,.tooltip-trigger,.copy-btn')) return;
-      let html = node.textContent;
-      let changed = false;
-      Object.entries(TOOLTIPS).forEach(([term, tip]) => {
-        const re = new RegExp(`\\b${term}\\b`, 'g');
-        if (re.test(html)) {
-          html = html.replace(re,
-            `<span class="tooltip-trigger" data-tip="${tip}">${term}</span>`);
-          changed = true;
-        }
-      });
-      if (changed) {
-        const span = document.createElement('span');
-        span.innerHTML = html;
-        node.parentNode.replaceChild(span, node);
       }
     });
   }

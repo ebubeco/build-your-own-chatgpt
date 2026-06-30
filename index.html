@@ -117,11 +117,39 @@
 
   <header class="header">
     <div class="container">
-      <div class="header-inner">
-        <span class="header-badge">Free · Private · Works offline</span>
+      <div class="hero-layout">
+        <div class="hero-copy">
+          <div class="header-inner">
+            <span class="header-badge">Free · Private · Works offline</span>
+          </div>
+          <h1>Build Your Own <em>ChatGPT</em></h1>
+          <p>From a beat-up 2014 laptop to a shiny gaming rig, whatever you're working with, we'll get a private AI running on it. No cloud, no subscription, your data stays on your machine.</p>
+          <div class="hero-stats" role="list">
+            <div class="hero-stat" role="listitem"><span class="hero-stat-num">53+</span><span class="hero-stat-label">models matched</span></div>
+            <div class="hero-stat" role="listitem"><span class="hero-stat-num">100%</span><span class="hero-stat-label">offline &amp; private</span></div>
+            <div class="hero-stat" role="listitem"><span class="hero-stat-num">$0</span><span class="hero-stat-label">forever</span></div>
+          </div>
+        </div>
+
+        <div class="hero-visual" aria-hidden="true">
+          <div class="chat-mock">
+            <div class="chat-mock-bar">
+              <span class="cm-dots"><i></i><i></i><i></i></span>
+              <span class="cm-title">qwen2.5:7b</span>
+              <span class="cm-badge"><i class="cm-live"></i>Local</span>
+            </div>
+            <div class="chat-mock-body">
+              <div class="cm-msg cm-user">Explain quantization like I'm five.</div>
+              <div class="cm-msg cm-ai">Think of a giant box of crayons — quantization swaps it for a smaller pack. Fewer shades, but it still fits in your bag and the picture looks the same.</div>
+              <div class="cm-msg cm-ai cm-typing"><i></i><i></i><i></i></div>
+            </div>
+            <div class="chat-mock-input">
+              <span class="cm-placeholder">Message your private AI…</span>
+              <span class="cm-send">↑</span>
+            </div>
+          </div>
+        </div>
       </div>
-      <h1>Build Your Own ChatGPT</h1>
-      <p>From a beat-up 2014 laptop to a shiny gaming rig, whatever you're working with, we'll get a private AI running on it. No cloud, no subscription, your data stays on your machine.</p>
     </div>
   </header>
 
@@ -137,32 +165,32 @@
 
         <div id="goal-options" class="goal-grid">
           <button class="goal-card" data-goal="chat" aria-pressed="false">
-            <span class="goal-icon">💬</span>
+            <span class="goal-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.5 8.5 0 0 1-12.2 7.7L3 21l1.8-5.8A8.5 8.5 0 1 1 21 11.5Z"/><path d="M8.5 11.5h.01M12 11.5h.01M15.5 11.5h.01"/></svg></span>
             <span class="goal-title">Private ChatGPT</span>
             <span class="goal-desc">Chat, brainstorm, answer questions. Fully private, on your machine.</span>
           </button>
           <button class="goal-card" data-goal="coding" aria-pressed="false">
-            <span class="goal-icon">💻</span>
+            <span class="goal-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></span>
             <span class="goal-title">Coding assistant</span>
             <span class="goal-desc">Write code, debug, explain functions. Models trained for programming.</span>
           </button>
           <button class="goal-card" data-goal="writing" aria-pressed="false">
-            <span class="goal-icon">✍️</span>
+            <span class="goal-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></span>
             <span class="goal-title">Research + writing</span>
             <span class="goal-desc">Articles, reports, summaries, and research. Long context helps here.</span>
           </button>
           <button class="goal-card" data-goal="documents" aria-pressed="false">
-            <span class="goal-icon">📄</span>
+            <span class="goal-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="13" y2="17"/></svg></span>
             <span class="goal-title">Chat with documents</span>
             <span class="goal-desc">Ask questions about PDFs, codebases, transcripts. Needs 8K+ context.</span>
           </button>
           <button class="goal-card" data-goal="agents" aria-pressed="false">
-            <span class="goal-icon">🤖</span>
+            <span class="goal-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="13.5" x2="15.4" y2="17.5"/><line x1="15.4" y1="6.5" x2="8.6" y2="10.5"/></svg></span>
             <span class="goal-title">AI agents and automation</span>
             <span class="goal-desc">Build automated workflows, research agents, and multi-step reasoning tasks.</span>
           </button>
           <button class="goal-card" data-goal="unknown" aria-pressed="false">
-            <span class="goal-icon">❓</span>
+            <span class="goal-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></span>
             <span class="goal-title">I Don't Know</span>
             <span class="goal-desc">Not sure what's possible? Let's find the best fit together.</span>
           </button>
@@ -722,22 +750,49 @@ print("Saved to output.mp3")</div>
 
       <hr class="divider">
 
-      <section class="section">
+      <section class="section how-it-works">
         <p class="section-label">How it works</p>
         <h2>Three steps to your own AI</h2>
         <div class="steps-grid">
           <div class="step-card">
-            <div class="step-num">Step 01</div>
+            <div class="step-orb" aria-hidden="true">
+              <svg class="step-illust" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="32" cy="22" r="9"/>
+                <path d="M16 52c0-8 7-14 16-14s16 6 16 14"/>
+                <circle cx="50" cy="14" r="6" fill="currentColor" stroke="none" opacity="0.16"/>
+                <path d="M48 14h4M50 12v4"/>
+              </svg>
+              <span class="step-num-orb">01</span>
+            </div>
             <div class="step-title">Your goal + career</div>
             <div class="step-desc">Tell us what you want to do and what you do. Goal shapes the recommendation, career fine-tunes it.</div>
           </div>
           <div class="step-card">
-            <div class="step-num">Step 02</div>
+            <div class="step-orb" aria-hidden="true">
+              <svg class="step-illust" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="10" y="14" width="44" height="28" rx="3"/>
+                <line x1="6" y1="50" x2="58" y2="50"/>
+                <rect x="20" y="22" width="10" height="12" rx="1.5" fill="currentColor" stroke="none" opacity="0.16"/>
+                <line x1="36" y1="24" x2="46" y2="24"/>
+                <line x1="36" y1="30" x2="46" y2="30"/>
+                <line x1="36" y1="36" x2="42" y2="36"/>
+              </svg>
+              <span class="step-num-orb">02</span>
+            </div>
             <div class="step-title">Select your hardware</div>
             <div class="step-desc">Tell us what you're working with. We'll detect it automatically if possible.</div>
           </div>
           <div class="step-card">
-            <div class="step-num">Step 03</div>
+            <div class="step-orb" aria-hidden="true">
+              <svg class="step-illust" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="8" y="14" width="48" height="34" rx="3"/>
+                <rect x="14" y="20" width="36" height="22" rx="1.5" fill="currentColor" stroke="none" opacity="0.10"/>
+                <path d="M19 28l4 4-4 4"/>
+                <line x1="27" y1="36" x2="34" y2="36"/>
+                <path d="M44 54l-3-2 3-2"/>
+              </svg>
+              <span class="step-num-orb">03</span>
+            </div>
             <div class="step-title">Copy. Paste. Done.</div>
             <div class="step-desc">One command to install. Chat with your private AI in minutes.</div>
           </div>
@@ -858,5 +913,6 @@ print("Saved to output.mp3")</div>
   <script src="analytics.js"></script>
   <script src="app.js"></script>
   <script src="shared.js"></script>
+  <script src="interactive.js" defer></script>
 </body>
 </html>
