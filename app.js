@@ -208,7 +208,12 @@
     const gpuMap = gpusData.gpuMap;
     if (name.includes('Apple') || name.includes('M1') || name.includes('M2') || name.includes('M3') || name.includes('M4')) {
       const mem = detectUnifiedMemory();
-      return { tier: 'apple', vramGB: mem || 16, name: 'Apple Silicon (' + (mem || 16) + 'GB)', ram: mem || 16 };
+      const ramGB = mem || 16;
+      // Return the precise compendium silicon tier directly, since the real
+      // RAM amount is already known here -- generic 'apple' would otherwise
+      // fall back to the conservative 8-16GB default in resolveCompendiumTier.
+      const tier = ramGB >= 64 ? 'silicon-64-plus' : ramGB >= 24 ? 'silicon-24-48gb' : 'silicon-8-16gb';
+      return { tier, vramGB: ramGB, name: 'Apple Silicon (' + ramGB + 'GB)', ram: ramGB };
     }
     const normalizedName = normalizeGpuString(name);
     for (const [key, val] of Object.entries(gpuMap)) {
@@ -218,6 +223,21 @@
       }
     }
     return null;
+  }
+
+  // gpus.json (UI hardware cards + auto-detect tier estimation) and
+  // models_compendium.json/config.json (the actual model recommendation
+  // data) use two different tier taxonomies that don't fully overlap --
+  // "mid-gpu", "high-end-gpu", and the generic "apple" id have no matching
+  // compendium tier. Selecting any of them silently stalled the wizard:
+  // getTierInfo() returned undefined and renderResults() bailed out with
+  // only a console.warn, no visible error. Normalize at the point results
+  // are rendered so every UI-facing tier resolves to real data.
+  function resolveCompendiumTier(tier) {
+    if (tier === 'mid-gpu') return 'budget-gpu'; // compendium's budget-gpu already spans 4-12GB
+    if (tier === 'high-end-gpu') return 'power-gpu';
+    if (tier === 'apple') return 'silicon-8-16gb'; // safe default when no RAM amount is known
+    return tier;
   }
 
   function getTierFromGPU(gpuName, vramGB) {
@@ -233,7 +253,7 @@
     const vramGB = detectVRAM();
     const match = matchGPUName(gpuName);
     if (!match) return { gpu: gpuName, vram: vramGB, tier: getTierFromVRAM(vramGB) };
-    const isSilicon = match.tier === 'apple';
+    const isSilicon = typeof match.tier === 'string' && match.tier.indexOf('silicon-') === 0;
     const memLabel = isSilicon ? ((match.ram || match.vramGB) + 'GB unified') : (match.vramGB + 'GB VRAM');
     const name = (gpuName.includes('Apple') || gpuName.includes('M1') || gpuName.includes('M2') || gpuName.includes('M3') || gpuName.includes('M4')) ? (match.name || 'Apple Silicon') : (match.name || gpuName);
     return { gpu: name, vram: memLabel, tier: match.tier, vramGB: match.vramGB };
@@ -937,6 +957,7 @@
     }
     const careerArea = document.getElementById('career-area');
     if (careerArea) careerArea.classList.add('hidden');
+    tier = resolveCompendiumTier(tier);
     const tierInfo = getTierInfo(tier);
     if (!tierInfo) {
       console.warn('Unknown tier:', tier);
@@ -1557,11 +1578,11 @@
               const card = document.querySelector(`[data-id="${opt.id}"]`);
               if (card) card.classList.add('selected');
           }
-          if (modelsData.tiers.find(t => t.id === actualTier)) {
-              renderResults(actualTier);
-          } else {
-              renderResults('no-gpu');
-          }
+          // renderResults() normalizes UI-facing tier ids (mid-gpu/high-end-gpu/
+          // apple) to the compendium scheme itself now, so this no longer needs
+          // a pre-check -- the old version silently fell back to 'no-gpu'
+          // results for any shared link with those tiers in the URL.
+          renderResults(actualTier);
           wizardState.goToStep('results');
       }
   }
@@ -1630,16 +1651,25 @@
             const match = matchGPUName(gpuName);
             if (match) {
               banner.classList.remove('hidden');
-              const isSilicon = match.tier === 'apple';
+              const isSilicon = typeof match.tier === 'string' && match.tier.indexOf('silicon-') === 0;
               const memLabel = isSilicon ? `${Math.round(match.vramGB)}GB unified` : `${match.vramGB}GB VRAM`;
               banner.innerHTML = `🖥️ Detected: <strong>${match.name}</strong> (${memLabel}) - selecting automatically...`;
               setTimeout(() => {
                 if (autoDetectCancelled) return;
-                const opt = gpusData.manualOptions.find(o => o.id === match.tier);
+                // gpus.json's apple-silicon card has id "apple-silicon" but a
+                // tier of "apple" -- and matchGPUName now returns one of the
+                // 3 specific compendium silicon-* tiers, neither of which
+                // ever equals a manualOption's id directly. Route both cases
+                // to the one apple-silicon card.
+                const opt = gpusData.manualOptions.find(o => isSilicon ? o.id === 'apple-silicon' : o.id === match.tier);
                 if (opt) {
                   const card = document.querySelector(`[data-id="${opt.id}"]`);
                   if (card) {
-                    card.click();
+                    // Call selectHW directly with match.tier (not card.click(),
+                    // which would re-derive the generic "apple" tier from the
+                    // card's static dataset and lose the precise silicon-*
+                    // tier already detected here).
+                    selectHW(opt.id, match.tier, true);
                     card.scrollIntoView({ behavior: 'smooth', block: 'center' });
                   }
                 }

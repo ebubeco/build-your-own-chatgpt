@@ -2401,7 +2401,7 @@
       "name": "Phi-4 14B",
       "fullName": "phi4:14b",
       "size": "14B",
-      "tier": "mid-gpu",
+      "tier": "budget-gpu",
       "vramGB": 10.0,
       "recommendedQuant": "Q4_K_M",
       "contextLength": 16384,
