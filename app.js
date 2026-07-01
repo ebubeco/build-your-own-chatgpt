@@ -1674,6 +1674,27 @@
                   }
                 }
               }, 800);
+            } else {
+              // GPU string didn't match any gpuMap entry (unmatched AMD/Intel
+              // card, integrated graphics, or an unrecognized Mesa/ANGLE
+              // string). detectVRAM() is vendor-agnostic now, but that value
+              // was only ever consumed here -- previously there was no else
+              // branch at all, so unmatched GPUs silently got no automatic
+              // tier selection despite a usable VRAM estimate being available.
+              const fallbackTier = getTierFromVRAM(vramGB);
+              banner.classList.remove('hidden');
+              banner.innerHTML = `🖥️ Detected: <strong>${gpuName}</strong> (~${vramGB}GB VRAM, estimated) - selecting automatically...`;
+              setTimeout(() => {
+                if (autoDetectCancelled) return;
+                const opt = gpusData.manualOptions.find(o => o.tier === fallbackTier);
+                if (opt) {
+                  const card = document.querySelector(`[data-id="${opt.id}"]`);
+                  if (card) {
+                    selectHW(opt.id, fallbackTier, true);
+                    card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                  }
+                }
+              }, 800);
             }
           } else {
             onHardwareDetectFail(null);
