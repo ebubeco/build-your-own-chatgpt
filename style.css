@@ -1006,6 +1006,7 @@ html { scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
 
 .feedback-btn {
   background: var(--bg);
+  color: var(--text);
   border: 1px solid var(--border);
   padding: 0.4rem 0.8rem;
   border-radius: var(--radius);
@@ -1039,6 +1040,7 @@ html { scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
 
 .feedback-tag {
   background: var(--bg);
+  color: var(--text-secondary);
   border: 1px solid var(--border);
   padding: 0.25rem 0.6rem;
   border-radius: 12px;
