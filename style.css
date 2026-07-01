@@ -215,10 +215,15 @@ body {
 
 ::selection { background: #e85d0415; color: var(--accent); }
 
+/* Firefox uses the standard scrollbar-width/scrollbar-color properties --
+   ::-webkit-scrollbar has no effect there, so without this Firefox users
+   (on any OS) fall back to the unstyled native scrollbar. */
+html { scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
+
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: #ccc; }
+::-webkit-scrollbar-thumb:hover { background: var(--border-strong); }
 
 /* ===== HEADER ===== */
 .header {

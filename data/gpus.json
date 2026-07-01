@@ -101,8 +101,21 @@
     "NVIDIA RTX 3080": { "tier": "high-end-gpu", "vramGB": 10, "name": "RTX 3080" },
     "NVIDIA RTX 3070": { "tier": "mid-gpu", "vramGB": 8, "name": "RTX 3070" },
     "AMD RX 7900 XTX": { "tier": "high-end-gpu", "vramGB": 24, "name": "RX 7900 XTX" },
+    "AMD RX 7900 XT": { "tier": "high-end-gpu", "vramGB": 20, "name": "RX 7900 XT" },
+    "AMD RX 7800 XT": { "tier": "high-end-gpu", "vramGB": 16, "name": "RX 7800 XT" },
+    "AMD RX 7700 XT": { "tier": "mid-gpu", "vramGB": 12, "name": "RX 7700 XT" },
+    "AMD RX 7600": { "tier": "budget-gpu", "vramGB": 8, "name": "RX 7600" },
+    "AMD RX 6800 XT": { "tier": "high-end-gpu", "vramGB": 16, "name": "RX 6800 XT" },
+    "AMD RX 6800": { "tier": "high-end-gpu", "vramGB": 16, "name": "RX 6800" },
     "AMD RX 6700 XT": { "tier": "mid-gpu", "vramGB": 12, "name": "RX 6700 XT" },
+    "AMD RX 6650 XT": { "tier": "budget-gpu", "vramGB": 8, "name": "RX 6650 XT" },
     "AMD RX 6600": { "tier": "budget-gpu", "vramGB": 8, "name": "RX 6600" },
-    "Intel Arc A770": { "tier": "mid-gpu", "vramGB": 16, "name": "Arc A770" }
+    "AMD RX 6500 XT": { "tier": "budget-gpu", "vramGB": 4, "name": "RX 6500 XT" },
+    "AMD RX 5700 XT": { "tier": "budget-gpu", "vramGB": 8, "name": "RX 5700 XT" },
+    "Intel Arc B580": { "tier": "mid-gpu", "vramGB": 12, "name": "Arc B580" },
+    "Intel Arc A770": { "tier": "mid-gpu", "vramGB": 16, "name": "Arc A770" },
+    "Intel Arc A750": { "tier": "budget-gpu", "vramGB": 8, "name": "Arc A750" },
+    "Intel Arc A580": { "tier": "budget-gpu", "vramGB": 8, "name": "Arc A580" },
+    "Intel Arc A380": { "tier": "budget-gpu", "vramGB": 6, "name": "Arc A380" }
   }
 }

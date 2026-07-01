@@ -140,11 +140,12 @@
     const canvas = document.createElement('canvas');
     const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
     if (!gl) return 0;
-    const ext = gl.getExtension('WEBGL_debug_renderer_info');
-    if (!ext) return 0;
-    const dbgRenderInfo = gl.getParameter(ext.UNMASKED_RENDERER_WEBGL);
-    const isNvidia = dbgRenderInfo && dbgRenderInfo.includes('NVIDIA');
-    if (!isNvidia) return 0;
+    // MAX_TEXTURE_SIZE is a coarse but vendor-agnostic signal. This used to
+    // gate on the renderer string containing "NVIDIA", which silently
+    // estimated 0 VRAM for every AMD/Intel GPU not found in gpuMap -- pushing
+    // unmatched non-NVIDIA hardware (common on Linux, and plenty of Windows
+    // rigs too) straight to the lowest "no-gpu" tier regardless of its real
+    // capability. Apply the same heuristic to all vendors instead.
     const pixels = gl.createTexture();
     gl.bindTexture(gl.TEXTURE_2D, pixels);
     gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array([0,0,0,0]));
@@ -187,19 +188,56 @@
     return 'no-gpu';
   }
 
+  // Some vendors (notably Intel) report WebGL renderer strings with inline
+  // trademark notation, e.g. "Intel(R) Arc(TM) A770 Graphics" on both Windows
+  // (ANGLE/D3D11) and Linux (Mesa) -- a plain substring check against a key
+  // like "Intel Arc A770" never matches because of the (R)/(TM) in the way.
+  // Stripping that notation before matching fixes it without changing any
+  // case that already worked (NVIDIA/AMD strings rarely include it).
+  function normalizeGpuString(s) {
+    return s
+      .replace(/\(R\)/gi, '')
+      .replace(/\(TM\)/gi, '')
+      .replace(/[®™©]/g, '')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
   function matchGPUName(name) {
     if (!name) return null;
     const gpuMap = gpusData.gpuMap;
     if (name.includes('Apple') || name.includes('M1') || name.includes('M2') || name.includes('M3') || name.includes('M4')) {
       const mem = detectUnifiedMemory();
-      return { tier: 'apple', vramGB: mem || 16, name: 'Apple Silicon (' + (mem || 16) + 'GB)', ram: mem || 16 };
+      const ramGB = mem || 16;
+      // Return the precise compendium silicon tier directly, since the real
+      // RAM amount is already known here -- generic 'apple' would otherwise
+      // fall back to the conservative 8-16GB default in resolveCompendiumTier.
+      const tier = ramGB >= 64 ? 'silicon-64-plus' : ramGB >= 24 ? 'silicon-24-48gb' : 'silicon-8-16gb';
+      return { tier, vramGB: ramGB, name: 'Apple Silicon (' + ramGB + 'GB)', ram: ramGB };
     }
+    const normalizedName = normalizeGpuString(name);
     for (const [key, val] of Object.entries(gpuMap)) {
-      if (name.includes(key.replace('NVIDIA ', '').replace('AMD ', ''))) {
+      const modelName = key.replace('NVIDIA ', '').replace('AMD ', '').replace('Intel ', '');
+      if (normalizedName.includes(modelName)) {
         return { key, ...val };
       }
     }
     return null;
+  }
+
+  // gpus.json (UI hardware cards + auto-detect tier estimation) and
+  // models_compendium.json/config.json (the actual model recommendation
+  // data) use two different tier taxonomies that don't fully overlap --
+  // "mid-gpu", "high-end-gpu", and the generic "apple" id have no matching
+  // compendium tier. Selecting any of them silently stalled the wizard:
+  // getTierInfo() returned undefined and renderResults() bailed out with
+  // only a console.warn, no visible error. Normalize at the point results
+  // are rendered so every UI-facing tier resolves to real data.
+  function resolveCompendiumTier(tier) {
+    if (tier === 'mid-gpu') return 'budget-gpu'; // compendium's budget-gpu already spans 4-12GB
+    if (tier === 'high-end-gpu') return 'power-gpu';
+    if (tier === 'apple') return 'silicon-8-16gb'; // safe default when no RAM amount is known
+    return tier;
   }
 
   function getTierFromGPU(gpuName, vramGB) {
@@ -215,7 +253,7 @@
     const vramGB = detectVRAM();
     const match = matchGPUName(gpuName);
     if (!match) return { gpu: gpuName, vram: vramGB, tier: getTierFromVRAM(vramGB) };
-    const isSilicon = match.tier === 'apple';
+    const isSilicon = typeof match.tier === 'string' && match.tier.indexOf('silicon-') === 0;
     const memLabel = isSilicon ? ((match.ram || match.vramGB) + 'GB unified') : (match.vramGB + 'GB VRAM');
     const name = (gpuName.includes('Apple') || gpuName.includes('M1') || gpuName.includes('M2') || gpuName.includes('M3') || gpuName.includes('M4')) ? (match.name || 'Apple Silicon') : (match.name || gpuName);
     return { gpu: name, vram: memLabel, tier: match.tier, vramGB: match.vramGB };
@@ -919,6 +957,7 @@
     }
     const careerArea = document.getElementById('career-area');
     if (careerArea) careerArea.classList.add('hidden');
+    tier = resolveCompendiumTier(tier);
     const tierInfo = getTierInfo(tier);
     if (!tierInfo) {
       console.warn('Unknown tier:', tier);
@@ -1539,11 +1578,11 @@
               const card = document.querySelector(`[data-id="${opt.id}"]`);
               if (card) card.classList.add('selected');
           }
-          if (modelsData.tiers.find(t => t.id === actualTier)) {
-              renderResults(actualTier);
-          } else {
-              renderResults('no-gpu');
-          }
+          // renderResults() normalizes UI-facing tier ids (mid-gpu/high-end-gpu/
+          // apple) to the compendium scheme itself now, so this no longer needs
+          // a pre-check -- the old version silently fell back to 'no-gpu'
+          // results for any shared link with those tiers in the URL.
+          renderResults(actualTier);
           wizardState.goToStep('results');
       }
   }
@@ -1612,16 +1651,46 @@
             const match = matchGPUName(gpuName);
             if (match) {
               banner.classList.remove('hidden');
-              const isSilicon = match.tier === 'apple';
+              const isSilicon = typeof match.tier === 'string' && match.tier.indexOf('silicon-') === 0;
               const memLabel = isSilicon ? `${Math.round(match.vramGB)}GB unified` : `${match.vramGB}GB VRAM`;
               banner.innerHTML = `🖥️ Detected: <strong>${match.name}</strong> (${memLabel}) - selecting automatically...`;
               setTimeout(() => {
                 if (autoDetectCancelled) return;
-                const opt = gpusData.manualOptions.find(o => o.id === match.tier);
+                // gpus.json's apple-silicon card has id "apple-silicon" but a
+                // tier of "apple" -- and matchGPUName now returns one of the
+                // 3 specific compendium silicon-* tiers, neither of which
+                // ever equals a manualOption's id directly. Route both cases
+                // to the one apple-silicon card.
+                const opt = gpusData.manualOptions.find(o => isSilicon ? o.id === 'apple-silicon' : o.id === match.tier);
                 if (opt) {
                   const card = document.querySelector(`[data-id="${opt.id}"]`);
                   if (card) {
-                    card.click();
+                    // Call selectHW directly with match.tier (not card.click(),
+                    // which would re-derive the generic "apple" tier from the
+                    // card's static dataset and lose the precise silicon-*
+                    // tier already detected here).
+                    selectHW(opt.id, match.tier, true);
+                    card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                  }
+                }
+              }, 800);
+            } else {
+              // GPU string didn't match any gpuMap entry (unmatched AMD/Intel
+              // card, integrated graphics, or an unrecognized Mesa/ANGLE
+              // string). detectVRAM() is vendor-agnostic now, but that value
+              // was only ever consumed here -- previously there was no else
+              // branch at all, so unmatched GPUs silently got no automatic
+              // tier selection despite a usable VRAM estimate being available.
+              const fallbackTier = getTierFromVRAM(vramGB);
+              banner.classList.remove('hidden');
+              banner.innerHTML = `🖥️ Detected: <strong>${gpuName}</strong> (~${vramGB}GB VRAM, estimated) - selecting automatically...`;
+              setTimeout(() => {
+                if (autoDetectCancelled) return;
+                const opt = gpusData.manualOptions.find(o => o.tier === fallbackTier);
+                if (opt) {
+                  const card = document.querySelector(`[data-id="${opt.id}"]`);
+                  if (card) {
+                    selectHW(opt.id, fallbackTier, true);
                     card.scrollIntoView({ behavior: 'smooth', block: 'center' });
                   }
                 }
