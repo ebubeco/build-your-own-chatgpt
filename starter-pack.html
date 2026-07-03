@@ -52,6 +52,12 @@
     .sp-troubleshoot li { padding: 0.5rem 0; border-bottom: 1px solid var(--border-light); font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5; }
     .sp-troubleshoot li:last-child { border-bottom: none; }
     .sp-troubleshoot strong { color: var(--text); }
+    .sp-check-title { font-family: 'Outfit', sans-serif; font-size: 1.1rem; font-weight: 700; margin-bottom: 0.75rem; }
+    .sp-check { list-style: none; padding: 0; margin: 0; }
+    .sp-check li { display: flex; align-items: flex-start; gap: 0.5rem; padding: 0.4rem 0; border-bottom: 1px solid var(--border-light); font-size: 0.88rem; }
+    .sp-check li:last-child { border-bottom: none; }
+    .sp-check input { margin-top: 0.15rem; width: auto; flex-shrink: 0; }
+    .sp-code-warm { background: var(--bg-warm); padding: 0.1rem 0.35rem; border-radius: 4px; font-size: 0.8rem; }
     @keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
   </style>
   <script defer src="/_vercel/insights/script.js"></script>
@@ -193,15 +199,15 @@ var promptsData = null;
       var checklist = document.getElementById('sp-checklist');
       if (!checklist) return;
       checklist.style.display = 'block';
-      checklist.innerHTML = '<h3 style="font-family:Outfit,sans-serif;font-size:1.1rem;font-weight:700;margin-bottom:.75rem">📋 First Week Checklist</h3>' +
-        '<ul style="list-style:none;padding:0;margin:0">' +
-        '<li style="display:flex;align-items:flex-start;gap:.5rem;padding:.4rem 0;border-bottom:1px solid var(--border-light);font-size:.88rem"><input type="checkbox" style="margin-top:.15rem;width:auto;flex-shrink:0"> <span>Download Ollama from <a href="https://ollama.com/download" target="_blank" rel="noopener noreferrer" style="color:var(--accent)">ollama.com/download</a></span></li>' +
-        '<li style="display:flex;align-items:flex-start;gap:.5rem;padding:.4rem 0;border-bottom:1px solid var(--border-light);font-size:.88rem"><input type="checkbox" style="margin-top:.15rem;width:auto;flex-shrink:0"> <span>Run: <code style="background:var(--bg-warm);padding:.1rem .35rem;border-radius:4px;font-size:.8rem">' + cmd + '</code></span></li>' +
-        '<li style="display:flex;align-items:flex-start;gap:.5rem;padding:.4rem 0;border-bottom:1px solid var(--border-light);font-size:.88rem"><input type="checkbox" style="margin-top:.15rem;width:auto;flex-shrink:0"> <span>Test it: <code style="background:var(--bg-warm);padding:.1rem .35rem;border-radius:4px;font-size:.8rem">ollama run ' + model + ' "Hello"</code></span></li>' +
-        '<li style="display:flex;align-items:flex-start;gap:.5rem;padding:.4rem 0;border-bottom:1px solid var(--border-light);font-size:.88rem"><input type="checkbox" style="margin-top:.15rem;width:auto;flex-shrink:0"> <span>Install <a href="https://lmstudio.ai" target="_blank" rel="noopener noreferrer" style="color:var(--accent)">LM Studio</a> (or OpenWebUI) for a GUI</span></li>' +
-        '<li style="display:flex;align-items:flex-start;gap:.5rem;padding:.4rem 0;border-bottom:1px solid var(--border-light);font-size:.88rem"><input type="checkbox" style="margin-top:.15rem;width:auto;flex-shrink:0"> <span>Create a custom Modelfile with your system prompt</span></li>' +
-        '<li style="display:flex;align-items:flex-start;gap:.5rem;padding:.4rem 0;border-bottom:1px solid var(--border-light);font-size:.88rem"><input type="checkbox" style="margin-top:.15rem;width:auto;flex-shrink:0"> <span>Try 5 different tasks to find what the model does best</span></li>' +
-        '<li style="display:flex;align-items:flex-start;gap:.5rem;padding:.4rem 0;font-size:.88rem"><input type="checkbox" style="margin-top:.15rem;width:auto;flex-shrink:0"> <span>Share your setup: <a href="index.html" style="color:var(--accent)">build-your-own-chatgpt.vercel.app</a></span></li>' +
+      checklist.innerHTML = '<h3 class="sp-check-title">📋 First Week Checklist</h3>' +
+        '<ul class="sp-check">' +
+        '<li><input type="checkbox"> <span>Download Ollama from <a href="https://ollama.com/download" target="_blank" rel="noopener noreferrer" style="color:var(--accent)">ollama.com/download</a></span></li>' +
+        '<li><input type="checkbox"> <span>Run: <code class="sp-code-warm">' + cmd + '</code></span></li>' +
+        '<li><input type="checkbox"> <span>Test it: <code class="sp-code-warm">ollama run ' + model + ' "Hello"</code></span></li>' +
+        '<li><input type="checkbox"> <span>Install <a href="https://lmstudio.ai" target="_blank" rel="noopener noreferrer" style="color:var(--accent)">LM Studio</a> (or OpenWebUI) for a GUI</span></li>' +
+        '<li><input type="checkbox"> <span>Create a custom Modelfile with your system prompt</span></li>' +
+        '<li><input type="checkbox"> <span>Try 5 different tasks to find what the model does best</span></li>' +
+        '<li><input type="checkbox"> <span>Share your setup: <a href="index.html" style="color:var(--accent)">build-your-own-chatgpt.vercel.app</a></span></li>' +
         '</ul>';
     }
 
