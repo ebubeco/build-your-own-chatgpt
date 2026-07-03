@@ -11,6 +11,39 @@
   <link rel="canonical" href="https://build-your-own-chatgpt.vercel.app/evaluators.html">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* Page-scoped styles for the evaluators workflow. Extracted from repeated
+       inline styles: the 8 step cards, the 5-card decision tree, and the FAQ
+       list each repeated the same style blocks per item. Kept scoped here
+       (not in global style.css) because these classes are unique to this page. */
+    .eval-main { max-width: 760px; margin: 0 auto; padding: 2rem 1rem; }
+
+    .eval-steps { display: flex; flex-direction: column; gap: 1rem; margin-top: 1.25rem; }
+    .eval-step { border: 1px solid var(--border, #eee); border-radius: 10px; padding: 1rem 1.25rem; }
+    .eval-step-head { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+    .eval-step-num {
+      background: #3C3489; color: #fff; width: 28px; height: 28px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600;
+    }
+    .eval-step-title { margin: 0; font-size: 15px; }
+    .eval-step-tag { margin-left: auto; }
+    .eval-pill {
+      font-size: 11px; padding: 2px 8px; border-radius: 10px;
+      background: var(--surface-secondary, #f3f4f6); color: var(--text-secondary, #666);
+    }
+    .eval-step-desc { font-size: 13px; margin: 0 0 0 38px; }
+    .eval-step-note { font-size: 12px; color: var(--text-secondary, #666); margin: 6px 0 0 38px; }
+
+    .eval-tree { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; margin-top: 1rem; }
+    .eval-tree-card { border: 1px solid var(--border, #eee); border-radius: 8px; padding: 1rem; }
+    .eval-tree-q { font-size: 11px; font-weight: 600; text-transform: uppercase; color: var(--text-tertiary, #999); margin-bottom: 6px; }
+    .eval-tree-a { font-size: 14px; font-weight: 500; }
+    .eval-tree-meta { font-size: 12px; color: var(--text-secondary, #666); }
+
+    .eval-faq { margin-bottom: 10px; }
+    .eval-faq summary { cursor: pointer; font-weight: 500; padding: 8px 0; }
+    .eval-faq p { font-size: 13px; padding: 8px 0 0; }
+  </style>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
     {"@type":"Question","name":"What is the best free AI for evaluation work?","acceptedAnswer":{"@type":"Answer","text":"Groq Llama 3.1 8B Instant is the best free AI for high-volume evaluation work. It offers 14,400 requests per day at ~1,000 tokens per second. For complex reasoning, use Cerebras GPT OSS 120B at ~3,000 TPS."}},
     {"@type":"Question","name":"Can I do RLHF annotation for free?","acceptedAnswer":{"@type":"Answer","text":"Yes. You can build a complete free evaluation stack using 9 platforms: Groq (speed), Cerebras (throughput), Google AI Studio (grounding), OpenRouter (variety), and more. All offer free tiers with no credit card required."}},
@@ -29,7 +62,7 @@
     </div>
   </nav>
 
-  <main style="max-width:760px;margin:0 auto;padding:2rem 1rem;">
+  <main class="eval-main">
     <h1>Free AI Evaluation Stack for RLHF Annotators</h1>
     <p style="font-size:16px;line-height:1.6;">A complete zero-cost evaluation workflow using 9 free platforms. No credit card required. Built for annotation, QA, and evaluation specialists.</p>
 
@@ -48,114 +81,114 @@
     <h2>The 8-Step Evaluation Workflow</h2>
     <p style="font-size:14px;">Use this pipeline for consistent, high-quality annotation and evaluation. Each step uses a different platform optimized for that task.</p>
 
-    <div style="display:flex;flex-direction:column;gap:1rem;margin-top:1.25rem;">
-      <div style="border:1px solid var(--border,#eee);border-radius:10px;padding:1rem 1.25rem;">
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
-          <span style="background:#3C3489;color:#fff;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;">1</span>
-          <h3 style="margin:0;font-size:15px;">Anchor + Instruction</h3>
-          <span class="badge b-green" style="margin-left:auto;">Groq</span>
+    <div class="eval-steps">
+      <div class="eval-step">
+        <div class="eval-step-head">
+          <span class="eval-step-num">1</span>
+          <h3 class="eval-step-title">Anchor + Instruction</h3>
+          <span class="badge b-green eval-step-tag">Groq</span>
         </div>
-        <p style="font-size:13px;margin:0 0 0 38px;">Run the prompt through <strong>Groq Llama 3.1 8B Instant</strong> first (14,400 RPD). Fastest option for initial evaluation. Use for high-volume annotation where speed matters.</p>
-        <p style="font-size:12px;color:var(--text-secondary,#666);margin:6px 0 0 38px;">Best for: batch annotation, speed-priority evaluation, initial pass</p>
+        <p class="eval-step-desc">Run the prompt through <strong>Groq Llama 3.1 8B Instant</strong> first (14,400 RPD). Fastest option for initial evaluation. Use for high-volume annotation where speed matters.</p>
+        <p class="eval-step-note">Best for: batch annotation, speed-priority evaluation, initial pass</p>
       </div>
 
-      <div style="border:1px solid var(--border,#eee);border-radius:10px;padding:1rem 1.25rem;">
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
-          <span style="background:#3C3489;color:#fff;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;">2</span>
-          <h3 style="margin:0;font-size:15px;">Reality Check</h3>
-          <span class="badge b-primary" style="margin-left:auto;">OpenRouter</span>
+      <div class="eval-step">
+        <div class="eval-step-head">
+          <span class="eval-step-num">2</span>
+          <h3 class="eval-step-title">Reality Check</h3>
+          <span class="badge b-primary eval-step-tag">OpenRouter</span>
         </div>
-        <p style="font-size:13px;margin:0 0 0 38px;">Switch to <strong>OpenRouter DeepSeek R1</strong> for Chain-of-Thought reasoning. The visible reasoning trace helps you verify the model's logic step by step.</p>
-        <p style="font-size:12px;color:var(--text-secondary,#666);margin:6px 0 0 38px;">Best for: complex reasoning verification, logic checking, CoT analysis</p>
+        <p class="eval-step-desc">Switch to <strong>OpenRouter DeepSeek R1</strong> for Chain-of-Thought reasoning. The visible reasoning trace helps you verify the model's logic step by step.</p>
+        <p class="eval-step-note">Best for: complex reasoning verification, logic checking, CoT analysis</p>
       </div>
 
-      <div style="border:1px solid var(--border,#eee);border-radius:10px;padding:1rem 1.25rem;">
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
-          <span style="background:#3C3489;color:#fff;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;">3</span>
-          <h3 style="margin:0;font-size:15px;">Logic Check</h3>
-          <span class="badge b-purple" style="margin-left:auto;">Cerebras</span>
+      <div class="eval-step">
+        <div class="eval-step-head">
+          <span class="eval-step-num">3</span>
+          <h3 class="eval-step-title">Logic Check</h3>
+          <span class="badge b-purple eval-step-tag">Cerebras</span>
         </div>
-        <p style="font-size:13px;margin:0 0 0 38px;">Run through <strong>Cerebras GPT OSS 120B</strong> at ~3,000 TPS for maximum throughput on large models. Best for deep reasoning checks on complex evaluation tasks.</p>
-        <p style="font-size:12px;color:var(--text-secondary,#666);margin:6px 0 0 38px;">Best for: deep reasoning, high-throughput evaluation, large model analysis</p>
+        <p class="eval-step-desc">Run through <strong>Cerebras GPT OSS 120B</strong> at ~3,000 TPS for maximum throughput on large models. Best for deep reasoning checks on complex evaluation tasks.</p>
+        <p class="eval-step-note">Best for: deep reasoning, high-throughput evaluation, large model analysis</p>
       </div>
 
-      <div style="border:1px solid var(--border,#eee);border-radius:10px;padding:1rem 1.25rem;">
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
-          <span style="background:#3C3489;color:#fff;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;">4</span>
-          <h3 style="margin:0;font-size:15px;">Ambiguity Check</h3>
-          <span class="badge b-green" style="margin-left:auto;">Google AI Studio</span>
+      <div class="eval-step">
+        <div class="eval-step-head">
+          <span class="eval-step-num">4</span>
+          <h3 class="eval-step-title">Ambiguity Check</h3>
+          <span class="badge b-green eval-step-tag">Google AI Studio</span>
         </div>
-        <p style="font-size:13px;margin:0 0 0 38px;">Use <strong>Gemini 2.5 Flash</strong> with search grounding enabled. The native search capability verifies facts and reduces hallucination risk in real time.</p>
-        <p style="font-size:12px;color:var(--text-secondary,#666);margin:6px 0 0 38px;">Best for: fact-checking, search grounding, reducing hallucination risk</p>
+        <p class="eval-step-desc">Use <strong>Gemini 2.5 Flash</strong> with search grounding enabled. The native search capability verifies facts and reduces hallucination risk in real time.</p>
+        <p class="eval-step-note">Best for: fact-checking, search grounding, reducing hallucination risk</p>
       </div>
 
-      <div style="border:1px solid var(--border,#eee);border-radius:10px;padding:1rem 1.25rem;">
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
-          <span style="background:#3C3489;color:#fff;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;">5</span>
-          <h3 style="margin:0;font-size:15px;">Root Cause Analysis</h3>
-          <span class="badge b-primary" style="margin-left:auto;">OpenRouter</span>
+      <div class="eval-step">
+        <div class="eval-step-head">
+          <span class="eval-step-num">5</span>
+          <h3 class="eval-step-title">Root Cause Analysis</h3>
+          <span class="badge b-primary eval-step-tag">OpenRouter</span>
         </div>
-        <p style="font-size:13px;margin:0 0 0 38px;">Return to <strong>DeepSeek R1</strong> for root cause analysis when evaluations disagree. The visible reasoning chain helps identify exactly where models diverge.</p>
-        <p style="font-size:12px;color:var(--text-secondary,#666);margin:6px 0 0 38px;">Best for: disagreement resolution, root cause analysis, model comparison</p>
+        <p class="eval-step-desc">Return to <strong>DeepSeek R1</strong> for root cause analysis when evaluations disagree. The visible reasoning chain helps identify exactly where models diverge.</p>
+        <p class="eval-step-note">Best for: disagreement resolution, root cause analysis, model comparison</p>
       </div>
 
-      <div style="border:1px solid var(--border,#eee);border-radius:10px;padding:1rem 1.25rem;">
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
-          <span style="background:#3C3489;color:#fff;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;">6</span>
-          <h3 style="margin:0;font-size:15px;">The Call</h3>
-          <span class="badge b-purple" style="margin-left:auto;">Google AI Studio</span>
+      <div class="eval-step">
+        <div class="eval-step-head">
+          <span class="eval-step-num">6</span>
+          <h3 class="eval-step-title">The Call</h3>
+          <span class="badge b-purple eval-step-tag">Google AI Studio</span>
         </div>
-        <p style="font-size:13px;margin:0 0 0 38px;">Use <strong>Gemini 2.5 Pro</strong> (50 requests/day free) for the final difficult cases. Higher reasoning capability for edge cases where other models disagree.</p>
-        <p style="font-size:12px;color:var(--text-secondary,#666);margin:6px 0 0 38px;">Best for: tie-breaking, edge cases, final difficult evaluations</p>
+        <p class="eval-step-desc">Use <strong>Gemini 2.5 Pro</strong> (50 requests/day free) for the final difficult cases. Higher reasoning capability for edge cases where other models disagree.</p>
+        <p class="eval-step-note">Best for: tie-breaking, edge cases, final difficult evaluations</p>
       </div>
 
-      <div style="border:1px solid var(--border,#eee);border-radius:10px;padding:1rem 1.25rem;">
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
-          <span style="background:#3C3489;color:#fff;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;">7</span>
-          <h3 style="margin:0;font-size:15px;">Write It</h3>
-          <span style="font-size:11px;padding:2px 8px;border-radius:10px;background:var(--surface-secondary,#f3f4f6);color:var(--text-secondary,#666);margin-left:auto;">Fireworks AI</span>
+      <div class="eval-step">
+        <div class="eval-step-head">
+          <span class="eval-step-num">7</span>
+          <h3 class="eval-step-title">Write It</h3>
+          <span class="eval-pill eval-step-tag">Fireworks AI</span>
         </div>
-        <p style="font-size:13px;margin:0 0 0 38px;">Use <strong>Fireworks AI Kimi K2.5</strong> (256K context) for writing final evaluation reports. The long context window handles full conversation histories and detailed feedback.</p>
-        <p style="font-size:12px;color:var(--text-secondary,#666);margin:6px 0 0 38px;">Best for: writing final reports, long-context analysis, detailed feedback</p>
+        <p class="eval-step-desc">Use <strong>Fireworks AI Kimi K2.5</strong> (256K context) for writing final evaluation reports. The long context window handles full conversation histories and detailed feedback.</p>
+        <p class="eval-step-note">Best for: writing final reports, long-context analysis, detailed feedback</p>
       </div>
 
-      <div style="border:1px solid var(--border,#eee);border-radius:10px;padding:1rem 1.25rem;">
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
-          <span style="background:#3C3489;color:#fff;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;">8</span>
-          <h3 style="margin:0;font-size:15px;">Batch QC</h3>
-          <span class="badge b-green" style="margin-left:auto;">Groq</span>
+      <div class="eval-step">
+        <div class="eval-step-head">
+          <span class="eval-step-num">8</span>
+          <h3 class="eval-step-title">Batch QC</h3>
+          <span class="badge b-green eval-step-tag">Groq</span>
         </div>
-        <p style="font-size:13px;margin:0 0 0 38px;">Final quality check using <strong>Groq Compound</strong> (70K tokens per minute). High-throughput batch verification of all evaluations before submission.</p>
-        <p style="font-size:12px;color:var(--text-secondary,#666);margin:6px 0 0 38px;">Best for: batch quality control, final verification, high-throughput checking</p>
+        <p class="eval-step-desc">Final quality check using <strong>Groq Compound</strong> (70K tokens per minute). High-throughput batch verification of all evaluations before submission.</p>
+        <p class="eval-step-note">Best for: batch quality control, final verification, high-throughput checking</p>
       </div>
     </div>
 
     <h2 style="margin-top:2.5rem;">Quick Decision Tree</h2>
-    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:1rem;">
-      <div style="border:1px solid var(--border,#eee);border-radius:8px;padding:1rem;">
-        <div style="font-size:11px;font-weight:600;text-transform:uppercase;color:var(--text-tertiary,#999);margin-bottom:6px;">Need speed for batch?</div>
-        <div style="font-size:14px;font-weight:500;">Groq Llama 3.1 8B</div>
-        <div style="font-size:12px;color:var(--text-secondary,#666);">14,400 RPD, ~1,000 TPS</div>
+    <div class="eval-tree">
+      <div class="eval-tree-card">
+        <div class="eval-tree-q">Need speed for batch?</div>
+        <div class="eval-tree-a">Groq Llama 3.1 8B</div>
+        <div class="eval-tree-meta">14,400 RPD, ~1,000 TPS</div>
       </div>
-      <div style="border:1px solid var(--border,#eee);border-radius:8px;padding:1rem;">
-        <div style="font-size:11px;font-weight:600;text-transform:uppercase;color:var(--text-tertiary,#999);margin-bottom:6px;">Need visible reasoning?</div>
-        <div style="font-size:14px;font-weight:500;">OpenRouter DeepSeek R1</div>
-        <div style="font-size:12px;color:var(--text-secondary,#666);">Chain-of-Thought visible</div>
+      <div class="eval-tree-card">
+        <div class="eval-tree-q">Need visible reasoning?</div>
+        <div class="eval-tree-a">OpenRouter DeepSeek R1</div>
+        <div class="eval-tree-meta">Chain-of-Thought visible</div>
       </div>
-      <div style="border:1px solid var(--border,#eee);border-radius:8px;padding:1rem;">
-        <div style="font-size:11px;font-weight:600;text-transform:uppercase;color:var(--text-tertiary,#999);margin-bottom:6px;">Need max TPS?</div>
-        <div style="font-size:14px;font-weight:500;">Cerebras GPT OSS 120B</div>
-        <div style="font-size:12px;color:var(--text-secondary,#666);">~3,000 TPS, 1M tokens/day</div>
+      <div class="eval-tree-card">
+        <div class="eval-tree-q">Need max TPS?</div>
+        <div class="eval-tree-a">Cerebras GPT OSS 120B</div>
+        <div class="eval-tree-meta">~3,000 TPS, 1M tokens/day</div>
       </div>
-      <div style="border:1px solid var(--border,#eee);border-radius:8px;padding:1rem;">
-        <div style="font-size:11px;font-weight:600;text-transform:uppercase;color:var(--text-tertiary,#999);margin-bottom:6px;">Need search grounding?</div>
-        <div style="font-size:14px;font-weight:500;">Google AI Studio Gemini</div>
-        <div style="font-size:12px;color:var(--text-secondary,#666);">2.5 Flash, 1,500 req/day</div>
+      <div class="eval-tree-card">
+        <div class="eval-tree-q">Need search grounding?</div>
+        <div class="eval-tree-a">Google AI Studio Gemini</div>
+        <div class="eval-tree-meta">2.5 Flash, 1,500 req/day</div>
       </div>
-      <div style="border:1px solid var(--border,#eee);border-radius:8px;padding:1rem;">
-        <div style="font-size:11px;font-weight:600;text-transform:uppercase;color:var(--text-tertiary,#999);margin-bottom:6px;">Hit rate limits?</div>
-        <div style="font-size:14px;font-weight:500;">openrouter/free</div>
-        <div style="font-size:12px;color:var(--text-secondary,#666);">Auto-failover routing</div>
+      <div class="eval-tree-card">
+        <div class="eval-tree-q">Hit rate limits?</div>
+        <div class="eval-tree-a">openrouter/free</div>
+        <div class="eval-tree-meta">Auto-failover routing</div>
       </div>
     </div>
 
@@ -178,14 +211,14 @@
     </div>
 
     <h2 style="margin-top:2.5rem;">FAQ</h2>
-    <details style="margin-bottom:10px;"><summary style="cursor:pointer;font-weight:500;padding:8px 0;">What is the best free AI for evaluation work?</summary>
-    <p style="font-size:13px;padding:8px 0 0;">Groq Llama 3.1 8B Instant is best for high-volume work (14,400 RPD). For complex reasoning, use Cerebras GPT OSS 120B (~3,000 TPS). For fact-checking, use Gemini 2.5 Flash with search grounding.</p></details>
-    <details style="margin-bottom:10px;"><summary style="cursor:pointer;font-weight:500;padding:8px 0;">Can I do RLHF annotation for free?</summary>
-    <p style="font-size:13px;padding:8px 0 0;">Yes. Build a complete evaluation stack using 9 free platforms. The 8-step workflow above covers the full pipeline from initial annotation to batch QC, all at zero cost.</p></details>
-    <details style="margin-bottom:10px;"><summary style="cursor:pointer;font-weight:500;padding:8px 0;">How many free AI requests can I make per day?</summary>
-    <p style="font-size:13px;padding:8px 0 0;">Groq: 14,400 requests/day. Google AI Studio: 1,500/day. Cerebras: 1M tokens/day. OpenRouter: 200/day. Combined across all 9 platforms: well over 16,000 free requests daily.</p></details>
-    <details><summary style="cursor:pointer;font-weight:500;padding:8px 0;">What does "Pro Stacking" mean?</summary>
-    <p style="font-size:13px;padding:8px 0 0;">Sign up for all platforms simultaneously and route different evaluation types to the platform best suited for them. Use openrouter/free as auto-failover when individual platforms hit rate limits. This maximizes your effective free throughput.</p></details>
+    <details class="eval-faq"><summary>What is the best free AI for evaluation work?</summary>
+    <p>Groq Llama 3.1 8B Instant is best for high-volume work (14,400 RPD). For complex reasoning, use Cerebras GPT OSS 120B (~3,000 TPS). For fact-checking, use Gemini 2.5 Flash with search grounding.</p></details>
+    <details class="eval-faq"><summary>Can I do RLHF annotation for free?</summary>
+    <p>Yes. Build a complete evaluation stack using 9 free platforms. The 8-step workflow above covers the full pipeline from initial annotation to batch QC, all at zero cost.</p></details>
+    <details class="eval-faq"><summary>How many free AI requests can I make per day?</summary>
+    <p>Groq: 14,400 requests/day. Google AI Studio: 1,500/day. Cerebras: 1M tokens/day. OpenRouter: 200/day. Combined across all 9 platforms: well over 16,000 free requests daily.</p></details>
+    <details class="eval-faq"><summary>What does "Pro Stacking" mean?</summary>
+    <p>Sign up for all platforms simultaneously and route different evaluation types to the platform best suited for them. Use openrouter/free as auto-failover when individual platforms hit rate limits. This maximizes your effective free throughput.</p></details>
   </main>
 
   <footer style="text-align:center;padding:2rem 1rem;font-size:13px;color:var(--text-secondary,#666);">
