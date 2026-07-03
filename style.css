@@ -2946,6 +2946,18 @@ html { scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
   margin-bottom: 1.25rem;
 }
 
+/* Inline "switch to another guide tab" links inside guide-intro copy --
+   rendered as underlined accent-colored text buttons. */
+.guide-tab-switch {
+  background: none;
+  border: none;
+  color: var(--accent);
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+  font: inherit;
+}
+
 .guide-options {
   display: grid;
   grid-template-columns: 1fr 1fr;
