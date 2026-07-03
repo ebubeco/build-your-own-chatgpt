@@ -97,7 +97,7 @@
       <h2><span class="sp-step-num">1</span> Download Ollama</h2>
       <p class="sp-section-desc">Ollama is the easiest way to run local AI. It handles all the complex setup automatically.</p>
       <div style="text-align:center;margin:1.5rem 0">
-        <a href="https://ollama.com/download" target="_blank" class="btn-primary" style="display:inline-block;padding:0.75rem 2rem;font-size:1rem">⬇ Download Ollama (Free)</a>
+        <a href="https://ollama.com/download" target="_blank" rel="noopener noreferrer" class="btn-primary" style="display:inline-block;padding:0.75rem 2rem;font-size:1rem">⬇ Download Ollama (Free)</a>
         <p style="font-size:0.78rem;color:var(--text-tertiary);margin-top:0.5rem">Works on Windows, macOS, and Linux</p>
       </div>
       <div class="sp-tip"><strong>💡 What is Ollama?</strong> It's a free, open-source tool that downloads, manages, and runs AI models. One command in your terminal and you're chatting with AI. No accounts, no subscriptions, no data leaving your computer.</div>
@@ -160,7 +160,7 @@
         <li><strong>"Connection error"</strong> — Check your internet connection. You only need internet to download the model. After that, it works fully offline.</li>
         <li><strong>How do I use a different model?</strong> — Run <code>ollama pull [model-name]</code> then <code>ollama run [model-name]</code>. See the <a href="compendium.html" style="color:var(--accent)">Model Compendium</a> for options.</li>
       </ul>
-      <div class="sp-tip"><strong>📚 Need more help?</strong> Visit the <a href="https://github.com/ollama/ollama" target="_blank" style="color:var(--accent)">Ollama GitHub</a> or use our <a href="index.html" style="color:var(--accent)">Wizard</a> for a personalized recommendation.</div>
+      <div class="sp-tip"><strong>📚 Need more help?</strong> Visit the <a href="https://github.com/ollama/ollama" target="_blank" rel="noopener noreferrer" style="color:var(--accent)">Ollama GitHub</a> or use our <a href="index.html" style="color:var(--accent)">Wizard</a> for a personalized recommendation.</div>
     </div>
 
     <div id="sp-checklist" class="sp-section" style="display:none"></div>
@@ -195,10 +195,10 @@ var promptsData = null;
       checklist.style.display = 'block';
       checklist.innerHTML = '<h3 style="font-family:Outfit,sans-serif;font-size:1.1rem;font-weight:700;margin-bottom:.75rem">📋 First Week Checklist</h3>' +
         '<ul style="list-style:none;padding:0;margin:0">' +
-        '<li style="display:flex;align-items:flex-start;gap:.5rem;padding:.4rem 0;border-bottom:1px solid var(--border-light);font-size:.88rem"><input type="checkbox" style="margin-top:.15rem;width:auto;flex-shrink:0"> <span>Download Ollama from <a href="https://ollama.com/download" target="_blank" style="color:var(--accent)">ollama.com/download</a></span></li>' +
+        '<li style="display:flex;align-items:flex-start;gap:.5rem;padding:.4rem 0;border-bottom:1px solid var(--border-light);font-size:.88rem"><input type="checkbox" style="margin-top:.15rem;width:auto;flex-shrink:0"> <span>Download Ollama from <a href="https://ollama.com/download" target="_blank" rel="noopener noreferrer" style="color:var(--accent)">ollama.com/download</a></span></li>' +
         '<li style="display:flex;align-items:flex-start;gap:.5rem;padding:.4rem 0;border-bottom:1px solid var(--border-light);font-size:.88rem"><input type="checkbox" style="margin-top:.15rem;width:auto;flex-shrink:0"> <span>Run: <code style="background:var(--bg-warm);padding:.1rem .35rem;border-radius:4px;font-size:.8rem">' + cmd + '</code></span></li>' +
         '<li style="display:flex;align-items:flex-start;gap:.5rem;padding:.4rem 0;border-bottom:1px solid var(--border-light);font-size:.88rem"><input type="checkbox" style="margin-top:.15rem;width:auto;flex-shrink:0"> <span>Test it: <code style="background:var(--bg-warm);padding:.1rem .35rem;border-radius:4px;font-size:.8rem">ollama run ' + model + ' "Hello"</code></span></li>' +
-        '<li style="display:flex;align-items:flex-start;gap:.5rem;padding:.4rem 0;border-bottom:1px solid var(--border-light);font-size:.88rem"><input type="checkbox" style="margin-top:.15rem;width:auto;flex-shrink:0"> <span>Install <a href="https://lmstudio.ai" target="_blank" style="color:var(--accent)">LM Studio</a> (or OpenWebUI) for a GUI</span></li>' +
+        '<li style="display:flex;align-items:flex-start;gap:.5rem;padding:.4rem 0;border-bottom:1px solid var(--border-light);font-size:.88rem"><input type="checkbox" style="margin-top:.15rem;width:auto;flex-shrink:0"> <span>Install <a href="https://lmstudio.ai" target="_blank" rel="noopener noreferrer" style="color:var(--accent)">LM Studio</a> (or OpenWebUI) for a GUI</span></li>' +
         '<li style="display:flex;align-items:flex-start;gap:.5rem;padding:.4rem 0;border-bottom:1px solid var(--border-light);font-size:.88rem"><input type="checkbox" style="margin-top:.15rem;width:auto;flex-shrink:0"> <span>Create a custom Modelfile with your system prompt</span></li>' +
         '<li style="display:flex;align-items:flex-start;gap:.5rem;padding:.4rem 0;border-bottom:1px solid var(--border-light);font-size:.88rem"><input type="checkbox" style="margin-top:.15rem;width:auto;flex-shrink:0"> <span>Try 5 different tasks to find what the model does best</span></li>' +
         '<li style="display:flex;align-items:flex-start;gap:.5rem;padding:.4rem 0;font-size:.88rem"><input type="checkbox" style="margin-top:.15rem;width:auto;flex-shrink:0"> <span>Share your setup: <a href="index.html" style="color:var(--accent)">build-your-own-chatgpt.vercel.app</a></span></li>' +
