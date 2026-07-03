@@ -4,7 +4,7 @@
   "description": "**Private AI on your hardware. Free forever. No subscriptions, no data sharing, runs offline.**",
   "main": "analytics.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "node tests/smoke.js",
     "start": "node server.js"
   },
   "repository": {
@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/ebubeco/build-your-own-chatgpt/issues"
   },
-  "homepage": "https://github.com/ebubeco/build-your-own-chatgpt#readme"
+  "homepage": "https://github.com/ebubeco/build-your-own-chatgpt#readme",
+  "devDependencies": {
+    "playwright": "^1.61.1"
+  }
 }
