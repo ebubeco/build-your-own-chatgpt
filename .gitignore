@@ -5,3 +5,6 @@ homepage-initial.png
 *.db
 *.db-shm
 *.db-wal
+node_modules/
+test-results/
+playwright-report/

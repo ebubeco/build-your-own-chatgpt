@@ -1,0 +1,33 @@
+name: Wizard smoke test
+
+# Walks all 6 hardware tiers x 5 scorable goals, plus the "I Don't Know" goal
+# checked separately, and asserts a readiness score renders for every
+# combination. Added after a tier-naming mismatch between gpus.json and
+# models_compendium.json silently broke half the hardware options with no
+# visible error -- this is meant to catch that class of regression in CI
+# instead of requiring a manual test pass to find it.
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  smoke-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Run smoke test
+        run: npm test
