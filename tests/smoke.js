@@ -58,6 +58,25 @@ function waitForServer(url, timeoutMs) {
   });
 }
 
+// Navigate with a few retries. The dev server is local and static, but under
+// resource pressure (many rapid browser contexts, a loaded CI runner) a single
+// page.goto can occasionally exceed its timeout. That's transient -- retrying
+// the navigation clears it. A real regression still surfaces later as a
+// missing score or an "Unknown tier" warning, neither of which is retried
+// here, so this only papers over flakiness, not actual failures.
+async function gotoWithRetry(page, url, attempts = 3) {
+  let lastErr;
+  for (let i = 0; i < attempts; i++) {
+    try {
+      await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 15000 });
+      return;
+    } catch (err) {
+      lastErr = err;
+    }
+  }
+  throw lastErr;
+}
+
 async function testCombo(browser, goal, hardwareId) {
   // A fresh browser context per combo (not just a fresh page/navigation)
   // guarantees genuinely isolated localStorage, JS execution state, and
@@ -84,7 +103,7 @@ async function testCombo(browser, goal, hardwareId) {
     // waiting for the full 'load' event intermittently stalled this test
     // for 30s+ after enough page loads. The wizard only needs the
     // same-origin HTML/app.js to be parsed and ready.
-    await page.goto(BASE_URL + '/index.html', { waitUntil: 'domcontentloaded' });
+    await gotoWithRetry(page, BASE_URL + '/index.html');
 
     await page.click(`.goal-card[data-goal="${goal}"]`);
     await page.waitForTimeout(300);
@@ -141,7 +160,7 @@ async function testUnknownGoal(browser) {
     // waiting for the full 'load' event intermittently stalled this test
     // for 30s+ after enough page loads. The wizard only needs the
     // same-origin HTML/app.js to be parsed and ready.
-    await page.goto(BASE_URL + '/index.html', { waitUntil: 'domcontentloaded' });
+    await gotoWithRetry(page, BASE_URL + '/index.html');
 
     await page.click('.goal-card[data-goal="unknown"]');
     await page.waitForTimeout(300);
