@@ -3,6 +3,24 @@
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+/* Skip-to-content link. Sits just off the top edge until it takes keyboard
+   focus, then slides into view so keyboard and screen-reader users can jump
+   past the repeated top nav straight to <main> (WCAG 2.4.1 Bypass Blocks). */
+.skip-link {
+  position: absolute;
+  left: 0;
+  top: -3rem;
+  z-index: 1000;
+  padding: 0.6rem 1rem;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 0 0 6px 0;
+  transition: top 0.15s ease;
+}
+.skip-link:focus { top: 0; }
+
 :root {
   --bg: #faf8f5;
   --bg-warm: #f4f1ec;
