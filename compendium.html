@@ -143,7 +143,7 @@
     <div id="comp-empty" class="comp-empty hidden">
       <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
       <p>No models match your filters</p>
-      <button onclick="resetFilters()" class="btn-reset">Reset filters</button>
+      <button id="reset-btn" class="btn-reset">Reset filters</button>
     </div>
   </main>
 
@@ -298,7 +298,7 @@ function renderGrid(models) {
       <div class="comp-card-tags">${(m.bestFor||[]).slice(0,4).map(s => `<span class="comp-tag">${SPECIALTY_MAP[s]||s}</span>`).join('')}</div>
       <div class="comp-card-install">
         <code class="comp-install-cmd">${m.installCommand || 'ollama pull '+m.ollamaTag}</code>
-        <button class="comp-copy-btn" onclick="copyCmd('${m.installCommand || 'ollama pull '+m.ollamaTag}', this)" title="Copy install command">
+        <button class="comp-copy-btn" data-copy="${(m.installCommand || 'ollama pull '+m.ollamaTag).replace(/&/g,'&amp;').replace(/"/g,'&quot;')}" title="Copy install command">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
         </button>
       </div>
@@ -351,6 +351,7 @@ function copyCmd(cmd, btn) {
   });
 }
 
+var _b=document.getElementById('reset-btn'); if(_b) _b.addEventListener('click',resetFilters);
 function resetFilters() {
   activeTier = 'all';
   activeSpecialty = 'all';
@@ -367,6 +368,12 @@ function resetFilters() {
 }
 
 function bindEvents() {
+  // delegated: copy buttons live inside the dynamically re-rendered cards,
+  // #comp-grid is the static container; the command travels in data-copy
+  document.getElementById('comp-grid').addEventListener('click', e => {
+    const b = e.target.closest('.comp-copy-btn');
+    if (b) copyCmd(b.getAttribute('data-copy'), b);
+  });
   document.getElementById('comp-search').addEventListener('input', e => {
     searchQuery = e.target.value;
     document.getElementById('comp-search-clear').classList.toggle('hidden', !searchQuery);

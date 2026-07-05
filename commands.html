@@ -87,7 +87,7 @@
           <option value="api">API / Developer Mode</option>
         </select>
       </div>
-      <button class="cmd-gen-btn" id="gen-btn" onclick="genCommands()" disabled>Generate Commands</button>
+      <button class="cmd-gen-btn" id="gen-btn" disabled>Generate Commands</button>
     </div>
     <div id="out" class="cmd-out"></div>
   </main>
@@ -107,7 +107,7 @@
     document.getElementById('theme-toggle').addEventListener('click',function(){var e=document.documentElement;var t=e.getAttribute('data-theme');var n=t==='dark'?'light':'dark';e.setAttribute('data-theme',n);localStorage.setItem('theme',n);});
     
 
-    let models=[], selModel=null;
+    let models=[], selModel=null, lastCmds=[];
 
     fetch('data/models.json').then(r=>r.json()).then(d=>{models=d.models.filter(m=>!m.platformType||m.platformType==='local');});
 
@@ -116,10 +116,12 @@
       const q=this.value.toLowerCase().trim();
       if(!q){sDrop.style.display='none';return;}
       const r=models.filter(m=>m.name.toLowerCase().includes(q)||(m.ollamaTag||'').includes(q)).slice(0,8);
-      sDrop.innerHTML=r.map(m=>'<div class="cmd-drop-item" onclick="pickModel(\''+m.id+'\')"><strong>'+m.name+'</strong><span style="color:var(--text-tertiary);font-size:.75rem;font-family:monospace">'+m.ollamaTag+'</span></div>').join('');
+      sDrop.innerHTML=r.map(m=>'<div class="cmd-drop-item" data-id="'+m.id+'"><strong>'+m.name+'</strong><span style="color:var(--text-tertiary);font-size:.75rem;font-family:monospace">'+m.ollamaTag+'</span></div>').join('');
       sDrop.style.display=r.length?'block':'none';
     });
     document.addEventListener('click',function(e){if(!e.target.closest('.cmd-search'))sDrop.style.display='none';});
+    // delegated: dropdown rows are generated above and identified by data-id
+    sDrop.addEventListener('click',function(e){var el=e.target.closest('[data-id]'); if(el) pickModel(el.getAttribute('data-id'));});
 
     function pickModel(id){
       selModel=models.find(m=>m.id===id);
@@ -144,15 +146,22 @@
       const tag=getTag(selModel,q);
       const sp=SYS_PROMPTS[uc];
       const mf='FROM '+tag+'\nSYSTEM "'+sp+'"\nPARAMETER temperature '+(uc==='coding'?'0.2':'0.7')+'\nPARAMETER num_ctx 4096';
+      const curlGen='curl http://localhost:11434/api/generate -d \'{"model":"'+tag+'","prompt":"Hello","stream":false}\'';
+      const curlOai='curl http://localhost:11434/v1/chat/completions -H "Content-Type: application/json" -d \'{"model":"'+tag+'","messages":[{"role":"user","content":"Hello"}]}\'';
+      // Copy payloads live in this array and are referenced by index (data-cmd)
+      // on each button. Keeping them out of HTML attributes avoids the fragile
+      // quote/backslash escaping the old inline onclick handlers needed, and
+      // lets the CSP drop 'unsafe-inline'.
+      lastCmds=['ollama pull '+tag,'ollama run '+tag,'ollama serve',mf,curlGen,curlOai];
       const out=document.getElementById('out');
       out.style.display='block';
       out.innerHTML='<div class="cmd-tag">'+selModel.name+' · '+uc+' · '+(q==='high'?'Q8':q==='small'?'Q2':'Q4_K_M')+'</div>'+
-        '<div class="cmd-block"><h3>1. Pull Command</h3><pre><code>ollama pull '+tag+'</code></pre><button class="cpy-btn" onclick="cpy(this,\'ollama pull '+tag+'\')">Copy</button></div>'+
-        '<div class="cmd-block"><h3>2. Run Command</h3><pre><code>ollama run '+tag+'</code></pre><button class="cpy-btn" onclick="cpy(this,\'ollama run '+tag+'\')">Copy</button></div>'+
-        '<div class="cmd-block"><h3>3. API Server</h3><pre><code>ollama serve</code></pre><p style="font-size:.82rem;color:var(--text-secondary)">API at <code>http://localhost:11434</code></p><button class="cpy-btn" onclick="cpy(this,\'ollama serve\')">Copy</button></div>'+
-        '<div class="cmd-block"><h3>4. Custom Modelfile</h3><pre><code>'+mf.replace(/</g,'&lt;').replace(/>/g,'&gt;')+'</code></pre><p style="font-size:.82rem;color:var(--text-secondary)">Save as <code>Modelfile</code>, run: <code>ollama create my-assistant -f Modelfile</code></p><button class="cpy-btn" onclick="cpy(this,\''+mf.replace(/\\/g,'\\\\').replace(/'/g,"\\'")+'\')">Copy Modelfile</button></div>'+
-        '<div class="cmd-block"><h3>5. curl API Call</h3><pre><code>curl http://localhost:11434/api/generate -d \'{"model":"'+tag+'","prompt":"Hello","stream":false}\'</code></pre><button class="cpy-btn" onclick="cpy(this,\'curl http://localhost:11434/api/generate -d \\\'{"model":"'+tag+'","prompt":"Hello","stream":false}\\\'\')">Copy</button></div>'+
-        (uc==='api'?'<div class="cmd-block"><h3>6. OpenAI-Compatible Endpoint</h3><pre><code>curl http://localhost:11434/v1/chat/completions -H "Content-Type: application/json" -d \'{"model":"'+tag+'","messages":[{"role":"user","content":"Hello"}]}\'</code></pre><button class="cpy-btn" onclick="cpy(this,\'curl http://localhost:11434/v1/chat/completions -H "Content-Type: application/json" -d \\\'{"model":"'+tag+'","messages":[{"role":"user","content":"Hello"}]}\\\'\')">Copy</button><p style="font-size:.8rem;color:var(--text-secondary);margin-top:.4rem">Base URL: <code>http://localhost:11434/v1</code></p></div>':'');
+        '<div class="cmd-block"><h3>1. Pull Command</h3><pre><code>ollama pull '+tag+'</code></pre><button class="cpy-btn" data-cmd="0">Copy</button></div>'+
+        '<div class="cmd-block"><h3>2. Run Command</h3><pre><code>ollama run '+tag+'</code></pre><button class="cpy-btn" data-cmd="1">Copy</button></div>'+
+        '<div class="cmd-block"><h3>3. API Server</h3><pre><code>ollama serve</code></pre><p style="font-size:.82rem;color:var(--text-secondary)">API at <code>http://localhost:11434</code></p><button class="cpy-btn" data-cmd="2">Copy</button></div>'+
+        '<div class="cmd-block"><h3>4. Custom Modelfile</h3><pre><code>'+mf.replace(/</g,'&lt;').replace(/>/g,'&gt;')+'</code></pre><p style="font-size:.82rem;color:var(--text-secondary)">Save as <code>Modelfile</code>, run: <code>ollama create my-assistant -f Modelfile</code></p><button class="cpy-btn" data-cmd="3">Copy Modelfile</button></div>'+
+        '<div class="cmd-block"><h3>5. curl API Call</h3><pre><code>curl http://localhost:11434/api/generate -d \'{"model":"'+tag+'","prompt":"Hello","stream":false}\'</code></pre><button class="cpy-btn" data-cmd="4">Copy</button></div>'+
+        (uc==='api'?'<div class="cmd-block"><h3>6. OpenAI-Compatible Endpoint</h3><pre><code>curl http://localhost:11434/v1/chat/completions -H "Content-Type: application/json" -d \'{"model":"'+tag+'","messages":[{"role":"user","content":"Hello"}]}\'</code></pre><button class="cpy-btn" data-cmd="5">Copy</button><p style="font-size:.8rem;color:var(--text-secondary);margin-top:.4rem">Base URL: <code>http://localhost:11434/v1</code></p></div>':'');
       out.scrollIntoView({behavior:'smooth'});
     }
 
@@ -163,6 +172,13 @@
         setTimeout(function(){btn.classList.remove('copied');btn.textContent=o;},2000);
       });
     }
+
+    document.getElementById('gen-btn').addEventListener('click',genCommands);
+    // delegated: copy buttons are generated by genCommands; each carries a
+    // data-cmd index into lastCmds (the actual command strings never touch HTML)
+    document.getElementById('out').addEventListener('click',function(e){
+      var b=e.target.closest('.cpy-btn'); if(b) cpy(b,lastCmds[+b.getAttribute('data-cmd')]);
+    });
   </script>
   <script src="shared.js"></script>
   <script src="analytics.js"></script>

@@ -1592,7 +1592,13 @@
     // Show export button only when ?dev=true in URL
     if (new URLSearchParams(location.search).has('dev')) {
       var exportBtn = document.getElementById('export-feedback-btn');
-      if (exportBtn) exportBtn.style.display = 'inline';
+      if (exportBtn) {
+        exportBtn.style.display = 'inline';
+        exportBtn.addEventListener('click', function (e) {
+          e.preventDefault();
+          if (window.__analytics) window.__analytics.exportFeedbackData();
+        });
+      }
     }
     track('wizard_started');
     try {
@@ -1816,6 +1822,17 @@
   }
 
   function setupEventListeners() {
+    // Changelog "What's New" toggle -- reveals the panel and hides the button
+    // (previously an inline onclick; moved here so the CSP can drop unsafe-inline).
+    var changelogToggle = document.getElementById('changelog-toggle-btn');
+    if (changelogToggle) {
+      changelogToggle.addEventListener('click', function () {
+        var body = changelogToggle.nextElementSibling;
+        if (body) body.classList.toggle('hidden');
+        changelogToggle.classList.add('hidden');
+      });
+    }
+
     document.querySelectorAll('.goal-card').forEach(btn => {
       btn.addEventListener('click', (e) => selectGoal(e.currentTarget.dataset.goal));
     });

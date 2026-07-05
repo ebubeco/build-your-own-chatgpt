@@ -95,7 +95,7 @@
         </select>
       </div>
     </div>
-    <button class="up-btn" onclick="getAdvice()">Show Upgrade Options</button>
+    <button class="up-btn" id="advice-btn">Show Upgrade Options</button>
     <div id="result" class="up-result"></div>
   </main>
   <footer class="footer">
@@ -133,6 +133,7 @@
       return n[id]||id;
     }
 
+    var _b=document.getElementById('advice-btn'); if(_b) _b.addEventListener('click',getAdvice);
     function getAdvice(){
       const hw=document.getElementById('curr-hw').value;
       const ram=parseInt(document.getElementById('curr-ram').value)||0;
