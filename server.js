@@ -18,6 +18,16 @@ const MIME = {
   woff: 'font/woff', woff2: 'font/woff2', txt: 'text/plain', xml: 'application/xml'
 };
 
+// Mirror the production security headers from vercel.json's global ("/(.*)")
+// rule so local dev enforces the same CSP -- CSP/policy regressions then show
+// up in the browser console here instead of only after deploy.
+let secHeaders = {};
+try {
+  const vercel = JSON.parse(fs.readFileSync(path.join(base, 'vercel.json'), 'utf8'));
+  const globalRule = (vercel.headers || []).find(h => h.source === '/(.*)');
+  if (globalRule) for (const h of globalRule.headers) secHeaders[h.key] = h.value;
+} catch (e) { /* best-effort in dev; the real headers are applied by Vercel */ }
+
 const server = http.createServer((req, res) => {
   let urlPath = decodeURIComponent(req.url.split('?')[0]);
   const fp = path.join(base, urlPath === '/' ? 'index.html' : urlPath.slice(1));
@@ -30,7 +40,7 @@ const server = http.createServer((req, res) => {
     // that are never actually reused can accumulate server-side until new
     // connections start hanging. This is dev/test tooling only -- Vercel
     // serves the real site in production.
-    res.writeHead(200, { 'Content-Type': MIME[ext] || 'text/plain', 'Connection': 'close' });
+    res.writeHead(200, Object.assign({ 'Content-Type': MIME[ext] || 'text/plain', 'Connection': 'close' }, secHeaders));
     res.end(d);
   });
 });
