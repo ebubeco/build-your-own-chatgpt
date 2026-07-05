@@ -105,7 +105,7 @@
       </div>
     </div>
 
-    <button class="w-btn hidden" id="rec-btn" onclick="getRecs()">Get My Recommendations</button>
+    <button class="w-btn hidden" id="rec-btn">Get My Recommendations</button>
 
     <div id="result" class="w-result"></div>
 
@@ -163,6 +163,7 @@
 
     const GOAL_MAP={chat:'chat',coding:'coding',writing:'writing',documents:'documents',agents:'agents',research:'research'};
 
+    var _b=document.getElementById('rec-btn'); if(_b) _b.addEventListener('click',getRecs);
     function getRecs(){
       if(!goal||!budget||!privacy)return;
       const res=document.getElementById('result');

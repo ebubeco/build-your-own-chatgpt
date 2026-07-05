@@ -92,7 +92,7 @@
         </select>
       </div>
     </div>
-    <button class="chk-btn" onclick="checkCompatibility()">Check Compatibility</button>
+    <button class="chk-btn" id="check-btn">Check Compatibility</button>
 
     <div id="result" class="chk-result"></div>
   </main>
@@ -123,8 +123,10 @@
       let drop=document.getElementById('model-dropdown');
       if(!q){drop.innerHTML='';return;}
       filteredModels=allModels.filter(m=>m.name.toLowerCase().includes(q)||(m.ollamaTag||'').includes(q)).slice(0,6);
-      drop.innerHTML=filteredModels.map(m=>'<div style="padding:8px 12px;cursor:pointer;font-size:.85rem;border-bottom:1px solid var(--border-light);background:var(--bg-card)" onclick="selectModel(\''+m.id+'\')"><strong>'+m.name+'</strong> <span style="color:var(--text-tertiary);font-family:monospace;font-size:.75rem">'+m.ollamaTag+'</span></div>').join('');
+      drop.innerHTML=filteredModels.map(m=>'<div style="padding:8px 12px;cursor:pointer;font-size:.85rem;border-bottom:1px solid var(--border-light);background:var(--bg-card)" data-id="'+m.id+'"><strong>'+m.name+'</strong> <span style="color:var(--text-tertiary);font-family:monospace;font-size:.75rem">'+m.ollamaTag+'</span></div>').join('');
     });
+    // delegated: dropdown rows are generated above and identified by data-id
+    document.getElementById('model-dropdown').addEventListener('click',function(e){var el=e.target.closest('[data-id]'); if(el) selectModel(el.getAttribute('data-id'));});
 
     function selectModel(id){
       selectedModel=allModels.find(m=>m.id===id);
@@ -132,6 +134,7 @@
       document.getElementById('model-dropdown').innerHTML='';
     }
 
+    var _b=document.getElementById('check-btn'); if(_b) _b.addEventListener('click',checkCompatibility);
     function checkCompatibility(){
       const tier=document.getElementById('hw-tier').value;
       const ram=parseInt(document.getElementById('sys-ram').value)||0;

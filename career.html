@@ -117,8 +117,10 @@
       loading.style.display='none';
       grid.style.display='grid';
       grid.innerHTML=roles.map(function(r){
-        return '<button class="cr-card" data-id="'+r.id+'" onclick="selectRole(\''+r.id+'\')"><span class="cr-icon">'+r.icon+'</span><span class="cr-title">'+r.label+'</span><span class="cr-desc">'+r.desc+'</span></button>';
+        return '<button class="cr-card" data-id="'+r.id+'"><span class="cr-icon">'+r.icon+'</span><span class="cr-title">'+r.label+'</span><span class="cr-desc">'+r.desc+'</span></button>';
       }).join('');
+      // delegated: cards are generated above and identified by data-id
+      grid.addEventListener('click',function(e){var c=e.target.closest('.cr-card'); if(c) selectRole(c.dataset.id);});
     }).catch(function(){document.getElementById('loading').innerHTML='Could not load career data.';});
 
     const priorityNames={coding:'Coding',reasoning:'Reasoning',agents:'Agents',writing:'Writing',chat:'Chat',research:'Research',learning:'Learning'};

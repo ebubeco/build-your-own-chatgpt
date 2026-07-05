@@ -848,7 +848,7 @@ print("Saved to output.mp3")</div>
   </main>
 
   <div class="changelog">
-    <button class="changelog-toggle" onclick="this.nextElementSibling.classList.toggle('hidden');this.classList.add('hidden')">📢 What's New</button>
+    <button class="changelog-toggle" id="changelog-toggle-btn">📢 What's New</button>
     <div class="changelog-body hidden">
       <h4>June 2026</h4>
       <ul>
@@ -883,7 +883,7 @@ print("Saved to output.mp3")</div>
         <a href="evaluators.html">Evaluators</a>
       </div>
       <p class="footer-tagline">Built for beginners. Your data never leaves your machine.</p>
-      <p class="footer-dev"><a href="#" id="export-feedback-btn" style="display:none;" onclick="if(window.__analytics){window.__analytics.exportFeedbackData()}return false" title="Export feedback data (dev only)">📋 Export feedback</a></p>
+      <p class="footer-dev"><a href="#" id="export-feedback-btn" style="display:none;" title="Export feedback data (dev only)">📋 Export feedback</a></p>
     </div>
   </footer>
 

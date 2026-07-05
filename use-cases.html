@@ -100,12 +100,14 @@
       grid.style.display='grid';
       grid.innerHTML=wfs.map(function(w){
         var tierName={'Easy':'Any Hardware','Intermediate':'CPU/GPU','Advanced':'GPU Recommended'};
-        return '<div class="uc-card" onclick="this.classList.toggle(\'exp\')"><span class="uc-icon">'+w.icon+'</span><div class="uc-title">'+w.title+'</div><div class="uc-desc">'+w.description+'</div><div class="uc-badges">'+(w.difficulty?'<span class="uc-badge">'+(tierName[w.difficulty]||w.difficulty)+'</span>':'')+'</div><div class="uc-detail">'+
+        return '<div class="uc-card"><span class="uc-icon">'+w.icon+'</span><div class="uc-title">'+w.title+'</div><div class="uc-desc">'+w.description+'</div><div class="uc-badges">'+(w.difficulty?'<span class="uc-badge">'+(tierName[w.difficulty]||w.difficulty)+'</span>':'')+'</div><div class="uc-detail">'+
           (w.steps?'<h4>Steps</h4>'+w.steps.map(function(s){return '<div class="step"><strong>'+s.title+'</strong>'+(s.note?' <em>('+s.note+')</em>':'')+'</div><div class="step-cmd"><code>'+s.cmd+'</code></div>';}).join(''):'')+
           (w.starterPrompts?'<h4>Starter Prompts</h4>'+w.starterPrompts.map(function(p){return '<div class="step">"'+p+'"</div>';}).join(''):'')+
           (w.cloudAlternative?'<h4>Cloud Alternative</h4><div class="uc-alt">'+w.cloudAlternative+'</div>':'')+
           '</div></div>';
       }).join('');
+      // delegated: clicking a card toggles its expanded state
+      grid.addEventListener('click',function(e){var card=e.target.closest('.uc-card'); if(card) card.classList.toggle('exp');});
     }).catch(function(){
       document.getElementById('loading').innerHTML='Could not load workflows.';
     });

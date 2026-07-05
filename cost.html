@@ -110,7 +110,7 @@
       </div>
       <div class="cost-field">
         <label>&nbsp;</label>
-        <button class="cost-btn" onclick="calcCost()">Calculate My Savings</button>
+        <button class="cost-btn" id="calc-btn">Calculate My Savings</button>
       </div>
     </div>
 
@@ -156,6 +156,7 @@
 
     document.getElementById('subs-list').innerHTML=SUBS.map(s=>'<label><input type="checkbox" class="sub-cb" value="'+s.price+'"> '+s.name+' <span class="sub-price">— $'+s.price+'/mo</span></label>').join('');
 
+    var _b=document.getElementById('calc-btn'); if(_b) _b.addEventListener('click',calcCost);
     function calcCost(){
       const t=document.getElementById('tier').value;
       const u=document.getElementById('usage').value;
