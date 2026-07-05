@@ -60,18 +60,18 @@
   <nav class="site-topbar" role="navigation" aria-label="Site navigation">
     <div class="container">
       <div class="topbar-inner">
-        <a href="index.html" style="text-decoration:none">
+        <a href="index.html" class="topbar-brand" aria-label="Build Your Own ChatGPT home">
           <span class="site-brand"><svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="brandGrad" x1="3" y1="2" x2="29" y2="30" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#f97316"/><stop offset="0.55" stop-color="#e8590c"/><stop offset="1" stop-color="#d4380d"/></linearGradient></defs><rect width="32" height="32" rx="8" fill="url(#brandGrad)"/><path d="M9 12.5C9 9.5 11.7 7 15 7h2c3.3 0 6 2.5 6 5.5s-2.7 5.5-6 5.5h-1.3l-3.9 3.3a1 1 0 0 1-1.64-.86l.14-2.62C9.46 16.6 9 14.66 9 12.5Z" fill="#fff"/><circle cx="13.6" cy="12.6" r="1.15" fill="url(#brandGrad)"/><circle cx="17" cy="12.6" r="1.15" fill="url(#brandGrad)"/><circle cx="20.4" cy="12.6" r="1.15" fill="url(#brandGrad)"/></svg>Build Your Own ChatGPT</span>
         </a>
-        <div style="display:flex;gap:0.75rem;align-items:center">
-          <a href="compare.html" style="font-size:0.82rem;color:var(--accent);text-decoration:none;font-weight:600">Compare</a>
-          <a href="which-ai.html" style="font-size:0.82rem;color:var(--text-secondary);text-decoration:none;font-weight:500">Which AI</a>
-          <a href="upgrade.html" style="font-size:0.82rem;color:var(--text-secondary);text-decoration:none;font-weight:500">Upgrade</a>
-          <a href="cost.html" style="font-size:0.82rem;color:var(--text-secondary);text-decoration:none;font-weight:500">Cost</a>
-          <a href="compendium.html" style="font-size:0.82rem;color:var(--text-secondary);text-decoration:none;font-weight:500">All Models</a>
-          <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle light/dark mode">
-            <span class="toggle-icon" aria-hidden="true"><svg class="ti-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.5"/><line x1="12" y1="2.5" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="21.5"/><line x1="2.5" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="21.5" y2="12"/><line x1="5.1" y1="5.1" x2="6.8" y2="6.8"/><line x1="17.2" y1="17.2" x2="18.9" y2="18.9"/><line x1="5.1" y1="18.9" x2="6.8" y2="17.2"/><line x1="17.2" y1="6.8" x2="18.9" y2="5.1"/></svg><svg class="ti-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 14.5A8.5 8.5 0 1 1 9.5 3.5a7 7 0 0 0 11 11Z"/></svg></span>
-          </button>
+        <div class="topbar-links">
+          <a href="compare.html" class="topbar-link active" aria-current="page">Compare</a>
+          <a href="which-ai.html" class="topbar-link">Which AI</a>
+          <a href="cost.html" class="topbar-link">Cost</a>
+          <a href="compendium.html" class="topbar-link">Models</a>
+          <a href="use-cases.html" class="topbar-link">Use Cases</a>
+          <a href="starter-pack.html" class="topbar-link">Starter Pack</a>
+          <a href="career.html" class="topbar-link">Careers</a>
+          <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle light/dark mode"><span class="toggle-icon" aria-hidden="true"><svg class="ti-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.5"/><line x1="12" y1="2.5" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="21.5"/><line x1="2.5" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="21.5" y2="12"/><line x1="5.1" y1="5.1" x2="6.8" y2="6.8"/><line x1="17.2" y1="17.2" x2="18.9" y2="18.9"/><line x1="5.1" y1="18.9" x2="6.8" y2="17.2"/><line x1="17.2" y1="6.8" x2="18.9" y2="5.1"/></svg><svg class="ti-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 14.5A8.5 8.5 0 1 1 9.5 3.5a7 7 0 0 0 11 11Z"/></svg></span></button>
         </div>
       </div>
     </div>
