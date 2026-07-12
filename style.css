@@ -26,6 +26,7 @@
   --bg-warm: #f4f1ec;
   --bg-card: rgba(255, 255, 255, 0.72);
   --surface: rgba(255, 255, 255, 0.55);
+  --surface-secondary: #f2ede6;
   --text: #18120c;
   --text-primary: #18120c;
   --text-secondary: #5c554c;
@@ -70,6 +71,7 @@
   --bg-warm: #131316;
   --bg-card: rgba(24, 24, 28, 0.55);
   --surface: rgba(40, 40, 46, 0.45);
+  --surface-secondary: #232026;
   --text: #f5f3f0;
   --text-primary: #f5f3f0;
   --text-secondary: #a8a29a;
