@@ -51,7 +51,7 @@
       "id": "rtx3060-gemma12b-ollama",
       "tier": "budget-gpu",
       "gpu": ["RTX 3060"],
-      "model": "Gemma 4 12B",
+      "model": "Gemma 3 12B",
       "quantization": "Q4_K_M",
       "tool": "Ollama",
       "ui": "Open WebUI",
