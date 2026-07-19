@@ -179,6 +179,75 @@ async function testUnknownGoal(browser) {
   }
 }
 
+// The seven interactive tool pages the wizard smoke test never touched. Each
+// one fetches a data file and renders from it, so the same "a data/tier change
+// silently breaks the page" class of bug can hit them too -- and until now CI
+// would stay green while it did. For the pages that render on load we assert
+// the expected content appeared; for the search-driven pages we type a query
+// and assert the model dropdown populated (which exercises the fetch + render).
+const TOOL_PAGES = [
+  { name: 'compendium',    url: '/compendium.html',    ready: (p) => p.locator('.comp-card').count().then((n) => ({ ok: n >= 10, detail: n + ' model cards' })) },
+  { name: 'career',        url: '/career.html',        ready: (p) => p.locator('.cr-card').count().then((n) => ({ ok: n >= 5, detail: n + ' role cards' })) },
+  { name: 'use-cases',     url: '/use-cases.html',     ready: (p) => p.locator('.uc-card').count().then((n) => ({ ok: n >= 3, detail: n + ' use-case cards' })) },
+  { name: 'cost',          url: '/cost.html',          ready: (p) => p.locator('#calc-btn').count().then((n) => ({ ok: n === 1, detail: 'calculator ' + (n ? 'ready' : 'missing') })) },
+  { name: 'compare',       url: '/compare.html',       search: { input: '#msearch', q: 'qwen', results: '#mdrop [data-pick]' } },
+  { name: 'commands',      url: '/commands.html',      search: { input: '#mdl-search', q: 'qwen', results: '#mdl-drop [data-id]' } },
+  { name: 'compatibility', url: '/compatibility.html', search: { input: '#model-search', q: 'qwen', results: '#model-dropdown [data-id]' } }
+];
+
+// Console errors from the external analytics/font/Supabase hosts are expected
+// noise in a sandbox (DNS blocked) and say nothing about the page's own code.
+// Only same-origin / app-logic errors should fail a check.
+function isExternalNoise(msg) {
+  return /plausible|umami|vercel|insights|supabase|gstatic|googleapis|ERR_NAME_NOT_RESOLVED|ERR_ABORTED|ERR_INTERNET_DISCONNECTED|_vercel\/insights/i.test(msg);
+}
+
+async function testToolPage(browser, tp) {
+  const context = await browser.newContext();
+  const page = await context.newPage();
+  const consoleErrors = [];
+  const pageErrors = [];
+  page.on('console', (msg) => {
+    if (msg.type() !== 'error') return;
+    // Include the resource URL: a failed external script/beacon logs a generic
+    // "Failed to load resource: 404/net::ERR_..." whose message text has no host
+    // in it -- the host only shows up in the location, so the noise filter needs
+    // to see it (e.g. /_vercel/insights/script.js, which only exists on Vercel).
+    const loc = (msg.location && msg.location().url) || '';
+    consoleErrors.push(msg.text() + (loc ? ' @ ' + loc : ''));
+  });
+  page.on('pageerror', (err) => pageErrors.push(err.message));
+  try {
+    await gotoWithRetry(page, BASE_URL + tp.url);
+    await page.waitForTimeout(500); // let the data fetch + initial render settle
+
+    let rendered = false;
+    let detail = '';
+    if (tp.search) {
+      const inp = page.locator(tp.search.input);
+      await inp.waitFor({ state: 'visible', timeout: 5000 });
+      await inp.fill(tp.search.q);
+      await page.waitForTimeout(400);
+      const n = await page.locator(tp.search.results).count();
+      rendered = n > 0;
+      detail = n + ' search results';
+    } else {
+      const r = await tp.ready(page);
+      rendered = r.ok;
+      detail = r.detail;
+    }
+
+    const realConsole = consoleErrors.filter((e) => !isExternalNoise(e));
+    const realPageErrors = pageErrors.filter((e) => !isExternalNoise(e));
+    const ok = rendered && realPageErrors.length === 0 && realConsole.length === 0;
+    return { name: tp.name, ok, detail, consoleErrors: realConsole, pageErrors: realPageErrors };
+  } catch (e) {
+    return { name: tp.name, ok: false, detail: 'threw: ' + e.message, consoleErrors, pageErrors };
+  } finally {
+    await context.close();
+  }
+}
+
 async function main() {
   console.log('Starting local server on port ' + PORT + ' ...');
   const serverEnv = Object.assign({}, process.env, { PORT: String(PORT) });
@@ -232,6 +301,20 @@ async function main() {
     console.log(
       `[${unknownResult.ok ? 'PASS' : 'FAIL'}] ${unknownResult.label.padEnd(33)} bodyClass=${unknownResult.bodyClass}`
     );
+
+    console.log('');
+    for (const tp of TOOL_PAGES) {
+      const r = await testToolPage(browser, tp);
+      results.push({
+        goal: 'tool:' + r.name,
+        hardwareId: 'n/a',
+        ok: r.ok,
+        scoreText: r.detail,
+        unknownTierWarning: r.consoleErrors && r.consoleErrors.length ? r.consoleErrors[0] : null,
+        pageErrors: r.pageErrors || []
+      });
+      console.log(`[${r.ok ? 'PASS' : 'FAIL'}] tool=${r.name.padEnd(16)} ${r.detail}`);
+    }
 
     const failures = results.filter((r) => !r.ok);
 
