@@ -1,11 +1,13 @@
 name: Wizard smoke test
 
-# Walks all 6 hardware tiers x 5 scorable goals, plus the "I Don't Know" goal
-# checked separately, and asserts a readiness score renders for every
-# combination. Added after a tier-naming mismatch between gpus.json and
+# Walks all 6 hardware tiers x 5 scorable goals, plus the "I Don't Know" goal,
+# and asserts a readiness score renders for every combination. Then loads each
+# of the 7 interactive tool pages (compendium, career, use-cases, cost,
+# compare, commands, compatibility) and asserts it fetches its data and renders
+# without app errors. Added after a tier-naming mismatch between gpus.json and
 # models_compendium.json silently broke half the hardware options with no
-# visible error -- this is meant to catch that class of regression in CI
-# instead of requiring a manual test pass to find it.
+# visible error -- this catches that class of regression across the whole site
+# in CI instead of requiring a manual test pass to find it.
 
 on:
   pull_request:
