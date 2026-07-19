@@ -761,8 +761,8 @@
     },
     {
       "id": "gemma-4-12b",
-      "name": "Gemma 4 12B",
-      "fullName": "Gemma 4 12B Instruct",
+      "name": "Gemma 3 12B",
+      "fullName": "Gemma 3 12B Instruct",
       "size": "12B",
       "tier": [
         "mid-gpu"
@@ -783,8 +783,8 @@
         "coding",
         "analysis"
       ],
-      "ollamaTag": "gemma4:12b",
-      "installCommand": "ollama pull gemma4:12b",
+      "ollamaTag": "gemma3:12b",
+      "installCommand": "ollama pull gemma3:12b",
       "modelSizeGB": 7.2,
       "setupComplexity": "easy",
       "beginnerFriendly": true,
@@ -794,14 +794,14 @@
       "successStory": "A data analyst runs this on an RTX 4070 for daily data analysis and reporting \u2014 replaces both ChatGPT and data tools.",
       "quantVariants": [
         {
-          "tag": "gemma4:12b",
+          "tag": "gemma3:12b",
           "label": "Q4_K_M (recommended)",
           "storage": "~7.2GB",
           "quality": "Good",
           "speed": "Fast"
         },
         {
-          "tag": "gemma4:12b:q8_0",
+          "tag": "gemma3:12b:q8_0",
           "label": "Q8_0 (highest quality)",
           "storage": "~12GB",
           "quality": "Best",
@@ -834,7 +834,7 @@
         "researcher"
       ],
       "platformType": "local",
-      "modelfileTemplate": "FROM gemma4:12b\nSYSTEM \"You are a helpful assistant.\"\nPARAMETER temperature 0.7\nPARAMETER num_ctx 8192",
+      "modelfileTemplate": "FROM gemma3:12b\nSYSTEM \"You are a helpful assistant.\"\nPARAMETER temperature 0.7\nPARAMETER num_ctx 8192",
       "upgradeFrom": "qwen-2-5-7b",
       "upgradeTo": "qwen-2-5-14b",
       "benchmarks": {

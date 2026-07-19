@@ -857,7 +857,7 @@
         fromScore: 6,
         toScore: 8,
         unlocks: ['Comfortable 7B-12B model support', 'Real-time chat', 'Coding assistant'],
-        models: ['Qwen2.5:7B', 'Gemma 4 12B', 'Llama 3.1 8B'],
+        models: ['Qwen2.5:7B', 'Gemma 3 12B', 'Llama 3.1 8B'],
         note: 'A used RTX 3060 12GB costs ~$200 and is the best value for local AI'
       },
       'mid-gpu': {

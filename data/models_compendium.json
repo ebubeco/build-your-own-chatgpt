@@ -750,7 +750,7 @@
     },
     {
       "id": "gemma-4-12b",
-      "name": "Gemma 4 12B",
+      "name": "Gemma 3 12B",
       "fullName": "gemma3:12b",
       "size": "12B",
       "tier": "budget-gpu",
